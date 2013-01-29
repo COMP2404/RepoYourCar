@@ -4,14 +4,25 @@
 
 using namespace std;
 char buf[5];
-void application(GtkWidget *widget, gpointer label)
+void application(GtkWidget *widget, GtkWidget *frame)
 {
-	if(errorCheck() == 1){
+	int cont = 0;
+	GtkWidget *entry = gtk_entry_new();
+	gtk_fixed_put(GTK_FIXED(frame), entry, 50, 120);
+	gtk_widget_show_all(frame);
+	/*while(cont == 0){
 
-	}
-	else if (errorCheck() == 0){
-
-	}
+	
+		if(errorCheck() == 1){
+			
+			cont = 1;
+		}
+		else if (errorCheck() == 0){
+			cout << "You fucked up bro!";
+	
+		}
+  
+	}*/
   
 }
 
@@ -57,7 +68,7 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////////////////////
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(window), 250, 180);
+	gtk_window_set_default_size(GTK_WINDOW(window), 250, 200);
 	gtk_window_set_title(GTK_WINDOW(window), "Application Center");
 	
 
@@ -102,10 +113,10 @@ int main(int argc, char** argv) {
 	G_CALLBACK (gtk_main_quit), NULL);
 
 	g_signal_connect(apply, "clicked", 
-	G_CALLBACK(application), label);
+	G_CALLBACK(application), frame);
 
 	g_signal_connect(login, "clicked", 
-	G_CALLBACK(admin), label);
+	G_CALLBACK(admin), frame);
 
 	gtk_main();
 
