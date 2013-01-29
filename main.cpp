@@ -1,9 +1,10 @@
 #include <gtk/gtk.h>
+#include "main.h"
+//`pkg-config gtkmm-3.0 --cflags --libs`
 
-gint count = 0;
+using namespace std;
 char buf[5];
-
-int application(GtkWidget *widget, gpointer label)
+void application(GtkWidget *widget, gpointer label)
 {
 	if(errorCheck() == 1){
 
@@ -16,10 +17,10 @@ int application(GtkWidget *widget, gpointer label)
 
 void admin(GtkWidget *widget, gpointer label)
 {
-  count--;
+  //count--;
 
-  sprintf(buf, "%d", count);
-  gtk_label_set_text(GTK_LABEL(label), buf);
+  //sprintf(buf, "%d", count);
+ //gtk_label_set_text(GTK_LABEL(label), buf);
 }
 
 int errorCheck(){
