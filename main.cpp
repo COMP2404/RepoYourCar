@@ -26,6 +26,16 @@ void admin(GtkWidget *widget, gpointer label)
 int errorCheck(){
 
 }
+void callback()
+{
+	/*const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(num1));
+	const gchar * s2 = gtk_entry_get_text(GTK_ENTRY(num2));
+	int n1 = atoi(s1), n2=atoi(s2);
+	n1=abs(n1), n2=abs(n2); // GCD defined to return non-negative value
+	int i; for ( i=(n1>n2?n1:n2); i>=1; i-- ) if ( n1/i*i==n1 && n2/i*i==n2 ) break;
+	char s3[32]; snprintf(s3,32,"%d",i);
+	gtk_entry_set_text(GTK_ENTRY(mcdt),s3);*/
+}
 
 int main(int argc, char** argv) {
 
