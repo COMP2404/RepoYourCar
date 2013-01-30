@@ -11,13 +11,39 @@ void application(GtkWidget *widget, WindowApp *theApp)
 	//--Creates form and adds it onto the window---//
 	/////////////////////////////////////////////////
 
-	GtkWidget *entry = gtk_entry_new();
-	gtk_fixed_put(GTK_FIXED(theApp->frame), entry, 50, 120);
-	gtk_widget_show_all(theApp->frame);
-	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
-	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
-	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(entry));
+	theApp->appFrame = gtk_fixed_new();
 
+	gtk_container_add(GTK_CONTAINER(theApp->frame), theApp->appFrame);
+
+	GtkWidget *fName = gtk_entry_new();
+	GtkWidget *lName = gtk_entry_new();
+	GtkWidget *major = gtk_entry_new();
+	GtkWidget *gpa = gtk_entry_new();
+	GtkWidget *email = gtk_entry_new();
+	GtkWidget *year = gtk_entry_new();
+	GtkWidget *submit, *cancel; 
+	
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), fName, 100, 220);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), lName, 100, 250);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), major, 100, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), gpa, 100, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), email, 100, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), year, 100, 370);
+
+	submit = gtk_button_new_with_label("Submit");
+	gtk_widget_set_size_request(submit, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), submit, 50, 500);
+	
+	cancel = gtk_button_new_with_label("Cancel");
+	gtk_widget_set_size_request(cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), cancel, 200, 500);
+
+	gtk_widget_show_all(theApp->appFrame);
+	
+	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
+	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(fName));
+	
 	/*while(cont == 0){
 
 	
@@ -64,43 +90,39 @@ int main(int argc, char** argv) {
 	GtkWidget *apply;
 	GtkWidget *login;
 	WindowApp *theApp = new WindowApp();
-	
+
 	// initialize GTK+
 	gtk_init(&argc, &argv);
-	
+
 
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
 	/////////////////////////////////////////////////////
-	/*window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(window), 250, 200);
-	gtk_window_set_title(GTK_WINDOW(window), "Application Center");
-	theApp->window = window;*/
-
-
 	
+
+
+
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Application Center");
-	//theApp->window = window;
+	
 
 	/////////////////////////////////////////////////////
 	//-----------Add frame onto window---------------////
 	/////////////////////////////////////////////////////
 	theApp->frame = gtk_fixed_new();
-	
+
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->frame);
-	
-	
+
+
 	/////////////////////////////////////////////////////
 	//Make the application button and add to frame---////
 	/////////////////////////////////////////////////////
 	theApp->apply = gtk_button_new_with_label("Apply");
 	gtk_widget_set_size_request(theApp->apply, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->frame), theApp->apply, 50, 20);
-	
+
 	/////////////////////////////////////////////////////
 	//------Make the login button and add to frame---////
 	/////////////////////////////////////////////////////
@@ -113,12 +135,12 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////////////////////
 	theApp->label = gtk_label_new("Click Apply to Choose Your Courses");
 	gtk_fixed_put(GTK_FIXED(theApp->frame), theApp->label, 150, 58); 
-	
+
 	/////////////////////////////////////////////////////
 	//----------Show all the widgets on the window---////
 	/////////////////////////////////////////////////////
 	gtk_widget_show_all(theApp->window);
-	
+
 
 
 	/////////////////////////////////////////////////////
@@ -134,7 +156,3 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
-
-
-
- 

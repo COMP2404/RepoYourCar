@@ -5,8 +5,8 @@
 using namespace std;
 class WindowApp{
 	public:
-		GtkWidget *label, *window, *frame, *apply, *login;
-		WindowApp();
+		GtkWidget *label, *window, *frame, *apply, *login, *appFrame;
+		//WindowApp();
 	private:
 		GtkWidget* getLabel();
 		GtkWidget* getWindow();
