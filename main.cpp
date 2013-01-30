@@ -15,29 +15,49 @@ void application(GtkWidget *widget, WindowApp *theApp)
 
 	gtk_container_add(GTK_CONTAINER(theApp->frame), theApp->appFrame);
 
-	GtkWidget *fName = gtk_entry_new();
-	GtkWidget *lName = gtk_entry_new();
-	GtkWidget *major = gtk_entry_new();
-	GtkWidget *gpa = gtk_entry_new();
-	GtkWidget *email = gtk_entry_new();
-	GtkWidget *year = gtk_entry_new();
-	GtkWidget *submit, *cancel; 
-	
-	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), fName, 100, 220);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), lName, 100, 250);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), major, 100, 280);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), gpa, 100, 310);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), email, 100, 340);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), year, 100, 370);
+	theApp->fName = gtk_entry_new();
+	theApp->lName = gtk_entry_new();
+	theApp->major = gtk_entry_new();
+	theApp->gpa = gtk_entry_new();
+	theApp->email = gtk_entry_new();
+	theApp->year = gtk_entry_new();
+	theApp->submit = gtk_button_new_with_label("Submit");
+	theApp->cancel = gtk_button_new_with_label("Cancel");
 
-	submit = gtk_button_new_with_label("Submit");
-	gtk_widget_set_size_request(submit, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), submit, 50, 500);
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 220);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 250);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->gpa, 150, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->email, 150, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->year, 150, 370);
+
+
+	theApp->lblfName = gtk_label_new("First Name :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 220); 
+
+	theApp->lbllName = gtk_label_new("Last Name :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lbllName, 30, 250);
+
+	theApp->lblMajor = gtk_label_new("Major :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblMajor, 30, 280);
+
+	theApp->lblGpa = gtk_label_new("GPA :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblGpa, 30, 310);
+
+	theApp->lblEmail = gtk_label_new("Email Address :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblEmail, 30, 340);
+
+	theApp->lblYear = gtk_label_new("Year :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblYear, 30, 370);
+
 	
-	cancel = gtk_button_new_with_label("Cancel");
-	gtk_widget_set_size_request(cancel, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), cancel, 200, 500);
+	gtk_widget_set_size_request(theApp->submit, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 500);
+	
+	
+	gtk_widget_set_size_request(theApp->cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 500);
 
 	gtk_widget_show_all(theApp->appFrame);
 	
