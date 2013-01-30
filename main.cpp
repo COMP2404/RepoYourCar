@@ -1,15 +1,23 @@
-#include <gtk/gtk.h>
 #include "main.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
 using namespace std;
 char buf[5];
-void application(GtkWidget *widget, GtkWidget *frame)
+void application(GtkWidget *widget, WindowApp *theApp)
 {
 	int cont = 0;
+
+	/////////////////////////////////////////////////
+	//--Creates form and adds it onto the window---//
+	/////////////////////////////////////////////////
+
 	GtkWidget *entry = gtk_entry_new();
-	gtk_fixed_put(GTK_FIXED(frame), entry, 50, 120);
-	gtk_widget_show_all(frame);
+	gtk_fixed_put(GTK_FIXED(theApp->frame), entry, 50, 120);
+	gtk_widget_show_all(theApp->frame);
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
+	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(entry));
+
 	/*while(cont == 0){
 
 	
@@ -26,12 +34,9 @@ void application(GtkWidget *widget, GtkWidget *frame)
   
 }
 
-void admin(GtkWidget *widget, gpointer label)
+void admin(GtkWidget *widget, WindowApp *theApp)
 {
-  //count--;
-
-  //sprintf(buf, "%d", count);
- //gtk_label_set_text(GTK_LABEL(label), buf);
+  
 }
 
 int errorCheck(){
@@ -54,10 +59,11 @@ int main(int argc, char** argv) {
 	//-----------Declaration of all the widgets------////
 	/////////////////////////////////////////////////////
 	GtkWidget *label;
-	GtkWidget *window, *theApp;
+	GtkWidget *window;
 	GtkWidget *frame;
 	GtkWidget *apply;
 	GtkWidget *login;
+	WindowApp *theApp = new WindowApp();
 	
 	// initialize GTK+
 	gtk_init(&argc, &argv);
@@ -66,57 +72,63 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
 	/////////////////////////////////////////////////////
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	/*window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 250, 200);
 	gtk_window_set_title(GTK_WINDOW(window), "Application Center");
+	theApp->window = window;*/
+
+
 	
+	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
+	gtk_window_set_title(GTK_WINDOW(theApp->window), "Application Center");
+	//theApp->window = window;
 
 	/////////////////////////////////////////////////////
 	//-----------Add frame onto window---------------////
 	/////////////////////////////////////////////////////
-	frame = gtk_fixed_new();
-	gtk_container_add(GTK_CONTAINER(window), frame);
+	theApp->frame = gtk_fixed_new();
 	
-
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->frame);
+	
+	
 	/////////////////////////////////////////////////////
 	//Make the application button and add to frame---////
 	/////////////////////////////////////////////////////
-	apply = gtk_button_new_with_label("Apply");
-	gtk_widget_set_size_request(apply, 80, 35);
-	gtk_fixed_put(GTK_FIXED(frame), apply, 50, 20);
+	theApp->apply = gtk_button_new_with_label("Apply");
+	gtk_widget_set_size_request(theApp->apply, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->frame), theApp->apply, 50, 20);
 	
 	/////////////////////////////////////////////////////
 	//------Make the login button and add to frame---////
 	/////////////////////////////////////////////////////
-	login = gtk_button_new_with_label("Login");
-	gtk_widget_set_size_request(login, 80, 35);
-	gtk_fixed_put(GTK_FIXED(frame), login, 50, 80);
+	theApp->login = gtk_button_new_with_label("Login");
+	gtk_widget_set_size_request(theApp->login, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->frame), theApp->login, 50, 80);
 
 	/////////////////////////////////////////////////////
 	//------Make the Prompt Label and add to frame---////
 	/////////////////////////////////////////////////////
-	label = gtk_label_new("Click Apply to Choose Your Courses");
-	gtk_fixed_put(GTK_FIXED(frame), label, 190, 58); 
+	theApp->label = gtk_label_new("Click Apply to Choose Your Courses");
+	gtk_fixed_put(GTK_FIXED(theApp->frame), theApp->label, 150, 58); 
 	
 	/////////////////////////////////////////////////////
 	//----------Show all the widgets on the window---////
 	/////////////////////////////////////////////////////
-	gtk_widget_show_all(window);
+	gtk_widget_show_all(theApp->window);
 	
 
 
 	/////////////////////////////////////////////////////
 	//Connect signals with each button as well as close////
 	/////////////////////////////////////////////////////
-	g_signal_connect(window, "destroy",
-	G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect(theApp->window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
-	g_signal_connect(apply, "clicked", 
-	G_CALLBACK(application), frame);
+	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application), theApp);
 
-	g_signal_connect(login, "clicked", 
-	G_CALLBACK(admin), frame);
+	g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 
 	gtk_main();
 
