@@ -68,6 +68,7 @@ void application(GtkWidget *widget, WindowApp *theApp)
 	gtk_widget_show_all(theApp->appFrame);
 	
 	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
+	getInfo(theApp);
 	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(fName));
 	
 	/*while(cont == 0){
@@ -89,6 +90,46 @@ void application(GtkWidget *widget, WindowApp *theApp)
 void admin(GtkWidget *widget, WindowApp *theApp)
 {
   
+}
+
+void getInfo(WindowApp *theApp){
+	const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
+	theApp->setfName("Hello");
+	const gchar *s2 = (theApp->getfName()).c_str();
+	
+	gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
+
+
+
+	string s1, s2, s3, s4, s5, s6, s7, s8;
+	double c, g;
+	int num;
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
+
+	s5 = s4;        
+
+        s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
+        s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
+
+	//s8 will be student number
+	s8 = s7;
+        
+    	if (errorCheck(&s1,&s2,&s3,&s4,&s5,&s6,&s7, &s8))
+	{
+		//Create a new student
+		c = atof(s4.c_str());
+		g = atof(s5.c_str());
+		num = atoi(s7.c_str());
+
+//		Student joe(c,g,s1,s2,s6,s3,num,s8);
+		Student *newStu = new Student(c, g, s1, s2, s6, s3, num, s8);
+		
+	//Use it to make an application
+	Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
+	}
 }
 
 int errorCheck(){

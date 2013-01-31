@@ -1,11 +1,60 @@
 #include "WindowApp.h"
 
-WindowApp::WindowApp(){
-
-
+/*WindowApp::WindowApp(){
+	setfName("");
+	setlName("");
+	setMajor("");
+	setGpa("");
+	setEmail("");
+	setYear("");
 }
 
-GtkWidget* WindowApp::getLabel(){
+WindowApp::~WindowApp(){
+	
+}*/
+
+
+
+
+void WindowApp::setfName(string s){
+	strfName = s;
+}
+void WindowApp::setlName(string s){
+	strlName = s;
+}
+void WindowApp::setMajor(string s){
+	strMajor  = s;
+}
+void WindowApp::setGpa(string s){
+	strGpa  = s;
+}
+void WindowApp::setEmail(string s){
+	strEmail = s;
+}
+void WindowApp::setYear(string s){
+	strYear = s;
+}
+
+string WindowApp::getfName(){
+	return strfName;
+}
+string WindowApp::getlName(){
+	return strlName;
+}
+string WindowApp::getMajor(){
+	return strMajor;
+}
+string WindowApp::getGpa(){
+	return strGpa;
+}
+string WindowApp::getEmail(){
+	return strEmail;
+}
+string WindowApp::getYear(){
+	return strYear;
+}
+
+/*GtkWidget* WindowApp::getLabel(){
 
 }
 GtkWidget* WindowApp::getWindow(){
@@ -35,4 +84,4 @@ void WindowApp::setApply(){
 }
 void WindowApp::setLogin(){
 
-}
+}*/
