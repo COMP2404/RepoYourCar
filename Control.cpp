@@ -50,8 +50,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	theApp->year = gtk_entry_new();
 	theApp->cgpa = gtk_entry_new();
 	theApp->stuNum = gtk_entry_new();
-	theApp->submit = gtk_button_new_with_label("Submit");
-	theApp->cancel = gtk_button_new_with_label("Cancel");
+	
 	
 	/////////////////////////////////////////////////
 	//--Puts text boxes onto the new frame---------//
@@ -149,10 +148,10 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	//theApp->setfName("Hello");
 	//const gchar *s2 = (theApp->getfName()).c_str();
-	
+	cout << "shit is starting!!" << endl;
 	//gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
 
-	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
+	/*const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
 	
 	double c, g;
 	int num;
@@ -191,7 +190,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8);
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
-	//
+	*/
 	return 0;
 }
 
@@ -274,7 +273,11 @@ int Control::createWindow(int argc, char** argv)
 	theApp->login = gtk_button_new_with_label("Login");
 	gtk_widget_set_size_request(theApp->login, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->login, 50, 80);
+	
 
+	theApp->submit = gtk_button_new_with_label("Submit");
+	theApp->cancel = gtk_button_new_with_label("Cancel");
+	
 	/////////////////////////////////////////////////////
 	//------Make the Prompt Label and add to frame---////
 	/////////////////////////////////////////////////////
