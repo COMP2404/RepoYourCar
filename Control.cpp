@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void application(GtkWidget *widget, WindowApp *theApp)
+void Control::application(GtkWidget *widget, WindowApp *theApp)
 {
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
@@ -86,7 +86,7 @@ void application(GtkWidget *widget, WindowApp *theApp)
   
 }
 
-bool errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major){
+bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major){
 
 	bool good = true;
 	int mg;
@@ -126,7 +126,7 @@ bool errorCheck(string* course, string* first, string* last, string* mgpa, strin
 	return ok;
 }
 
-bool submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major){
+bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major){
 	static int applicationNum = 1;
 
 	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year);
@@ -137,7 +137,7 @@ bool submit(string* course, string* first, string* last, int mgpa, int gpa, stri
 	return true;
 }
 
-bool printApp(Application* app){
+bool Control::printApp(Application* app){
 	ofstream outFile("Application.txt", ios::out);
 
   	if (!outFile) {
@@ -157,7 +157,7 @@ bool printApp(Application* app){
 
 
 
-void createWindow()
+void Control::createWindow(int argc, char** argv)
 {
 	/////////////////////////////////////////////////////
 	//-----------Declaration of all the widgets------////
@@ -222,9 +222,9 @@ void createWindow()
 	/////////////////////////////////////////////////////
 	g_signal_connect(theApp->window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
-	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application), theApp);
+	//g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application), theApp);
 
-	g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
+	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 
 	gtk_main();
 }

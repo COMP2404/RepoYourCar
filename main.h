@@ -3,6 +3,7 @@
 #include <iostream>
 #include <gtk/gtk.h>
 #include "WindowApp.h"
+#include "Control.h"
 int errorCheck();
 void admin(GtkWidget*, WindowApp*);
 void callback();

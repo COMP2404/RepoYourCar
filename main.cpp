@@ -69,21 +69,7 @@ void application(GtkWidget *widget, WindowApp *theApp)
 	
 	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
 	getInfo(theApp);
-	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(fName));
 	
-	/*while(cont == 0){
-
-	
-		if(errorCheck() == 1){
-			
-			cont = 1;
-		}
-		else if (errorCheck() == 0){
-			cout << "You fucked up bro!";
-	
-		}
-  
-	}*/
   
 }
 
@@ -93,30 +79,36 @@ void admin(GtkWidget *widget, WindowApp *theApp)
 }
 
 void getInfo(WindowApp *theApp){
-	const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
-	theApp->setfName("Hello");
-	const gchar *s2 = (theApp->getfName()).c_str();
+	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
+	//theApp->setfName("Hello");
+	//const gchar *s2 = (theApp->getfName()).c_str();
 	
-	gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
+	//gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
 
-
-
-	string s1, s2, s3, s4, s5, s6, s7, s8;
+	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
+	
 	double c, g;
 	int num;
 	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
 	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
-
 	s5 = s4;        
-
         s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
         s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
-
+	string string1(s1);
+	string string2(s2);
+	string string3(s3);
+	string string4(s4);
+	//string string5(s5);
+	string string6(s6);
+	string string7(s7);
+	string string8(s8);
+	
 	//s8 will be student number
-	s8 = s7;
-        
+	//s8 = s7;
+        /*
+	
     	if (errorCheck(&s1,&s2,&s3,&s4,&s5,&s6,&s7, &s8))
 	{
 		//Create a new student
@@ -129,7 +121,7 @@ void getInfo(WindowApp *theApp){
 		
 	//Use it to make an application
 	Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
-	}
+	}*/
 }
 
 int errorCheck(){
@@ -151,13 +143,10 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////////////////////
 	//-----------Declaration of all the widgets------////
 	/////////////////////////////////////////////////////
-	GtkWidget *label;
-	GtkWidget *window;
-	GtkWidget *frame;
-	GtkWidget *apply;
-	GtkWidget *login;
+	
 	WindowApp *theApp = new WindowApp();
-
+	Control utility();
+	//utility.createWindow(argc, argv);
 	// initialize GTK+
 	gtk_init(&argc, &argv);
 

@@ -1,4 +1,4 @@
-OBJECTS = main.o WindowApp.o Application.o Student.o 
+OBJECTS = main.o WindowApp.o Application.o Student.o Control.o
 
 cuTaes: $(OBJECTS)
 	g++ $(OBJECTS) -o cuTaes `pkg-config gtkmm-3.0 --cflags --libs` 
@@ -9,6 +9,9 @@ main.o: main.cpp
 
 WindowApp.o:	WindowApp.cpp WindowApp.h
 	g++ -c WindowApp.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
+
+Control.o:	Control.cpp Control.h
+	g++ -c Control.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
 
 
 Application.o:	Application.cpp Application.h

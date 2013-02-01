@@ -8,13 +8,15 @@
 #include "main.h"
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
 class Control{
 	public:
-		createWindow();
+		void createWindow(int, char**);
 		
 	private:
 		bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
 		bool submit(string*, string*, string*, int, int, string*, int, string*);
-		bool printApp(Application*);		
+		bool printApp(Application*);	
+		void application(GtkWidget*, WindowApp*);	
 };
 #endif
