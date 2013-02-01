@@ -15,8 +15,13 @@ class Control{
 		
 	private:
 		bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
-		bool submit(string*, string*, string*, int, int, string*, int, string*);
+		
 		bool printApp(Application*);	
-		int application(GtkWidget*, WindowApp*);	
+		
+	protected:
+		static int makeApplication(GtkWidget*, WindowApp*);
+		static bool submit(string*, string*, string*, int, int, string*, int, string*);
+		static void getInfo(WindowApp*);
+		
 };
 #endif
