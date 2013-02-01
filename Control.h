@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <string.h>
 #include <fstream>
+
 class Control{
 	public:
 		int createWindow(int, char**);

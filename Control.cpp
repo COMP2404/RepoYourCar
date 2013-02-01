@@ -11,6 +11,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	
 	//
+	//Gtk::ComboBox::ComboBoxText courses_combo;
 	//gchar *gtk_entry_get_text( GtkEntry *entry );
 
 	/*char text[MAX_BUF];

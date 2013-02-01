@@ -6,7 +6,7 @@
 using namespace std;
 class WindowApp{
 	public:
-		GtkWidget *label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *email, *lblEmail, *year, *lblYear, *submit, *cancel;
+		GtkWidget *label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *cgpa, *lblCgpa, *stuNum,*lblstuNum, *email, *lblEmail, *year, *lblYear, *submit, *cancel, *combo;
 		/*WindowApp();
 		~WindowApp();*/
 		void setfName(string);
@@ -15,6 +15,8 @@ class WindowApp{
 		void setGpa(string);
 		void setEmail(string);
 		void setYear(string);
+		void setCgpa(string);
+		void setStuNum(string);
 
 		string getfName();
 		string getlName();
@@ -22,23 +24,12 @@ class WindowApp{
 		string getGpa();
 		string getEmail();
 		string getYear();
+		string getStuNum();
+		string getCgpa();
 	private:
-		string strfName, strlName, strMajor, strGpa, strEmail, strYear;
+		string strfName, strlName, strMajor, strGpa, strCgpa, strEmail, strYear, strStuNum;
 		
-		
-
-		
-		GtkWidget* getLabel();
-		GtkWidget* getWindow();
-		GtkWidget* getFrame();
-		GtkWidget* getApply();
-		GtkWidget* getLogin();
-
-		void setLabel();
-		void setWindow();
-		void setFrame();
-		void setApply();
-		void setLogin();		
+				
 };
 
 #endif

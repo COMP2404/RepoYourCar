@@ -28,11 +28,17 @@ void WindowApp::setMajor(string s){
 void WindowApp::setGpa(string s){
 	strGpa  = s;
 }
+void WindowApp::setCgpa(string s){
+	strCgpa  = s;
+}
 void WindowApp::setEmail(string s){
 	strEmail = s;
 }
 void WindowApp::setYear(string s){
 	strYear = s;
+}
+void WindowApp::setStuNum(string s){
+	strStuNum = s;
 }
 
 string WindowApp::getfName(){
@@ -53,35 +59,10 @@ string WindowApp::getEmail(){
 string WindowApp::getYear(){
 	return strYear;
 }
-
-/*GtkWidget* WindowApp::getLabel(){
-
+string WindowApp::getCgpa(){
+	return strCgpa;
 }
-GtkWidget* WindowApp::getWindow(){
-
-}
-GtkWidget* WindowApp::getFrame(){
-
-}
-GtkWidget* WindowApp::getApply(){
-
-}
-GtkWidget* WindowApp::getLogin(){
-
+string WindowApp::getStuNum(){
+	return strStuNum;
 }
 
-void WindowApp::setLabel(){
-
-}
-void WindowApp::setWindow(){
-
-}
-void WindowApp::setFrame(){
-
-}
-void WindowApp::setApply(){
-
-}
-void WindowApp::setLogin(){
-
-}*/
