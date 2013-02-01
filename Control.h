@@ -16,7 +16,7 @@ class Control{
 	private:
 		bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
 		
-		bool printApp(Application*);	
+		static bool printApp(Application*);	
 		
 	protected:
 		static int makeApplication(GtkWidget*, WindowApp*);

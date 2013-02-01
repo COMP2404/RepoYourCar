@@ -164,7 +164,8 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	static int applicationNum = 1;
 
 	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year);
-	Application* a = new Application(s, applicationNum++, *course);
+	Application *a;
+	a = new Application(s, applicationNum++, *course, "PENDING");
 	Control::printApp(a);
 	//if(!printApp(a))
 	//	return false;
@@ -258,7 +259,7 @@ int Control::createWindow(int argc, char** argv)
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
-	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
+	//g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 
 	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 
