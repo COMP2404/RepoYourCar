@@ -10,11 +10,14 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
 	
-	//
-	//Gtk::ComboBox::ComboBoxText courses_combo;
-	//gchar *gtk_entry_get_text( GtkEntry *entry );
-
-	/*char text[MAX_BUF];
+	
+	theApp->combo =        gtk_combo_box_text_new();
+	
+	
+	
+ 	
+	
+	char text[MAX_BUF];
 	string courses[800];
 
 	ifstream inFile("courses.txt", ios::in);
@@ -22,23 +25,13 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	if (!inFile) {
 		cout<<"Could not open file"<<endl;
 		return 0;
-	}
-
-	/*
-	while (!inFile.eof()) {
-	inFile.getline(text, MAX_BUF);
-	i++;
-	}
-	string courses[i];
-	then we'd need to go through again and assign..
-	*/
-	/*
+	}	
 	while (!inFile.eof()) {
 		inFile.getline(text, MAX_BUF);
-		courses[i] = text;
-		i++;
-	}*/
-	//GtkComboBox *combo = gtk_combo_new();
+		
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->combo), text);
+	}
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->combo, 200, 200);
 	/////////////////////////////////////////////////
 	//--Creates text Boxes and submit\cancel buttons---//
 	/////////////////////////////////////////////////
