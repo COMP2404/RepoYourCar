@@ -4,6 +4,7 @@
 #include "Student.h"
 #include <string>
 #include <iostream>
+#include <fstream>
 #define APP_MAX_BUF 32
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
 	int      getApplicationNumber(void);
 	string   getCourse(void);
 
+	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();
 	//------------------------------
