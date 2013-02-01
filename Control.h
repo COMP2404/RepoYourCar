@@ -11,12 +11,12 @@
 #include <fstream>
 class Control{
 	public:
-		void createWindow(int, char**);
+		int createWindow(int, char**);
 		
 	private:
 		bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
 		bool submit(string*, string*, string*, int, int, string*, int, string*);
 		bool printApp(Application*);	
-		void application(GtkWidget*, WindowApp*);	
+		int application(GtkWidget*, WindowApp*);	
 };
 #endif

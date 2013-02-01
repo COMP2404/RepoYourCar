@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Control::application(GtkWidget *widget, WindowApp *theApp)
+int Control::application(GtkWidget *widget, WindowApp *theApp)
 {
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
@@ -67,7 +67,7 @@ void Control::application(GtkWidget *widget, WindowApp *theApp)
 	gtk_widget_show_all(theApp->appFrame);
 	
 	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
-	getInfo(theApp);
+	//getInfo(theApp);
 	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(fName));
 	
 	/*while(cont == 0){
@@ -83,7 +83,7 @@ void Control::application(GtkWidget *widget, WindowApp *theApp)
 		}
   
 	}*/
-  
+  	return 0;
 }
 
 bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major){
@@ -157,7 +157,7 @@ bool Control::printApp(Application* app){
 
 
 
-void Control::createWindow(int argc, char** argv)
+int Control::createWindow(int argc, char** argv)
 {
 	/////////////////////////////////////////////////////
 	//-----------Declaration of all the widgets------////
@@ -222,9 +222,9 @@ void Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	g_signal_connect(theApp->window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
-	//g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application), theApp);
+	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application(theApp->apply, theApp)), theApp);
 
 	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 
-	gtk_main();
+	return 0;
 }

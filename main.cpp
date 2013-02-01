@@ -3,80 +3,7 @@
 
 using namespace std;
 char buf[5];
-void application(GtkWidget *widget, WindowApp *theApp)
-{
-	int cont = 0;
 
-	/////////////////////////////////////////////////
-	//--Creates new frame and adds it onto the window---//
-	/////////////////////////////////////////////////
-
-	theApp->appFrame = gtk_fixed_new();
-	gtk_container_add(GTK_CONTAINER(theApp->frame), theApp->appFrame);
-
-
-	/////////////////////////////////////////////////
-	//--Creates text Boxes and submit\cancel buttons---//
-	/////////////////////////////////////////////////
-	theApp->fName = gtk_entry_new();
-	theApp->lName = gtk_entry_new();
-	theApp->major = gtk_entry_new();
-	theApp->gpa = gtk_entry_new();
-	theApp->email = gtk_entry_new();
-	theApp->year = gtk_entry_new();
-	theApp->submit = gtk_button_new_with_label("Submit");
-	theApp->cancel = gtk_button_new_with_label("Cancel");
-	
-	/////////////////////////////////////////////////
-	//--Puts text boxes onto the new frame---------//
-	/////////////////////////////////////////////////
-	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 220);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 250);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 280);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->gpa, 150, 310);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->email, 150, 340);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->year, 150, 370);
-
-	/////////////////////////////////////////////////
-	//--Puts labels onto the new frame---------//
-	/////////////////////////////////////////////////
-	theApp->lblfName = gtk_label_new("First Name :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 220); 
-	theApp->lbllName = gtk_label_new("Last Name :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lbllName, 30, 250);
-	theApp->lblMajor = gtk_label_new("Major :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblMajor, 30, 280);
-	theApp->lblGpa = gtk_label_new("GPA :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblGpa, 30, 310);
-	theApp->lblEmail = gtk_label_new("Email Address :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblEmail, 30, 340);
-	theApp->lblYear = gtk_label_new("Year :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblYear, 30, 370);
-
-	/////////////////////////////////////////////////
-	//--Puts buttons onto the new frame---------//
-	/////////////////////////////////////////////////
-	gtk_widget_set_size_request(theApp->submit, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 500);
-	gtk_widget_set_size_request(theApp->cancel, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 500);
-
-	/////////////////////////////////////////////////
-	//--Show all widgets on new frame---------//
-	/////////////////////////////////////////////////
-	gtk_widget_show_all(theApp->appFrame);
-	
-	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
-	getInfo(theApp);
-	
-  
-}
-
-void admin(GtkWidget *widget, WindowApp *theApp)
-{
-  
-}
 
 void getInfo(WindowApp *theApp){
 	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
@@ -124,19 +51,7 @@ void getInfo(WindowApp *theApp){
 	}*/
 }
 
-int errorCheck(){
 
-}
-void callback()
-{
-	/*const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(num1));
-	const gchar * s2 = gtk_entry_get_text(GTK_ENTRY(num2));
-	int n1 = atoi(s1), n2=atoi(s2);
-	n1=abs(n1), n2=abs(n2); // GCD defined to return non-negative value
-	int i; for ( i=(n1>n2?n1:n2); i>=1; i-- ) if ( n1/i*i==n1 && n2/i*i==n2 ) break;
-	char s3[32]; snprintf(s3,32,"%d",i);
-	gtk_entry_set_text(GTK_ENTRY(mcdt),s3);*/
-}
 
 int main(int argc, char** argv) {
 
@@ -145,12 +60,12 @@ int main(int argc, char** argv) {
 	/////////////////////////////////////////////////////
 	
 	WindowApp *theApp = new WindowApp();
-	Control utility();
-	//utility.createWindow(argc, argv);
+	Control utility;
+	utility.createWindow(argc, argv);
 	// initialize GTK+
-	gtk_init(&argc, &argv);
+	//gtk_init(&argc, &argv);
 
-
+	/*
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
 	/////////////////////////////////////////////////////
@@ -206,7 +121,7 @@ int main(int argc, char** argv) {
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(application), theApp);
 
-	g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
+	g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);*/
 
 	gtk_main();
 
