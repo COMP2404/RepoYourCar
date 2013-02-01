@@ -166,12 +166,13 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year);
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
-	Control::printApp(a);
-	//if(!printApp(a))
-	//	return false;
+	//Control::printApp(a);
+	if(!a->printApp())
+		return false;
 	return true;
 }
 
+/*
 bool Control::printApp(Application* app){
 	ofstream outFile("Application.txt", ios::out);
 
@@ -190,7 +191,7 @@ bool Control::printApp(Application* app){
 	return true;
 }
 
-
+*/
 
 int Control::createWindow(int argc, char** argv)
 {

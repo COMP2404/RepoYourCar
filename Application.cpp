@@ -22,3 +22,21 @@ Application::~Application(){
 
 }
 
+
+bool Application::printApp(){
+        ofstream outFile("Application.txt", ios::out);
+
+        if (!outFile) {
+                //ios::out<<"Could not open file"<<endl;
+                return false;
+        }
+
+        outFile << "\t\tAPPLICANTION FORM:\n" << endl;
+        outFile << "Applying for TA for class: " << course << " Application id: " << applicationNumber << endl;
+        outFile << "======================APPLICANT INFORMATION======================="<<endl;
+        outFile << "Applicant name: " << applicant->getFirst() << " " << applicant->getLast() << endl;
+        outFile << "Applicant email: " << applicant->getEmail() << endl;
+        outFile << "Applicant student number: " << applicant->getStudentNumber() << endl;
+
+        return true;
+}
