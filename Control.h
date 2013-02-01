@@ -13,8 +13,8 @@
 class Control{
 	public:
 		int createWindow(int, char**);
-		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
-		static bool submit(string*, string*, string*, int, int, string*, int, string*);
+		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*);
+		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		
 		
 	private:

@@ -104,7 +104,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
   	return 0;
 }
 
-bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major){
+bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major, string* stunum){
 
 	bool good = true;
 	int mg;
@@ -126,6 +126,8 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
                 good = false;
 	if(major->length() == 0)
                 good = false;
+	if(stunum->length() == 0)
+		good = false;
 	
 	mg = atoi(mgpa->c_str());	
 	cg = atoi(gpa->c_str());
@@ -138,10 +140,10 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	if(yr < 0 )
 		good = false;
 
-	bool ok = false;
-	if(good) 
-		ok = submit(course, first, last, mg, cg, email, yr, major);
-	return ok;
+	//bool ok = false;
+	//if(good) 
+		//ok = submit(course, first, last, mg, cg, email, yr, major, stunum);
+	return good;
 }
 
 
@@ -152,31 +154,33 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	cout << "shit is starting!!" << endl;
 	//gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
 
-	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
-	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="";
+	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;
+	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
 	double c, g;
 	int num;
-	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
-	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
-	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));//s1 will be the course
+	s2 = s1; //s2 will be the first name!
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
 	s5 = gtk_entry_get_text(GTK_ENTRY(theApp->cgpa));        
         s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
         s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
-	s8 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
+	s8 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
+	s9 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
 	string1 = (s1);
 	string2 = (s2);
-	string3 =(s3);
+	string3 = (s3);
 	string4 = (s4);
 	string5 = (s5);
 	string6 = (s6);
 	string7 = (s7);
 	string8 = (s8);
+	string9 = (s9);
 	
 	
         
 	
-    	if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8))
+    	if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8, &string9))
 	{
 		//Create a new student
 		c = atof(s4);
@@ -188,7 +192,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		
 	//Use it to make an application
 		//Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
-		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8);
+		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9);
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
 	
@@ -196,10 +200,10 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 }
 
 
-bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major){
+bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum){
 	static int applicationNum = 1;
 
-	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year);
+	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year, *stunum);
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
 	//Control::printApp(a);

@@ -26,5 +26,4 @@ int Student::getCGPA(){ return CGPA; }
 
 //DESTRUCTOR:
 Student::~Student(){
-	cout<<"if this works...oh boy!"<<endl;
 }
