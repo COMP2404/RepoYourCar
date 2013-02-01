@@ -9,20 +9,47 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
+	
+	//
+	//gchar *gtk_entry_get_text( GtkEntry *entry );
 
-	//theApp->appFrame = gtk_fixed_new();
-	//gtk_container_add(GTK_CONTAINER(theApp->frame), theApp->appFrame);
+	/*char text[MAX_BUF];
+	string courses[800];
 
+	ifstream inFile("courses.txt", ios::in);
 
+	if (!inFile) {
+		cout<<"Could not open file"<<endl;
+		return 0;
+	}
+
+	/*
+	while (!inFile.eof()) {
+	inFile.getline(text, MAX_BUF);
+	i++;
+	}
+	string courses[i];
+	then we'd need to go through again and assign..
+	*/
+	/*
+	while (!inFile.eof()) {
+		inFile.getline(text, MAX_BUF);
+		courses[i] = text;
+		i++;
+	}*/
+	//GtkComboBox *combo = gtk_combo_new();
 	/////////////////////////////////////////////////
 	//--Creates text Boxes and submit\cancel buttons---//
 	/////////////////////////////////////////////////
+	//theApp->combo = combo;
 	theApp->fName = gtk_entry_new();
 	theApp->lName = gtk_entry_new();
 	theApp->major = gtk_entry_new();
 	theApp->gpa = gtk_entry_new();
 	theApp->email = gtk_entry_new();
 	theApp->year = gtk_entry_new();
+	theApp->cgpa = gtk_entry_new();
+	theApp->stuNum = gtk_entry_new();
 	theApp->submit = gtk_button_new_with_label("Submit");
 	theApp->cancel = gtk_button_new_with_label("Cancel");
 	
@@ -30,36 +57,42 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	//--Puts text boxes onto the new frame---------//
 	/////////////////////////////////////////////////
 	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 220);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 250);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 280);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->gpa, 150, 310);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->email, 150, 340);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->year, 150, 370);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->gpa, 150, 370);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cgpa, 150, 400);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->email, 150, 430);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->year, 150, 460);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->stuNum, 150, 490);
 
 	/////////////////////////////////////////////////
 	//--Puts labels onto the new frame---------//
 	/////////////////////////////////////////////////
 	theApp->lblfName = gtk_label_new("First Name :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 220); 
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 280); 
 	theApp->lbllName = gtk_label_new("Last Name :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lbllName, 30, 250);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lbllName, 30, 310);
 	theApp->lblMajor = gtk_label_new("Major :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblMajor, 30, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblMajor, 30, 340);
 	theApp->lblGpa = gtk_label_new("GPA :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblGpa, 30, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblGpa, 30, 370);
+	theApp->lblCgpa = gtk_label_new("CGPA :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblCgpa, 30, 400);
 	theApp->lblEmail = gtk_label_new("Email Address :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblEmail, 30, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblEmail, 30, 430);
 	theApp->lblYear = gtk_label_new("Year :");
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblYear, 30, 370);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblYear, 30, 460);
+	theApp->lblstuNum = gtk_label_new("Student Number :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblstuNum, 30, 490);
 
 	/////////////////////////////////////////////////
 	//--Puts buttons onto the new frame---------//
 	/////////////////////////////////////////////////
 	gtk_widget_set_size_request(theApp->submit, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 500);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 530);
 	gtk_widget_set_size_request(theApp->cancel, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 500);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 530);
 
 	/////////////////////////////////////////////////
 	//--Show all widgets on new frame---------//
@@ -112,7 +145,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 }
 
 
-void getInfo(WindowApp *theApp){
+int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	//theApp->setfName("Hello");
 	//const gchar *s2 = (theApp->getfName()).c_str();
@@ -127,36 +160,39 @@ void getInfo(WindowApp *theApp){
 	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
-	s5 = s4;        
+	s5 = gtk_entry_get_text(GTK_ENTRY(theApp->cgpa));        
         s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
         s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
+	s8 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
 	string string1(s1);
 	string string2(s2);
 	string string3(s3);
 	string string4(s4);
-	//string string5(s5);
+	string string5(s5);
 	string string6(s6);
 	string string7(s7);
 	string string8(s8);
 	
-	//s8 will be student number
-	//s8 = s7;
-        /*
 	
-    	if (errorCheck(&s1,&s2,&s3,&s4,&s5,&s6,&s7, &s8))
+        
+	
+    	if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8))
 	{
 		//Create a new student
-		c = atof(s4.c_str());
-		g = atof(s5.c_str());
-		num = atoi(s7.c_str());
+		c = atof(s4);
+		g = atof(s5);
+		num = atoi(s7);
 
 //		Student joe(c,g,s1,s2,s6,s3,num,s8);
-		Student *newStu = new Student(c, g, s1, s2, s6, s3, num, s8);
+		//Student *newStu = new Student(c, g, s1, s2, s6, s3, num, s8);
 		
 	//Use it to make an application
-	Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
-	}*/
-	//submit(s
+		//Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
+		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8);
+		//submit(string*, string*, string*, int, int, string*, int, string*);
+	}
+	//
+	return 0;
 }
 
 
@@ -213,7 +249,7 @@ int Control::createWindow(int argc, char** argv)
 
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
-	//gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
+	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Application Center");
 	
 
@@ -259,7 +295,7 @@ int Control::createWindow(int argc, char** argv)
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
-	//g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
+	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 
 	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 

@@ -14,6 +14,8 @@ class Control{
 		int createWindow(int, char**);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*);
+		
+		
 	private:
 		
 		
@@ -21,8 +23,10 @@ class Control{
 		
 	protected:
 		static int makeApplication(GtkWidget*, WindowApp*);
+		static int makeApp(GtkWidget*, WindowApp*);
+		static int getInfo(GtkWidget*,WindowApp*);
+		static void submitApp(GtkWidget*, WindowApp*);
 		
-		static void getInfo(WindowApp*);
 		
 		
 };
