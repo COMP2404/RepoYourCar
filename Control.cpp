@@ -141,18 +141,15 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 
 
 int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
-	//const gchar * s1 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
-	//theApp->setfName("Hello");
-	//const gchar *s2 = (theApp->getfName()).c_str();
-	cout << "shit is starting!!" << endl;
-	//gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
+	
 
 	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
 	double c, g;
 	int num;
-	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));//s1 will be the course
-	s2 = s1; //s2 will be the first name!
+	s1 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->combo));
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
+	
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
 	s5 = gtk_entry_get_text(GTK_ENTRY(theApp->cgpa));        
@@ -203,6 +200,10 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	if(!a->printApp())
 		return false;
 	return true;
+}
+
+void Control::cancel(){
+	exit(1);
 }
 
 /*
@@ -293,11 +294,13 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	//Connect signals with each button as well as close////
 	/////////////////////////////////////////////////////
-	g_signal_connect(theApp->window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), NULL);
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
 	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
+	
+	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::cancel), NULL);
 
 	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 

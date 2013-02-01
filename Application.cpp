@@ -15,6 +15,7 @@ Application::Application(Student *s, int appNum, string cor, string stat){
 Student* Application::getApplicant(){ return applicant; }
 int      Application::getApplicationNumber(){ return applicationNumber; }
 string   Application::getCourse(){ return course; }
+
 //===============================================================================
 
 //Destructor:
@@ -37,6 +38,7 @@ bool Application::printApp(){
         outFile << "Applicant name: " << applicant->getFirst() << " " << applicant->getLast() << endl;
         outFile << "Applicant email: " << applicant->getEmail() << endl;
         outFile << "Applicant student number: " << applicant->getStudentNumber() << endl;
+	outFile << "Application status: "<< Application::applicationStatus << endl;
 
         return true;
 }

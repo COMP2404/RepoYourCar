@@ -21,6 +21,7 @@ public:
 	string getEmail(void);
 	string getMajor(void);
 	int    getYearStanding(void);
+	
 	//-------------------------------
 
 private:
@@ -33,6 +34,7 @@ private:
 	string major;
 	int    yearStanding;
 	string stuNumber;
+	
 	//-------------------------------
 };
 

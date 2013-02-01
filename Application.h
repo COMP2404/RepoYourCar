@@ -13,10 +13,11 @@ public:
 	//VARIABLES---------------------	
 	//------------------------------
 	//FUNCTIONS---------------------
-	string   getStatus(void);
+	
 	Student* getApplicant(void);
 	int      getApplicationNumber(void);
 	string   getCourse(void);
+	string   getStatus();
 
 	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");

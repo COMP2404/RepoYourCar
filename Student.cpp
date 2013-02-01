@@ -11,6 +11,7 @@ Student::Student(int cgpa, int gpa, string f, string l, string e, string s, int 
         major = s;
         yearStanding = year;
         stuNumber = num;
+	
 }
 //GETTERS===================================================
 string Student::getStudentNumber(){ return stuNumber; }
@@ -21,6 +22,7 @@ string Student::getMajor(){ return major; }
 int Student::getYearStanding(){ return yearStanding; }
 int Student::getMajorGPA(){ return majorGPA; }
 int Student::getCGPA(){ return CGPA; }
+
 
 //==========================================================
 
