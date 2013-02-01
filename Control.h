@@ -12,16 +12,18 @@
 class Control{
 	public:
 		int createWindow(int, char**);
-		
+		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
+		static bool submit(string*, string*, string*, int, int, string*, int, string*);
 	private:
-		bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*);
+		
 		
 		static bool printApp(Application*);	
 		
 	protected:
 		static int makeApplication(GtkWidget*, WindowApp*);
-		static bool submit(string*, string*, string*, int, int, string*, int, string*);
+		
 		static void getInfo(WindowApp*);
+		
 		
 };
 #endif
