@@ -151,8 +151,8 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	cout << "shit is starting!!" << endl;
 	//gtk_entry_set_text(GTK_ENTRY(theApp->lName), s2);
 
-	/*const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
-	
+	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8;
+	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="";
 	double c, g;
 	int num;
 	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
@@ -163,14 +163,14 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
         s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
         s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
 	s8 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
-	string string1(s1);
-	string string2(s2);
-	string string3(s3);
-	string string4(s4);
-	string string5(s5);
-	string string6(s6);
-	string string7(s7);
-	string string8(s8);
+	string1 = (s1);
+	string2 = (s2);
+	string3 =(s3);
+	string4 = (s4);
+	string5 = (s5);
+	string6 = (s6);
+	string7 = (s7);
+	string8 = (s8);
 	
 	
         
@@ -190,7 +190,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8);
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
-	*/
+	
 	return 0;
 }
 
