@@ -1,5 +1,6 @@
 #include "Control.h"
 
+// http://stackoverflow.com/questions/2862509/free-object-widget-in-gtk
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
 using namespace std;
@@ -206,6 +207,10 @@ bool Control::submit(string* course, string* first, string* last, int cgpa, int 
 
 void Control::cancel(){
 	exit(1);
+}
+
+int Control::freeMemory(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->);
 }
 
 /*

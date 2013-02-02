@@ -16,10 +16,9 @@ class Control{
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
-		
+		static int freeMemory(GtkWidget*, WindowApp*);
 		
 	private:
-		
 		
 		static bool printApp(Application*);	
 		
