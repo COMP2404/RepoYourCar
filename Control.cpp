@@ -148,6 +148,8 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	double c, g;
 	int num;
 	s1 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->combo));
+	if(s1==NULL)
+		s1="no course specified";
 	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
 	
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
@@ -166,7 +168,6 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	string7 = (s7);
 	string8 = (s8);
 	string9 = (s9);
-	
 	
         
 	
@@ -193,7 +194,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum){
 	static int applicationNum = 1;
 
-	Student* s = new Student(gpa, gpa, *first, *last, *email, *major, year, *stunum);
+	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
 	//Control::printApp(a);

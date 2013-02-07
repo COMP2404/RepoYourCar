@@ -39,6 +39,6 @@ bool Application::printApp(){
         outFile << "Applicant email: " << applicant->getEmail() << endl;
         outFile << "Applicant student number: " << applicant->getStudentNumber() << endl;
 	outFile << "Application status: "<< Application::applicationStatus << endl;
-
+	outFile << "Applicant Major GPA: " << applicant->getMajorGPA() <<endl;
         return true;
 }

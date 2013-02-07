@@ -21,7 +21,10 @@ Student.o:	Student.cpp Student.h
 	g++ -c Student.cpp
 
 run:
-	./RepoYourCar
+	./cuTaes
 
 clean:
 	rm *.o cuTaes
+
+package:
+	tar -cvf 2404A1.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Makefile courses.txt UMLpdf.pdf README.txt
