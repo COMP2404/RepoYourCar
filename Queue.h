@@ -2,6 +2,7 @@
 #define QUEUE_H
 
 #include "Student.h"
+#include "Application.h"
 
 class Queue
 {
@@ -11,7 +12,7 @@ class Queue
     public:
 
     private:
-      Student* data;
+      Application* data;
       Node*    next;
   };
 
