@@ -26,17 +26,21 @@ Queue::Queue(Queue& q){
 	if(head==NULL) return;
 	Node* tmp = head;//iteration node for original Queue
 
-	Node* qHead = new Node();//head node for the new Queue
-	qHead->data = head->data;//copy the data to the new Queue's head
+	q.head = new Node();//head node for the new Queue
 
-	Node* qTmp = qHead;//iteration node for q
+	Node* qPrev;//to connect the nodes in q
+	Node* qTmp = q.head;//iteration node for q
 
-	while(tmp!=NULL){	
+	while(tmp->next!=NULL){	
+		qTmp->data = tmp->data;//copy over the data from this queue to q
+		qPrev = qTmp;//make prev node this node before moving on		
+		tmp = tmp->next;
 		Node* node = new Node();//make a new node for each existing node		
 		qTmp = node;
-		qTmp->data = tmp->data;
-		tmp = tmp->next;
+		qPrev->next=qTmp;//connect the nodes in the new Queue	
+		
 	}
+	qTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
 void Queue::pushBack(Node* node){	
