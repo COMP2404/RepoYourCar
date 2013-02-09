@@ -15,7 +15,7 @@ Application::Application(Student *s, int appNum, string cor, string stat){
 Student* Application::getApplicant(){ return applicant; }
 int      Application::getApplicationNumber(){ return applicationNumber; }
 string   Application::getCourse(){ return course; }
-
+string   Application::getStatus(){ return applicationStatus; }
 //===============================================================================
 
 //Destructor:

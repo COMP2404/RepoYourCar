@@ -29,8 +29,9 @@ private:
 	Student *applicant;
 	int     applicationNumber;
 	string  course;
-	string  relatedCourses[APP_MAX_BUF];
-	string  relatedGrades[APP_MAX_BUF];
+	string  relatedCourses[APP_MAX_BUF][4];//for related courses, term, year, final
+	string  relatedTAPositions[APP_MAX_BUF][4];//for course, term, year, supervisor
+	string  relatedWorkEXP[APP_MAX_BUF][5];//for job, responsibilities, duration, start date, end date
 	string  applicationStatus;
 	//------------------------------
 

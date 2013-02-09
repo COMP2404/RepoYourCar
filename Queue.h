@@ -12,7 +12,7 @@ class Queue
     public:
 
     private:
-      Student* data;
+      Application* data;
       Node*    next;
   };
 
@@ -51,6 +51,14 @@ class Queue
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
     bool  isEmpty(); 
+
+    /////////////////////////////////////////////////
+    //gets a subset Queue of pending apps by course//
+    //  @param:  string: course #	           //
+    //  returns: Queue of pending apps in course # //
+    //  <runtime> 0(1) </runtime>                  //
+    /////////////////////////////////////////////////
+    Queue* getPendingList(string);
 
     void print() const;
 

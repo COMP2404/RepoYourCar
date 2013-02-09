@@ -77,3 +77,25 @@ Queue::Node* Queue::front(){
 bool Queue::isEmpty(){
 	return (head == NULL);
 } 
+
+//return a subset Queue of pending applications by specified course code
+//**NOTE currently this method returns a shallow copy of this class.
+//Therefore any alterations to the returned Queue directly changes this class
+Queue* Queue::getPendingList(string course){
+	Queue* list = new Queue();
+	if(head == NULL){//the working Queue is empty
+		list->head = NULL;
+		return list;
+	}
+	Node* tmpNode = head;//this.head
+	while(tmpNode != NULL){
+		if(tmpNode->data->getCourse() == course){//same course
+			if(tmpNode->data->getStatus() == "pending"){//its pending
+				list->pushBack(tmpNode);
+			}		
+		}
+		tmpNode=tmpNode->next;//advance iteration node
+	}
+	
+	return list;
+}
