@@ -14,7 +14,7 @@ public:
 	//------------------------------
 	//FUNCTIONS---------------------
 	
-	Student* getApplicant(void);
+//Student* getApplicant(void);
 	int      getApplicationNumber(void);
 	string   getCourse(void);
 	string   getStatus();
@@ -26,14 +26,22 @@ public:
 
 private:
 	//VARIABLES---------------------
-	Student *applicant;
+//Student *applicant;
 	int     applicationNumber;
 	string  course;
 	string  relatedCourses[APP_MAX_BUF];
 	string  relatedGrades[APP_MAX_BUF];
 	string  applicationStatus;
+	//Student members:
+	int    stuCGPA;
+	int    stuMGPA;
+	string stuFirst;
+	string stuLast;
+	string stuEmail;
+	string stuMajor;
+	int    stuYearStanding;
+	string stuID;
 	//------------------------------
-
 };
 
 

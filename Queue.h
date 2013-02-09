@@ -3,7 +3,6 @@
 
 #include "Student.h"
 #include "Application.h"
-
 class Queue
 {
   class Node
@@ -12,7 +11,7 @@ class Queue
     public:
 
     private:
-      Student* data;
+      Application* data;
       Node*    next;
   };
 
@@ -50,7 +49,10 @@ class Queue
     //  returns: boolean: true if empty else false //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    bool  isEmpty(); 
+    bool  isEmpty();
+
+    //////////////
+    Node* createNode(Application *); 
 
     void print() const;
 

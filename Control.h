@@ -5,6 +5,8 @@
 #include "WindowApp.h"
 #include "Student.h"
 #include "Application.h"
+#include "Queue.h"
+#include "Student.h"
 #include "main.h"
 #include <cstdlib>
 #include <string.h>
@@ -16,11 +18,11 @@ class Control{
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
-		
+		void loadApplications();
 		
 	private:
 		
-		
+		Queue applicationList;
 		static bool printApp(Application*);	
 		
 	protected:
