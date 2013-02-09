@@ -207,6 +207,54 @@ void Control::cancel(){
 	exit(1);
 }
 
+void Control::loadApplications(){
+	char text[80];
+
+	ifstream inFile("Applications.txt", ios::in);
+
+	int     a, cgpa, mgpa, y;
+	string  c, s, f, l, e, m, i;
+
+  	if (!inFile) {
+    	//cout<<"Could not open file"<<endl;
+    	return;
+  	}
+
+	while (!inFile.eof()) {
+		//read an entire application
+		inFile.getline(text, MAX_BUF);
+		a = atoi(text);
+		inFile.getline(text, MAX_BUF);
+		c = text;
+		inFile.getline(text, MAX_BUF);
+		s = text;
+		inFile.getline(text, MAX_BUF);
+		cgpa = atoi(text);
+		inFile.getline(text, MAX_BUF);
+		mgpa = atoi(text);
+		inFile.getline(text, MAX_BUF);
+		f = text;
+		inFile.getline(text, MAX_BUF);
+		l = text;
+		inFile.getline(text, MAX_BUF);
+		e = text;
+		inFile.getline(text, MAX_BUF);
+		m = text;
+		inFile.getline(text, MAX_BUF);
+		y = atoi(text);
+		inFile.getline(text, MAX_BUF);
+		i = text;
+
+		//Now initialise an application
+		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
+		Application *newApp = new Application(stu, a, c, s);
+		
+		applicationList.pushBack(applicationList.createNode(newApp));
+				
+  	}
+ 
+}
+
 
 void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 	gtk_window_resize(GTK_WINDOW(theApp->window), 600,600);

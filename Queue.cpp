@@ -26,31 +26,22 @@ Queue::Queue(Queue& q){
 	if(head==NULL) return;
 	Node* tmp = head;//iteration node for original Queue
 
-	q.head = new Node();//head node for the new Queue
+	Node* qHead = new Node();//head node for the new Queue
+	qHead->data = head->data;//copy the data to the new Queue's head
 
-	Node* qPrev;//to connect the nodes in q
-	Node* qTmp = q.head;//iteration node for q
+	Node* qTmp = qHead;//iteration node for q
 
-	while(tmp->next!=NULL){	
-		qTmp->data = tmp->data;//copy over the data from this queue to q
-		qPrev = qTmp;//make prev node this node before moving on		
-		tmp = tmp->next;
+	while(tmp!=NULL){	
 		Node* node = new Node();//make a new node for each existing node		
 		qTmp = node;
-		qPrev->next=qTmp;//connect the nodes in the new Queue	
-		
+		qTmp->data = tmp->data;
+		tmp = tmp->next;
 	}
-	qTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
-///////////////////////////////////////////
-//	      MEMBER FUNCTIONS    	 //
-///////////////////////////////////////////
+
 void Queue::pushBack(Node* node){	
 	Node* tmpNode = head;
-	if(head == NULL){
-		head = node;		
-		return;
-	}
+	if(head == NULL) return;
 	
 	//get the last node in the list
 	while(tmpNode->next != NULL){
@@ -71,7 +62,15 @@ Queue::Node* Queue::popFront(){
 //returns the first item in the queue
 Queue::Node* Queue::front(){
 	return head;
-} 
+}
+
+//returns a node with the application data inside it
+Queue::Node* Queue::createNode(Application *theApp){
+	Node* tempNode = new Node();
+	tempNode->data = theApp;
+	tempNode->next = NULL;
+	return tempNode;
+}
 
 //tests whether or not the queue is empty
 bool Queue::isEmpty(){
