@@ -11,7 +11,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	
 	
-	theApp->combo =        gtk_combo_box_text_new();
+	
 	
 	
 	
@@ -207,26 +207,74 @@ void Control::cancel(){
 	exit(1);
 }
 
-/*
-bool Control::printApp(Application* app){
-	ofstream outFile("Application.txt", ios::out);
 
-  	if (!outFile) {
-   		//ios::out<<"Could not open file"<<endl;
-   		return false;
-	}
-
-	outFile << "\t\tAPPLICANTION FORM:\n" << endl;
-	outFile << "Applying for TA for class: " << app->getCourse() << " Application id: " << app->getApplicationNumber() << endl;
-	outFile << "======================APPLICANT INFORMATION======================="<<endl;
-	outFile << "Applicant name: " << app->getApplicant()->getFirst() << " " << app->getApplicant()->getLast() << endl;
-	outFile << "Applicant email: " << app->getApplicant()->getEmail() << endl;
-	outFile << "Applicant student number: " << app->getApplicant()->getStudentNumber() << endl;
+void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
+	gtk_window_resize(GTK_WINDOW(theApp->window), 600,600);
 	
-	return true;
+	
+	theApp->ei_relatedCourse1 = gtk_entry_new();
+	theApp->ei_term1= gtk_entry_new();
+	theApp->ei_year1 = gtk_entry_new();
+	theApp->ei_finalGrade = gtk_entry_new();
+	
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relatedCourse1, 400, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_term1, 400, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_year1, 400, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_finalGrade, 400, 370);
+
+
+
+	
+	gtk_widget_set_size_request(theApp->ei_continue, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_continue, 380, 430);
+	
+	gtk_widget_set_size_request(theApp->ei_repeat, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_repeat, 500, 430);
+	gtk_widget_show_all(theApp->appFrame);
+
 }
 
-*/
+void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->ei_relatedCourse1);
+	gtk_widget_destroy(theApp->ei_term1);
+	gtk_widget_destroy(theApp->ei_year1);
+	gtk_widget_destroy(theApp->ei_finalGrade);
+	cout << "number 2" << endl;
+	
+	theApp->ei_relatedCourse2 = gtk_entry_new();
+	theApp->ei_term2= gtk_entry_new();
+	theApp->ei_year2 = gtk_entry_new();
+	theApp->ei_supervisor = gtk_entry_new();
+	
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relatedCourse2, 400, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_term2, 400, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_year2, 400, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_supervisor, 400, 370);
+	gtk_widget_show_all(theApp->appFrame);
+
+}
+
+
+void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,600);
+	
+	theApp->ei_relevantWork = gtk_entry_new();
+	theApp->ei_responsabilities = gtk_entry_new();
+	theApp->ei_duration= gtk_entry_new();
+	theApp->ei_startDate = gtk_entry_new();
+	theApp->ei_endDate = gtk_entry_new();
+	
+	
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relevantWork, 450, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_responsabilities, 450, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_duration, 450, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_startDate, 450, 370);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_endDate, 450, 400);
+
+}
+
+
+
 
 int Control::createWindow(int argc, char** argv)
 {
@@ -278,6 +326,9 @@ int Control::createWindow(int argc, char** argv)
 
 	theApp->submit = gtk_button_new_with_label("Submit");
 	theApp->cancel = gtk_button_new_with_label("Cancel");
+	theApp->combo =  gtk_combo_box_text_new();
+	theApp->ei_continue = gtk_button_new_with_label("Continue");
+	theApp->ei_repeat = gtk_button_new_with_label("Add Another");
 	
 	/////////////////////////////////////////////////////
 	//------Make the Prompt Label and add to frame---////
@@ -302,6 +353,12 @@ int Control::createWindow(int argc, char** argv)
 	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
 	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::cancel), NULL);
+
+	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
+
+	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::relatedCourses2), theApp);
+	
+	//g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
 	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
 

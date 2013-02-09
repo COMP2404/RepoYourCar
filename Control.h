@@ -24,11 +24,11 @@ class Control{
 		static bool printApp(Application*);	
 		
 	protected:
-		static int makeApplication(GtkWidget*, WindowApp*);
-		
+		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int getInfo(GtkWidget*,WindowApp*);
-		
-		
+		static void workExperience(GtkWidget *, WindowApp *);
+		static void relatedCourses1(GtkWidget *, WindowApp *);
+		static void relatedCourses2(GtkWidget *, WindowApp *);
 		
 		
 };
