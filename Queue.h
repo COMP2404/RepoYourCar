@@ -12,7 +12,7 @@ class Queue
     public:
 
     private:
-      Application* data;
+      Student* data;
       Node*    next;
   };
 

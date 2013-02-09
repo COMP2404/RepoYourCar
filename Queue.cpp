@@ -42,10 +42,15 @@ Queue::Queue(Queue& q){
 	}
 	qTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
-
+///////////////////////////////////////////
+//	      MEMBER FUNCTIONS    	 //
+///////////////////////////////////////////
 void Queue::pushBack(Node* node){	
 	Node* tmpNode = head;
-	if(head == NULL) return;
+	if(head == NULL){
+		head = node;		
+		return;
+	}
 	
 	//get the last node in the list
 	while(tmpNode->next != NULL){
