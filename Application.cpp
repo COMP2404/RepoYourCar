@@ -23,6 +23,15 @@ Application::Application(Student *s, int appNum, string cor, string stat){
 int      Application::getApplicationNumber(){ return applicationNumber; }
 string   Application::getCourse(){ return course; }
 string   Application::getStatus(){ return applicationStatus; }
+
+int      Application::getStuCGPA(){ return stuCGPA; }
+int      Application::getStuMGPA(){ return stuMGPA; }
+string   Application::getStuFirst(){ return stuFirst; }
+string   Application::getStuLast(){ return stuLast; }
+string   Application::getStuEmail(){ return stuEmail; }
+string   Application::getStuMajor(){ return stuMajor; }
+int      Application::getStuYrStanding(){ return stuYearStanding; }
+string   Application::getStuID(){ return stuID; }
 //===============================================================================
 
 //Destructor:

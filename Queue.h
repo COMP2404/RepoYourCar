@@ -9,7 +9,8 @@ class Queue
   {
     friend class Queue;
     public:
-
+      Node();
+      ~Node();
     private:
       Application* data;
       Node*    next;
@@ -51,6 +52,11 @@ class Queue
     /////////////////////////////////////////////////
     bool  isEmpty();
 
+    /////////////////////////////////////////////////
+    //  creates a Node<Application>                //
+    //  @param:  Application		           //
+    //  returns: Node ptr			   //
+    //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
     Node* createNode(Application *); 
 

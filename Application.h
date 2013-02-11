@@ -19,6 +19,15 @@ public:
 	string   getCourse(void);
 	string   getStatus();
 
+	int      getStuCGPA();
+	int      getStuMGPA();
+	string   getStuFirst();
+	string   getStuLast();
+	string   getStuEmail();
+	string   getStuMajor();
+	int      getStuYrStanding();
+	string   getStuID();
+	
 	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();

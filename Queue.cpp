@@ -6,41 +6,60 @@ using namespace std;
 //	    CTOR	     //
 ///////////////////////////////
 Queue::Queue() : head(NULL) {}
+
+///////////////////////////////
+//	  NODE CTOR	     //
+///////////////////////////////
+Queue::Node::Node() : data(NULL), next(NULL) {}
+
+///////////////////////////////
+//	  NODE DTOR	     //
+///////////////////////////////
+Queue::Node::~Node(){
+	//do nothing, dont delete data
+}
+
 ///////////////////////////////
 //	    DTOR	     //
 ///////////////////////////////
 Queue::~Queue(){
+	/*
+	cout<<"Destruction"<<endl;
 	Node* tmpNode = head;
 	Node* dNode;
 	//go through the list freeing all nodes
 	while(tmpNode != NULL){		
-		dNode=tmpNode;
-		tmpNode=tmpNode->next;
+		dNode=tmpNode;	
+		cout<<"about to advance in destructor"<<endl;
+		tmpNode=tmpNode->next;//THIS IS CAUSING SEG FAULTS!!!
+		cout << "deleting node: " << dNode->data->getCourse() << endl;
 		delete dNode;	
 	}
+	*/
 }
 ///////////////////////////////
 //	  COPY CTOR	     //
 ///////////////////////////////
 Queue::Queue(Queue& q){
-	if(head==NULL) return;
-	Node* tmp = head;//iteration node for original Queue
+	//cout << "IN COPY CTOR\n";
+	if(q.head==NULL) return;
 
-	q.head = new Node();//head node for the new Queue
 
-	Node* qPrev;//to connect the nodes in q
-	Node* qTmp = q.head;//iteration node for q
+	Node* tmp = q.head;//iteration node for original Queue
+	head = new Node();//head node for the new Queue
 
+	Node* nPrev;//to connect the nodes in q
+	Node* nTmp = head;//iteration node for q
 	while(tmp->next!=NULL){	
-		qTmp->data = tmp->data;//copy over the data from this queue to q
-		qPrev = qTmp;//make prev node this node before moving on		
-		tmp = tmp->next;
+		nTmp->data = tmp->data;//copy over the data from this queue to q
+		nPrev = nTmp;//make prev node this node before moving on	
+		tmp = tmp->next;//advance iteration node for source Queue
 		Node* node = new Node();//make a new node for each existing node		
-		qTmp = node;
-		qPrev->next=qTmp;//connect the nodes in the new Queue	
-		
+		nTmp = node;
+		nPrev->next=nTmp;//connect the nodes in the new Queue	
 	}
-	qTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
+
+	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
 void Queue::pushBack(Node* node){	
@@ -86,23 +105,50 @@ bool Queue::isEmpty(){
 } 
 
 //return a subset Queue of pending applications by specified course code
-//**NOTE currently this method returns a shallow copy of this class.
-//Therefore any alterations to the returned Queue directly changes this class
 Queue* Queue::getPendingList(string course){
-	Queue* list = new Queue();
+	//------Get a copy of the working Queue-------
+	
+	Queue& copy = *this;
+
+	Queue* list = new Queue(copy);//call copy contructor
+
 	if(head == NULL){//the working Queue is empty
-		list->head = NULL;
+		//list->head = NULL;
 		return list;
 	}
-	Node* tmpNode = head;//this.head
-	while(tmpNode != NULL){
-		if(tmpNode->data->getCourse() == course){//same course
-			if(tmpNode->data->getStatus() == "pending"){//its pending
-				list->pushBack(tmpNode);
-			}		
+	//------Make the head a wanted node--------	
+	Node* tmpNode = list->head;
+	while(tmpNode!=NULL){
+		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "pending"){
+			list->head = tmpNode;
+			break;
 		}
-		tmpNode=tmpNode->next;//advance iteration node
+		tmpNode=tmpNode->next;
+	}
+	//------Remove unwanted nodes from Queue------
+	Node* prevNode = tmpNode;
+
+	while(tmpNode != NULL){
+		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
+		}
+		else if(tmpNode->data->getStatus() != "pending"){//its not pending
+			prevNode->next = tmpNode->next;//cut out the node that doesnt belong
+		}
+		else{
+			prevNode=tmpNode;//advance iteration node
+		}
+		tmpNode=tmpNode->next;   //advance iteration node
 	}
 	
 	return list;
+}
+
+void Queue::print() const{
+	Node* tmp = head;
+	while(tmp!=NULL){
+		if(tmp->data != NULL)
+			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << endl;
+		tmp=tmp->next;
+	}
 }

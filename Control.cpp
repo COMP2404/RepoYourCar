@@ -1,5 +1,5 @@
 #include "Control.h"
-
+#include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
 using namespace std;
@@ -9,7 +9,6 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
-	
 	
 	
 	
