@@ -14,12 +14,12 @@
 
 class Control{
 	public:
-		int createWindow(int, char**);
+		int createWindow(int, char**, Control);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
 		void loadApplications();
-		static void quickCheck(GtkWidget*, WindowApp*);
+		
 		static void adminPage(GtkWidget*, WindowApp*);
 		
 	private:
@@ -33,6 +33,9 @@ class Control{
 		static void workExperience(GtkWidget *, WindowApp *);
 		static void relatedCourses1(GtkWidget *, WindowApp *);
 		static void relatedCourses2(GtkWidget *, WindowApp *);
+		static void quickCheck(GtkWidget*, WindowApp*);
+		static void quickCheck2(GtkWidget*, WindowApp*);
+		static void quickCheck3(GtkWidget*, WindowApp*);
 		
 		
 };
