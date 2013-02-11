@@ -313,7 +313,27 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 
 }
 void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
-	cout << "IT WORKS" << endl;
+	
+
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
+	
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
+	
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year1));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term1));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_finalGrade));        
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
+	}
 }
 
 void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
