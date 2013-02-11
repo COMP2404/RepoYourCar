@@ -20,6 +20,7 @@ class Control{
 		static void cancel();
 		void loadApplications();
 		static void quickCheck(GtkWidget*, WindowApp*);
+		static void adminPage(GtkWidget*, WindowApp*);
 		
 	private:
 		

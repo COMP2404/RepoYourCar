@@ -309,6 +309,7 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 
 	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
 	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+	gtk_widget_set_sensitive(theApp->combo, FALSE);
 	
 
 }
@@ -333,6 +334,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
 		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
+		
 	}
 }
 
@@ -418,6 +420,33 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 }
 
 
+void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
+	//gtk_widget_hide(theApp->appFrame);
+	//gtk_fixed_remove(GTK_FIXED(theApp->window), theApp->appframe);
+	gtk_container_remove (GTK_CONTAINER (theApp->window), theApp->appFrame);
+	//gtk_fixed_remove(
+	char text[MAX_BUF];
+	string courses[800];
+
+	ifstream inFile("courses.txt", ios::in);
+
+	if (!inFile) {
+		cout<<"Could not open file"<<endl;
+		exit(1);
+	}	
+	while (!inFile.eof()) {
+		inFile.getline(text, MAX_BUF);
+		
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
+	}
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_combo, 50, 50);
+	//gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->admin_frame);
+	gtk_widget_show_all(theApp->window);
+	//gtk_widget_show(theApp->admin_frame);
+
+}
+
 
 
 int Control::createWindow(int argc, char** argv)
@@ -449,6 +478,7 @@ int Control::createWindow(int argc, char** argv)
 	//-----------Add frame onto window---------------////
 	/////////////////////////////////////////////////////
 	theApp->appFrame = gtk_fixed_new();
+	theApp->admin_frame = gtk_fixed_new();
 
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 
@@ -501,6 +531,7 @@ int Control::createWindow(int argc, char** argv)
 	theApp->submit = gtk_button_new_with_label("Submit");
 	theApp->cancel = gtk_button_new_with_label("Cancel");
 	theApp->combo =  gtk_combo_box_text_new();
+	theApp->admin_combo =  gtk_combo_box_text_new();
 	
 	//part 1
 	theApp->ei_continue = gtk_button_new_with_label("Continue");
@@ -518,6 +549,8 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	theApp->label = gtk_label_new("Click Apply to Choose Your Courses");
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->label, 150, 58); 
+
+
 
 	/////////////////////////////////////////////////////
 	//----------Show all the widgets on the window---////
@@ -558,7 +591,7 @@ int Control::createWindow(int argc, char** argv)
 	
 	//g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 	
-	//g_signal_connect(theApp->login, "clicked", G_CALLBACK(admin), theApp);
+	g_signal_connect(theApp->login, "clicked", G_CALLBACK(Control::adminPage), theApp);
 
 	gtk_main();
 	return 0;
