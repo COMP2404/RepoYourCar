@@ -19,6 +19,7 @@ class Control{
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
 		void loadApplications();
+		static void quickCheck(GtkWidget*, WindowApp*);
 		
 	private:
 		
