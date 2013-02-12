@@ -1,0 +1,8 @@
+		APPLICANTION FORM:
+
+Applying for TA for class: COMP1001 Application id: 1
+======================APPLICANT INFORMATION=======================
+Applicant name: Dave McGregor
+Applicant email: dave.dadwa@adwa.com
+Applicant student number: 100853551
+Application status: PENDING
