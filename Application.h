@@ -29,7 +29,7 @@ public:
 	string   getStuID();
 	
 	bool printApp();
-	Application(Student*, int, string="unknown", string="pending");
+	Application(Student*, int, string="unknown", string="PENDING");
 	~Application();
 	//------------------------------
 

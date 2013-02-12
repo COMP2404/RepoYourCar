@@ -132,7 +132,7 @@ Queue* Queue::getPendingList(string course){
 		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
-		else if(tmpNode->data->getStatus() != "pending"){//its not pending
+		else if(tmpNode->data->getStatus() != "PENDING"){//its not pending
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong
 		}
 		else{
@@ -144,11 +144,59 @@ Queue* Queue::getPendingList(string course){
 	return list;
 }
 
+int Queue::size() const{
+	int i=0;
+	Node* tmp = head;
+	while(tmp != NULL){
+		i++;
+		tmp=tmp->next;
+	}
+	return i;
+}
+
+Queue* Queue::sortByGPA(){
+	int i=0;//index for appArr
+	bool swapped;
+	int count = size();
+
+	Queue* sorted = new Queue();//new linked list in sorted order
+
+	Node* tmp = head;
+
+	Application* tempApp;
+	Application* appArr[count];//list of applications to be sorted
+	//-----------GET A LIST OF APPLICATIONS----------//
+	while(tmp != NULL){	
+		appArr[i++] = tmp->data;		
+		tmp = tmp->next;
+	}
+	//-----------SORT THE APPLICATIONS BY GPA------------//
+	for(int i=count-1; i>=0; i--){//BSORT
+                swapped = false;
+                for(int j=0; j<i; j++){//this swaps them if they shoud be
+                        if(appArr[j]->getStuCGPA() > appArr[j+1]->getStuCGPA()){
+                                tempApp = appArr[j+1];
+                                appArr[j+1] = appArr[j];
+                                appArr[j]=tempApp;
+                                swapped=true;
+                        }
+                }
+                if(!swapped) break;
+        }
+
+	for(int i=0; i<count; i++){	
+		//cout << "d\n";
+		sorted->pushBack(sorted->createNode(appArr[i]));
+	}
+
+	return sorted;
+}
+
 void Queue::print() const{
 	Node* tmp = head;
 	while(tmp!=NULL){
 		if(tmp->data != NULL)
-			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << endl;
+			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << " gpa: " << tmp->data->getStuCGPA() << endl;
 		tmp=tmp->next;
 	}
 }

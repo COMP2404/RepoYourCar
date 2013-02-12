@@ -68,6 +68,22 @@ class Queue
     /////////////////////////////////////////////////
     Queue* getPendingList(string);
 
+    /////////////////////////////////////////////////
+    //  gets a sorted copy of the Queue passed in  //
+    //  @param:  void       		           //
+    //  returns: Queue* 			   //
+    //  <runtime> 0(n^2) </runtime>                //
+    /////////////////////////////////////////////////
+    Queue* sortByGPA(void);
+
+    /////////////////////////////////////////////////
+    //  returns the number of elements in the Queue//
+    //  @param:  void       		   	   //
+    //  returns: int	 			   //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    int size() const;
+
     void print() const;
 
   private:
