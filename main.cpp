@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	
 	WindowApp *theApp = new WindowApp();
 	Control utility;
-	utility.createWindow(argc, argv, utility);
+	utility.createWindow(argc, argv);
 	
 
 	gtk_main();

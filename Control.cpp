@@ -1,5 +1,4 @@
 #include "Control.h"
-#include "appNode.h"
 #include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
@@ -140,6 +139,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 }
 
 
+
 int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	
 
@@ -216,8 +216,8 @@ void Control::loadApplications(){
 	string  c, s, f, l, e, m, i;
 
   	if (!inFile) {
-    	//cout<<"Could not open file"<<endl;
-    	return;
+    		cout<<"Could not open file"<<endl;
+    		exit(1);
   	}
 
 	while (!inFile.eof()) {
@@ -249,8 +249,6 @@ void Control::loadApplications(){
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 		Application *newApp = new Application(stu, a, c, s);
 		
-		appNode *aNode = new appNode();
-		applicationList.pushBack(aNode);
 		//applicationList.pushBack(applicationList.createNode(newApp));
 				
   	}
@@ -316,30 +314,7 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 	
 
 }
-void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
-	
 
-	const gchar *s1, *s2, *s3, *s4, *s5;
-	char *c1;
-	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
-	
-	
-	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
-	
-	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year1));
-	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term1));
-	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_finalGrade));        
-      
-	string1 = (s1);
-	string2 = (s2);
-	string3 = (s3);
-	string4 = (s4);
-	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
-		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
-		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
-		
-	}
-}
 
 void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 
@@ -362,12 +337,17 @@ void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	theApp->ei_lblSupervisor = gtk_label_new("Supervisor :");	
 	gtk_widget_set_size_request(theApp->ei_continue2, 80, 35);
+
+	gtk_widget_set_size_request(theApp->ei_repeat2, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_repeat2, 550, 430);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_continue2, 450, 430);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relatedCourse2, 550, 280);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_term2, 550, 310);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_year2, 550, 340);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_supervisor, 550, 370);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblSupervisor, 400, 370);
+	gtk_widget_set_sensitive(theApp->ei_continue2, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat2, FALSE);
 	gtk_widget_show_all(theApp->appFrame);
 
 }
@@ -402,8 +382,8 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 
 	theApp->ei_lblRelevantWork = gtk_label_new("Relevant Work :");
 	theApp->ei_lblDuration = gtk_label_new("Duration :");
-	theApp->ei_lblStartDate = gtk_label_new("Start Date :");
-	theApp->ei_lblEndDate = gtk_label_new("End Date :");
+	theApp->ei_lblStartDate = gtk_label_new("Start Date (dd/mm/yr) :");
+	theApp->ei_lblEndDate = gtk_label_new("End Date (dd/mm/yr) :");
 	theApp->ei_lblResponsabilities = gtk_label_new("Responsabilities :");
 	
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblRelevantWork, 400, 280);
@@ -413,21 +393,189 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblEndDate, 400, 400);
 	
 	gtk_widget_set_size_request(theApp->ei_finish, 80, 35);
+	gtk_widget_set_size_request(theApp->ei_repeat3, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_repeat3, 550, 430);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_finish, 450, 430);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relevantWork, 550, 280);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_responsabilities, 550, 310);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_duration, 550, 340);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_startDate, 550, 370);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_endDate,550, 400);
+	gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
 	gtk_widget_show_all(theApp->appFrame);
+}
+void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
+	
+
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
+	
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
+	
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year1));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term1));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_finalGrade));        
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
+		
+	}
+}
+
+void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
+	
+
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
+	
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse2));
+	
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year2));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term2));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_supervisor));        
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
+		
+	}
+}
+
+void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
+	
+
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="";
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relevantWork));
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_responsabilities));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_duration)); 
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_startDate));
+	s5 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_endDate));
+	       
+	  
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	string5 = (s5);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""&& string5 != ""){
+		gtk_widget_set_sensitive(theApp->ei_finish, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
+		
+	}
+}
+
+void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="";
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
+	
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year1));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term1));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_finalGrade)); 
+	       
+	  
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	
+
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year1), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term1), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
+
+	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+}
+
+void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="";
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse2));
+	
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_year2));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term2));
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_supervisor));  
+	       
+	  
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse2), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year2), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term2), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_supervisor), "");
+	gtk_widget_set_sensitive(theApp->ei_continue2, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat2, FALSE);
+	
+}
+
+void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
+	const gchar *s1, *s2, *s3, *s4, *s5;
+	char *c1;
+	string string1 = "", string2= "", string3="", string4="", string5="";
+	
+	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relevantWork));
+	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_responsabilities));
+	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_duration)); 
+	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_startDate));
+	s5 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_endDate));
+	       
+	  
+      
+	string1 = (s1);
+	string2 = (s2);
+	string3 = (s3);
+	string4 = (s4);
+	string5 = (s5);
+	
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_responsabilities), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_duration), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_startDate), "");
+	gtk_entry_set_text(GTK_ENTRY(theApp->ei_endDate), "");
+
+	gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
+}
+
+void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
+
+
 }
 
 
 void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
-	//gtk_widget_hide(theApp->appFrame);
-	//gtk_fixed_remove(GTK_FIXED(theApp->window), theApp->appframe);
+	
 	gtk_container_remove (GTK_CONTAINER (theApp->window), theApp->appFrame);
-	//gtk_fixed_remove(
+	
 	char text[MAX_BUF];
 	string courses[800];
 
@@ -442,11 +590,14 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 		
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
 	}
+
+	//gtk_widget_set_size_request(theApp->apply, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_combo, 50, 50);
-	//gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_cancel, 50, 100 );
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->admin_frame);
+	
 	gtk_widget_show_all(theApp->window);
-	//gtk_widget_show(theApp->admin_frame);
+	
 
 }
 
@@ -486,7 +637,7 @@ int Control::createWindow(int argc, char** argv)
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 
 
-	/////////////////////////////////////////////////////g_signal_connect_data: assertion `c_handler != NULL' failed
+	/////////////////////////////////////////////////////
 	//Make the application button and add to frame---////
 	/////////////////////////////////////////////////////
 	theApp->apply = gtk_button_new_with_label("Apply");
@@ -499,6 +650,10 @@ int Control::createWindow(int argc, char** argv)
 	theApp->login = gtk_button_new_with_label("Login");
 	gtk_widget_set_size_request(theApp->login, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->login, 50, 80);
+
+
+	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
+	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 
 	
 	/////////////////////////////////////////////////////
@@ -539,6 +694,8 @@ int Control::createWindow(int argc, char** argv)
 	//part 1
 	theApp->ei_continue = gtk_button_new_with_label("Continue");
 	theApp->ei_repeat = gtk_button_new_with_label("Add Another");
+	theApp->ei_repeat2 = gtk_button_new_with_label("Add Another");
+	theApp->ei_repeat3 = gtk_button_new_with_label("Add Another");
 	
 	//part 2
 	theApp->ei_continue2 = gtk_button_new_with_label("Continue");
@@ -576,8 +733,16 @@ int Control::createWindow(int argc, char** argv)
 	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
 
 	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::relatedCourses2), theApp);
-
 	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::workExperience), theApp);
+	//g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::workExperience), theApp);
+
+	g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::addAnother), theApp);
+	g_signal_connect(theApp->ei_repeat2, "clicked", G_CALLBACK(Control::addAnother2), theApp);
+	g_signal_connect(theApp->ei_repeat3, "clicked", G_CALLBACK(Control::addAnother3), theApp);
+	
+	
+
+	//g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK(utility.createWindow), theApp);
 
 	//part 1
 	g_signal_connect (theApp->ei_relatedCourse1, "changed", G_CALLBACK (Control::quickCheck), theApp);
@@ -586,10 +751,18 @@ int Control::createWindow(int argc, char** argv)
 	g_signal_connect (theApp->ei_finalGrade, "changed", G_CALLBACK (Control::quickCheck), theApp);
 
 	//part 2
-	g_signal_connect (theApp->ei_relatedCourse2, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_year2, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_term2, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_supervisor, "changed", G_CALLBACK (Control::quickCheck), theApp);
+	g_signal_connect (theApp->ei_relatedCourse2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_year2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_term2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_supervisor, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+
+	//part 3
+	g_signal_connect (theApp->ei_startDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_endDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_relevantWork, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_responsabilities, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_duration, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+
 
 	
 	//g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::makeApplication), theApp);

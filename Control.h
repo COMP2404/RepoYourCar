@@ -6,7 +6,6 @@
 #include "Student.h"
 #include "Application.h"
 #include "Queue.h"
-#include "appNode.h"
 #include "Student.h"
 #include "main.h"
 #include <cstdlib>
@@ -20,13 +19,14 @@ class Control{
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
 		void loadApplications();
-		static void quickCheck(GtkWidget*, WindowApp*);
+		
 		static void adminPage(GtkWidget*, WindowApp*);
 		
 	private:
 		
 		Queue applicationList;
 		static bool printApp(Application*);	
+		bool errorCheck2();
 		
 	protected:
 		static int makeApplication(GtkWidget*, WindowApp*);	
@@ -34,7 +34,13 @@ class Control{
 		static void workExperience(GtkWidget *, WindowApp *);
 		static void relatedCourses1(GtkWidget *, WindowApp *);
 		static void relatedCourses2(GtkWidget *, WindowApp *);
-		
+		static void quickCheck(GtkWidget*, WindowApp*);
+		static void quickCheck2(GtkWidget*, WindowApp*);
+		static void quickCheck3(GtkWidget*, WindowApp*);
+		static void addAnother(GtkWidget*,WindowApp*);
+		static void addAnother2(GtkWidget*,WindowApp*);
+		static void addAnother3(GtkWidget*,WindowApp*);
+		static void finishExtra(GtkWidget*,WindowApp*);
 		
 };
 #endif
