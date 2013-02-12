@@ -249,7 +249,7 @@ void Control::loadApplications(){
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 		Application *newApp = new Application(stu, a, c, s);
 		
-		//applicationList.pushBack(applicationList.createNode(newApp));
+		applicationList.pushBack(applicationList.createNode(newApp));
 				
   	}
  
