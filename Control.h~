@@ -14,7 +14,7 @@
 
 class Control{
 	public:
-		int createWindow(int, char**);
+		int createWindow(int, char**, Control);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*);
 		static void cancel();
@@ -40,6 +40,10 @@ class Control{
 		static void addAnother(GtkWidget*,WindowApp*);
 		static void addAnother2(GtkWidget*,WindowApp*);
 		static void addAnother3(GtkWidget*,WindowApp*);
+<<<<<<< HEAD:Control.h~
+=======
+		static void finishExtra(GtkWidget*,WindowApp*);
+>>>>>>> 80053d10ba8701991a240a8bcfdbbff4ddd54777:Control.h
 		
 };
 #endif

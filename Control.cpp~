@@ -603,7 +603,7 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 
 
-int Control::createWindow(int argc, char** argv)
+int Control::createWindow(int argc, char** argv, Control utility)
 {
 	/////////////////////////////////////////////////////
 	//-----------Declaration of all the widgets------////
