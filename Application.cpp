@@ -41,12 +41,15 @@ Application::~Application(){
 
 
 bool Application::printApp(){
+	int i;
+	//Course tempCourse;
         ofstream outFile("Applications.txt", ios::out|ios::app);
 
         if (!outFile) {
                 //ios::out<<"Could not open file"<<endl;
                 return false;
         }
+	//Save the Application data:
 	outFile << applicationNumber << endl;
 	outFile << course << endl;
 	outFile << applicationStatus << endl;
@@ -58,6 +61,12 @@ bool Application::printApp(){
 	outFile << stuMajor << endl;
 	outFile << stuYearStanding << endl;
 	outFile << stuID << endl;
+
+	//Save the related courses:
+	//for(i=0; i<relatedCourses.getSize(); i++){
+		//tempCourse = relatedCourses.
+//	}
+
 
 /*
         outFile << "\t\tAPPLICANTION FORM:\n" << endl;

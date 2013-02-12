@@ -5,7 +5,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Queue.h"
 #define APP_MAX_BUF 32
+
+#define INCLUDED
 using namespace std;
 
 class Application{
@@ -29,7 +32,7 @@ public:
 	string   getStuID();
 	
 	bool printApp();
-	Application(Student*, int, string="unknown", string="PENDING");
+	Application(Student*, int, string="unknown", string="pending");
 	~Application();
 	//------------------------------
 
@@ -38,9 +41,9 @@ private:
 //Student *applicant;
 	int     applicationNumber;
 	string  course;
-	string  relatedCourses[APP_MAX_BUF][4];//for related courses, term, year, final
-	string  relatedTAPositions[APP_MAX_BUF][4];//for course, term, year, supervisor
-	string  relatedWorkEXP[APP_MAX_BUF][5];//for job, responsibilities, duration, start date, end date
+	Queue	relatedCourses;
+	Queue	relatedTAPositions;
+	Queue	relatedWorkEXP;
 	string  applicationStatus;
 	//Student members:
 	int    stuCGPA;

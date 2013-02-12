@@ -1,20 +1,12 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "Student.h"
-#include "Application.h"
+#include "Node.h"
+//#include "Application.h"
+//#include "Course.h"
+//#include "Job.h"
 class Queue
 {
-  class Node
-  {
-    friend class Queue;
-    public:
-      Node();
-      ~Node();
-    private:
-      Application* data;
-      Node*    next;
-  };
 
   public:
     Queue();
@@ -58,7 +50,7 @@ class Queue
     //  returns: Node ptr			   //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    Node* createNode(Application *); 
+    Node* createNode(); 
 
     /////////////////////////////////////////////////
     //gets a subset Queue of pending apps by course//
@@ -69,20 +61,9 @@ class Queue
     Queue* getPendingList(string);
 
     /////////////////////////////////////////////////
-    //  gets a sorted copy of the Queue passed in  //
-    //  @param:  void       		           //
-    //  returns: Queue* 			   //
-    //  <runtime> 0(n^2) </runtime>                //
-    /////////////////////////////////////////////////
-    Queue* sortByGPA(void);
-
-    /////////////////////////////////////////////////
-    //  returns the number of elements in the Queue//
-    //  @param:  void       		   	   //
-    //  returns: int	 			   //
-    //  <runtime> 0(n) </runtime>                  //
-    /////////////////////////////////////////////////
-    int size() const;
+    //						//
+    ////////////////////////////////////////////////
+    int getSize();
 
     void print() const;
 

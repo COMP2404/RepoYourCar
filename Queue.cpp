@@ -10,14 +10,14 @@ Queue::Queue() : head(NULL) {}
 ///////////////////////////////
 //	  NODE CTOR	     //
 ///////////////////////////////
-Queue::Node::Node() : data(NULL), next(NULL) {}
+//Queue::Node::Node() : data(NULL), next(NULL) {}
 
 ///////////////////////////////
 //	  NODE DTOR	     //
 ///////////////////////////////
-Queue::Node::~Node(){
+//Queue::Node::~Node(){
 	//do nothing, dont delete data
-}
+//}
 
 ///////////////////////////////
 //	    DTOR	     //
@@ -41,6 +41,13 @@ Queue::~Queue(){
 //	  COPY CTOR	     //
 ///////////////////////////////
 Queue::Queue(Queue& q){
+//OK, so.
+	
+	
+	
+
+
+/*
 	//cout << "IN COPY CTOR\n";
 	if(q.head==NULL) return;
 
@@ -60,6 +67,7 @@ Queue::Queue(Queue& q){
 	}
 
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
+*/
 }
 
 void Queue::pushBack(Node* node){	
@@ -79,7 +87,7 @@ void Queue::pushBack(Node* node){
 }
 
 //removes the first item from the queue
-Queue::Node* Queue::popFront(){ 
+Node* Queue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
 	Node* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
@@ -87,22 +95,49 @@ Queue::Node* Queue::popFront(){
 }
 
 //returns the first item in the queue
-Queue::Node* Queue::front(){
+Node* Queue::front(){
 	return head;
 }
 
+
+/*
+
 //returns a node with the application data inside it
-Queue::Node* Queue::createNode(Application *theApp){
+Node* Queue::createNode(Application *theApp){
 	Node* tempNode = new Node();
 	tempNode->data = theApp;
+	tempNode->cData = NULL;
+	tempNode->jData = NULL;
 	tempNode->next = NULL;
 	return tempNode;
 }
+
+
+*/
 
 //tests whether or not the queue is empty
 bool Queue::isEmpty(){
 	return (head == NULL);
 } 
+
+int Queue::getSize(){
+	Node *tempNode = head;
+	int count;
+	
+	if (head == NULL)
+		return -1;
+	
+	while(tempNode != NULL){
+		count++;	
+		tempNode = tempNode->next;
+	}
+	
+	return (count);
+	
+}
+
+
+/*
 
 //return a subset Queue of pending applications by specified course code
 Queue* Queue::getPendingList(string course){
@@ -132,7 +167,7 @@ Queue* Queue::getPendingList(string course){
 		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
-		else if(tmpNode->data->getStatus() != "PENDING"){//its not pending
+		else if(tmpNode->data->getStatus() != "pending"){//its not pending
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong
 		}
 		else{
@@ -144,59 +179,12 @@ Queue* Queue::getPendingList(string course){
 	return list;
 }
 
-int Queue::size() const{
-	int i=0;
-	Node* tmp = head;
-	while(tmp != NULL){
-		i++;
-		tmp=tmp->next;
-	}
-	return i;
-}
-
-Queue* Queue::sortByGPA(){
-	int i=0;//index for appArr
-	bool swapped;
-	int count = size();
-
-	Queue* sorted = new Queue();//new linked list in sorted order
-
-	Node* tmp = head;
-
-	Application* tempApp;
-	Application* appArr[count];//list of applications to be sorted
-	//-----------GET A LIST OF APPLICATIONS----------//
-	while(tmp != NULL){	
-		appArr[i++] = tmp->data;		
-		tmp = tmp->next;
-	}
-	//-----------SORT THE APPLICATIONS BY GPA------------//
-	for(int i=count-1; i>=0; i--){//BSORT
-                swapped = false;
-                for(int j=0; j<i; j++){//this swaps them if they shoud be
-                        if(appArr[j]->getStuCGPA() > appArr[j+1]->getStuCGPA()){
-                                tempApp = appArr[j+1];
-                                appArr[j+1] = appArr[j];
-                                appArr[j]=tempApp;
-                                swapped=true;
-                        }
-                }
-                if(!swapped) break;
-        }
-
-	for(int i=0; i<count; i++){	
-		//cout << "d\n";
-		sorted->pushBack(sorted->createNode(appArr[i]));
-	}
-
-	return sorted;
-}
-
 void Queue::print() const{
 	Node* tmp = head;
 	while(tmp!=NULL){
 		if(tmp->data != NULL)
-			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << " gpa: " << tmp->data->getStuCGPA() << endl;
+			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << endl;
 		tmp=tmp->next;
 	}
 }
+*/
