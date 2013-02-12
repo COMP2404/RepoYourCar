@@ -566,6 +566,11 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
 }
 
+void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
+
+
+}
+
 
 void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 	
