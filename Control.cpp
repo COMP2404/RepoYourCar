@@ -283,6 +283,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	theApp->studentRepeat = s;
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
+	theApp->studentApp = a;
 	//Control::printApp(a);
 	if(!a->printApp())
 		return false;
@@ -629,7 +630,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
-	cout << "this shit works" << endl;
+	
 	
 	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
 	
