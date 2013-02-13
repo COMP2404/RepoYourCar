@@ -3,6 +3,7 @@
 #include <iostream>
 #include <gtk/gtk.h>
 #include "Student.h"
+#include "Application.h"
 //#include <String.h>
 using namespace std;
 class WindowApp{

@@ -1,4 +1,5 @@
 #include "Control.h"
+
 //#include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
@@ -281,6 +282,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 
 	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
 	theApp->studentRepeat = s;
+
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
 	theApp->studentApp = a;
@@ -647,6 +649,18 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
 		
 		if(theApp->moveOn){
+			
+			//-----------Create Course Object-------------//
+			//Student *stu = new Student(10, 10, "zach", "bill", "wqe@ad", "CS", 2, "yo"); //for debugging
+			//Application *newApp = new Application(stu, 5, "asd", "tring");               //for debugging
+
+			int y = atoi(s2);
+			Course* cor = new Course(s1, y, s3, "N/A", s4);
+			//push it to the Application's relatedCourses Queue----------------------------
+			//newApp->relatedCourses.pushBack(newApp->relatedCourses.createNode(cor));     //for debugging
+			//cout<<"APPlICATION: " << theApp->studentApp->getStuFirst() << endl;
+			//theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
+			
 			theApp->moveOn = false;
 			relatedCourses2(widget, theApp);
 		}
@@ -677,6 +691,14 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
 		if(theApp->moveOn){
+			//-----------Create Course Object-------------//
+			/*
+			int y = atoi(s2);
+			Course* cor2 = new Course(s1, y, s3, s4);
+			//push it to the Application's relatedCourses Queue
+			theApp->studentApp->relatedTAPositions.pushBack(theApp->studentApp->relatedTAPositions.createNode(cor2));
+			*/
+
 			theApp->moveOn = false;
 			workExperience(widget, theApp);
 		}
@@ -710,6 +732,15 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
 
 		if(theApp->moveOn){
+
+			//-----------Create Job Object-------------//
+			/*
+			int y = atoi(s2);
+			Job* job = new Job(s1,s2,s3,s4,s5);
+			//push it to the Application's relatedCourses Queue
+			theApp->studentApp->relatedWorkEXP.pushBack(theApp->studentApp->relatedWorkEXP.createNode(job));
+			*/
+
 			theApp->moveOn = false;
 			finishExtra(widget, theApp);
 		}
