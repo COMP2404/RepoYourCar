@@ -4,6 +4,8 @@
 #include <gtk/gtk.h>
 #include "Student.h"
 #include "Application.h"
+#include "Course.h"
+
 //#include <String.h>
 using namespace std;
 class WindowApp{
@@ -11,8 +13,12 @@ class WindowApp{
 		GtkWidget *label, *window, *frame, *apply, *login, *appFrame, *admin_frame ,*fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *cgpa, *lblCgpa, *stuNum,*lblstuNum, *email, *lblEmail, *year, *lblYear, *submit, *cancel, *combo, *admin_combo, *ei_relatedCourse1, *ei_relatedCourse2, *ei_term1, *ei_term2, *ei_year1, *ei_year2, *ei_finalGrade, *ei_supervisor, *ei_relevantWork, *ei_responsabilities, *ei_duration, *ei_startDate, *ei_endDate, *ei_continue, *ei_continue2, *ei_repeat, *ei_repeat2, *ei_repeat3, *ei_finish, *ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, *ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities, *admin_cancel;
 
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *submitFinish;
-		Student *studentRepeat;
-		Application* studentApp;
+		Application *studentApp;
+		Course *studentCourse;
+		CourseQueue *cQRelated, *cQTa;
+		JobQueue *jQRelated;
+		
+
 		bool moveOn;
 		bool extra;
 		int page;
