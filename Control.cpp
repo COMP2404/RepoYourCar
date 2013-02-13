@@ -18,7 +18,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
  	
-	
+	theApp->combo =  gtk_combo_box_text_new();
 	char text[MAX_BUF];
 	string courses[800];
 
@@ -84,6 +84,12 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Puts buttons onto the new frame---------//
 	/////////////////////////////////////////////////
+
+
+	theApp->submit = gtk_button_new_with_label("Submit");
+	theApp->cancel = gtk_button_new_with_label("Cancel");
+
+	
 	gtk_widget_set_size_request(theApp->submit, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 530);
 	gtk_widget_set_size_request(theApp->cancel, 80, 35);
@@ -95,7 +101,11 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	gtk_widget_show_all(theApp->appFrame);
 	
 	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
+
+	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
+	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::cancel), NULL);
+	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
   	return 0;
 }
 
@@ -204,7 +214,52 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		
 	//Use it to make an application
 		//Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
-		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9);
+		
+
+
+
+
+
+
+	/////////////////////////////////////////////////////
+	//-----------Create new submission window -------////
+	/////////////////////////////////////////////////////
+
+	theApp->submitWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->submitWindow), GTK_WIN_POS_CENTER);
+	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->submitWindow), 250, 100);
+	gtk_window_set_title(GTK_WINDOW(theApp->submitWindow), "Submit Page");
+	
+	
+
+	/////////////////////////////////////////////////////
+	//-----------Add frame onto window---------------////
+	/////////////////////////////////////////////////////
+	theApp->submitFrame = gtk_fixed_new();
+	
+
+	gtk_container_add(GTK_CONTAINER(theApp->submitWindow), theApp->submitFrame);
+
+	//submission page
+	theApp->submitFinish = gtk_button_new_with_label("Finish");
+	theApp->submitRepeat = gtk_button_new_with_label("Make Another");
+
+	
+	gtk_widget_set_size_request(theApp->submitFinish, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitFinish, 30, 20);
+
+	
+	gtk_widget_set_size_request(theApp->submitRepeat, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitRepeat, 150, 20);
+
+	gtk_widget_show_all(theApp->submitWindow);
+
+	g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+	g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
+
+	Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, theApp);
+		
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
 	
@@ -221,15 +276,18 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum){
+bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum, WindowApp *theApp){
 	static int applicationNum = 1;
 
 	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
+	theApp->studentRepeat = s;
 	Application *a;
 	a = new Application(s, applicationNum++, *course, "PENDING");
 	//Control::printApp(a);
 	if(!a->printApp())
 		return false;
+
+	
 	return true;
 }
 
@@ -340,6 +398,12 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 	//-----------Attach Entries To Frame -------------////
 	/////////////////////////////////////////////////////
 	
+	//part 1
+	theApp->ei_relatedCourse1 = gtk_entry_new();
+	theApp->ei_term1= gtk_entry_new();
+	theApp->ei_year1 = gtk_entry_new();
+	theApp->ei_finalGrade = gtk_entry_new();
+	
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relatedCourse1, 550, 280);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_term1, 550, 310);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_year1, 550, 340);
@@ -350,6 +414,10 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	//-----------Attach Buttons To Frame -------------////
 	/////////////////////////////////////////////////////
+
+	theApp->ei_continue = gtk_button_new_with_label("Continue");
+	theApp->ei_repeat = gtk_button_new_with_label("Add Another");
+
 	gtk_widget_set_size_request(theApp->ei_continue, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_continue, 450, 430);
 	
@@ -363,8 +431,23 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 
 	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
+	gtk_widget_set_sensitive(theApp->submit, FALSE);
 	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
 	gtk_widget_set_sensitive(theApp->combo, FALSE);
+
+	g_signal_connect (theApp->ei_relatedCourse1, "changed", G_CALLBACK (Control::quickCheck), theApp);
+	g_signal_connect (theApp->ei_year1, "changed", G_CALLBACK (Control::quickCheck), theApp);
+	g_signal_connect (theApp->ei_term1, "changed", G_CALLBACK (Control::quickCheck), theApp);
+	g_signal_connect (theApp->ei_finalGrade, "changed", G_CALLBACK (Control::quickCheck), theApp);
+
+
+
+
+
+	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::moveOn), theApp);
+	
+
+	g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::addAnother), theApp);
 	
 
 }
@@ -387,10 +470,27 @@ void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 
 
 
+	//part2
+	theApp->ei_relatedCourse2 = gtk_entry_new();
+	theApp->ei_term2= gtk_entry_new();
+	theApp->ei_year2 = gtk_entry_new();
+	theApp->ei_supervisor = gtk_entry_new();
+
+
 	/////////////////////////////////////////////////////
 	//-----------New Buttons, labels and entries------////
 	/////////////////////////////////////////////////////
-	theApp->ei_lblSupervisor = gtk_label_new("Supervisor :");	
+	theApp->ei_lblSupervisor = gtk_label_new("Supervisor :");
+
+	theApp->ei_repeat2 = gtk_button_new_with_label("Add Another");
+	
+	
+	//part 2
+	theApp->ei_continue2 = gtk_button_new_with_label("Continue");
+
+	
+
+	
 	gtk_widget_set_size_request(theApp->ei_continue2, 80, 35);
 
 	gtk_widget_set_size_request(theApp->ei_repeat2, 80, 35);
@@ -405,6 +505,17 @@ void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_sensitive(theApp->ei_repeat2, FALSE);
 	gtk_widget_show_all(theApp->appFrame);
 
+	//part 2
+	g_signal_connect (theApp->ei_relatedCourse2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_year2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_term2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	g_signal_connect (theApp->ei_supervisor, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	
+	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::moveOn2), theApp);
+	g_signal_connect(theApp->ei_repeat2, "clicked", G_CALLBACK(Control::addAnother2), theApp);
+	
+	
+	
 }
 
 
@@ -447,6 +558,17 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblDuration, 400,340);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblStartDate, 400, 370);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblEndDate, 400, 400);
+
+	//part 3
+	theApp->ei_relevantWork = gtk_entry_new();
+	theApp->ei_responsabilities = gtk_entry_new();
+	theApp->ei_duration= gtk_entry_new();
+	theApp->ei_startDate = gtk_entry_new();
+	theApp->ei_endDate = gtk_entry_new();
+
+	//part 3
+	theApp->ei_finish = gtk_button_new_with_label("Finish");
+	theApp->ei_repeat3 = gtk_button_new_with_label("Add Another");
 	
 	gtk_widget_set_size_request(theApp->ei_finish, 80, 35);
 	gtk_widget_set_size_request(theApp->ei_repeat3, 80, 35);
@@ -460,6 +582,16 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
 	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
 	gtk_widget_show_all(theApp->appFrame);
+
+
+	//part 3
+	g_signal_connect (theApp->ei_startDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_endDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_relevantWork, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_responsabilities, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect (theApp->ei_duration, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::moveOn3), theApp);
+	g_signal_connect(theApp->ei_repeat3, "clicked", G_CALLBACK(Control::addAnother3), theApp);
 }
 
 
@@ -496,7 +628,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
-	
+	cout << "this shit works" << endl;
 	
 	s1 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_relatedCourse1));
 	
@@ -613,6 +745,7 @@ void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->ei_endDate);
 
 	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	gtk_widget_set_sensitive(theApp->submit, TRUE);
 
 
 }
@@ -733,15 +866,6 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 
 
 
-
-
-
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
 			//have the admin page come up
@@ -780,9 +904,31 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+		//submission page : return to main menu
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
+	
+
+}
+		
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+		//submission page create another application
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Control::submitToRepeat(GtkWidget *widget,WindowApp *theApp){
+	gtk_widget_set_sensitive(theApp->combo, TRUE);
+	gtk_widget_hide(theApp->submitWindow);
+
+}
 
 
 
@@ -857,24 +1003,11 @@ int Control::createWindow(int argc, char** argv)
 	//------Create the Extra Info Text Boxes for Later---////
 	/////////////////////////////////////////////////////
 	
-	//part 1
-	theApp->ei_relatedCourse1 = gtk_entry_new();
-	theApp->ei_term1= gtk_entry_new();
-	theApp->ei_year1 = gtk_entry_new();
-	theApp->ei_finalGrade = gtk_entry_new();
+	
 
-	//part2
-	theApp->ei_relatedCourse2 = gtk_entry_new();
-	theApp->ei_term2= gtk_entry_new();
-	theApp->ei_year2 = gtk_entry_new();
-	theApp->ei_supervisor = gtk_entry_new();
+	
 
-	//part 3
-	theApp->ei_relevantWork = gtk_entry_new();
-	theApp->ei_responsabilities = gtk_entry_new();
-	theApp->ei_duration= gtk_entry_new();
-	theApp->ei_startDate = gtk_entry_new();
-	theApp->ei_endDate = gtk_entry_new();
+	
 
 
 
@@ -883,23 +1016,9 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 
 	//initial
-	theApp->submit = gtk_button_new_with_label("Submit");
-	theApp->cancel = gtk_button_new_with_label("Cancel");
-	theApp->combo =  gtk_combo_box_text_new();
+	
+	
 	theApp->admin_combo =  gtk_combo_box_text_new();
-	
-	//part 1
-	theApp->ei_continue = gtk_button_new_with_label("Continue");
-	theApp->ei_repeat = gtk_button_new_with_label("Add Another");
-	theApp->ei_repeat2 = gtk_button_new_with_label("Add Another");
-	theApp->ei_repeat3 = gtk_button_new_with_label("Add Another");
-	
-	//part 2
-	theApp->ei_continue2 = gtk_button_new_with_label("Continue");
-
-	//part 3
-	theApp->ei_finish = gtk_button_new_with_label("Finish");
-	
 	
 	/////////////////////////////////////////////////////
 	//------Make the Prompt Label and add to frame---////
@@ -924,42 +1043,22 @@ int Control::createWindow(int argc, char** argv)
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
-	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
-	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::cancel), NULL);
 
-	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
+	
 
-	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::moveOn), theApp);
-	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::moveOn2), theApp);
-	g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::moveOn3), theApp);
-
-	g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::addAnother), theApp);
-	g_signal_connect(theApp->ei_repeat2, "clicked", G_CALLBACK(Control::addAnother2), theApp);
-	g_signal_connect(theApp->ei_repeat3, "clicked", G_CALLBACK(Control::addAnother3), theApp);
+	
 	
 	
 
-	//g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK(utility.createWindow), theApp);
+	
 
-	//part 1
-	g_signal_connect (theApp->ei_relatedCourse1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_year1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_term1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_finalGrade, "changed", G_CALLBACK (Control::quickCheck), theApp);
+	
 
-	//part 2
-	g_signal_connect (theApp->ei_relatedCourse2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_year2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_term2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_supervisor, "changed", G_CALLBACK (Control::quickCheck2), theApp);
+	
 
-	//part 3
-	g_signal_connect (theApp->ei_startDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_endDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_relevantWork, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_responsabilities, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_duration, "changed", G_CALLBACK (Control::quickCheck3), theApp);
+	//submission page
+	
 
 
 	
