@@ -12,6 +12,8 @@ class WindowApp{
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *submitFinish;
 		Student *studentRepeat;
 		bool moveOn;
+		bool extra;
+		int page;
 		
 		/*WindowApp();
 		~WindowApp();*/
