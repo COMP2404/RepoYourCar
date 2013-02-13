@@ -831,7 +831,7 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
 
 	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
-	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE)
+	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
 
 }
 
