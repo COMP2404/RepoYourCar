@@ -10,7 +10,7 @@ public:
 	//------------------------------
 	//FUNCTIONS---------------------
 
-	Job(string="", string="", string="", string="0/0/0", string="0/0/0");
+	Job(string="", string[]=NULL, string="", string="0/0/0", string="0/0/0", int=-1);
 	~Job();
 
 	string 	getJobTitle(void);
@@ -24,7 +24,7 @@ public:
 private:
 	//VARIABLES----------------------
 	string	jobTitle;
-	string	tasks;
+	string	tasks[];
 	string	duration; // ie: "8 weeks",  "2 years"
 	string	startDate;
 	string	endDate;

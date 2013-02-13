@@ -9,6 +9,7 @@ class JobQueue
   {
     friend class JobQueue;
     public:
+	Job* getData(void);
       JobNode();
       ~JobNode();
     private:

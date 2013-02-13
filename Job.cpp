@@ -2,12 +2,14 @@
 #include <string>
 #include <iostream>
 
-Job::Job(string name, string jobs, string timeSpent, string start, string end){
+Job::Job(string name, string *jobs, string timeSpent, string start, string end, int k){
 	jobTitle = name;
-	tasks    = jobs;
+//	tasks
 	duration = timeSpent;
 	startDate = start;
 	endDate = end;
+
+	r = -1;
 	
 }
 //GETTERS===================================================
