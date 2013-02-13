@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-Course::Course(string name, int y, int when, string person){
+Course::Course(string name, int y, string when, string person){
 	title =	name;
 	year =	y;
 	term =	when;
@@ -14,7 +14,7 @@ Course::Course(string name, int y, int when, string person){
 string Course::getSupervisor() {return supervisor;}
 string Course::getTitle() { return title; }
 int Course::getYear() {return year;}
-int Course::getTerm() {return term;}
+string Course::getTerm() {return term;}
 
 
 //==========================================================

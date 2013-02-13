@@ -1,25 +1,33 @@
-//YARR, This be the base Queue.
-
-//Drop the base!
 
 #include <iostream>
 using namespace std;
-#include "Queue.h"
+#include "JobQueue.h"
 
 ///////////////////////////////
 //	    CTOR	     //
 ///////////////////////////////
-Queue::Queue() : head(NULL) {}
+JobQueue::JobQueue() : head(NULL) {}
 
+///////////////////////////////
+//	  NODE CTOR	     //
+///////////////////////////////
+JobQueue::JobNode::JobNode() : data(NULL), next(NULL) {}
+
+///////////////////////////////
+//	  NODE DTOR	     //
+///////////////////////////////
+JobQueue::JobNode::~JobNode(){
+	//do nothing, dont delete data
+}
 
 ///////////////////////////////
 //	    DTOR	     //
 ///////////////////////////////
-Queue::~Queue(){
+JobQueue::~JobQueue(){
 	/*
 	cout<<"Destruction"<<endl;
-	Node* tmpNode = head;
-	Node* dNode;
+	JobNode* tmpNode = head;
+	JobNode* dNode;
 	//go through the list freeing all nodes
 	while(tmpNode != NULL){		
 		dNode=tmpNode;	
@@ -33,21 +41,21 @@ Queue::~Queue(){
 ///////////////////////////////
 //	  COPY CTOR	     //
 ///////////////////////////////
-Queue::Queue(Queue& q){
+JobQueue::JobQueue(JobQueue& q){
 	//cout << "IN COPY CTOR\n";
 	if(q.head==NULL) return;
 
 
-	Node* tmp = q.head;//iteration node for original Queue
-	head = new Node();//head node for the new Queue
+	JobNode* tmp = q.head;//iteration node for original AppQueue
+	head = new JobNode();//head node for the new AppQueue
 
-	Node* nPrev;//to connect the nodes in q
-	Node* nTmp = head;//iteration node for q
+	JobNode* nPrev;//to connect the nodes in q
+	JobNode* nTmp = head;//iteration node for q
 	while(tmp->next!=NULL){	
 		nTmp->data = tmp->data;//copy over the data from this queue to q
 		nPrev = nTmp;//make prev node this node before moving on	
 		tmp = tmp->next;//advance iteration node for source Queue
-		Node* node = new Node();//make a new node for each existing node		
+		JobNode* node = new JobNode();//make a new node for each existing node		
 		nTmp = node;
 		nPrev->next=nTmp;//connect the nodes in the new Queue	
 	}
@@ -55,8 +63,8 @@ Queue::Queue(Queue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void Queue::pushBack(Node* node){	
-	Node* tmpNode = head;
+void JobQueue::pushBack(JobNode* node){	
+	JobNode* tmpNode = head;
 	if(head == NULL){
 		head = node;		
 		return;
@@ -68,35 +76,49 @@ void Queue::pushBack(Node* node){
 	}
 	//concatinate the new node with the list
 	tmpNode->next = node;
-
 }
 
 //removes the first item from the queue
-Node* Queue::popFront(){ 
+JobQueue::JobNode* JobQueue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
-	Node* tmpNode = head;	
+	JobNode* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
 	return tmpNode;
 }
 
 //returns the first item in the queue
-Node* Queue::front(){
+JobQueue::JobNode* JobQueue::front(){
 	return head;
 }
 
+//returns a node with the application data inside it
+JobQueue::JobNode* JobQueue::createNode(Job *job){
+	JobNode* tempNode = new JobNode();
+	tempNode->data = job;
+	tempNode->next = NULL;
+	return tempNode;
+}
 
-//tests whether or not the queue is empty
-bool Queue::isEmpty(){
-	return (head == NULL);
-} 
 
-int Queue::size() const{
+void JobQueue::print() const{
+	JobNode* tmp = head;
+	while(tmp!=NULL){
+		
+	}
+}
+
+int JobQueue::size() const{
 	int i=0;
-	Node* tmp = head;
+	JobNode* tmp = head;
 	while(tmp != NULL){
 		i++;
 		tmp=tmp->next;
 	}
 	return i;
 }
+
+//tests whether or not the queue is empty
+bool JobQueue::isEmpty(){
+	return (head == NULL);
+} 
 

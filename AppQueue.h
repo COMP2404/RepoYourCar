@@ -1,22 +1,36 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef APPQUEUE_H
+#define APPQUEUE_H
 
-#include "Node.h"
+//#include "Queue.h"
+#include "Application.h"
 
-class Queue
+//#include "Student.h"
+//#include "Control.h"
+
+class AppQueue
 {
+  class AppNode
+  {
+    friend class AppQueue;
+    public:
+      AppNode();
+      ~AppNode();
+    private:
+      Application* data;
+      AppNode*    next;
+  };
 
   public:
-    Queue();
-    ~Queue();
-    Queue(Queue&);
+    AppQueue();
+    ~AppQueue();
+    AppQueue(AppQueue&);
     /////////////////////////////////////////////////
     //  adds an item to the back of the queue      //
     //  @param:  Node*			           //
     //  returns: void			           //
     //  <runtime> 0(Queue.size) </runtime>         //
     /////////////////////////////////////////////////
-    void  pushBack(Node*); //adds an item to the back of the queue
+    void  pushBack(AppNode*); //adds an item to the back of the queue
 
     /////////////////////////////////////////////////
     //  removes and returns the first item         //
@@ -24,7 +38,7 @@ class Queue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    Node* popFront(); //removes the first item from the queue
+    AppNode* popFront(); //removes the first item from the queue
 
     /////////////////////////////////////////////////
     //  returns the first item in the queue        //
@@ -32,7 +46,7 @@ class Queue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    Node* front();
+    AppNode* front();
 
     /////////////////////////////////////////////////
     //  checks if queue is empty                   //
@@ -48,7 +62,7 @@ class Queue
     //  returns: Node ptr			   //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    //Node* createNode(Application*); 
+    AppNode* createNode(Application* );
 
     /////////////////////////////////////////////////
     //gets a subset Queue of pending apps by course//
@@ -56,7 +70,7 @@ class Queue
     //  returns: Queue of pending apps in course # //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    Queue* getPendingList(string);
+    AppQueue* getPendingList(string);
 
     /////////////////////////////////////////////////
     //  gets a sorted copy of the Queue passed in  //
@@ -64,7 +78,7 @@ class Queue
     //  returns: Queue* 			   //
     //  <runtime> 0(n^2) </runtime>                //
     /////////////////////////////////////////////////
-    Queue* sortByGPA(void);
+    AppQueue* sortByGPA(void);
 
     /////////////////////////////////////////////////
     //  returns the number of elements in the Queue//
@@ -76,7 +90,8 @@ class Queue
 
     void print() const;
 
-    Node* head;
+  private:
+    AppNode* head;
 };
 
 

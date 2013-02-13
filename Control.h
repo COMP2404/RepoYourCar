@@ -5,12 +5,14 @@
 #include "WindowApp.h"
 #include "Student.h"
 #include "Application.h"
-#include "Queue.h"
+//#include "Queue.h"
+#include "AppQueue.h"
 #include "Student.h"
 #include "main.h"
 #include <cstdlib>
 #include <string.h>
 #include <fstream>
+using namespace std;
 
 class Control{
 	public:
@@ -24,7 +26,7 @@ class Control{
 		
 	private:
 		
-		Queue applicationList;
+		AppQueue applicationList;//TO BE AppQueue
 		static bool printApp(Application*);	
 		bool errorCheck2();
 		

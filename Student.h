@@ -3,7 +3,6 @@
 using namespace std;
 #include <string>
 #define MAX_BUF 16
-
 class Student{
 public:
 	//VARIABLES---------------------
@@ -21,7 +20,6 @@ public:
 	string getEmail(void);
 	string getMajor(void);
 	int    getYearStanding(void);
-	
 	//-------------------------------
 
 private:
