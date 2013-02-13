@@ -63,6 +63,10 @@ JobQueue::JobQueue(JobQueue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
+Job* JobQueue::JobNode::getData(){
+	return data;
+}
+
 void JobQueue::pushBack(JobNode* node){	
 	JobNode* tmpNode = head;
 	if(head == NULL){

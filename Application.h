@@ -36,9 +36,6 @@ public:
 	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();
-	CourseQueue	relatedCourses;
-	CourseQueue	relatedTAPositions;
-	JobQueue	relatedWorkEXP;
 	//------------------------------
 
 private:
@@ -47,6 +44,9 @@ private:
 	int     applicationNumber;
 	string  course;
 	
+	CourseQueue	relatedCourses;
+	CourseQueue	relatedTAPositions;
+	JobQueue	relatedWorkEXP;
 	
 	string  applicationStatus;
 	//Student members:
