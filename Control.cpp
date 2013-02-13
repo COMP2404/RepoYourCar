@@ -917,6 +917,27 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 	
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,200);
+	gtk_widget_destroy(theApp->fName);
+	gtk_widget_destroy(theApp->lName);
+	gtk_widget_destroy(theApp->major);
+	gtk_widget_destroy(theApp->gpa);
+	gtk_widget_destroy(theApp->cgpa);
+	gtk_widget_destroy(theApp->email);
+	gtk_widget_destroy(theApp->year);
+	gtk_widget_destroy(theApp->stuNum);
+	gtk_widget_destroy(theApp->lblfName);
+	gtk_widget_destroy(theApp->lbllName);
+	gtk_widget_destroy(theApp->lblMajor);
+	gtk_widget_destroy(theApp->lblGpa);
+	gtk_widget_destroy(theApp->lblCgpa);
+	gtk_widget_destroy(theApp->lblEmail);
+	gtk_widget_destroy(theApp->lblYear);
+	gtk_widget_destroy(theApp->lblstuNum);
+	//gtk_widget_destroy();
+	//gtk_widget_destroy();
+	
+
 
 }
 		
@@ -1004,25 +1025,6 @@ int Control::createWindow(int argc, char** argv)
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 
 	
-	/////////////////////////////////////////////////////
-	//------Create the Extra Info Text Boxes for Later---////
-	/////////////////////////////////////////////////////
-	
-	
-
-	
-
-	
-
-
-
-	/////////////////////////////////////////////////////
-	//------Create All Buttons and Combo Box -----////
-	/////////////////////////////////////////////////////
-
-	//initial
-	
-	
 	theApp->admin_combo =  gtk_combo_box_text_new();
 	
 	/////////////////////////////////////////////////////
@@ -1048,26 +1050,6 @@ int Control::createWindow(int argc, char** argv)
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
-	
-
-	
-
-	
-	
-	
-
-	
-
-	
-
-	
-
-	//submission page
-	
-
-
-	
-	//g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 	
 	g_signal_connect(theApp->login, "clicked", G_CALLBACK(Control::adminPage), theApp);
 
