@@ -4,7 +4,7 @@
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
 using namespace std;
-
+Application* apples;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
 							//make the application
@@ -283,9 +283,10 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
 	theApp->studentRepeat = s;
 
-	Application *a;
-	a = new Application(s, applicationNum++, *course, "PENDING");
+	Application *a = new Application(s, applicationNum++, *course, "PENDING");
 	theApp->studentApp = a;
+	//apples = a;
+
 	//Control::printApp(a);
 	if(!a->printApp())
 		return false;
@@ -654,13 +655,12 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 			//Student *stu = new Student(10, 10, "zach", "bill", "wqe@ad", "CS", 2, "yo"); //for debugging
 			//Application *newApp = new Application(stu, 5, "asd", "tring");               //for debugging
 
+			/*
 			int y = atoi(s2);
 			Course* cor = new Course(s1, y, s3, "N/A", s4);
-			//push it to the Application's relatedCourses Queue----------------------------
-			//newApp->relatedCourses.pushBack(newApp->relatedCourses.createNode(cor));     //for debugging
-			//cout<<"APPlICATION: " << theApp->studentApp->getStuFirst() << endl;
-			//theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
-			
+			//----------------push it to the Application's relatedCourses Queue----------------------------
+			theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
+			*/
 			theApp->moveOn = false;
 			relatedCourses2(widget, theApp);
 		}
@@ -815,6 +815,14 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	string2 = (s2);
 	string3 = (s3);
 	string4 = (s4);
+
+
+	/*
+	int y = atoi(s2);
+	Course* cor = new Course(s1, y, s3, "N/A", s4);
+	//----------------push it to the Application's relatedCourses Queue----------------------------
+	theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
+	*/
 	
 
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
@@ -823,7 +831,8 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
 
 	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
-	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE)
+
 }
 
 void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
@@ -837,7 +846,14 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term2));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_supervisor));  
 	       
-	  
+	//-----------Create Course Object-------------//
+	/*
+	int y = atoi(s2);
+	Course* cor2 = new Course(s1, y, s3, s4);
+	//push it to the Application's relatedCourses Queue
+	theApp->studentApp->relatedTAPositions.pushBack(theApp->studentApp->relatedTAPositions.createNode(cor2));
+	*/
+  
       
 	string1 = (s1);
 	string2 = (s2);
@@ -871,6 +887,15 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	string5 = (s5);
+
+	//-----------Create Job Object-------------//
+	/*
+	int y = atoi(s2);
+	Job* job = new Job(s1,s2,s3,s4,s5);
+	/push it to the Application's relatedCourses Queue
+	theApp->studentApp->relatedWorkEXP.pushBack(theApp->studentApp->relatedWorkEXP.createNode(job));
+	*/
+
 	
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_responsabilities), "");

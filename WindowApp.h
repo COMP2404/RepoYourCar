@@ -12,7 +12,7 @@ class WindowApp{
 
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *submitFinish;
 		Student *studentRepeat;
-		Application *studentApp;
+		Application* studentApp;
 		bool moveOn;
 		bool extra;
 		int page;
