@@ -104,7 +104,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 
 	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
-	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::cancel), NULL);
+	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::submitToMain), theApp);
 	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
   	return 0;
 }
@@ -373,7 +373,8 @@ void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 
 	//resize the window to accomodate the new widgets
 	gtk_window_resize(GTK_WINDOW(theApp->window), 800,600);
-	
+	theApp->extra = true;
+	theApp->page = 1;
 	
 	/////////////////////////////////////////////////////
 	//-----------Put Labels on Entries---------------////
@@ -468,7 +469,7 @@ void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->ei_continue);
 	gtk_widget_destroy(theApp->ei_repeat);
 
-
+	theApp->page = 2;
 
 	//part2
 	theApp->ei_relatedCourse2 = gtk_entry_new();
@@ -539,7 +540,7 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->ei_continue2);
 	gtk_widget_destroy(theApp->ei_repeat2);
 
-
+	theApp->page = 3;
 	
 
 
@@ -746,7 +747,7 @@ void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 
 	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
 	gtk_widget_set_sensitive(theApp->submit, TRUE);
-
+	theApp->extra =false;
 
 }
 
@@ -929,8 +930,59 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 	gtk_widget_destroy(theApp->lblEmail);
 	gtk_widget_destroy(theApp->lblYear);
 	gtk_widget_destroy(theApp->lblstuNum);
-	//gtk_widget_destroy();
-	//gtk_widget_destroy();
+	gtk_widget_destroy(theApp->submit);
+	gtk_widget_destroy(theApp->cancel);
+	gtk_widget_destroy(theApp->submitWindow);
+	gtk_widget_destroy(theApp->combo);
+
+	if(theApp->extra){
+		if(theApp->page == 1){
+			gtk_widget_destroy(theApp->ei_relatedCourse1);
+			gtk_widget_destroy(theApp->ei_term1);
+			gtk_widget_destroy(theApp->ei_year1);
+			gtk_widget_destroy(theApp->ei_finalGrade);
+
+			gtk_widget_destroy(theApp->ei_lblFinalGrade);
+			gtk_widget_destroy(theApp->ei_lblRelatedCourse);
+			
+			gtk_widget_destroy(theApp->ei_lblTerm);
+			gtk_widget_destroy(theApp->ei_lblYear);
+			gtk_widget_destroy(theApp->ei_continue);
+			gtk_widget_destroy(theApp->ei_repeat);
+
+		}
+		else if(theApp->page == 2){
+			gtk_widget_destroy(theApp->ei_relatedCourse2);
+			gtk_widget_destroy(theApp->ei_term2);
+			gtk_widget_destroy(theApp->ei_year2);
+			gtk_widget_destroy(theApp->ei_supervisor);	
+	
+			gtk_widget_destroy(theApp->ei_lblRelatedCourse);
+			gtk_widget_destroy(theApp->ei_lblSupervisor);
+			gtk_widget_destroy(theApp->ei_lblTerm);
+			gtk_widget_destroy(theApp->ei_lblYear);
+			gtk_widget_destroy(theApp->ei_continue2);
+			gtk_widget_destroy(theApp->ei_repeat2);
+
+		}
+		else if(theApp->page == 3){
+			gtk_widget_destroy(theApp->ei_lblRelevantWork);
+			gtk_widget_destroy(theApp->ei_lblDuration);
+			gtk_widget_destroy(theApp->ei_lblStartDate);
+			gtk_widget_destroy(theApp->ei_lblEndDate);
+			gtk_widget_destroy(theApp->ei_lblResponsabilities);
+	
+			gtk_widget_destroy(theApp->ei_finish);
+			gtk_widget_destroy(theApp->ei_repeat3);
+			gtk_widget_destroy(theApp->ei_relevantWork);
+			gtk_widget_destroy(theApp->ei_responsabilities);
+			gtk_widget_destroy(theApp->ei_duration);
+			gtk_widget_destroy(theApp->ei_startDate);
+			gtk_widget_destroy(theApp->ei_endDate);
+
+		}
+		
+	}
 	
 
 
@@ -1034,6 +1086,7 @@ int Control::createWindow(int argc, char** argv)
 	//----------Show all the widgets on the window---////
 	/////////////////////////////////////////////////////
 	theApp->moveOn = false;
+	theApp->extra = false;
 	gtk_widget_show_all(theApp->window);
 
 
