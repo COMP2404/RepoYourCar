@@ -32,13 +32,16 @@ public:
 	string   getStuMajor();
 	int      getStuYrStanding();
 	string   getStuID();
+	void 	 setRelatedCourses(CourseQueue*);
+	void	 setRelatedTAPositions(CourseQueue*);
+	void	 setRelatedWorkEXP(JobQueue*);
 
 	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();
-	CourseQueue	relatedCourses;
-	CourseQueue	relatedTAPositions;
-	JobQueue	relatedWorkEXP;
+	CourseQueue	*relatedCourses;
+	CourseQueue	*relatedTAPositions;
+	JobQueue	*relatedWorkEXP;
 	//------------------------------
 
 private:
