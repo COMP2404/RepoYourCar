@@ -41,6 +41,9 @@ class Control{
 		static void addAnother2(GtkWidget*,WindowApp*);
 		static void addAnother3(GtkWidget*,WindowApp*);
 		static void finishExtra(GtkWidget*,WindowApp*);
+		static void moveOn(GtkWidget*,WindowApp*);
+		static void moveOn2(GtkWidget*,WindowApp*);
+		static void moveOn3(GtkWidget*,WindowApp*);
 		
 };
 #endif

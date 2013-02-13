@@ -4,6 +4,14 @@
 
 using namespace std;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+							//make the application
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+
+
 int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 {
 	/////////////////////////////////////////////////
@@ -96,6 +104,18 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
   	return 0;
 }
 
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+						//main form error checking
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major, string* stunum){
 
 	bool good = true;
@@ -138,6 +158,12 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	return good;
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+					//get info gets content from main text boxes
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
@@ -191,6 +217,15 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 }
 
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//submit application once error checking is done
+
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum){
 	static int applicationNum = 1;
 
@@ -206,6 +241,17 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 void Control::cancel(){
 	exit(1);
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+				//load the applications from a file
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 void Control::loadApplications(){
 	char text[80];
@@ -255,6 +301,19 @@ void Control::loadApplications(){
  
 }
 
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+				//set up the Sets of related Data
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Control::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
 
@@ -329,6 +388,7 @@ void Control::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 
 	gtk_widget_destroy(theApp->ei_lblFinalGrade);
 	gtk_widget_destroy(theApp->ei_continue);
+	gtk_widget_destroy(theApp->ei_repeat);
 
 
 
@@ -371,6 +431,7 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->ei_lblTerm);
 	gtk_widget_destroy(theApp->ei_lblYear);
 	gtk_widget_destroy(theApp->ei_continue2);
+	gtk_widget_destroy(theApp->ei_repeat2);
 
 
 	
@@ -405,6 +466,35 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
 	gtk_widget_show_all(theApp->appFrame);
 }
+
+
+
+void Control::moveOn(GtkWidget *widget, WindowApp *theApp){
+	theApp->moveOn = true;
+	quickCheck(widget,theApp);
+
+}
+void Control::moveOn2(GtkWidget *widget, WindowApp *theApp){
+	theApp->moveOn = true;
+	quickCheck2(widget,theApp);
+
+}
+void Control::moveOn3(GtkWidget *widget, WindowApp *theApp){
+	theApp->moveOn = true;
+	quickCheck3(widget,theApp);
+
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//quick check: check if the extra info boxes are empty
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	
 
@@ -426,6 +516,12 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
 		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
+		
+		if(theApp->moveOn){
+			theApp->moveOn = false;
+			relatedCourses2(widget, theApp);
+		}
+		
 		
 	}
 }
@@ -451,6 +547,11 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
 		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
+		if(theApp->moveOn){
+			theApp->moveOn = false;
+			workExperience(widget, theApp);
+		}
+		
 		
 	}
 }
@@ -478,9 +579,63 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""&& string5 != ""){
 		gtk_widget_set_sensitive(theApp->ei_finish, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
+
+		if(theApp->moveOn){
+			theApp->moveOn = false;
+			finishExtra(widget, theApp);
+		}
 		
 	}
 }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//when the user wants to continue to next set of extra info and finish
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
+		
+	
+	/////////////////////////////////////////////////////
+	//-----------Remove Old Labels and text entires--////
+	/////////////////////////////////////////////////////
+	gtk_widget_destroy(theApp->ei_lblRelevantWork);
+	gtk_widget_destroy(theApp->ei_lblDuration);
+	gtk_widget_destroy(theApp->ei_lblStartDate);
+	gtk_widget_destroy(theApp->ei_lblEndDate);
+	gtk_widget_destroy(theApp->ei_lblResponsabilities);
+	
+	gtk_widget_destroy(theApp->ei_finish);
+	gtk_widget_destroy(theApp->ei_repeat3);
+	gtk_widget_destroy(theApp->ei_relevantWork);
+	gtk_widget_destroy(theApp->ei_responsabilities);
+	gtk_widget_destroy(theApp->ei_duration);
+	gtk_widget_destroy(theApp->ei_startDate);
+	gtk_widget_destroy(theApp->ei_endDate);
+
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+
+
+}
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//add another: user chooses to add another set of extra info
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	const gchar *s1, *s2, *s3, *s4, *s5;
@@ -566,10 +721,37 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
 }
 
-void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//have the admin page come up
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
@@ -603,6 +785,23 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+		//create the main window and initialize everything
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int Control::createWindow(int argc, char** argv)
 {
 	/////////////////////////////////////////////////////
@@ -624,8 +823,11 @@ int Control::createWindow(int argc, char** argv)
 
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
+	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Application Center");
+	
 	
 
 	/////////////////////////////////////////////////////
@@ -715,6 +917,7 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	//----------Show all the widgets on the window---////
 	/////////////////////////////////////////////////////
+	theApp->moveOn = false;
 	gtk_widget_show_all(theApp->window);
 
 
@@ -732,9 +935,9 @@ int Control::createWindow(int argc, char** argv)
 
 	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
 
-	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::relatedCourses2), theApp);
-	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::workExperience), theApp);
-	//g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::workExperience), theApp);
+	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::moveOn), theApp);
+	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::moveOn2), theApp);
+	g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::moveOn3), theApp);
 
 	g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::addAnother), theApp);
 	g_signal_connect(theApp->ei_repeat2, "clicked", G_CALLBACK(Control::addAnother2), theApp);
