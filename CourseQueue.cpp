@@ -20,6 +20,17 @@ CourseQueue::CourseNode::~CourseNode(){
 	//do nothing, dont delete data
 }
 
+
+
+
+
+
+Course* CourseQueue::CourseNode::getData(){
+	return data;
+}
+
+
+
 ///////////////////////////////
 //	    DTOR	     //
 ///////////////////////////////
@@ -64,24 +75,18 @@ CourseQueue::CourseQueue(CourseQueue& q){
 }
 
 void CourseQueue::pushBack(CourseNode* node){	
-	cout<<"abc\n";
-	if (head!=NULL) cout<<"head is NOT null"<<endl;
 	CourseNode* tmpNode = head;
-	cout<<"pushBack1\n";
-	if(isEmpty()){
-		cout<<"pushBack1.5\n";
+	if(head == NULL){
 		head = node;		
 		return;
 	}
-	cout<<"pushBack2\n";
+	
 	//get the last node in the list
 	while(tmpNode->next != NULL){
 		tmpNode=tmpNode->next;
 	}
-	cout<<"pushBack3\n";
 	//concatinate the new node with the list
 	tmpNode->next = node;
-	cout<<"pushBack4\n";
 }
 
 //removes the first item from the queue
@@ -99,11 +104,9 @@ CourseQueue::CourseNode* CourseQueue::front(){
 
 //returns a node with the application data inside it
 CourseQueue::CourseNode* CourseQueue::createNode(Course *cor){
-	cout<<"Disco Fever!\n";
 	CourseNode* tempNode = new CourseNode();
 	tempNode->data = cor;
 	tempNode->next = NULL;
-	cout<<"leaving createNode\n";
 	return tempNode;
 }
 
