@@ -63,22 +63,40 @@ bool Application::printApp(){
 	outFile << stuID << endl;
 
 	//Save the related courses:
-	//for(i=0; i<relatedCourses.getSize(); i++){
-		//tempCourse = relatedCourses.
-//	}
+	
+	CourseQueue tempQ(*relatedCourses);
+	for(i=0; i < tempQ.size(); i++){
+		outFile << tempQ.front()->getData()->getTitle() << endl;
+		outFile << tempQ.front()->getData()->getSupervisor() << endl;
+		outFile << tempQ.front()->getData()->getYear() << endl;
+		outFile << tempQ.front()->getData()->getTerm() << endl;
+		tempQ.popFront();
+	}
 
+	//Save the related TA positions:
+	outFile << "RELATED TA POSITIONS" << endl; // header	
 
-/*
-        outFile << "\t\tAPPLICANTION FORM:\n" << endl;
-        outFile << "Applying for TA for class: " << course << " Application id: " << applicationNumber << endl;
-        outFile << "======================APPLICANT INFORMATION======================="<<endl;
-        outFile << "Applicant name: " << applicant->getFirst() << " " << applicant->getLast() << endl;
-        outFile << "Applicant email: " << applicant->getEmail() << endl;
-        outFile << "Applicant student number: " << applicant->getStudentNumber() << endl;
-	outFile << "Application status: "<< Application::applicationStatus << endl;
-	outFile << "Applicant Major GPA: " << applicant->getMajorGPA() <<endl;
-        return true;
-*/
+	CourseQueue otherTemp(*relatedTAPositions);
+	for(i=0; i < otherTemp.size(); i++){
+		outFile << otherTemp.front()->getData()->getTitle() << endl;
+		outFile << otherTemp.front()->getData()->getSupervisor() << endl;
+		outFile << otherTemp.front()->getData()->getYear() << endl;
+		outFile << otherTemp.front()->getData()->getTerm() << endl;
+		otherTemp.popFront();
+	}
+
+	//Save related work EXP
+	outFile << "WORK EXP" << endl; //header
+
+	JobQueue tempJQueue(*relatedWorkEXP);
+	for(i=0; i < tempJQueue.size(); i++){
+		outFile << tempJQueue.front()->getData()->getJobTitle() << endl;
+		outFile << tempJQueue.front()->getData()->getDuration() << endl;
+		outFile << tempJQueue.front()->getData()->getStartDate() << endl;
+		outFile << tempJQueue.front()->getData()->getEndDate() << endl;
+		otherTemp.popFront(); // currently not writing the tasks
+	}	
+
 }
 
 void Application::setRelatedCourses(CourseQueue *queue){
