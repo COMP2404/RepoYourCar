@@ -1,5 +1,5 @@
 #include "Control.h"
-#include "Queue.h"
+//#include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
 using namespace std;
@@ -17,11 +17,6 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
-	
-	
-	
-	
-	
  	
 	theApp->combo =  gtk_combo_box_text_new();
 	char text[MAX_BUF];
@@ -353,7 +348,7 @@ void Control::loadApplications(){
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 		Application *newApp = new Application(stu, a, c, s);
 		
-		//applicationList.pushBack(applicationList.createNode(newApp));
+		applicationList.pushBack(applicationList.createNode(newApp));
 				
   	}
  

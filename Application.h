@@ -5,11 +5,13 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Queue.h"
+//#include "AppQueue.h"
 #define APP_MAX_BUF 32
 
 #define INCLUDED
 using namespace std;
+#include "CourseQueue.h"
+#include "JobQueue.h"
 
 class Application{
 public:
@@ -30,7 +32,7 @@ public:
 	string   getStuMajor();
 	int      getStuYrStanding();
 	string   getStuID();
-	
+
 	bool printApp();
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();
@@ -41,9 +43,11 @@ private:
 //Student *applicant;
 	int     applicationNumber;
 	string  course;
-	Queue	relatedCourses;
-	Queue	relatedTAPositions;
-	Queue	relatedWorkEXP;
+	
+	CourseQueue	relatedCourses;
+	CourseQueue	relatedTAPositions;
+	JobQueue	relatedWorkEXP;
+	
 	string  applicationStatus;
 	//Student members:
 	int    stuCGPA;

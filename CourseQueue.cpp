@@ -1,25 +1,33 @@
-//YARR, This be the base Queue.
-
-//Drop the base!
 
 #include <iostream>
 using namespace std;
-#include "Queue.h"
+#include "CourseQueue.h"
 
 ///////////////////////////////
 //	    CTOR	     //
 ///////////////////////////////
-Queue::Queue() : head(NULL) {}
+CourseQueue::CourseQueue() : head(NULL) {}
 
+///////////////////////////////
+//	  NODE CTOR	     //
+///////////////////////////////
+CourseQueue::CourseNode::CourseNode() : data(NULL), next(NULL) {}
+
+///////////////////////////////
+//	  NODE DTOR	     //
+///////////////////////////////
+CourseQueue::CourseNode::~CourseNode(){
+	//do nothing, dont delete data
+}
 
 ///////////////////////////////
 //	    DTOR	     //
 ///////////////////////////////
-Queue::~Queue(){
+CourseQueue::~CourseQueue(){
 	/*
 	cout<<"Destruction"<<endl;
-	Node* tmpNode = head;
-	Node* dNode;
+	CourseNode* tmpNode = head;
+	CourseNode* dNode;
 	//go through the list freeing all nodes
 	while(tmpNode != NULL){		
 		dNode=tmpNode;	
@@ -33,21 +41,21 @@ Queue::~Queue(){
 ///////////////////////////////
 //	  COPY CTOR	     //
 ///////////////////////////////
-Queue::Queue(Queue& q){
+CourseQueue::CourseQueue(CourseQueue& q){
 	//cout << "IN COPY CTOR\n";
 	if(q.head==NULL) return;
 
 
-	Node* tmp = q.head;//iteration node for original Queue
-	head = new Node();//head node for the new Queue
+	CourseNode* tmp = q.head;//iteration node for original AppQueue
+	head = new CourseNode();//head node for the new AppQueue
 
-	Node* nPrev;//to connect the nodes in q
-	Node* nTmp = head;//iteration node for q
+	CourseNode* nPrev;//to connect the nodes in q
+	CourseNode* nTmp = head;//iteration node for q
 	while(tmp->next!=NULL){	
 		nTmp->data = tmp->data;//copy over the data from this queue to q
 		nPrev = nTmp;//make prev node this node before moving on	
 		tmp = tmp->next;//advance iteration node for source Queue
-		Node* node = new Node();//make a new node for each existing node		
+		CourseNode* node = new CourseNode();//make a new node for each existing node		
 		nTmp = node;
 		nPrev->next=nTmp;//connect the nodes in the new Queue	
 	}
@@ -55,8 +63,8 @@ Queue::Queue(Queue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void Queue::pushBack(Node* node){	
-	Node* tmpNode = head;
+void CourseQueue::pushBack(CourseNode* node){	
+	CourseNode* tmpNode = head;
 	if(head == NULL){
 		head = node;		
 		return;
@@ -68,35 +76,49 @@ void Queue::pushBack(Node* node){
 	}
 	//concatinate the new node with the list
 	tmpNode->next = node;
-
 }
 
 //removes the first item from the queue
-Node* Queue::popFront(){ 
+CourseQueue::CourseNode* CourseQueue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
-	Node* tmpNode = head;	
+	CourseNode* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
 	return tmpNode;
 }
 
 //returns the first item in the queue
-Node* Queue::front(){
+CourseQueue::CourseNode* CourseQueue::front(){
 	return head;
 }
 
+//returns a node with the application data inside it
+CourseQueue::CourseNode* CourseQueue::createNode(Course *cor){
+	CourseNode* tempNode = new CourseNode();
+	tempNode->data = cor;
+	tempNode->next = NULL;
+	return tempNode;
+}
 
-//tests whether or not the queue is empty
-bool Queue::isEmpty(){
-	return (head == NULL);
-} 
 
-int Queue::size() const{
+void CourseQueue::print() const{
+	CourseNode* tmp = head;
+	while(tmp!=NULL){
+		
+	}
+}
+
+int CourseQueue::size() const{
 	int i=0;
-	Node* tmp = head;
+	CourseNode* tmp = head;
 	while(tmp != NULL){
 		i++;
 		tmp=tmp->next;
 	}
 	return i;
 }
+
+//tests whether or not the queue is empty
+bool CourseQueue::isEmpty(){
+	return (head == NULL);
+} 
 

@@ -9,11 +9,11 @@ public:
 	//------------------------------
 	//FUNCTIONS---------------------
 
-	Course(string="Unknown", int=-1, int=-1, string="No one");
+	Course(string="Unknown", int=-1, string="Unknown", string="No one");
 	~Course();
 
 	int 	getYear(void);
-	int 	getTerm(void);
+	string 	getTerm(void);
 	string	getSupervisor(void);
 	string	getTitle(void);
 	
@@ -23,7 +23,7 @@ private:
 	//VARIABLES----------------------
 	string	title;
 	string	supervisor;
-	int	term;
+	string	term;
 	int	year;
 
 	//string courseCode;
