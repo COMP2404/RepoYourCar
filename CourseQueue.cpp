@@ -130,3 +130,7 @@ bool CourseQueue::isEmpty(){
 	return (head == NULL);
 } 
 
+
+Course* CourseQueue::CourseNode::getData() {
+	return data;
+}
