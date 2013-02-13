@@ -1,8 +1,5 @@
 #include "Control.h"
 
-
-//**********************************************
-
 //#include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
@@ -131,39 +128,112 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	int mg;
 	int cg;
 	int yr;
-	if(course->length() == 0)
-		good = false;
-	if(first->length() == 0)
-                good = false;
-	if(last->length() == 0)
-                good = false;
-	if(mgpa->length() == 0)
-                good = false;
-	if(gpa->length() == 0)
-                good = false;
-	if(email->length() == 0)
-                good = false;	
-	if(year->length() == 0)
-                good = false;
-	if(major->length() == 0)
-                good = false;
-	if(stunum->length() == 0)
-		good = false;
+
+	if(course->length() == 0){
+		return !good;
+	}
+		
+	if(first->length() == 0){
+		
+		return !good;
+	}
+                
+		
+	if(last->length() == 0){
+		return !good;
+	}
+                
+	if(mgpa->length() == 0){
+		return !good;
+	}
+                
+	if(gpa->length() == 0){
+		return !good;
+	}
+                
+	if(email->length() == 0){
+		return !good;
+	}
+                	
+	if(year->length() == 0){
+		return !good;
+	}
+               
+	if(major->length() == 0){
+		return !good;
+	}
+                
+	if(stunum->length() == 0){
+		return !good;
+	}
+		
+
 	
+	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ-'");
+  
+	if (invalidF != string::npos) {
+		cout << "You entered a non-alphabetical character, " << (*first)[invalidF];
+		cout << ", at position " << invalidF << endl;
+		
+   	}
+
+
+	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ-'");
+  
+	if (invalidL != string::npos) {
+		cout << "You entered a non-alphabetical character, " << (*last)[invalidL];
+		cout << ", at position " << invalidL << endl;
+		return !good;
+   	}
+
+
+	string stringToFind1("@carleton.ca");
+	
+	unsigned validChars1 = (*email).find(stringToFind1);
+
+	if (validChars1 == string::npos) {
+		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
+		return !good;
+	}
+
+	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ- ");
+  
+	if (invalidE != string::npos) {
+		cout << "You entered a non-alphabetical character, " << (*major)[invalidE];
+		cout << ", at position " << invalidE << endl;
+		return !good;
+   	 }
+
+
+	unsigned validStu = (*stunum).find_first_not_of("0123456789");
+	if (validStu != string::npos) {
+		cout << "You entered a character which is not a number between 0-9: " << (*stunum)[validStu];
+		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
+		return !good;
+    	}
+
+	if ((*stunum).length() != 9) {
+		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
+		return !good;
+	}
+	
+	if (yr < 1 || yr > 4) {
+		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
+		return !good;
+	}
+
+
 	mg = atoi(mgpa->c_str());	
 	cg = atoi(gpa->c_str());
 	yr = atoi(year->c_str());	
 
 	if(mg < 0 || mg > 12)
-		good = false;
+		return !good;
 	if(cg < 0 || cg > 12)
-		good = false;
+		return !good;
 	if(yr < 0 )
-		good = false;
+		return !good;
 
-	//bool ok = false;
-	//if(good) 
-		//ok = submit(course, first, last, mg, cg, email, yr, major, stunum);
 	return good;
 }
 
@@ -284,9 +354,13 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	static int applicationNum = 1;
 
 	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
-	theApp->studentRepeat = s;
+	//theApp->studentRepeat = s;
 
 	Application *a = new Application(s, applicationNum++, *course, "PENDING");
+	a->setRelatedCourses(theApp->cQRelated);
+	a->setRelatedTAPositions(theApp->cQTa);
+	a->setRelatedWorkEXP(theApp->jQRelated);
+	
 	theApp->studentApp = a;
 	//apples = a;
 
@@ -654,16 +728,10 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 		
 		if(theApp->moveOn){
 			
-			//-----------Create Course Object-------------//
-			//Student *stu = new Student(10, 10, "zach", "bill", "wqe@ad", "CS", 2, "yo"); //for debugging
-			//Application *newApp = new Application(stu, 5, "asd", "tring");               //for debugging
-
-			/*
 			int y = atoi(s2);
 			Course* cor = new Course(s1, y, s3, "N/A", s4);
-			//----------------push it to the Application's relatedCourses Queue----------------------------
-			theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
-			*/
+			theApp->cQRelated = new CourseQueue();
+			theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
 			theApp->moveOn = false;
 			relatedCourses2(widget, theApp);
 		}
@@ -694,13 +762,10 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
 		if(theApp->moveOn){
-			//-----------Create Course Object-------------//
-			/*
 			int y = atoi(s2);
-			Course* cor2 = new Course(s1, y, s3, s4);
-			//push it to the Application's relatedCourses Queue
-			theApp->studentApp->relatedTAPositions.pushBack(theApp->studentApp->relatedTAPositions.createNode(cor2));
-			*/
+			Course* cor = new Course(s1, y, s3, s4);
+			theApp->cQTa = new CourseQueue();
+			theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
 
 			theApp->moveOn = false;
 			workExperience(widget, theApp);
@@ -736,13 +801,10 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 
 		if(theApp->moveOn){
 
-			//-----------Create Job Object-------------//
-			/*
-			int y = atoi(s2);
-			Job* job = new Job(s1,s2,s3,s4,s5);
-			//push it to the Application's relatedCourses Queue
-			theApp->studentApp->relatedWorkEXP.pushBack(theApp->studentApp->relatedWorkEXP.createNode(job));
-			*/
+			
+			Job* job = new Job(s1, s2, s3, s4, s5);
+			theApp->jQRelated = new JobQueue();
+			theApp->jQRelated->pushBack(theApp->jQRelated->createNode(job));
 
 			theApp->moveOn = false;
 			finishExtra(widget, theApp);
@@ -834,7 +896,11 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
 
 	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
+
 	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+
+	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+
 
 }
 
@@ -1154,7 +1220,7 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	//Connect signals with each button as well as close////
 	/////////////////////////////////////////////////////
-	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), NULL);
+	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), theApp);
 
 	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 

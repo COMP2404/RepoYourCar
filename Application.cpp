@@ -80,3 +80,20 @@ bool Application::printApp(){
         return true;
 */
 }
+
+void Application::setRelatedCourses(CourseQueue *queue){
+	relatedCourses = queue;
+	
+}
+
+void Application::setRelatedTAPositions(CourseQueue *queue){
+	relatedTAPositions = queue;
+
+}
+
+void Application::setRelatedWorkEXP(JobQueue *queue){
+	relatedWorkEXP = queue;
+
+}
+
+
