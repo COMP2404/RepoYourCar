@@ -9,6 +9,7 @@ class CourseQueue
   {
     friend class CourseQueue;
     public:
+	Course* getData(void);
       CourseNode();
       ~CourseNode();
     private:

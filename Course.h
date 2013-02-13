@@ -9,14 +9,14 @@ public:
 	//------------------------------
 	//FUNCTIONS---------------------
 
-	Course(string="Unknown", int=-1, string="Unknown", string="No one", string="N/A");
+	Course(string="Unknown", int=-1, string="Unknown", string="No one");
 	~Course();
 
 	int 	getYear(void);
 	string 	getTerm(void);
 	string	getSupervisor(void);
 	string	getTitle(void);
-	string   getFinal(void);
+	
 	//-------------------------------
 
 private:
@@ -25,7 +25,7 @@ private:
 	string	supervisor;
 	string	term;
 	int	year;
-	string  final;
+
 	//string courseCode;
 	
 	//-------------------------------
