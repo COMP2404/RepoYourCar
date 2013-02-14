@@ -130,46 +130,55 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	int yr;
 
 	if(course->length() == 0){
+		cout << "Course is empty" <<endl;
 		return !good;
+		
 	}
 		
 	if(first->length() == 0){
-		
+		cout << "First name is empty" <<endl;
 		return !good;
 	}
                 
 		
 	if(last->length() == 0){
+		cout << "Last Name is Empty" <<endl;
 		return !good;
 	}
                 
 	if(mgpa->length() == 0){
+		cout << "MGPA is empty" <<endl;
 		return !good;
 	}
                 
 	if(gpa->length() == 0){
+		cout << "GPA is empty" <<endl;
 		return !good;
 	}
                 
 	if(email->length() == 0){
+		cout << "Email is Empty" <<endl;
 		return !good;
 	}
                 	
 	if(year->length() == 0){
+		cout << "year is Empty" <<endl;
 		return !good;
 	}
                
 	if(major->length() == 0){
+		cout << "Major is Empty" <<endl;
 		return !good;
 	}
                 
 	if(stunum->length() == 0){
+		cout << "Student Number is Empty" <<endl;
 		return !good;
 	}
 		
 
 	
-	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ-'");
+	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
   
 	if (invalidF != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*first)[invalidF];
@@ -178,7 +187,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
    	}
 
 
-	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ-'");
+	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
   
 	if (invalidL != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*last)[invalidL];
@@ -196,7 +205,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 		return !good;
 	}
 
-	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ- ");
+	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ");
   
 	if (invalidE != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*major)[invalidE];
@@ -217,10 +226,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 		return !good;
 	}
 	
-	if (yr < 1 || yr > 4) {
-		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
-		return !good;
-	}
+	
 
 
 	mg = atoi(mgpa->c_str());	
@@ -231,8 +237,10 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 		return !good;
 	if(cg < 0 || cg > 12)
 		return !good;
-	if(yr < 0 )
+	if (yr < 1 || yr > 4) {
+		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
 		return !good;
+	}
 
 	return good;
 }
@@ -254,7 +262,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	int num;
 	s1 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->combo));
 	if(s1==NULL)
-		s1="no course specified";
+		s1="";
 	s2 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
 	
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
