@@ -5,13 +5,90 @@
 
 using namespace std;
 Application* apples;
+
+
+
+void Control::popWindow(string s, WindowApp *theApp){
+	theApp->error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->error_window), 400, 200);
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
+	gtk_window_set_title(GTK_WINDOW(theApp->error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	theApp->error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(theApp->error_window), theApp->error_frame);
+
+	theApp->error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(theApp->error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	theApp->error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_message, 10, 10); 
+
+
+	gtk_widget_show_all(theApp->error_window);
+
+	g_signal_connect(theApp->error_dismiss, "clicked", G_CALLBACK (Control::closePopWindow), theApp);
+}
+
+void Control::closePopWindow(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->error_window);
+}
+
+void Control::studentPage(GtkWidget *widget, WindowApp *theApp){
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//have the admin page come up
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
+	
+	gtk_container_remove (GTK_CONTAINER (theApp->window), theApp->appFrame);
+	
+	char text[MAX_BUF];
+	string courses[800];
+
+	ifstream inFile("courses.txt", ios::in);
+
+	if (!inFile) {
+		cout<<"Could not open file"<<endl;
+		exit(1);
+	}	
+	while (!inFile.eof()) {
+		inFile.getline(text, MAX_BUF);
+		
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
+	}
+
+	//gtk_widget_set_size_request(theApp->apply, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_combo, 50, 50);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_cancel, 50, 100 );
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->admin_frame);
+	
+	gtk_widget_show_all(theApp->window);
+	
+
+}
+
+
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
 							//make the application
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-
 
 int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 {
@@ -796,20 +873,52 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
       
 	string1 = (s1);
 	string2 = (s2);
+	
 	string3 = (s3);
 	string4 = (s4);
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		theApp->checkGood = true;
 		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
 		
 		if(theApp->moveOn){
+			int yr = atoi(string2.c_str());
+			unsigned validRC1 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validRC1 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
+				cout << ", at position " << validRC1 << endl;
+				Control:popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+		   	}
+			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validterm1 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string3)[validterm1];
+				cout << ", at position " << validterm1 << endl;
+				theApp->checkGood = false;
+		   	}
+
+			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			if (grade != string::npos) {
+				cout << "Please Enter a Letter Grade" << endl;
+				theApp->checkGood = false;
+		   	}
+
+
+			if (yr < 1990 || yr > 2013) {
+				cout << "Year must be between 1990 and 2013" << endl; 
+				theApp->checkGood = false;
+				
+			}
 			
-			int y = atoi(s2);
-			Course* cor = new Course(s1, y, s3, "N/A", s4);
-			theApp->cQRelated = new CourseQueue();
-			theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
-			theApp->moveOn = false;
-			relatedCourses2(widget, theApp);
+			if(theApp->checkGood){
+				Course* cor = new Course(string1, yr, string3, "N/A", string4);
+				theApp->cQRelated = new CourseQueue();
+				theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
+				theApp->moveOn = false;
+				relatedCourses2(widget, theApp);
+			}
 		}
 		
 		
@@ -838,13 +947,47 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
 		if(theApp->moveOn){
-			int y = atoi(s2);
-			Course* cor = new Course(s1, y, s3, s4);
-			theApp->cQTa = new CourseQueue();
-			theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
+			int yr = atoi(string2.c_str());
 
-			theApp->moveOn = false;
-			workExperience(widget, theApp);
+
+			unsigned validRC2 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validRC2 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRC2];
+				cout << ", at position " << validRC2 << endl;
+				theApp->checkGood = false;
+		   	}
+			unsigned validterm2 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validterm2 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
+				cout << ", at position " << validterm2 << endl;
+				theApp->checkGood = false;
+		   	}
+
+			unsigned supervisor = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			if (supervisor != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
+				cout << ", at position " << supervisor << endl;
+				theApp->checkGood = false;
+		   	}
+
+
+			if (yr < 1990 || yr > 2013) {
+				cout << "Year must be between 1990 and 2013" << endl; 
+				theApp->checkGood = false;
+				
+			}
+
+			if(theApp->checkGood){
+				Course* cor = new Course(string1, yr, string3, string4, "N/A");
+			
+				theApp->cQTa = new CourseQueue();
+				theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
+
+				theApp->moveOn = false;
+				workExperience(widget, theApp);
+			}
 		}
 		
 		
@@ -876,14 +1019,52 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
 
 		if(theApp->moveOn){
-
 			
-			Job* job = new Job(s1, s2, s3, s4, s5);
-			theApp->jQRelated = new JobQueue();
-			theApp->jQRelated->pushBack(theApp->jQRelated->createNode(job));
 
-			theApp->moveOn = false;
-			finishExtra(widget, theApp);
+
+			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validRW != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
+				cout << ", at position " << validRW << endl;
+				theApp->checkGood = false;
+		   	}
+			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validresp != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string2)[validresp];
+				cout << ", at position " << validresp << endl;
+				theApp->checkGood = false;
+		   	}
+			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			if (validdur != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string3)[validdur];
+				cout << ", at position " << validdur << endl;
+				theApp->checkGood = false;
+		   	}
+
+			unsigned startDate = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			if (startDate != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
+				cout << ", at position " << startDate << endl;
+				theApp->checkGood = false;
+		   	}
+
+			unsigned endDate = (string5).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			if (endDate != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
+				cout << ", at position " << endDate << endl;
+				theApp->checkGood = false;
+		   	}
+
+			if(theApp->checkGood){
+				Job* job = new Job(s1, s2, s3, s4, s5);
+				theApp->jQRelated = new JobQueue();
+				theApp->jQRelated->pushBack(theApp->jQRelated->createNode(job));
+
+				theApp->moveOn = false;
+				finishExtra(widget, theApp);
+			}
 		}
 		
 	}
@@ -1069,41 +1250,7 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//**********************************************************************************************************************************************************************//
-			//have the admin page come up
-//**********************************************************************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
-	
-	gtk_container_remove (GTK_CONTAINER (theApp->window), theApp->appFrame);
-	
-	char text[MAX_BUF];
-	string courses[800];
-
-	ifstream inFile("courses.txt", ios::in);
-
-	if (!inFile) {
-		cout<<"Could not open file"<<endl;
-		exit(1);
-	}	
-	while (!inFile.eof()) {
-		inFile.getline(text, MAX_BUF);
-		
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
-	}
-
-	//gtk_widget_set_size_request(theApp->apply, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_combo, 50, 50);
-	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_cancel, 50, 100 );
-	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->admin_frame);
-	
-	gtk_widget_show_all(theApp->window);
-	
-
-}
 
 
 
@@ -1258,14 +1405,19 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	//Make the application button and add to frame---////
 	/////////////////////////////////////////////////////
+
+	theApp->btnStudent = gtk_button_new_with_label("Student");
+	gtk_widget_set_size_request(theApp->btnStudent, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->btnStudent, 50, 20);	
+
 	theApp->apply = gtk_button_new_with_label("Apply");
 	gtk_widget_set_size_request(theApp->apply, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->apply, 50, 20);
+	//gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->apply, 50, 20);
 
 	/////////////////////////////////////////////////////
 	//------Make the login button and add to frame---////
 	/////////////////////////////////////////////////////
-	theApp->login = gtk_button_new_with_label("Login");
+	theApp->login = gtk_button_new_with_label("Admin");
 	gtk_widget_set_size_request(theApp->login, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->login, 50, 80);
 
@@ -1298,7 +1450,7 @@ int Control::createWindow(int argc, char** argv)
 	/////////////////////////////////////////////////////
 	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), theApp);
 
-	g_signal_connect(theApp->apply, "clicked", G_CALLBACK(Control::makeApplication), theApp);
+	g_signal_connect(theApp->btnStudent, "clicked", G_CALLBACK(Control::makeApplication), theApp);
 
 	
 	g_signal_connect(theApp->login, "clicked", G_CALLBACK(Control::adminPage), theApp);

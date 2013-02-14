@@ -3,6 +3,7 @@
 using namespace std;
 #include <string>
 
+
 class Course{
 public:
 	//VARIABLES---------------------

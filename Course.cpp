@@ -4,10 +4,16 @@
 
 Course::Course(string name, int y, string when, string person, string grade){
 	title =	name;
-	year =	y;
 	term =	when;
 	supervisor = person;
 	final = grade;
+    	int i = 11111111;
+
+	cout << "title: "+title << endl;
+	cout << y << endl;
+	cout << i << endl;
+	cout << "super:"+supervisor << endl;
+	cout << "grade:"+final << endl;
 	
 }
 //GETTERS===================================================

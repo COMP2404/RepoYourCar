@@ -22,7 +22,8 @@ class Control{
 		static void cancel();
 		void loadApplications();
 		
-		static void adminPage(GtkWidget*, WindowApp*);
+		
+		//static void adminPage(GtkWidget*, WindowApp*);
 		
 	private:
 		
@@ -31,6 +32,10 @@ class Control{
 		bool errorCheck2();
 		
 	protected:
+		static void popWindow(string, WindowApp*);
+		static void closePopWindow(GtkWidget*, WindowApp*);
+		static void studentPage(GtkWidget*, WindowApp*);
+		static void adminPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int getInfo(GtkWidget*,WindowApp*);
 		static void workExperience(GtkWidget *, WindowApp *);
