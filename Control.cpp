@@ -400,9 +400,21 @@ void Control::loadApplications(){
 
 	ifstream inFile("Applications.txt", ios::in);
 
+	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i;
+	CourseQueue *aCourseQueue;
+	CourseQueue *bCourseQueue;
+	JobQueue *jQueue;	
 
+	//Varibles used to build a course
+	int cYear;
+	string cSuper, cTitle, cTerm;	
+
+	//Variables used to build a job
+	string jTitle, jDuration, jStart, jEnd;
+	string anArray[100];
+	
   	if (!inFile) {
     		cout<<"Could not open file"<<endl;
     		exit(1);
@@ -433,11 +445,67 @@ void Control::loadApplications(){
 		inFile.getline(text, MAX_BUF);
 		i = text;
 
-		//Now initialise an application
+		//read the related courses
+		while (1){ //untill you get to the TA positions
+			inFile.getline(text, MAX_BUF);
+			if (text == "RELATED TA POSITIONS"){
+				break;
+			}
+			cTitle = text;
+			inFile.getline(text, MAX_BUF);
+			cSuper = text;
+			inFile.getline(text, MAX_BUF);
+			cYear = atoi(text);
+			inFile.getline(text, MAX_BUF);
+			cTerm = text;
+			Course *cor = new Course(cTitle, cYear, cTerm, cSuper);
+			aCourseQueue->pushBack(aCourseQueue->createNode(cor));			
+		}
+
+		//read the related TA positions
+		while (1){
+			inFile.getline(text, MAX_BUF);
+			if (text == "WORK EXP"){
+				break;
+			}
+			cTitle = text;
+			inFile.getline(text, MAX_BUF);
+			cSuper = text;
+			inFile.getline(text, MAX_BUF);
+			cYear = atoi(text);
+			inFile.getline(text, MAX_BUF);
+			cTerm = text;
+			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper);
+			bCourseQueue->pushBack(bCourseQueue->createNode(bcor));	
+			
+		}
+		//read the related Work EXP
+		while (1){
+			inFile.getline(text, MAX_BUF);
+			if (text == "******"){
+				break;
+			}
+			jTitle = text;
+			inFile.getline(text, MAX_BUF);
+			jDuration = text;
+			inFile.getline(text, MAX_BUF);
+			jStart = text;
+			inFile.getline(text, MAX_BUF);
+			jEnd = text;
+			
+
+			Job *aJob = new Job(jTitle, "NONE", jDuration, jStart, jEnd);
+			jQueue->pushBack(jQueue->createNode(aJob));
+			
+		}
+
+		//NOW initialise an application
+
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
-		Application *newApp = new Application(stu, a, c, s);
+
+		//Application *newApp = new Application(stu, a, c, s, aCourseQueue, bCourseQueue, jQueue);		
+		//applicationList.pushBack(applicationList.createNode(newApp));
 		
-		applicationList.pushBack(applicationList.createNode(newApp));
 				
   	}
  

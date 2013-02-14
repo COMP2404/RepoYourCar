@@ -122,3 +122,7 @@ bool JobQueue::isEmpty(){
 	return (head == NULL);
 } 
 
+
+Job* JobQueue::JobNode::getData(){
+	return data;
+}
