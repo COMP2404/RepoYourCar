@@ -9,9 +9,11 @@
 
 class AppQueue
 {
-  class AppNode
+	friend class Control;
+ class AppNode
   {
     friend class AppQueue;
+	friend class Control;
     public:
       AppNode();
       ~AppNode();

@@ -12,6 +12,9 @@
 #include <cstdlib>
 #include <string.h>
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sstream>
 using namespace std;
 
 class Control{
@@ -33,11 +36,14 @@ class Control{
 		
 	protected:
 		static void viewSummary(GtkWidget*, WindowApp*);
+		static void updateCombo(GtkWidget*, WindowApp*);
 		static void mainMenu(GtkWidget*, WindowApp*);
 		static void popWindow(string, WindowApp*);
 		static void closePopWindow(GtkWidget*, WindowApp*);
 		static void closeAdminPage(GtkWidget*, WindowApp*);
 		static void studentPage(GtkWidget*, WindowApp*);
+		static void closeStudentPage(GtkWidget*, WindowApp*);
+		static void prepareNewStudentApp(GtkWidget*, WindowApp*);
 		static void adminPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int getInfo(GtkWidget*,WindowApp*);

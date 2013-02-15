@@ -6,7 +6,11 @@
 using namespace std;
 Application* apples;
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//Error Window that will pop up
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Control::popWindow(string s, WindowApp *theApp){
 	theApp->error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -36,9 +40,7 @@ void Control::closePopWindow(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->error_window);
 }
 
-void Control::studentPage(GtkWidget *widget, WindowApp *theApp){
 
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
@@ -60,7 +62,7 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 	theApp->admin_viewSummary = gtk_button_new_with_label("View Summary Of Pending Applications");
 	gtk_widget_set_size_request(theApp->admin_viewSummary, 150, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_viewSummary , 100, 100);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_viewSummary , 100, 50);
 
 	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
@@ -82,6 +84,52 @@ void Control::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->admin_window);
 }
 
+void Control::studentPage(GtkWidget *widget, WindowApp *theApp){
+	theApp->student_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->student_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->student_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(theApp->student_window), "Student Window");
+	
+	theApp->student_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(theApp->student_window), theApp->student_frame);
+
+	theApp->student_edit = gtk_button_new_with_label("Edit Application");
+	gtk_widget_set_size_request(theApp->student_edit , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->student_edit  , 20, 50);
+
+	theApp->student_apply = gtk_button_new_with_label("New Application");
+	gtk_widget_set_size_request(theApp->student_apply, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->student_apply , 150, 50);
+
+	theApp->student_cancel = gtk_button_new_with_label("Cancel");
+	gtk_widget_set_size_request(theApp->student_cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->student_cancel , 60, 150);
+	
+	gtk_widget_show_all(theApp->student_window);
+
+	g_signal_connect(theApp->student_apply, "clicked", G_CALLBACK (Control::makeApplication), theApp);
+	g_signal_connect(theApp->student_cancel, "clicked", G_CALLBACK (Control::closeStudentPage), theApp);
+}
+
+void Control::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->student_window);
+}
+
+void Control::prepareNewStudentApp(GtkWidget *widget, WindowApp *theApp){
+	
+	
+	
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//View Summary of Pending Apps
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->admin_window);
 	gtk_widget_destroy(theApp->appFrame);
@@ -89,16 +137,23 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	
 	
 	theApp->admin_combo =  gtk_combo_box_text_new();
+	theApp->summary_combo =  gtk_combo_box_text_new();
 	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 50);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->summary_combo, 50, 100);
 	
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 	
 	gtk_widget_show_all(theApp->window);
+
+	
+
 	char text[MAX_BUF];
 	string courses[800];
+
+
 
 	ifstream inFile("courses.txt", ios::in);
 
@@ -112,6 +167,65 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
 	}
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+	g_signal_connect(GTK_COMBO_BOX(theApp->admin_combo), "changed", G_CALLBACK   (Control::updateCombo), theApp);
+}
+
+void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
+	
+	const gchar* theCourse;
+ 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
+	string courseString;
+	courseString = (theCourse);
+	
+	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
+	
+	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
+	string s1,s2,s3,s4,s5,s6,s7 ,s8;
+	
+	//int length = qCopy->size();
+	
+	char theInput[200];
+	string input[100];//string array for each Application
+	
+	AppQueue::AppNode* tmpNode = qCopy->head;
+	tmpNode = qCopy->popFront();
+	 int i = 0;
+	//for(int i=0; i<length; i++){
+	while(tmpNode != NULL){
+		
+		if(tmpNode->data != NULL){
+			std::stringstream ss1; 
+			std::stringstream ss2; 
+			std::stringstream ss3; 
+			
+			s1 = tmpNode->data->getStuFirst();
+			
+			s2 = tmpNode->data->getStuLast();
+			 
+			ss1 << tmpNode->data->getStuYrStanding();
+			s3 = ss1.str();
+			s4 = tmpNode->data->getStuMajor();
+			ss2 << tmpNode->data->getStuCGPA();
+			s5 = ss2.str();
+			s6 = tmpNode->data->getStuEmail();
+			s7 = tmpNode->data->getStuID();
+			ss3 << tmpNode->data->getStuMGPA();
+			s8 = ss3.str();
+			
+		 
+			input[i] = "Student: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+			//theInput = input[i];
+			strcpy(theInput,input[i].c_str());
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->summary_combo), theInput);
+			i++;
+			tmpNode = qCopy->popFront();
+		}
+		else{
+			tmpNode = NULL;
+		}
+		
+	}
+
 }
 
 
@@ -131,8 +245,24 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
- 	
+ 	gtk_widget_destroy(theApp->student_window);
+	gtk_widget_destroy(theApp->appFrame);
+	theApp->appFrame = gtk_fixed_new();
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	
+
 	theApp->combo =  gtk_combo_box_text_new();
+	theApp->fName = gtk_entry_new();
+	theApp->lName = gtk_entry_new();
+	theApp->major = gtk_entry_new();
+	theApp->gpa = gtk_entry_new();
+	theApp->email = gtk_entry_new();
+	theApp->year = gtk_entry_new();
+	theApp->cgpa = gtk_entry_new();
+	theApp->stuNum = gtk_entry_new();
+
+
+	
 	char text[MAX_BUF];
 	string courses[800];
 
@@ -152,20 +282,13 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	//--Creates text Boxes and submit\cancel buttons---//
 	/////////////////////////////////////////////////
 	//theApp->combo = combo;
-	theApp->fName = gtk_entry_new();
-	theApp->lName = gtk_entry_new();
-	theApp->major = gtk_entry_new();
-	theApp->gpa = gtk_entry_new();
-	theApp->email = gtk_entry_new();
-	theApp->year = gtk_entry_new();
-	theApp->cgpa = gtk_entry_new();
-	theApp->stuNum = gtk_entry_new();
+	
 	
 	
 	/////////////////////////////////////////////////
 	//--Puts text boxes onto the new frame---------//
 	/////////////////////////////////////////////////
-	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 280);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 310);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 340);
@@ -178,6 +301,8 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	/////////////////////////////////////////////////
 	//--Puts labels onto the new frame---------//
 	/////////////////////////////////////////////////
+
+	
 	theApp->lblfName = gtk_label_new("First Name :");
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 280); 
 	theApp->lbllName = gtk_label_new("Last Name :");
@@ -195,11 +320,13 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	theApp->lblstuNum = gtk_label_new("Student Number :");
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblstuNum, 30, 490);
 
+	
+
 	/////////////////////////////////////////////////
 	//--Puts buttons onto the new frame---------//
 	/////////////////////////////////////////////////
 
-
+	
 	theApp->submit = gtk_button_new_with_label("Submit");
 	theApp->cancel = gtk_button_new_with_label("Cancel");
 
@@ -209,12 +336,16 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	gtk_widget_set_size_request(theApp->cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 530);
 
+	theApp->info_label = gtk_label_new("Please Enter Info Below");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->info_label, 150, 58);
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 	/////////////////////////////////////////////////
 	//--Show all widgets on new frame---------//
 	/////////////////////////////////////////////////
-	gtk_widget_show_all(theApp->appFrame);
+	gtk_widget_show_all(theApp->window);
+
+	 
 	
-	gtk_label_set_text(GTK_LABEL(theApp->label), "Please Enter Info Below");
 
 	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
@@ -452,56 +583,47 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		g = atof(s5);
 		num = atoi(s7);
 
-//		Student joe(c,g,s1,s2,s6,s3,num,s8);
-		//Student *newStu = new Student(c, g, s1, s2, s6, s3, num, s8);
-		
-	//Use it to make an application
-		//Application *newApp = new Application(newStu, 1007, "CompSci", "Pending");
-		
 
 
 
+		/////////////////////////////////////////////////////
+		//-----------Create new submission window -------////
+		/////////////////////////////////////////////////////
 
-
-
-	/////////////////////////////////////////////////////
-	//-----------Create new submission window -------////
-	/////////////////////////////////////////////////////
-
-	theApp->submitWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(theApp->submitWindow), GTK_WIN_POS_CENTER);
+		theApp->submitWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		gtk_window_set_position(GTK_WINDOW(theApp->submitWindow), GTK_WIN_POS_CENTER);
 	
-	gtk_window_set_default_size(GTK_WINDOW(theApp->submitWindow), 250, 100);
-	gtk_window_set_title(GTK_WINDOW(theApp->submitWindow), "Submit Page");
+		gtk_window_set_default_size(GTK_WINDOW(theApp->submitWindow), 250, 100);
+		gtk_window_set_title(GTK_WINDOW(theApp->submitWindow), "Submit Page");
 	
 	
 
-	/////////////////////////////////////////////////////
-	//-----------Add frame onto window---------------////
-	/////////////////////////////////////////////////////
-	theApp->submitFrame = gtk_fixed_new();
+		/////////////////////////////////////////////////////
+		//-----------Add frame onto window---------------////
+		/////////////////////////////////////////////////////
+		theApp->submitFrame = gtk_fixed_new();
 	
 
-	gtk_container_add(GTK_CONTAINER(theApp->submitWindow), theApp->submitFrame);
+		gtk_container_add(GTK_CONTAINER(theApp->submitWindow), theApp->submitFrame);
 
-	//submission page
-	theApp->submitFinish = gtk_button_new_with_label("Finish");
-	theApp->submitRepeat = gtk_button_new_with_label("Make Another");
-
-	
-	gtk_widget_set_size_request(theApp->submitFinish, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitFinish, 30, 20);
+		//submission page
+		theApp->submitFinish = gtk_button_new_with_label("Finish");
+		theApp->submitRepeat = gtk_button_new_with_label("Make Another");
 
 	
-	gtk_widget_set_size_request(theApp->submitRepeat, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitRepeat, 150, 20);
+		gtk_widget_set_size_request(theApp->submitFinish, 80, 35);
+		gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitFinish, 30, 20);
 
-	gtk_widget_show_all(theApp->submitWindow);
+	
+		gtk_widget_set_size_request(theApp->submitRepeat, 80, 35);
+		gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitRepeat, 150, 20);
 
-	g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::submitToMain), theApp);
-	g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
+		gtk_widget_show_all(theApp->submitWindow);
 
-	Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, theApp);
+		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+		g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
+
+		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, theApp);
 		
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
@@ -919,7 +1041,7 @@ void Control::workExperience(GtkWidget *widget, WindowApp *theApp){
 
 void Control::moveOn(GtkWidget *widget, WindowApp *theApp){
 	theApp->moveOn = true;
-	quickCheck(widget,theApp);
+	quickCheck(widget,theApp); //checks if the app can move on to next page
 
 }
 void Control::moveOn2(GtkWidget *widget, WindowApp *theApp){
@@ -939,7 +1061,7 @@ void Control::moveOn3(GtkWidget *widget, WindowApp *theApp){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
-			//quick check: check if the extra info boxes are empty
+			//quick check: check if the extra info boxes are empty and other error checking
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1130,8 +1252,8 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned startDate = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned endDate = (string5).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned startDate = (string4).find_first_not_of("0123456789/");
+			unsigned endDate = (string5).find_first_not_of("0123456789/");
   
 			if (validRW != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
@@ -1162,7 +1284,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			else if (startDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
 				cout << ", at position " << startDate << endl;
-				Control::popWindow("You entered a non-alphabetical character", theApp);
+				Control::popWindow("Wrong Format for Start Date", theApp);
 				theApp->checkGood = false;
 				theApp->moveOn = false;
 		   	}
@@ -1171,7 +1293,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			else if (endDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
 				cout << ", at position " << endDate << endl;
-				Control::popWindow("You entered a non-alphabetical character", theApp);
+				Control::popWindow("Wrong Format for End Date", theApp);
 				theApp->checkGood = false;
 				theApp->moveOn = false;
 		   	}
@@ -1258,14 +1380,6 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	string4 = (s4);
 
 
-	/*
-	int y = atoi(s2);
-	Course* cor = new Course(s1, y, s3, "N/A", s4);
-	//----------------push it to the Application's relatedCourses Queue----------------------------
-	theApp->studentApp->relatedCourses.pushBack(theApp->studentApp->relatedCourses.createNode(cor));
-	*/
-	
-
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year1), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term1), "");
@@ -1291,14 +1405,7 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 	s3 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_term2));
 	s4 = gtk_entry_get_text(GTK_ENTRY(theApp->ei_supervisor));  
 	       
-	//-----------Create Course Object-------------//
-	/*
-	int y = atoi(s2);
-	Course* cor2 = new Course(s1, y, s3, s4);
-	//push it to the Application's relatedCourses Queue
-	theApp->studentApp->relatedTAPositions.pushBack(theApp->studentApp->relatedTAPositions.createNode(cor2));
-	*/
-  
+	
       
 	string1 = (s1);
 	string2 = (s2);
@@ -1332,14 +1439,6 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	string5 = (s5);
-
-	//-----------Create Job Object-------------//
-	/*
-	int y = atoi(s2);
-	Job* job = new Job(s1,s2,s3,s4,s5);
-	/push it to the Application's relatedCourses Queue
-	theApp->studentApp->relatedWorkEXP.pushBack(theApp->studentApp->relatedWorkEXP.createNode(job));
-	*/
 
 	
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
@@ -1455,7 +1554,7 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 	*/
 	gtk_widget_destroy(theApp->appFrame);
 	Control::mainMenu(widget,theApp);
-	//gtk_widget_destroy(theApp->window);
+	
 
 
 }
@@ -1477,7 +1576,11 @@ void Control::submitToRepeat(GtkWidget *widget,WindowApp *theApp){
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//Create the Main Menu
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
@@ -1542,7 +1645,7 @@ void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), theApp);
 
-	g_signal_connect(theApp->btnStudent, "clicked", G_CALLBACK(Control::makeApplication), theApp);
+	g_signal_connect(theApp->btnStudent, "clicked", G_CALLBACK(Control::studentPage), theApp);
 
 	
 	g_signal_connect(theApp->login, "clicked", G_CALLBACK(Control::adminPage), theApp);
@@ -1553,7 +1656,7 @@ void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
-		//create the main window and initialize everything
+		//create the main window
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
