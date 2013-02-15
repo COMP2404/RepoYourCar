@@ -67,7 +67,7 @@ bool Application::printApp(){
 	CourseQueue tempQ(*relatedCourses);
 	for(i=0; i < tempQ.size(); i++){
 		outFile << tempQ.front()->getData()->getTitle() << endl;
-		outFile << tempQ.front()->getData()->getSupervisor() << endl;
+		outFile << tempQ.front()->getData()->getFinal() << endl;
 		outFile << tempQ.front()->getData()->getYear() << endl;
 		outFile << tempQ.front()->getData()->getTerm() << endl;
 		tempQ.popFront();

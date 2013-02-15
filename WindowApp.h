@@ -5,8 +5,9 @@
 #include "Student.h"
 #include "Application.h"
 #include "Course.h"
-
+#include "AppQueue.h"
 //#include <String.h>
+
 using namespace std;
 class WindowApp{
 	public:
@@ -18,6 +19,7 @@ class WindowApp{
 		Course *studentCourse;
 		CourseQueue *cQRelated, *cQTa;
 		JobQueue *jQRelated;
+		AppQueue appQueue;
 		
 
 		bool moveOn;

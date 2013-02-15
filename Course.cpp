@@ -7,13 +7,8 @@ Course::Course(string name, int y, string when, string person, string grade){
 	term =	when;
 	supervisor = person;
 	final = grade;
-    	int i = 11111111;
-
-	cout << "title: "+title << endl;
-	cout << y << endl;
-	cout << i << endl;
-	cout << "super:"+supervisor << endl;
-	cout << "grade:"+final << endl;
+	year = y;
+    	
 	
 }
 //GETTERS===================================================

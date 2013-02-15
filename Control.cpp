@@ -205,6 +205,18 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	int mg;
 	int cg;
 	int yr;
+	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
+	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
+	string stringToFind1("@carleton.ca");
+	unsigned validChars1 = (*email).find(stringToFind1);
+	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ");
+	unsigned validStu = (*stunum).find_first_not_of("0123456789");
+	unsigned validGPA = (*gpa).find_first_not_of("0123456789");
+	unsigned validCGPA = (*mgpa).find_first_not_of("0123456789");
+	  
+	mg = atoi(mgpa->c_str());	
+	cg = atoi(gpa->c_str());
+	yr = atoi(year->c_str());
 
 	if(course->length() == 0){
 		cout << "Course is empty" <<endl;
@@ -213,60 +225,90 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 		
 	}
 		
-	if(first->length() == 0){
+	else if(first->length() == 0){
 		cout << "First name is empty" <<endl;
 		Control::popWindow("First name is empty", theApp);
 		return !good;
 	}
                 
 		
-	if(last->length() == 0){
+	else if(last->length() == 0){
 		cout << "Last Name is Empty" <<endl;
 		Control::popWindow("Last Name is Empty", theApp);
 		return !good;
 	}
                 
-	if(mgpa->length() == 0){
+	else if(mgpa->length() == 0){
 		cout << "MGPA is empty" <<endl;
 		Control::popWindow("MGPA is empty", theApp);
 		return !good;
 	}
                 
-	if(gpa->length() == 0){
+	else if(gpa->length() == 0){
 		cout << "GPA is empty" <<endl;
 		Control::popWindow("GPA is empty", theApp);
 		return !good;
 	}
                 
-	if(email->length() == 0){
+	else if(email->length() == 0){
 		cout << "Email is Empty" <<endl;
 		Control::popWindow("Email is Empty", theApp);
 		return !good;
 	}
                 	
-	if(year->length() == 0){
+	else if(year->length() == 0){
 		cout << "year is Empty" <<endl;
 		Control::popWindow("year is Empty", theApp);
 		return !good;
 	}
                
-	if(major->length() == 0){
+	else if(major->length() == 0){
 		cout << "Major is Empty" <<endl;
 		Control::popWindow("Major is Empty", theApp);
 		return !good;
 	}
                 
-	if(stunum->length() == 0){
+	else if(stunum->length() == 0){
 		cout << "Student Number is Empty" <<endl;
 		Control::popWindow("Student Number is Empty", theApp);
 		return !good;
 	}
-		
 
+	else if (validGPA != string::npos) {
+		cout << "You entered a non-alphabetical character, " << (*gpa)[validGPA];
+		cout << ", at position " << validGPA << endl;
+			
+		Control::popWindow("Please Enter a valid GPA", theApp);
+		return !good;
+		
+   	}
+	else if (validCGPA != string::npos) {
+		cout << "You entered a non-alphabetical character, " << (*mgpa)[validCGPA];
+		cout << ", at position " << validCGPA << endl;
+			
+		Control::popWindow("Please Enter a valid CGPA", theApp);
+		return !good;
+		
+   	}
 	
-	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
+		
+	else if(mg < 0 || mg > 12){
+		Control::popWindow("Enter a GPA between 0 and 12", theApp);
+		return !good;
+	}
+	else if(cg < 0 || cg > 12){
+		Control::popWindow("Enter a CGPA between 0 and 12", theApp);
+		return !good;
+	}
+	else if (yr < 1 || yr > 4) {
+		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
+		Control::popWindow("Year standing must be either 1, 2, 3, or 4.", theApp);
+		return !good;
+	}
+	
+	
   
-	if (invalidF != string::npos) {
+	else if (invalidF != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*first)[invalidF];
 		cout << ", at position " << invalidF << endl;
 			
@@ -276,9 +318,9 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
    	}
 
 
-	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
+	
   
-	if (invalidL != string::npos) {
+	else if (invalidL != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*last)[invalidL];
 		cout << ", at position " << invalidL << endl;
 		Control::popWindow("You entered a non-alphabetical character in last name", theApp);
@@ -286,19 +328,17 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
    	}
 
 
-	string stringToFind1("@carleton.ca");
 	
-	unsigned validChars1 = (*email).find(stringToFind1);
 
-	if (validChars1 == string::npos) {
+	else if (validChars1 == string::npos) {
 		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
 		Control::popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.", theApp);
 		return !good;
 	}
 
-	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ");
+	
   
-	if (invalidE != string::npos) {
+	else if (invalidE != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*major)[invalidE];
 		cout << ", at position " << invalidE << endl;
 		Control::popWindow("You entered a non-alphabetical character in major", theApp);
@@ -306,38 +346,26 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
    	 }
 
 
-	unsigned validStu = (*stunum).find_first_not_of("0123456789");
-	if (validStu != string::npos) {
+	
+	else if (validStu != string::npos) {
 		cout << "You entered a character which is not a number between 0-9: " << (*stunum)[validStu];
 		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
-		Control::popWindow("You entered a character which is not a number between 0-9", theApp);
+		Control::popWindow("Your student number contains invalid characters", theApp);
 		return !good;
     	}
 
-	if ((*stunum).length() != 9) {
+	else if ((*stunum).length() != 9) {
 		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
-		Control::popWindow("A valid student number has exactly 9 characters. Please re-enter your student number.", theApp);
+		Control::popWindow("A valid student number has exactly 9 characters.", theApp);
 		return !good;
 	}
 	
+	cout << "Its getting to here" << endl;
+
+
+		
+
 	
-
-
-	mg = atoi(mgpa->c_str());	
-	cg = atoi(gpa->c_str());
-	yr = atoi(year->c_str());	
-
-	if(mg < 0 || mg > 12)
-		Control::popWindow("Enter a GPA between 0 and 12", theApp);
-		return !good;
-	if(cg < 0 || cg > 12)
-		Control::popWindow("Enter a CGPA between 0 and 12", theApp);
-		return !good;
-	if (yr < 1 || yr > 4) {
-		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
-		Control::popWindow("Year standing must be either 1, 2, 3, or 4.", theApp);
-		return !good;
-	}
 
 	return good;
 }
@@ -467,6 +495,8 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	a->setRelatedWorkEXP(theApp->jQRelated);
 	
 	theApp->studentApp = a;
+	theApp->appQueue.pushBack(theApp->appQueue.createNode(a));
+	//theApp->appQueue.isEmpty();
 	//apples = a;
 
 	//Control::printApp(a);
