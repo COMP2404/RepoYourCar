@@ -38,6 +38,8 @@ class Control{
 		static void closePopWindow(GtkWidget*, WindowApp*);
 		static void closeAdminPage(GtkWidget*, WindowApp*);
 		static void studentPage(GtkWidget*, WindowApp*);
+		static void closeStudentPage(GtkWidget*, WindowApp*);
+		static void prepareNewStudentApp(GtkWidget*, WindowApp*);
 		static void adminPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int getInfo(GtkWidget*,WindowApp*);
