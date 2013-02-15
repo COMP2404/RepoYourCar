@@ -33,6 +33,7 @@ class Control{
 		
 	protected:
 		static void viewSummary(GtkWidget*, WindowApp*);
+		static void updateCombo(GtkWidget*, WindowApp*);
 		static void mainMenu(GtkWidget*, WindowApp*);
 		static void popWindow(string, WindowApp*);
 		static void closePopWindow(GtkWidget*, WindowApp*);

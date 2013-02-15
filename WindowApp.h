@@ -15,7 +15,7 @@ class WindowApp{
 
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *error_window, *error_frame, *error_dismiss, *error_message;
 		
-		GtkWidget *student_window, *student_frame, *submitFinish, *student_edit, *student_cancel, *student_apply, *btnStudent,*admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login;
+		GtkWidget *student_window, *student_frame, *submitFinish, *student_edit, *student_cancel, *student_apply, *btnStudent,*admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login, *summary_combo;
 		
 		Application *studentApp;
 		Course *studentCourse;

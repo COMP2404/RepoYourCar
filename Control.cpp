@@ -137,16 +137,23 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	
 	
 	theApp->admin_combo =  gtk_combo_box_text_new();
+	theApp->summary_combo =  gtk_combo_box_text_new();
 	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 50);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 100);
 	
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 	
 	gtk_widget_show_all(theApp->window);
+
+	
+
 	char text[MAX_BUF];
 	string courses[800];
+
+
 
 	ifstream inFile("courses.txt", ios::in);
 
@@ -160,6 +167,40 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
 	}
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+	g_signal_connect(GTK_COMBO_BOX(theApp->admin_combo), "changed", G_CALLBACK   (Control::updateCombo), theApp);
+}
+
+void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
+	
+	const gchar* theCourse;
+ 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
+	string courseString;
+	courseString = (theCourse);
+	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
+	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
+	string s1,s2,s3,s4,s5,s6,s7;
+	int length = qCopy->size();
+	char theInput[200];
+	string input[length];//string array for each Application
+	 
+	AppQueue::AppNode* tmpNode = qCopy->head;
+	 
+	for(int i=0; i<length; i++){
+		tmpNode = qCopy->popFront();
+		s1 = tmpNode->data->getStuFirst();
+		s2 = tmpNode->data->getStuLast();
+		s3 = tmpNode->data->getStuYrStanding();
+		s4 = tmpNode->data->getStuMajor();
+		s5 = tmpNode->data->getStuCGPA();
+		s6 = tmpNode->data->getStuEmail();
+		s7 = tmpNode->data->getStuID();
+	 
+		input[i] = "Student: " + s1 + " " + s2 + " in Year: " + s3 + " Major: " + s4 + " GPA: " + s5 + " Email: " + s6 + " ID: " + s7;
+		//theInput = input[i];
+		strcpy(theInput,input[i].c_str());
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), theInput);
+	}
+
 }
 
 
