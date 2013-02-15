@@ -137,11 +137,12 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	
 	
 	theApp->admin_combo =  gtk_combo_box_text_new();
-	theApp->summary_combo =  gtk_combo_box_text_new();
+	
 	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 50);
+	theApp->summary_combo =  gtk_combo_box_text_new();
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->summary_combo, 50, 100);
 	
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
@@ -172,6 +173,10 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 
 void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
+	//gtk_widget_destroy(theApp->summary_combo);
+
+	
+	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
 	const gchar* theCourse;
  	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
 	string courseString;
@@ -187,8 +192,7 @@ void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	char theInput[200];
 	string input[100];//string array for each Application
 	
-	AppQueue::AppNode* tmpNode = qCopy->head;
-	tmpNode = qCopy->popFront();
+	AppQueue::AppNode* tmpNode = qCopy->popFront();
 	 int i = 0;
 	//for(int i=0; i<length; i++){
 	while(tmpNode != NULL){
@@ -199,7 +203,7 @@ void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
 			std::stringstream ss3; 
 			
 			s1 = tmpNode->data->getStuFirst();
-			
+			cout << s1 << endl;
 			s2 = tmpNode->data->getStuLast();
 			 
 			ss1 << tmpNode->data->getStuYrStanding();
@@ -225,6 +229,9 @@ void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
 		}
 		
 	}
+	
+	
+	gtk_widget_show_all(theApp->window);
 
 }
 
@@ -620,7 +627,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 
 		gtk_widget_show_all(theApp->submitWindow);
 
-		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
 		g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
 
 		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, theApp);
@@ -629,6 +636,11 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	}
 	
 	return 0;
+}
+
+void Control::killSubmitWindow(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->submitWindow);
+	submitToMain(widget,theApp);
 }
 
 
