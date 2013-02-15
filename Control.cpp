@@ -1469,6 +1469,9 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 
+	Course* cor = new Course(string1, 1, string3, "N/A", string4);
+	theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
+
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse2), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year2), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term2), "");
@@ -1496,7 +1499,9 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	string5 = (s5);
-
+	
+	Job* job = new Job(s1, s2, s3, s4, s5);
+	theApp->jQRelated->pushBack(theApp->jQRelated->createNode(job));
 	
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_responsabilities), "");
