@@ -199,7 +199,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major, string* stunum){
+bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major, string* stunum, WindowApp *theApp){
 
 	bool good = true;
 	int mg;
@@ -208,48 +208,57 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 
 	if(course->length() == 0){
 		cout << "Course is empty" <<endl;
+		Control::popWindow("Choose a course", theApp);
 		return !good;
 		
 	}
 		
 	if(first->length() == 0){
 		cout << "First name is empty" <<endl;
+		Control::popWindow("First name is empty", theApp);
 		return !good;
 	}
                 
 		
 	if(last->length() == 0){
 		cout << "Last Name is Empty" <<endl;
+		Control::popWindow("Last Name is Empty", theApp);
 		return !good;
 	}
                 
 	if(mgpa->length() == 0){
 		cout << "MGPA is empty" <<endl;
+		Control::popWindow("MGPA is empty", theApp);
 		return !good;
 	}
                 
 	if(gpa->length() == 0){
 		cout << "GPA is empty" <<endl;
+		Control::popWindow("GPA is empty", theApp);
 		return !good;
 	}
                 
 	if(email->length() == 0){
 		cout << "Email is Empty" <<endl;
+		Control::popWindow("Email is Empty", theApp);
 		return !good;
 	}
                 	
 	if(year->length() == 0){
 		cout << "year is Empty" <<endl;
+		Control::popWindow("year is Empty", theApp);
 		return !good;
 	}
                
 	if(major->length() == 0){
 		cout << "Major is Empty" <<endl;
+		Control::popWindow("Major is Empty", theApp);
 		return !good;
 	}
                 
 	if(stunum->length() == 0){
 		cout << "Student Number is Empty" <<endl;
+		Control::popWindow("Student Number is Empty", theApp);
 		return !good;
 	}
 		
@@ -260,6 +269,9 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	if (invalidF != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*first)[invalidF];
 		cout << ", at position " << invalidF << endl;
+			
+		Control::popWindow("You entered a non-alphabetical character in first name", theApp);
+		return !good;
 		
    	}
 
@@ -269,6 +281,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	if (invalidL != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*last)[invalidL];
 		cout << ", at position " << invalidL << endl;
+		Control::popWindow("You entered a non-alphabetical character in last name", theApp);
 		return !good;
    	}
 
@@ -279,6 +292,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 
 	if (validChars1 == string::npos) {
 		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
+		Control::popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.", theApp);
 		return !good;
 	}
 
@@ -287,6 +301,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	if (invalidE != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*major)[invalidE];
 		cout << ", at position " << invalidE << endl;
+		Control::popWindow("You entered a non-alphabetical character in major", theApp);
 		return !good;
    	 }
 
@@ -295,11 +310,13 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	if (validStu != string::npos) {
 		cout << "You entered a character which is not a number between 0-9: " << (*stunum)[validStu];
 		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
+		Control::popWindow("You entered a character which is not a number between 0-9", theApp);
 		return !good;
     	}
 
 	if ((*stunum).length() != 9) {
 		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
+		Control::popWindow("A valid student number has exactly 9 characters. Please re-enter your student number.", theApp);
 		return !good;
 	}
 	
@@ -311,11 +328,14 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 	yr = atoi(year->c_str());	
 
 	if(mg < 0 || mg > 12)
+		Control::popWindow("Enter a GPA between 0 and 12", theApp);
 		return !good;
 	if(cg < 0 || cg > 12)
+		Control::popWindow("Enter a CGPA between 0 and 12", theApp);
 		return !good;
 	if (yr < 1 || yr > 4) {
 		cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
+		Control::popWindow("Year standing must be either 1, 2, 3, or 4.", theApp);
 		return !good;
 	}
 
@@ -361,7 +381,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	
         
 	
-    	if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8, &string9))
+    	if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8, &string9, theApp))
 	{
 		//Create a new student
 		c = atof(s4);
@@ -884,35 +904,39 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 		if(theApp->moveOn){
 			int yr = atoi(string2.c_str());
 			unsigned validRC1 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-  
+  			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			if (validRC1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
 				cout << ", at position " << validRC1 << endl;
 				Control::popWindow("You entered a non-alphabetical character in Related Courses", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
-			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
   
-			if (validterm1 != string::npos) {
+			else if (validterm1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm1];
 				cout << ", at position " << validterm1 << endl;
 				Control::popWindow("You entered a non-alphabetical character in term", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
-			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			if (grade != string::npos) {
+			
+			else if (grade != string::npos) {
 				cout << "Please Enter a Letter Grade" << endl;
 				Control::popWindow("Please Enter a Letter Grade", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
 
-			if (yr < 1990 || yr > 2013) {
+			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
 				Control::popWindow("Year must be between 1990 and 2013", theApp);
 				theApp->checkGood = false;
-				
+				theApp->moveOn = false;
 			}
 			
 			if(theApp->checkGood){
@@ -947,6 +971,7 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		theApp->checkGood = true;
 		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
 		if(theApp->moveOn){
@@ -954,35 +979,42 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 
 
 			unsigned validRC2 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validterm2 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned supervisor = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
   
 			if (validRC2 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC2];
 				cout << ", at position " << validRC2 << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
-			unsigned validterm2 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
   
-			if (validterm2 != string::npos) {
+			else if (validterm2 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
 				cout << ", at position " << validterm2 << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
-			unsigned supervisor = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			if (supervisor != string::npos) {
+			
+			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
 				cout << ", at position " << supervisor << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
+				
 		   	}
 
 
-			if (yr < 1990 || yr > 2013) {
+			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
 				Control::popWindow("Year must be between 1990 and 2013", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 				
 			}
 
@@ -1024,49 +1056,58 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""&& string5 != ""){
 		gtk_widget_set_sensitive(theApp->ei_finish, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
-
+		theApp->checkGood = true;
 		if(theApp->moveOn){
 			
 
 
 			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned startDate = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned endDate = (string5).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
   
 			if (validRW != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
 				cout << ", at position " << validRW << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
-			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
   
-			if (validresp != string::npos) {
+			else if (validresp != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string2)[validresp];
 				cout << ", at position " << validresp << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
-			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			if (validdur != string::npos) {
+			
+			else if (validdur != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validdur];
 				cout << ", at position " << validdur << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
-			unsigned startDate = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			if (startDate != string::npos) {
+			
+			else if (startDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
 				cout << ", at position " << startDate << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
-			unsigned endDate = (string5).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			if (endDate != string::npos) {
+			
+			else if (endDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
 				cout << ", at position " << endDate << endl;
 				Control::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
+				theApp->moveOn = false;
 		   	}
 
 			if(theApp->checkGood){
