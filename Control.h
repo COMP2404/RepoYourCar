@@ -19,6 +19,7 @@ using namespace std;
 
 class Control{
 	public:
+		
 		int createWindow(int, char**);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, WindowApp*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*,WindowApp*);

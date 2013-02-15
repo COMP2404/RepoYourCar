@@ -5,7 +5,7 @@
 
 using namespace std;
 Application* apples;
-
+int THIS_BUF = 1000;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
 			//Error Window that will pop up
@@ -151,7 +151,7 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 
 	
 
-	char text[MAX_BUF];
+	char text[THIS_BUF];
 	string courses[800];
 
 
@@ -163,7 +163,7 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 		exit(1);
 	}	
 	while (!inFile.eof()) {
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
 		
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
 	}
@@ -270,7 +270,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 
 
 	
-	char text[MAX_BUF];
+	char text[THIS_BUF];
 	string courses[800];
 
 	ifstream inFile("courses.txt", ios::in);
@@ -280,7 +280,7 @@ int Control::makeApplication(GtkWidget *widget, WindowApp *theApp)
 		return 0;
 	}	
 	while (!inFile.eof()) {
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
 		
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->combo), text);
 	}
@@ -700,9 +700,9 @@ void Control::loadApplications(){
 	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i;
-	CourseQueue *aCourseQueue;
-	CourseQueue *bCourseQueue;
-	JobQueue *jQueue;	
+	CourseQueue *aCourseQueue = new CourseQueue();
+	CourseQueue *bCourseQueue = new CourseQueue();
+	JobQueue *jQueue = new JobQueue();	
 
 	//Varibles used to build a course
 	int cYear;
@@ -716,78 +716,117 @@ void Control::loadApplications(){
     		cout<<"Could not open file"<<endl;
     		exit(1);
   	}
-
+	string wtf = "relatedONE";
 	while (!inFile.eof()) {
 		//read an entire application
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		a = atoi(text);
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		c = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		s = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		cgpa = atoi(text);
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		mgpa = atoi(text);
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		f = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		l = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		e = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		m = text;
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		y = atoi(text);
-		inFile.getline(text, MAX_BUF);
+		inFile.getline(text, THIS_BUF);
+		cout << "got this text: " << text << endl;
 		i = text;
 
 		//read the related courses
+		cout << "SLEEPING" << endl;
+		sleep(1);
+		cout << "READING RELATED COURSES " << endl;
 		while (1){ //untill you get to the TA positions
-			inFile.getline(text, MAX_BUF);
-			if (text == "RELATED TA POSITIONS"){
+			inFile.getline(text, THIS_BUF);
+			cout << "TEXT IT GOT, BREAKING ON 'RELATED TA POSITIONS': " << text << endl;
+			sleep(1);
+			if(strcmp(text, "RELATED TA POSITIONS") == 0)
+			{
 				break;
+				cout << "breaking..." << endl;
 			}
 			cTitle = text;
-			inFile.getline(text, MAX_BUF);
+
+			if(strcmp(text, "relatedONE") == 0)
+			{
+				cout << "wtf..." << endl;
+			}
+
+			cout << "SHOULD BE COURSE TITLE: " << cTitle << endl;
+			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE FINAL GRADE: " << text << endl;
 			cSuper = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE YEAR: " << text << endl;			
 			cYear = atoi(text);
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE TERM: " << text << endl;
 			cTerm = text;
-			Course *cor = new Course(cTitle, cYear, cTerm, cSuper);
-			aCourseQueue->pushBack(aCourseQueue->createNode(cor));			
+			cout << "CREATING COURSE AND PUSHING: " << endl;
+			//make a course with the information and "N/A" supervisor
+			Course *cor = new Course(cTitle, cYear, cTerm, "N/A", cSuper);
+			cout << "COURSE CREATED " << endl;
+			cout << "NOW PUSHING " << endl;
+			aCourseQueue->pushBack(aCourseQueue->createNode(cor));	
+			cout << "DONE" << endl;
+		sleep(1);		
 		}
 
 		//read the related TA positions
 		while (1){
-			inFile.getline(text, MAX_BUF);
-			if (text == "WORK EXP"){
+			inFile.getline(text, THIS_BUF);
+			if(strcmp(text, "WORK EXP") ==0)
+			{
 				break;
+				cout << "breaking..." << endl;
 			}
 			cTitle = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			cSuper = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			cYear = atoi(text);
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			cTerm = text;
-			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper);
+			//make a course with the information and "N/A" grade
+			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper, "N/A");
 			bCourseQueue->pushBack(bCourseQueue->createNode(bcor));	
 			
 		}
 		//read the related Work EXP
 		while (1){
-			inFile.getline(text, MAX_BUF);
-			if (text == "******"){
+			inFile.getline(text, THIS_BUF);
+			if(strcmp(text, "******") ==0)
+			{
 				break;
+				cout << "breaking..." << endl;
 			}
 			jTitle = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			jDuration = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			jStart = text;
-			inFile.getline(text, MAX_BUF);
+			inFile.getline(text, THIS_BUF);
 			jEnd = text;
 			
 
@@ -800,10 +839,13 @@ void Control::loadApplications(){
 
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 
-		//Application *newApp = new Application(stu, a, c, s, aCourseQueue, bCourseQueue, jQueue);		
-		//applicationList.pushBack(applicationList.createNode(newApp));
+		Application *newApp = new Application(stu, a, c, s);
+		newApp->setRelatedCourses(aCourseQueue);
+		newApp->setRelatedTAPositions(bCourseQueue);
+		newApp->setRelatedWorkEXP(jQueue);
+		applicationList.pushBack(applicationList.createNode(newApp));
 		
-				
+			
   	}
  
 }
@@ -1391,6 +1433,9 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 
+	Course* cor = new Course(string1, 1, string3, "N/A", string4);
+	theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
+	
 
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year1), "");
@@ -1680,7 +1725,7 @@ int Control::createWindow(int argc, char** argv)
 	// initialize GTK+
 	gtk_init(&argc, &argv);
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	
+	//loadApplications();
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
 	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);

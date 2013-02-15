@@ -2,7 +2,7 @@
 #define STUDENT_H
 using namespace std;
 #include <string>
-#define MAX_BUF 16
+#define MAX_BUF 200
 class Student{
 public:
 	//VARIABLES---------------------
