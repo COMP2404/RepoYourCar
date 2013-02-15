@@ -710,7 +710,8 @@ void Control::loadApplications(){
 
 	//Variables used to build a job
 	string jTitle, jDuration, jStart, jEnd;
-	string anArray[100];
+	string aArray[100];
+	string aString="";
 	
   	if (!inFile) {
     		cout<<"Could not open file"<<endl;
@@ -825,12 +826,14 @@ void Control::loadApplications(){
 			inFile.getline(text, THIS_BUF);
 			jDuration = text;
 			inFile.getline(text, THIS_BUF);
+			aString = text;
+			inFile.getline(text, THIS_BUF);
 			jStart = text;
 			inFile.getline(text, THIS_BUF);
 			jEnd = text;
 			
 
-			Job *aJob = new Job(jTitle, "NONE", jDuration, jStart, jEnd);
+			Job *aJob = new Job(jTitle, aString, jDuration, jStart, jEnd);
 			jQueue->pushBack(jQueue->createNode(aJob));
 			
 		}
