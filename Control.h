@@ -35,6 +35,7 @@ class Control{
 		bool errorCheck2();
 		
 	protected:
+		static void killSubmitWindow(GtkWidget*, WindowApp*);
 		static void viewSummary(GtkWidget*, WindowApp*);
 		static void updateCombo(GtkWidget*, WindowApp*);
 		static void mainMenu(GtkWidget*, WindowApp*);
