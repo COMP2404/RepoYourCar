@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 //#include "AppQueue.h"
-#define APP_MAX_BUF 32
+#define APP_MAX_BUF 1000
 
 #define INCLUDED
 using namespace std;

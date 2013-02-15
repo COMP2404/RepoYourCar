@@ -42,6 +42,18 @@ Application::~Application(){
 
 bool Application::printApp(){
 	int i;
+
+	//debugging stuff..
+	cout << "SIZES OF LINKED LISTS:" << endl;
+	int j = relatedCourses->size();
+	cout << "SIZE OF RELATED COURSES: " << j << endl;
+	int k = relatedTAPositions->size();
+	cout << "SIZE OF RELATED TA POSITIONS: "<< k << endl;
+	int l = relatedWorkEXP->size();
+	cout << "SIZE OF RELATED WORK EXP: " << l << endl;	
+	//there.
+
+
 	//Course tempCourse;
         ofstream outFile("Applications.txt", ios::out|ios::app);
 
@@ -63,9 +75,13 @@ bool Application::printApp(){
 	outFile << stuID << endl;
 
 	//Save the related courses:
-	
+	cout << "SAVING RELATED COURSES: " << endl;
 	CourseQueue tempQ(*relatedCourses);
-	for(i=0; i < tempQ.size(); i++){
+	int aSize = tempQ.size();
+	cout << "SIZE OF tempQ: " << aSize << endl; 
+	for(i=0; i < aSize; i++){
+		cout << "Inside for loop! i is: " << i <<  endl;
+		cout << "And tempQ.size is: " << tempQ.size() << endl;
 		outFile << tempQ.front()->getData()->getTitle() << endl;
 		outFile << tempQ.front()->getData()->getFinal() << endl;
 		outFile << tempQ.front()->getData()->getYear() << endl;
@@ -74,10 +90,11 @@ bool Application::printApp(){
 	}
 
 	//Save the related TA positions:
-	outFile << "RELATED TA POSITIONS" << endl; // header	
+	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
 	CourseQueue otherTemp(*relatedTAPositions);
-	for(i=0; i < otherTemp.size(); i++){
+	aSize = otherTemp.size();
+	for(i=0; i < aSize; i++){
 		outFile << otherTemp.front()->getData()->getTitle() << endl;
 		outFile << otherTemp.front()->getData()->getSupervisor() << endl;
 		outFile << otherTemp.front()->getData()->getYear() << endl;
@@ -86,16 +103,18 @@ bool Application::printApp(){
 	}
 
 	//Save related work EXP
-	outFile << "WORK EXP" << endl; //header
+	outFile << "WORKEXP" << endl; //header
 
 	JobQueue tempJQueue(*relatedWorkEXP);
-	for(i=0; i < tempJQueue.size(); i++){
+	aSize = tempJQueue.size();
+	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getData()->getJobTitle() << endl;
 		outFile << tempJQueue.front()->getData()->getDuration() << endl;
 		outFile << tempJQueue.front()->getData()->getStartDate() << endl;
 		outFile << tempJQueue.front()->getData()->getEndDate() << endl;
 		otherTemp.popFront(); // currently not writing the tasks
-	}	
+	}
+	outFile << "******" << endl;	
 
 }
 
