@@ -113,9 +113,9 @@ bool Application::printApp(){
 		outFile << tempJQueue.front()->getData()->getDuration() << endl;
 		outFile << tempJQueue.front()->getData()->getStartDate() << endl;
 		outFile << tempJQueue.front()->getData()->getEndDate() << endl;
-		otherTemp.popFront(); // currently not writing the tasks
+		tempJQueue.popFront(); // currently not writing the tasks
 	}
-	outFile << "******" << endl;	
+	outFile << "ENDFILE" << endl;	
 
 }
 

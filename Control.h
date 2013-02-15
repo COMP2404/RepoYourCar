@@ -24,7 +24,7 @@ class Control{
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, WindowApp*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*,WindowApp*);
 		static void cancel();
-		void loadApplications();
+		void loadApplications(WindowApp*);
 		
 		
 		//static void adminPage(GtkWidget*, WindowApp*);

@@ -692,7 +692,7 @@ void Control::cancel(){
 
 
 
-void Control::loadApplications(){
+void Control::loadApplications(WindowApp *theApp){
 	char text[80];
 
 	ifstream inFile("Applications.txt", ios::in);
@@ -700,16 +700,16 @@ void Control::loadApplications(){
 	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i;
-	CourseQueue *aCourseQueue = new CourseQueue();
-	CourseQueue *bCourseQueue = new CourseQueue();
-	JobQueue *jQueue = new JobQueue();	
+	//CourseQueue *aCourseQueue = new CourseQueue();
+	//CourseQueue *bCourseQueue = new CourseQueue();
+	//JobQueue *jQueue = new JobQueue();	
 
 	//Varibles used to build a course
 	int cYear;
 	string cSuper, cTitle, cTerm;	
 
 	//Variables used to build a job
-	string jTitle, jDuration, jStart, jEnd;
+	string jTitle, jDuration, jStart, jEnd, jTasks;
 	string anArray[100];
 	
   	if (!inFile) {
@@ -755,16 +755,17 @@ void Control::loadApplications(){
 
 		//read the related courses
 		cout << "SLEEPING" << endl;
-		sleep(1);
+		
 		cout << "READING RELATED COURSES " << endl;
 		while (1){ //untill you get to the TA positions
 			inFile.getline(text, THIS_BUF);
 			cout << "TEXT IT GOT, BREAKING ON 'RELATED TA POSITIONS': " << text << endl;
-			sleep(1);
-			if(strcmp(text, "RELATED TA POSITIONS") == 0)
-			{
-				break;
+			
+			if(strcmp(text, "RELATEDTAPOSITIONS") == 0)
+			{	
 				cout << "breaking..." << endl;
+				break;
+				
 			}
 			cTitle = text;
 
@@ -788,18 +789,19 @@ void Control::loadApplications(){
 			Course *cor = new Course(cTitle, cYear, cTerm, "N/A", cSuper);
 			cout << "COURSE CREATED " << endl;
 			cout << "NOW PUSHING " << endl;
-			aCourseQueue->pushBack(aCourseQueue->createNode(cor));	
+			theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));	
 			cout << "DONE" << endl;
-		sleep(1);		
+				
 		}
 
 		//read the related TA positions
 		while (1){
 			inFile.getline(text, THIS_BUF);
-			if(strcmp(text, "WORK EXP") ==0)
+			if(strcmp(text, "WORKEXP") ==0)
 			{
-				break;
 				cout << "breaking..." << endl;
+				break;
+				
 			}
 			cTitle = text;
 			inFile.getline(text, THIS_BUF);
@@ -810,18 +812,21 @@ void Control::loadApplications(){
 			cTerm = text;
 			//make a course with the information and "N/A" grade
 			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper, "N/A");
-			bCourseQueue->pushBack(bCourseQueue->createNode(bcor));	
+			theApp->cQTa->pushBack(theApp->cQTa->createNode(bcor));	
 			
 		}
 		//read the related Work EXP
 		while (1){
 			inFile.getline(text, THIS_BUF);
-			if(strcmp(text, "******") ==0)
+			if(strcmp(text, "ENDFILE") ==0)
 			{
-				break;
 				cout << "breaking..." << endl;
+				break;
+				
 			}
 			jTitle = text;
+			inFile.getline(text, THIS_BUF);
+			jTasks = text;
 			inFile.getline(text, THIS_BUF);
 			jDuration = text;
 			inFile.getline(text, THIS_BUF);
@@ -830,8 +835,8 @@ void Control::loadApplications(){
 			jEnd = text;
 			
 
-			Job *aJob = new Job(jTitle, "NONE", jDuration, jStart, jEnd);
-			jQueue->pushBack(jQueue->createNode(aJob));
+			Job *aJob = new Job(jTitle, jTasks, jDuration, jStart, jEnd);
+			theApp->jQRelated->pushBack(theApp->jQRelated->createNode(aJob));
 			
 		}
 
@@ -840,11 +845,22 @@ void Control::loadApplications(){
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 
 		Application *newApp = new Application(stu, a, c, s);
-		newApp->setRelatedCourses(aCourseQueue);
-		newApp->setRelatedTAPositions(bCourseQueue);
-		newApp->setRelatedWorkEXP(jQueue);
-		applicationList.pushBack(applicationList.createNode(newApp));
-		
+		newApp->setRelatedCourses(theApp->cQRelated);
+		newApp->setRelatedTAPositions(theApp->cQTa);
+		newApp->setRelatedWorkEXP(theApp->jQRelated);
+		theApp->appQueue.pushBack(theApp->appQueue.createNode(newApp));
+		break;
+
+
+/*
+		Application *a = new Application(s, applicationNum++, *course, "PENDING");
+	a->setRelatedCourses(theApp->cQRelated);
+	a->setRelatedTAPositions(theApp->cQTa);
+	a->setRelatedWorkEXP(theApp->jQRelated);
+	
+	theApp->studentApp = a;
+	theApp->appQueue.pushBack(theApp->appQueue.createNode(a));
+		*/
 			
   	}
  
@@ -1735,7 +1751,7 @@ int Control::createWindow(int argc, char** argv)
 	// initialize GTK+
 	gtk_init(&argc, &argv);
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	//loadApplications();
+	loadApplications(theApp);
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
 	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
