@@ -113,18 +113,30 @@ AppQueue* AppQueue::getPendingList(string course){
 	}
 	//------Make the head a wanted node--------	
 	AppNode* tmpNode = list->head;
+	cout<<tmpNode->data->getCourse() << endl;
 	while(tmpNode!=NULL){
-		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "pending"){
+		
+		cout<< course<< endl;
+		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "PENDING"){
+			
 			list->head = tmpNode;
 			break;
 		}
 		tmpNode=tmpNode->next;
 	}
+	if(tmpNode == NULL){
+		if(list->head->data->getCourse().compare(course) != 0){
+			 AppQueue* finalQ = new AppQueue();
+			return finalQ;
+		}
+	}
 	//------Remove unwanted nodes from Queue------
+	tmpNode = list->head;
 	AppNode* prevNode = tmpNode;
 
 	while(tmpNode != NULL){
 		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+			cout<<tmpNode->data->getCourse() << endl;
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
 		else if(tmpNode->data->getStatus() != "PENDING"){//its not pending
@@ -138,6 +150,34 @@ AppQueue* AppQueue::getPendingList(string course){
 	
 	return list;
 }
+
+/*AppQueue* AppQueue::getPendingList(string course){
+        //------Get a copy of the working Queue-------
+       
+        AppQueue& copy = *this;
+ 
+        AppQueue* list = new AppQueue(copy);//call copy contructor
+ 
+        int goodCount=0;
+        AppNode goodOnes[list->size()];
+               
+        AppNode* tmpNode = list->head;
+	
+        while(tmpNode!=NULL){
+                if(tmpNode->data->getCourse().compare(course) == 0 &&   tmpNode->data->getStatus() == "PENDING"){
+                        goodOnes[goodCount++] = *tmpNode;
+                }
+                tmpNode=tmpNode->next;
+        }
+ 
+        AppQueue* finalQ = new AppQueue();
+        for(int j=0; j<goodCount; j++){
+                finalQ->pushBack(&goodOnes[j]);
+        }
+ 
+        return finalQ;
+ 
+}*/
 
 
 
