@@ -48,9 +48,55 @@ void Control::studentPage(GtkWidget *widget, WindowApp *theApp){
 
 
 void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
+
+	theApp->admin_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->admin_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->admin_window), 400, 200);
 	
-	gtk_container_remove (GTK_CONTAINER (theApp->window), theApp->appFrame);
+	gtk_window_set_title(GTK_WINDOW(theApp->admin_window), "Admin Window");
 	
+	theApp->admin_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(theApp->admin_window), theApp->admin_frame);
+
+	theApp->admin_viewSummary = gtk_button_new_with_label("View Summary Of Pending Applications");
+	gtk_widget_set_size_request(theApp->admin_viewSummary, 150, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_viewSummary , 100, 100);
+
+	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
+	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_cancel , 100, 150);
+	
+	gtk_widget_show_all(theApp->admin_window);
+
+	g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (Control::viewSummary), theApp);
+	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (Control::closeAdminPage), theApp);
+	
+	
+
+	
+
+}
+
+void Control::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
+	
+	gtk_widget_destroy(theApp->admin_window);
+}
+
+void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->admin_window);
+	gtk_widget_destroy(theApp->appFrame);
+	theApp->appFrame = gtk_fixed_new();
+	
+	
+	theApp->admin_combo =  gtk_combo_box_text_new();
+	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
+	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_cancel , 100, 150);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 50);
+	
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
+	
+	gtk_widget_show_all(theApp->window);
 	char text[MAX_BUF];
 	string courses[800];
 
@@ -65,18 +111,8 @@ void Control::adminPage(GtkWidget *widget, WindowApp *theApp){
 		
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), text);
 	}
-
-	//gtk_widget_set_size_request(theApp->apply, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_combo, 50, 50);
-	gtk_fixed_put(GTK_FIXED(theApp->admin_frame), theApp->admin_cancel, 50, 100 );
-	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->admin_frame);
-	
-	gtk_widget_show_all(theApp->window);
-	
-
+	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
 }
-
-
 
 
 
@@ -1344,7 +1380,7 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
-	
+	/*
 	gtk_window_resize(GTK_WINDOW(theApp->window), 400,200);
 	gtk_widget_destroy(theApp->fName);
 	gtk_widget_destroy(theApp->lName);
@@ -1364,7 +1400,7 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 	gtk_widget_destroy(theApp->lblstuNum);
 	gtk_widget_destroy(theApp->submit);
 	gtk_widget_destroy(theApp->cancel);
-	gtk_widget_destroy(theApp->submitWindow);
+	
 	gtk_widget_destroy(theApp->combo);
 
 	if(theApp->extra){
@@ -1381,7 +1417,7 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 			gtk_widget_destroy(theApp->ei_lblYear);
 			gtk_widget_destroy(theApp->ei_continue);
 			gtk_widget_destroy(theApp->ei_repeat);
-
+			gtk_widget_destroy(theApp->submitWindow);
 		}
 		else if(theApp->page == 2){
 			gtk_widget_destroy(theApp->ei_relatedCourse2);
@@ -1395,7 +1431,7 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 			gtk_widget_destroy(theApp->ei_lblYear);
 			gtk_widget_destroy(theApp->ei_continue2);
 			gtk_widget_destroy(theApp->ei_repeat2);
-
+			gtk_widget_destroy(theApp->submitWindow);
 		}
 		else if(theApp->page == 3){
 			gtk_widget_destroy(theApp->ei_lblRelevantWork);
@@ -1411,11 +1447,15 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 			gtk_widget_destroy(theApp->ei_duration);
 			gtk_widget_destroy(theApp->ei_startDate);
 			gtk_widget_destroy(theApp->ei_endDate);
+			gtk_widget_destroy(theApp->submitWindow);
 
 		}
 		
 	}
-	
+	*/
+	gtk_widget_destroy(theApp->appFrame);
+	Control::mainMenu(widget,theApp);
+	//gtk_widget_destroy(theApp->window);
 
 
 }
@@ -1438,43 +1478,16 @@ void Control::submitToRepeat(GtkWidget *widget,WindowApp *theApp){
 
 
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//**********************************************************************************************************************************************************************//
-		//create the main window and initialize everything
-//**********************************************************************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int Control::createWindow(int argc, char** argv)
-{
-	/////////////////////////////////////////////////////
-	//-----------Declaration of all the widgets------////
-	/////////////////////////////////////////////////////
-	
-	WindowApp *theApp = new WindowApp();
-
-	// initialize GTK+
-	gtk_init(&argc, &argv);
-
-
+void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
 	/////////////////////////////////////////////////////
 	
 
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,200);
 
+	
 
-	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
-	
-	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
-	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
-	gtk_window_set_title(GTK_WINDOW(theApp->window), "Application Center");
-	
-	
 
 	/////////////////////////////////////////////////////
 	//-----------Add frame onto window---------------////
@@ -1495,7 +1508,7 @@ int Control::createWindow(int argc, char** argv)
 
 	theApp->apply = gtk_button_new_with_label("Apply");
 	gtk_widget_set_size_request(theApp->apply, 80, 35);
-	//gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->apply, 50, 20);
+
 
 	/////////////////////////////////////////////////////
 	//------Make the login button and add to frame---////
@@ -1505,16 +1518,12 @@ int Control::createWindow(int argc, char** argv)
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->login, 50, 80);
 
 
-	theApp->admin_cancel = gtk_button_new_with_label("Cancel");
-	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
-
 	
-	theApp->admin_combo =  gtk_combo_box_text_new();
 	
 	/////////////////////////////////////////////////////
 	//------Make the Prompt Label and add to frame---////
 	/////////////////////////////////////////////////////
-	theApp->label = gtk_label_new("Click Apply to Choose Your Courses");
+	theApp->label = gtk_label_new("Choose a Menu Option");
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->label, 150, 58); 
 
 
@@ -1537,6 +1546,33 @@ int Control::createWindow(int argc, char** argv)
 
 	
 	g_signal_connect(theApp->login, "clicked", G_CALLBACK(Control::adminPage), theApp);
+
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+		//create the main window and initialize everything
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Control::createWindow(int argc, char** argv)
+{
+	
+	WindowApp *theApp = new WindowApp();
+
+	// initialize GTK+
+	gtk_init(&argc, &argv);
+	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	
+	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
+	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
+	gtk_window_set_title(GTK_WINDOW(theApp->window), "Main Menu");
+	Control::mainMenu(theApp->window, theApp);
+	
 
 	gtk_main();
 	return 0;

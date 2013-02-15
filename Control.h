@@ -32,8 +32,11 @@ class Control{
 		bool errorCheck2();
 		
 	protected:
+		static void viewSummary(GtkWidget*, WindowApp*);
+		static void mainMenu(GtkWidget*, WindowApp*);
 		static void popWindow(string, WindowApp*);
 		static void closePopWindow(GtkWidget*, WindowApp*);
+		static void closeAdminPage(GtkWidget*, WindowApp*);
 		static void studentPage(GtkWidget*, WindowApp*);
 		static void adminPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
