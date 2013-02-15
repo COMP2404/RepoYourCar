@@ -1139,6 +1139,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		
 		theApp->checkGood = true;
 		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
 		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
@@ -1183,7 +1184,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 			
 			if(theApp->checkGood){
 				Course* cor = new Course(string1, yr, string3, "N/A", string4);
-				theApp->cQRelated = new CourseQueue();
+				//theApp->cQRelated = new CourseQueue();
 				theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
 				theApp->moveOn = false;
 				relatedCourses2(widget, theApp);
@@ -1263,7 +1264,7 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 			if(theApp->checkGood){
 				Course* cor = new Course(string1, yr, string3, string4, "N/A");
 			
-				theApp->cQTa = new CourseQueue();
+				//theApp->cQTa = new CourseQueue();
 				theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
 
 				theApp->moveOn = false;
@@ -1354,7 +1355,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 
 			if(theApp->checkGood){
 				Job* job = new Job(s1, s2, s3, s4, s5);
-				theApp->jQRelated = new JobQueue();
+				//theApp->jQRelated = new JobQueue();
 				theApp->jQRelated->pushBack(theApp->jQRelated->createNode(job));
 
 				theApp->moveOn = false;
@@ -1433,7 +1434,8 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 
-	Course* cor = new Course(string1, 1, string3, "N/A", string4);
+	int yr = atoi(string2.c_str());
+	Course* cor = new Course(string1, yr, string3, "N/A", string4);
 	theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
 	
 
@@ -1468,8 +1470,8 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 	string2 = (s2);
 	string3 = (s3);
 	string4 = (s4);
-
-	Course* cor = new Course(string1, 1, string3, "N/A", string4);
+	int yr = atoi(string2.c_str());
+	Course* cor = new Course(string1, yr, string3, "N/A", string4);
 	theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
 
 	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse2), "");
@@ -1726,7 +1728,10 @@ int Control::createWindow(int argc, char** argv)
 {
 	
 	WindowApp *theApp = new WindowApp();
-
+	theApp->cQRelated = new CourseQueue();
+	theApp->cQTa = new CourseQueue();
+	theApp->jQRelated = new JobQueue();
+	
 	// initialize GTK+
 	gtk_init(&argc, &argv);
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);

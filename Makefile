@@ -47,4 +47,4 @@ clean:
 		rm *.o cuTaes
 
 package:
-	tar -cvf 2404A2.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Makefile courses.txt UMLpdf.pdf README.txt
+	tar -cvf 2404A2.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Makefile courses.txt 2404UMLandDoc.pdf README.txt
