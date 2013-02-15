@@ -109,6 +109,7 @@ bool Application::printApp(){
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getData()->getJobTitle() << endl;
+		outFile << tempJQueue.front()->getData()->getTasks() << endl;
 		outFile << tempJQueue.front()->getData()->getDuration() << endl;
 		outFile << tempJQueue.front()->getData()->getStartDate() << endl;
 		outFile << tempJQueue.front()->getData()->getEndDate() << endl;

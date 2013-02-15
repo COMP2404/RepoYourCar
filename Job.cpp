@@ -14,6 +14,7 @@ Job::Job(string name, string jobs, string timeSpent, string start, string end){
 
 string Job::getJobTitle() {return jobTitle;}
 string Job::getDuration() { return duration; }
+string Job::getTasks() { return tasks; }
 string Job::getStartDate() {return startDate;}
 string Job::getEndDate() {return endDate;}
 

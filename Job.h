@@ -17,7 +17,7 @@ public:
 	string	getDuration(void);
 	string	getStartDate(void);
 	string	getEndDate(void);
-	
+	string  getTasks(void);	
 	int getNumTasks(void);
 	//-------------------------------
 
