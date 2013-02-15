@@ -12,6 +12,9 @@
 #include <cstdlib>
 #include <string.h>
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sstream>
 using namespace std;
 
 class Control{

@@ -142,7 +142,7 @@ void Control::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_size_request(theApp->admin_cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 50);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->admin_combo, 50, 100);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->summary_combo, 50, 100);
 	
 	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
 	
@@ -176,29 +176,54 @@ void Control::updateCombo(GtkWidget *widget, WindowApp *theApp){
  	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
 	string courseString;
 	courseString = (theCourse);
+	
 	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
+	
 	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
-	string s1,s2,s3,s4,s5,s6,s7;
-	int length = qCopy->size();
+	string s1,s2,s3,s4,s5,s6,s7 ,s8;
+	
+	//int length = qCopy->size();
+	
 	char theInput[200];
-	string input[length];//string array for each Application
-	 
+	string input[100];//string array for each Application
+	
 	AppQueue::AppNode* tmpNode = qCopy->head;
-	 
-	for(int i=0; i<length; i++){
-		tmpNode = qCopy->popFront();
-		s1 = tmpNode->data->getStuFirst();
-		s2 = tmpNode->data->getStuLast();
-		s3 = tmpNode->data->getStuYrStanding();
-		s4 = tmpNode->data->getStuMajor();
-		s5 = tmpNode->data->getStuCGPA();
-		s6 = tmpNode->data->getStuEmail();
-		s7 = tmpNode->data->getStuID();
-	 
-		input[i] = "Student: " + s1 + " " + s2 + " in Year: " + s3 + " Major: " + s4 + " GPA: " + s5 + " Email: " + s6 + " ID: " + s7;
-		//theInput = input[i];
-		strcpy(theInput,input[i].c_str());
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo), theInput);
+	tmpNode = qCopy->popFront();
+	 int i = 0;
+	//for(int i=0; i<length; i++){
+	while(tmpNode != NULL){
+		
+		if(tmpNode->data != NULL){
+			std::stringstream ss1; 
+			std::stringstream ss2; 
+			std::stringstream ss3; 
+			
+			s1 = tmpNode->data->getStuFirst();
+			
+			s2 = tmpNode->data->getStuLast();
+			 
+			ss1 << tmpNode->data->getStuYrStanding();
+			s3 = ss1.str();
+			s4 = tmpNode->data->getStuMajor();
+			ss2 << tmpNode->data->getStuCGPA();
+			s5 = ss2.str();
+			s6 = tmpNode->data->getStuEmail();
+			s7 = tmpNode->data->getStuID();
+			ss3 << tmpNode->data->getStuMGPA();
+			s8 = ss3.str();
+			
+		 
+			input[i] = "Student: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+			//theInput = input[i];
+			strcpy(theInput,input[i].c_str());
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->summary_combo), theInput);
+			i++;
+			tmpNode = qCopy->popFront();
+		}
+		else{
+			tmpNode = NULL;
+		}
+		
 	}
 
 }
@@ -1227,8 +1252,8 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned startDate = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned endDate = (string5).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned startDate = (string4).find_first_not_of("0123456789/");
+			unsigned endDate = (string5).find_first_not_of("0123456789/");
   
 			if (validRW != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
@@ -1259,7 +1284,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			else if (startDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
 				cout << ", at position " << startDate << endl;
-				Control::popWindow("You entered a non-alphabetical character", theApp);
+				Control::popWindow("Wrong Format for Start Date", theApp);
 				theApp->checkGood = false;
 				theApp->moveOn = false;
 		   	}
@@ -1268,7 +1293,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 			else if (endDate != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
 				cout << ", at position " << endDate << endl;
-				Control::popWindow("You entered a non-alphabetical character", theApp);
+				Control::popWindow("Wrong Format for End Date", theApp);
 				theApp->checkGood = false;
 				theApp->moveOn = false;
 		   	}
