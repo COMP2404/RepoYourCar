@@ -27,7 +27,7 @@ class CourseQueue
     //  returns: void			           //
     //  <runtime> 0(Queue.size) </runtime>         //
     /////////////////////////////////////////////////
-    void  pushBack(CourseNode*); //adds an item to the back of the queue
+    void  pushBack(Course*); //adds an item to the back of the queue
 
     /////////////////////////////////////////////////
     //  removes and returns the first item         //
@@ -35,7 +35,7 @@ class CourseQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    CourseNode* popFront(); //removes the first item from the queue
+    Course* popFront(); //removes the first item from the queue
 
     /////////////////////////////////////////////////
     //  returns the first item in the queue        //
@@ -43,7 +43,7 @@ class CourseQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    CourseNode* front();
+    Course* front();
 
     /////////////////////////////////////////////////
     //  checks if queue is empty                   //

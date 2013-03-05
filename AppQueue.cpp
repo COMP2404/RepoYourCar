@@ -63,7 +63,8 @@ AppQueue::AppQueue(AppQueue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void AppQueue::pushBack(AppNode* node){	
+void AppQueue::pushBack(Application* app){	
+	AppNode* node = createNode(app);
 	AppNode* tmpNode = head;
 	if(head == NULL){
 		head = node;		
@@ -79,16 +80,17 @@ void AppQueue::pushBack(AppNode* node){
 }
 
 //removes the first item from the queue
-AppQueue::AppNode* AppQueue::popFront(){ 
+Application* AppQueue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
 	AppNode* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
-	return tmpNode;
+	return tmpNode->data;
 }
 
 //returns the first item in the queue
-AppQueue::AppNode* AppQueue::front(){
-	return head;
+Application* AppQueue::front(){
+	if(head==NULL) return NULL;
+	return head->data;
 }
 
 //returns a node with the application data inside it
@@ -201,7 +203,7 @@ AppQueue* AppQueue::sortByGPA(){
 	for(int i=count-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
-                        if(appArr[j]->getStuCGPA() > appArr[j+1]->getStuCGPA()){
+                        if(appArr[j]->getStuMGPA() > appArr[j+1]->getStuMGPA()){
                                 tempApp = appArr[j+1];
                                 appArr[j+1] = appArr[j];
                                 appArr[j]=tempApp;
@@ -213,7 +215,7 @@ AppQueue* AppQueue::sortByGPA(){
 
 	for(int i=0; i<count; i++){	
 		//cout << "d\n";
-		sorted->pushBack(sorted->createNode(appArr[i]));
+		sorted->pushBack(appArr[i]);
 	}
 
 	//delete [] *appArr;//clean up the mess

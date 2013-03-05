@@ -34,7 +34,7 @@ class AppQueue
     //  returns: void			           //
     //  <runtime> 0(Queue.size) </runtime>         //
     /////////////////////////////////////////////////
-    void  pushBack(AppNode*); //adds an item to the back of the queue
+    void  pushBack(Application*); //adds an item to the back of the queue
 
     /////////////////////////////////////////////////
     //  removes and returns the first item         //
@@ -42,7 +42,7 @@ class AppQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    AppNode* popFront(); //removes the first item from the queue
+    Application* popFront(); //removes the first item from the queue
 
     /////////////////////////////////////////////////
     //  returns the first item in the queue        //
@@ -50,7 +50,7 @@ class AppQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    AppNode* front();
+    Application* front();
 
     /////////////////////////////////////////////////
     //  checks if queue is empty                   //

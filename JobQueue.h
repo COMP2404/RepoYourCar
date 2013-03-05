@@ -27,7 +27,7 @@ class JobQueue
     //  returns: void			           //
     //  <runtime> 0(Queue.size) </runtime>         //
     /////////////////////////////////////////////////
-    void  pushBack(JobNode*); //adds an item to the back of the queue
+    void  pushBack(Job*); //adds an item to the back of the queue
 
     /////////////////////////////////////////////////
     //  removes and returns the first item         //
@@ -35,7 +35,7 @@ class JobQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    JobNode* popFront(); //removes the first item from the queue
+    Job* popFront(); //removes the first item from the queue
 
     /////////////////////////////////////////////////
     //  returns the first item in the queue        //
@@ -43,7 +43,7 @@ class JobQueue
     //  returns: Node*			           //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    JobNode* front();
+    Job* front();
 
     /////////////////////////////////////////////////
     //  checks if queue is empty                   //

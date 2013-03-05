@@ -82,10 +82,10 @@ bool Application::printApp(){
 	for(i=0; i < aSize; i++){
 		cout << "Inside for loop! i is: " << i <<  endl;
 		cout << "And tempQ.size is: " << tempQ.size() << endl;
-		outFile << tempQ.front()->getData()->getTitle() << endl;
-		outFile << tempQ.front()->getData()->getFinal() << endl;
-		outFile << tempQ.front()->getData()->getYear() << endl;
-		outFile << tempQ.front()->getData()->getTerm() << endl;
+		outFile << tempQ.front()->getTitle() << endl;
+		outFile << tempQ.front()->getFinal() << endl;
+		outFile << tempQ.front()->getYear() << endl;
+		outFile << tempQ.front()->getTerm() << endl;
 		tempQ.popFront();
 	}
 
@@ -95,10 +95,10 @@ bool Application::printApp(){
 	CourseQueue otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	for(i=0; i < aSize; i++){
-		outFile << otherTemp.front()->getData()->getTitle() << endl;
-		outFile << otherTemp.front()->getData()->getSupervisor() << endl;
-		outFile << otherTemp.front()->getData()->getYear() << endl;
-		outFile << otherTemp.front()->getData()->getTerm() << endl;
+		outFile << otherTemp.front()->getTitle() << endl;
+		outFile << otherTemp.front()->getSupervisor() << endl;
+		outFile << otherTemp.front()->getYear() << endl;
+		outFile << otherTemp.front()->getTerm() << endl;
 		otherTemp.popFront();
 	}
 
@@ -108,11 +108,11 @@ bool Application::printApp(){
 	JobQueue tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
-		outFile << tempJQueue.front()->getData()->getJobTitle() << endl;
-		outFile << tempJQueue.front()->getData()->getTasks() << endl;
-		outFile << tempJQueue.front()->getData()->getDuration() << endl;
-		outFile << tempJQueue.front()->getData()->getStartDate() << endl;
-		outFile << tempJQueue.front()->getData()->getEndDate() << endl;
+		outFile << tempJQueue.front()->getJobTitle() << endl;
+		outFile << tempJQueue.front()->getTasks() << endl;
+		outFile << tempJQueue.front()->getDuration() << endl;
+		outFile << tempJQueue.front()->getStartDate() << endl;
+		outFile << tempJQueue.front()->getEndDate() << endl;
 		tempJQueue.popFront(); // currently not writing the tasks
 	}
 	outFile << "ENDFILE" << endl;	

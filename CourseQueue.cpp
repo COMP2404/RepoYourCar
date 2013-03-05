@@ -63,9 +63,10 @@ CourseQueue::CourseQueue(CourseQueue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void CourseQueue::pushBack(CourseNode* node){	
+void CourseQueue::pushBack(Course* cor){	
 	//cout<<"abc\n";
 	if (head!=NULL) cout<<"head is NOT null"<<endl;
+	CourseNode* node = createNode(cor);
 	CourseNode* tmpNode = head;
 	//cout<<"pushBack1\n";
 	if(isEmpty()){
@@ -85,16 +86,17 @@ void CourseQueue::pushBack(CourseNode* node){
 }
 
 //removes the first item from the queue
-CourseQueue::CourseNode* CourseQueue::popFront(){ 
+Course* CourseQueue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
 	CourseNode* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
-	return tmpNode;
+	return tmpNode->data;
 }
 
 //returns the first item in the queue
-CourseQueue::CourseNode* CourseQueue::front(){
-	return head;
+Course* CourseQueue::front(){
+	if(head==NULL) return NULL;
+	return head->data;
 }
 
 //returns a node with the application data inside it

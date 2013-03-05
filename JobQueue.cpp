@@ -63,7 +63,8 @@ JobQueue::JobQueue(JobQueue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void JobQueue::pushBack(JobNode* node){	
+void JobQueue::pushBack(Job* job){	
+	JobNode* node = createNode(job);
 	JobNode* tmpNode = head;
 	if(head == NULL){
 		head = node;		
@@ -79,16 +80,17 @@ void JobQueue::pushBack(JobNode* node){
 }
 
 //removes the first item from the queue
-JobQueue::JobNode* JobQueue::popFront(){ 
+Job* JobQueue::popFront(){ 
 	if(head==NULL) return NULL;//nothing in the list
 	JobNode* tmpNode = head;	
 	head = head->next;//sets head to NULL if only one item in the list
-	return tmpNode;
+	return tmpNode->data;
 }
 
 //returns the first item in the queue
-JobQueue::JobNode* JobQueue::front(){
-	return head;
+Job* JobQueue::front(){
+	if(head == NULL) return NULL;
+	return head->data;
 }
 
 //returns a node with the application data inside it
