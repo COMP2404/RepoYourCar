@@ -189,7 +189,7 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
    	else if (invalidSup != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (*supervisor)[invalidSup];
 		cout << ", at position " << invalidSup << endl;
-		WindowApp::popWindow("You entered a non-alphabetical character in last name", theApp);
+		WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
 		return !good;
    	}
 

@@ -528,7 +528,7 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
 	
 	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::submitToMain), theApp);
-	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (WindowApp::relatedCourses1), theApp);
+	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (WindowApp::relatedCourses2), theApp);
   	return 0;
 }
 
@@ -742,14 +742,33 @@ void WindowApp::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 	//-----------Remove Old Text Entries\Labels------////
 	/////////////////////////////////////////////////////
 	
-	gtk_widget_destroy(theApp->ei_relatedCourse1);
-	gtk_widget_destroy(theApp->ei_term1);
-	gtk_widget_destroy(theApp->ei_year1);
-	gtk_widget_destroy(theApp->ei_finalGrade);
+	if(theApp->gradApp){
+		
 
-	gtk_widget_destroy(theApp->ei_lblFinalGrade);
-	gtk_widget_destroy(theApp->ei_continue);
-	gtk_widget_destroy(theApp->ei_repeat);
+		theApp->ei_lblRelatedCourse = gtk_label_new("Related Course :");
+		theApp->ei_lblTerm = gtk_label_new("Term :");
+		theApp->ei_lblYear = gtk_label_new("Year :");
+		
+
+		/////////////////////////////////////////////////////
+		//-----------Attach Labels To Frame -------------////
+		/////////////////////////////////////////////////////
+		
+		gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblRelatedCourse, 400, 280);
+		gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblTerm, 400, 310);
+		gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblYear, 400,340);
+	}
+	else if(!theApp->gradApp){
+		gtk_widget_destroy(theApp->ei_relatedCourse1);
+		gtk_widget_destroy(theApp->ei_term1);
+		gtk_widget_destroy(theApp->ei_year1);
+		gtk_widget_destroy(theApp->ei_finalGrade);
+
+		gtk_widget_destroy(theApp->ei_lblFinalGrade);
+		gtk_widget_destroy(theApp->ei_continue);
+		gtk_widget_destroy(theApp->ei_repeat);
+	}
+	
 
 	theApp->page = 2;
 
