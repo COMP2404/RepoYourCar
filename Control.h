@@ -21,7 +21,7 @@ class Control{
 	public:
 		friend class WindowApp;
 		int createWindow(int, char**);
-		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, WindowApp*);
+		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, string*, string*, string*,  WindowApp*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*,WindowApp*);
 		static void cancel();
 		void loadApplications(WindowApp*);

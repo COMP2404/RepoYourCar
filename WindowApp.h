@@ -20,12 +20,15 @@ class WindowApp{
 	public:
 		friend class Control;
 		//Control Control;
-		GtkWidget *label, *info_label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *cgpa, *lblCgpa, *stuNum,*lblstuNum, *email, *lblEmail, *year, *lblYear, *submit, *cancel, *combo,  *ei_relatedCourse1, *ei_relatedCourse2, *ei_term1, *ei_term2, *ei_year1, *ei_year2, *ei_finalGrade, *ei_supervisor, *ei_relevantWork, *ei_responsabilities, *ei_duration, *ei_startDate, *ei_endDate, *ei_continue, *ei_continue2, *ei_repeat, *ei_repeat2, *ei_repeat3, *ei_finish, *ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, *ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities;
+		GtkWidget *label, *info_label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *cgpa, *lblCgpa, *stuNum,*lblstuNum, *email, *lblEmail, *year, *lblYear, *submit, *cancel, *combo,  *ei_relatedCourse1, *ei_relatedCourse2, *ei_term1, *ei_term2, *ei_year1, *ei_year2, *ei_finalGrade, *ei_supervisor, *ei_relevantWork, *ei_responsabilities, *ei_duration, *ei_startDate, *ei_endDate, *ei_continue, *ei_continue2, *ei_repeat, *ei_repeat2, *ei_repeat3, *ei_finish, *ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, *ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities
+			,*lblpickCourse, *lblpickArea, *lblpickProgram;
 
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *error_window, *error_frame, *error_dismiss, *error_message;
 		
-		GtkWidget *student_window, *student_frame, *submitFinish, *student_edit, *student_cancel, *student_apply, *grad_apply,*btnStudent,*admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login, *summary_combo;
+		GtkWidget *student_window, *student_frame, *submitFinish, *student_edit, *student_cancel, *student_apply, *btnStudent,*admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login, *summary_combo;
 		
+		GtkWidget *grad_research, *grad_research_combo, *grad_sup, *grad_program_combo, *grad_apply, *lbl_grad_sup;
+
 		Application *studentApp;
 		Course *studentCourse;
 		CourseQueue *cQRelated, *cQTa;
@@ -37,6 +40,7 @@ class WindowApp{
 		bool checkGood;
 		bool extra;
 		int page;
+		bool gradApp;
 		
 		/*WindowApp();
 		~WindowApp();*/
