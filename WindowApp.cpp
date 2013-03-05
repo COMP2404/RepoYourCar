@@ -384,6 +384,129 @@ int WindowApp::makeApplication(GtkWidget *widget, WindowApp *theApp)
   	return 0;
 }
 
+
+
+int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
+{
+	/////////////////////////////////////////////////
+	//--Creates new frame and adds it onto the window---//
+	/////////////////////////////////////////////////
+ 	gtk_widget_destroy(theApp->student_window);
+	gtk_widget_destroy(theApp->appFrame);
+	theApp->appFrame = gtk_fixed_new();
+	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
+	
+//their general information, including student number, first and last names, email address, main research area
+//(selected from a preconfigured list), program (MCS or PhD), and supervisor name
+	theApp->combo =  gtk_combo_box_text_new();
+	theApp->fName = gtk_entry_new();
+	theApp->lName = gtk_entry_new();
+	theApp->major = gtk_entry_new();
+	theApp->gpa = gtk_entry_new();
+	theApp->email = gtk_entry_new();
+	theApp->year = gtk_entry_new();
+	theApp->cgpa = gtk_entry_new();
+	theApp->stuNum = gtk_entry_new();
+
+
+	
+	char text[800];
+	string courses[800];
+
+	ifstream inFile("courses.txt", ios::in);
+
+	if (!inFile) {
+		cout<<"Could not open file"<<endl;
+		return 0;
+	}	
+	while (!inFile.eof()) {
+		inFile.getline(text, 800);
+		
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->combo), text);
+	}
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->combo, 200, 200);
+	/////////////////////////////////////////////////
+	//--Creates text Boxes and submit\cancel buttons---//
+	/////////////////////////////////////////////////
+	//theApp->combo = combo;
+	
+	
+	
+	/////////////////////////////////////////////////
+	//--Puts text boxes onto the new frame---------//
+	/////////////////////////////////////////////////
+	
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->fName, 150, 280);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lName, 150, 310);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->major, 150, 340);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->gpa, 150, 370);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cgpa, 150, 400);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->email, 150, 430);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->year, 150, 460);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->stuNum, 150, 490);
+
+	/////////////////////////////////////////////////
+	//--Puts labels onto the new frame---------//
+	/////////////////////////////////////////////////
+
+	
+	theApp->lblfName = gtk_label_new("First Name :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblfName, 30, 280); 
+	theApp->lbllName = gtk_label_new("Last Name :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lbllName, 30, 310);
+	theApp->lblMajor = gtk_label_new("Major :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblMajor, 30, 340);
+	theApp->lblGpa = gtk_label_new("GPA :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblGpa, 30, 370);
+	theApp->lblCgpa = gtk_label_new("CGPA :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblCgpa, 30, 400);
+	theApp->lblEmail = gtk_label_new("Email Address :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblEmail, 30, 430);
+	theApp->lblYear = gtk_label_new("Year :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblYear, 30, 460);
+	theApp->lblstuNum = gtk_label_new("Student Number :");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->lblstuNum, 30, 490);
+
+	
+
+	/////////////////////////////////////////////////
+	//--Puts buttons onto the new frame---------//
+	/////////////////////////////////////////////////
+
+	
+	theApp->submit = gtk_button_new_with_label("Submit");
+	theApp->cancel = gtk_button_new_with_label("Cancel");
+
+	
+	gtk_widget_set_size_request(theApp->submit, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->submit, 50, 530);
+	gtk_widget_set_size_request(theApp->cancel, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->cancel, 200, 530);
+
+	theApp->info_label = gtk_label_new("Please Enter Info Below");
+	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->info_label, 150, 58);
+	gtk_container_add(GTK_CONTAINER(theApp->window), theApp->appFrame);
+	/////////////////////////////////////////////////
+	//--Show all widgets on new frame---------//
+	/////////////////////////////////////////////////
+	gtk_widget_show_all(theApp->window);
+
+	 
+	
+
+	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
+	
+	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::submitToMain), theApp);
+	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (Control::relatedCourses1), theApp);
+  	return 0;
+}
+
+
+
+
+
+
+
 void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	//gtk_widget_destroy(theApp->summary_combo);
@@ -453,7 +576,7 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	theApp->student_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->student_window), GTK_WIN_POS_CENTER);	
-	gtk_window_set_default_size(GTK_WINDOW(theApp->student_window), 400, 200);
+	gtk_window_set_default_size(GTK_WINDOW(theApp->student_window), 550, 200);
 	
 	gtk_window_set_title(GTK_WINDOW(theApp->student_window), "Student Window");
 	
@@ -464,9 +587,13 @@ void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_set_size_request(theApp->student_edit , 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->student_edit  , 20, 50);
 
-	theApp->student_apply = gtk_button_new_with_label("New Application");
+	theApp->student_apply = gtk_button_new_with_label("New Undergrad Application");
 	gtk_widget_set_size_request(theApp->student_apply, 80, 35);
 	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->student_apply , 150, 50);
+
+	theApp->grad_apply = gtk_button_new_with_label("New Graduate Application");
+	gtk_widget_set_size_request(theApp->grad_apply, 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->student_frame), theApp->grad_apply , 350, 50);
 
 	theApp->student_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(theApp->student_cancel, 80, 35);
@@ -475,6 +602,7 @@ void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_show_all(theApp->student_window);
 
 	g_signal_connect(theApp->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
+	g_signal_connect(theApp->student_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
 	g_signal_connect(theApp->student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
 }
 

@@ -623,7 +623,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 				//theApp->cQRelated = new CourseQueue();
 				theApp->cQRelated->pushBack(theApp->cQRelated->createNode(cor));
 				theApp->moveOn = false;
-				relatedCourses2(widget, theApp);
+				WindowApp::relatedCourses2(widget, theApp);
 			}
 		}
 		
@@ -704,7 +704,7 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 				theApp->cQTa->pushBack(theApp->cQTa->createNode(cor));
 
 				theApp->moveOn = false;
-				workExperience(widget, theApp);
+				WindowApp::workExperience(widget, theApp);
 			}
 		}
 		
