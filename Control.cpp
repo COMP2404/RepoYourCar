@@ -1053,7 +1053,7 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 	}
 	*/
 	gtk_widget_destroy(theApp->appFrame);
-	Control::mainMenu(widget,theApp);
+	WindowApp::mainMenu(widget,theApp);
 	
 
 
@@ -1081,6 +1081,7 @@ void Control::submitToRepeat(GtkWidget *widget,WindowApp *theApp){
 			//Create the Main Menu
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
 	//-----------Create the window ------------------////
@@ -1151,7 +1152,7 @@ void Control::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	g_signal_connect(theApp->login, "clicked", G_CALLBACK(WindowApp::adminPage), theApp);
 
 }
-
+*/
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1177,7 +1178,7 @@ int Control::createWindow(int argc, char** argv)
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
 	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Main Menu");
-	Control::mainMenu(theApp->window, theApp);
+	WindowApp::mainMenu(theApp->window, theApp);
 	
 
 	gtk_main();
