@@ -19,7 +19,7 @@ using namespace std;
 
 class Control{
 	public:
-		
+		friend class WindowApp;
 		int createWindow(int, char**);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, WindowApp*);
 		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*,WindowApp*);
@@ -45,20 +45,24 @@ class Control{
 		static void closeAdminPage(GtkWidget*, WindowApp*);
 		static void studentPage(GtkWidget*, WindowApp*);
 		static void closeStudentPage(GtkWidget*, WindowApp*);
-		static void prepareNewStudentApp(GtkWidget*, WindowApp*);
-		static void adminPage(GtkWidget*, WindowApp*);
+		//static void prepareNewStudentApp(GtkWidget*, WindowApp*);
+		//static void adminPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int getInfo(GtkWidget*,WindowApp*);
+
 		static void workExperience(GtkWidget *, WindowApp *);
 		static void relatedCourses1(GtkWidget *, WindowApp *);
 		static void relatedCourses2(GtkWidget *, WindowApp *);
+
 		static void quickCheck(GtkWidget*, WindowApp*);
 		static void quickCheck2(GtkWidget*, WindowApp*);
 		static void quickCheck3(GtkWidget*, WindowApp*);
+
 		static void addAnother(GtkWidget*,WindowApp*);
 		static void addAnother2(GtkWidget*,WindowApp*);
 		static void addAnother3(GtkWidget*,WindowApp*);
 		static void finishExtra(GtkWidget*,WindowApp*);
+
 		static void moveOn(GtkWidget*,WindowApp*);
 		static void moveOn2(GtkWidget*,WindowApp*);
 		static void moveOn3(GtkWidget*,WindowApp*);

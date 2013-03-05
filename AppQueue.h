@@ -10,10 +10,12 @@
 class AppQueue
 {
 	friend class Control;
+    friend class WindowApp;
  class AppNode
   {
     friend class AppQueue;
 	friend class Control;
+    friend class WindowApp;
     public:
       AppNode();
       ~AppNode();
