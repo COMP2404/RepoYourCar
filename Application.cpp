@@ -65,7 +65,15 @@ bool Application::printApp(bool gradApp){
                 //ios::out<<"Could not open file"<<endl;
                 return false;
         }
-	//Save the Application data:
+
+	if(gradApp){
+		outFile << "Graduate" << endl;
+	}
+	else{
+		outFile << "underGrad" << endl;
+	}
+
+	//Save the Application data:	
 	outFile << applicationNumber << endl;
 	outFile << course << endl;
 	outFile << applicationStatus << endl;
@@ -80,7 +88,7 @@ bool Application::printApp(bool gradApp){
 
 	int aSize;
 	if(!gradApp){
-		//Save the related courses:
+		//Save the related courses for undergraduates:
 		cout << "SAVING RELATED COURSES: " << endl;
 		CourseQueue tempQ(*relatedCourses);
 		aSize = tempQ.size();
@@ -121,9 +129,9 @@ bool Application::printApp(bool gradApp){
 		outFile << tempJQueue.front()->getDuration() << endl;
 		outFile << tempJQueue.front()->getStartDate() << endl;
 		outFile << tempJQueue.front()->getEndDate() << endl;
-		tempJQueue.popFront(); // currently not writing the tasks
+		tempJQueue.popFront();
 	}
-	outFile << "ENDFILE" << endl;	
+	outFile << "ENDAPP" << endl;	
 
 }
 

@@ -1,5 +1,5 @@
 #include "Control.h"
-
+#include <iostream>
 //#include "Queue.h"
 //`pkg-config gtkmm-3.0 --cflags --libs`
 
@@ -438,6 +438,7 @@ void Control::loadApplications(WindowApp *theApp){
 	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i;
+	bool aGrad;
 	//CourseQueue *aCourseQueue = new CourseQueue();
 	//CourseQueue *bCourseQueue = new CourseQueue();
 	//JobQueue *jQueue = new JobQueue();	
@@ -454,50 +455,71 @@ void Control::loadApplications(WindowApp *theApp){
     		cout<<"Could not open file"<<endl;
     		return;
   	}
-	string wtf = "relatedONE";
+
 	while (!inFile.eof()) {
 		CourseQueue* relatedC = new CourseQueue();
 		CourseQueue* relatedT = new CourseQueue();
 		JobQueue*    relatedJ = new JobQueue();
+		
+		inFile.getline(text, THIS_BUF); // application type
+		cout << "APP TYPE: " << text << endl;
+		if (strlen(text) == 0){
+			break;
+		}		
 
+		//if(strcmp(text, "ENDOFFILEMARKER") == 0){
+	//		break;
+	//	}
+
+		if(strcmp(text, "underGrad") == 0)
+		{	
+			cout << "UNDERGRADUATE APP" << endl;
+			aGrad = false;
+				
+		}
+		else{
+			aGrad = true;
+		}	
+		
 		//read an entire application
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // application number 
 		cout << "got this text: " << text << endl;
 		a = atoi(text);
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // application course
 		cout << "got this text: " << text << endl;
 		c = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // application status
 		cout << "got this text: " << text << endl;
 		s = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // cGPA
 		cout << "got this text: " << text << endl;
 		cgpa = atoi(text);
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // mGPA
 		cout << "got this text: " << text << endl;
 		mgpa = atoi(text);
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // First Name
 		cout << "got this text: " << text << endl;
 		f = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // Last Name
 		cout << "got this text: " << text << endl;
 		l = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // Email
 		cout << "got this text: " << text << endl;
 		e = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // Major
 		cout << "got this text: " << text << endl;
 		m = text;
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // Year Standing
 		cout << "got this text: " << text << endl;
 		y = atoi(text);
-		inFile.getline(text, THIS_BUF);
+		inFile.getline(text, THIS_BUF); // Student Number
 		cout << "got this text: " << text << endl;
 		i = text;
 
 		//read the related courses
 		cout << "SLEEPING" << endl;
 		
+		if (!aGrad){
 		cout << "READING RELATED COURSES " << endl;
 		while (1){ //untill you get to the TA positions
 			inFile.getline(text, THIS_BUF);
@@ -505,16 +527,11 @@ void Control::loadApplications(WindowApp *theApp){
 			
 			if(strcmp(text, "RELATEDTAPOSITIONS") == 0)
 			{	
-				cout << "breaking..." << endl;
+				cout << "breaking...From Related Courses" << endl;
 				break;
 				
 			}
 			cTitle = text;
-
-			if(strcmp(text, "relatedONE") == 0)
-			{
-				cout << "wtf..." << endl;
-			}
 
 			cout << "SHOULD BE COURSE TITLE: " << cTitle << endl;
 			inFile.getline(text, THIS_BUF);
@@ -535,22 +552,37 @@ void Control::loadApplications(WindowApp *theApp){
 			cout << "DONE" << endl;
 				
 		}
+		
+		}
+		else{
+			inFile.getline(text, THIS_BUF); //be sure to read the header
+		}			
 
 		//read the related TA positions
+		cout << "READING RELATED TA POSITIONS " << endl;
+		sleep(2);
 		while (1){
-			inFile.getline(text, THIS_BUF);
+
+			inFile.getline(text, THIS_BUF);			
+			cout << "TEXT IT GOT, BREAKING ON 'WORKEXP': " << text << endl;	
+			sleep(2);		
 			if(strcmp(text, "WORKEXP") ==0)
 			{
-				cout << "breaking..." << endl;
+				cout << "breaking...from TA" << endl;
 				break;
 				
 			}
+			cout << "SHOULD BE TITLE: " << text << endl;
 			cTitle = text;
+			sleep(2);
 			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE Supervisor: " << text << endl;
 			cSuper = text;
 			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE YEAR: " << text << endl;
 			cYear = atoi(text);
 			inFile.getline(text, THIS_BUF);
+			cout << "SHOULD BE TERM: " << text << endl;
 			cTerm = text;
 			//make a course with the information and "N/A" grade
 			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper, "N/A");
@@ -558,24 +590,30 @@ void Control::loadApplications(WindowApp *theApp){
 			
 		}
 		//read the related Work EXP
+		cout << "READING RELATED WORK" << endl;
 		while (1){
 			inFile.getline(text, THIS_BUF);
-			if(strcmp(text, "ENDFILE") ==0)
+			cout << "TEXT IT GOT, BREAKING ON 'ENDAPP': " << text << endl;		
+			if(strcmp(text, "ENDAPP") ==0)
 			{
-				cout << "breaking..." << endl;
+				cout << "breaking...From work" << endl;
 				break;
 				
 			}
+			cout << "SHOULD BE TITLE: " << text << endl;
 			jTitle = text;
 			inFile.getline(text, THIS_BUF);
 			jTasks = text;
+			cout << "SHOULD BE TASKS: " << text << endl;
 			inFile.getline(text, THIS_BUF);
 			jDuration = text;
+			cout << "SHOULD BE Drration: " << text << endl;
 			inFile.getline(text, THIS_BUF);
 			jStart = text;
+			cout << "SHOULD BE START: " << text << endl;
 			inFile.getline(text, THIS_BUF);
 			jEnd = text;
-			
+			cout << "SHOULD BE END: " << text << endl;
 
 			Job *aJob = new Job(jTitle, jTasks, jDuration, jStart, jEnd);
 			relatedJ->pushBack(aJob);
@@ -583,16 +621,23 @@ void Control::loadApplications(WindowApp *theApp){
 		}
 
 		//NOW initialise an application
-
+		cout << "Initialise a student* and set its Queues... " << endl;
 		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
 
 		Application *newApp = new Application(stu, a, c, s);
+		if (relatedC != 0){
 		newApp->setRelatedCourses(relatedC);
+		}
 		newApp->setRelatedTAPositions(relatedT);
 		newApp->setRelatedWorkEXP(relatedJ);
+		cout << "Check! now pushing an app" << endl;
 		theApp->appQueue.pushBack(newApp);
-		break;
+		cout << "Roger!!" << endl;
 
+		cout << "Need to maybe break!" << endl;
+		
+		
+		
 
 /*
 		Application *a = new Application(s, applicationNum++, *course, "PENDING");
