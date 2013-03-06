@@ -386,7 +386,8 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 
 	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
 	//theApp->studentRepeat = s;
-
+	GradStudent *gs;
+	UndergradStudent *ugs;
 	Application *a = new Application(s, applicationNum++, *course, "PENDING");
 	a->setRelatedCourses(theApp->cQRelated);
 	a->setRelatedTAPositions(theApp->cQTa);

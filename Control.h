@@ -8,6 +8,8 @@
 //#include "Queue.h"
 #include "AppQueue.h"
 #include "Student.h"
+#include "GradStudent.h"
+#include "UndergradStudent.h"
 #include "main.h"
 #include <cstdlib>
 #include <string.h>

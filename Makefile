@@ -1,4 +1,4 @@
-OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o
+OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o GradStudent.o UndergradStudent.o
 
 cuTaes: $(OBJECTS)
 		g++ $(OBJECTS) -o cuTaes `pkg-config gtkmm-3.0 --cflags --libs` 
@@ -31,6 +31,12 @@ Application.o:	Application.cpp Application.h
 Student.o:	Student.cpp Student.h
 		g++ -c Student.cpp
 
+GradStudent.o:	GradStudent.cpp GradStudent.h	
+		g++ -c GradStudent.cpp
+
+UndergradStudent.o:	UndergradStudent.cpp UndergradStudent.h	
+		g++ -c UndergradStudent.cpp
+
 Course.o:	Course.cpp Course.h
 		g++ -c Course.cpp
 
@@ -47,4 +53,4 @@ clean:
 		rm *.o cuTaes
 
 package:
-	tar -cvf 2404A2.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Makefile courses.txt 2404UMLandDoc.pdf README.txt
+	tar -cvf 2404A3.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Course.cpp Course.h Job.cpp Job.h GradStudent.cpp GradStudent.h Makefile courses.txt 2404UMLandDoc.pdf README.txt
