@@ -384,11 +384,20 @@ void Control::killSubmitWindow(GtkWidget *widget, WindowApp *theApp){
 bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum, WindowApp *theApp){
 	static int applicationNum = 1;
 
-	Student* s = new Student(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
+	Student* s ;
 	//theApp->studentRepeat = s;
 	GradStudent *gs;
 	UndergradStudent *ugs;
-	Application *a = new Application(s, applicationNum++, *course, "PENDING");
+	Application *a;
+	if(theApp->gradApp){
+		gs = new GradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
+		a  = new Application(gs, applicationNum++, *course, "PENDING");
+	}
+	else{
+		ugs = new UndergradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
+		a  = new Application(ugs, applicationNum++, *course, "PENDING");
+	}
+	//Application *a = new Application(s, applicationNum++, *course, "PENDING");
 	a->setRelatedCourses(theApp->cQRelated);
 	a->setRelatedTAPositions(theApp->cQTa);
 	a->setRelatedWorkEXP(theApp->jQRelated);
