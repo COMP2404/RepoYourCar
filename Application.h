@@ -36,7 +36,7 @@ public:
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
 
-	bool printApp();
+	bool printApp(bool);
 	Application(Student*, int, string="unknown", string="pending");
 	~Application();
 	CourseQueue	*relatedCourses;

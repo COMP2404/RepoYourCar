@@ -408,7 +408,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 	//apples = a;
 
 	//Control::printApp(a);
-	if(!a->printApp())
+	if(!a->printApp(theApp->gradApp))
 		return false;
 
 	

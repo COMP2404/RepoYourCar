@@ -40,13 +40,17 @@ Application::~Application(){
 }
 
 
-bool Application::printApp(){
+bool Application::printApp(bool gradApp){
 	int i;
 
 	//debugging stuff..
-	cout << "SIZES OF LINKED LISTS:" << endl;
-	int j = relatedCourses->size();
-	cout << "SIZE OF RELATED COURSES: " << j << endl;
+	if(!gradApp){
+		cout << "SIZES OF LINKED LISTS:" << endl;
+		int j = relatedCourses->size();
+		cout << "SIZE OF RELATED COURSES: " << j << endl;
+	}
+	
+	
 	int k = relatedTAPositions->size();
 	cout << "SIZE OF RELATED TA POSITIONS: "<< k << endl;
 	int l = relatedWorkEXP->size();
@@ -74,20 +78,24 @@ bool Application::printApp(){
 	outFile << stuYearStanding << endl;
 	outFile << stuID << endl;
 
-	//Save the related courses:
-	cout << "SAVING RELATED COURSES: " << endl;
-	CourseQueue tempQ(*relatedCourses);
-	int aSize = tempQ.size();
-	cout << "SIZE OF tempQ: " << aSize << endl; 
-	for(i=0; i < aSize; i++){
-		cout << "Inside for loop! i is: " << i <<  endl;
-		cout << "And tempQ.size is: " << tempQ.size() << endl;
-		outFile << tempQ.front()->getTitle() << endl;
-		outFile << tempQ.front()->getFinal() << endl;
-		outFile << tempQ.front()->getYear() << endl;
-		outFile << tempQ.front()->getTerm() << endl;
-		tempQ.popFront();
+	int aSize;
+	if(!gradApp){
+		//Save the related courses:
+		cout << "SAVING RELATED COURSES: " << endl;
+		CourseQueue tempQ(*relatedCourses);
+		aSize = tempQ.size();
+		cout << "SIZE OF tempQ: " << aSize << endl; 
+		for(i=0; i < aSize; i++){
+			cout << "Inside for loop! i is: " << i <<  endl;
+			cout << "And tempQ.size is: " << tempQ.size() << endl;
+			outFile << tempQ.front()->getTitle() << endl;
+			outFile << tempQ.front()->getFinal() << endl;
+			outFile << tempQ.front()->getYear() << endl;
+			outFile << tempQ.front()->getTerm() << endl;
+			tempQ.popFront();
+		}
 	}
+	
 
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
