@@ -79,12 +79,36 @@ class AppQueue
     AppQueue* getPendingList(string);
 
     /////////////////////////////////////////////////
-    //  gets a sorted copy of the Queue passed in  //
+    //  gets a sorted copy of the Queue (this)     //
     //  @param:  void       		           //
     //  returns: Queue* 			   //
     //  <runtime> 0(n^2) </runtime>                //
     /////////////////////////////////////////////////
     AppQueue* sortByGPA(void);
+
+    /////////////////////////////////////////////////
+    //  makes a sorted copy of 'this' queue        //
+    //  @param:  void       		           //
+    //  returns: Queue* 			   //
+    //  <runtime> 0(n^2) </runtime>                //
+    /////////////////////////////////////////////////
+    AppQueue* sortAll(void);
+
+    /////////////////////////////////////////////////
+    //  gets number of courses being applied for   //
+    //  @param:  void			           //
+    //  returns: int				   //
+    //  <runtime> 0(1) </runtime>                  //
+    /////////////////////////////////////////////////
+    int getNumCourses(void);
+
+    /////////////////////////////////////////////////
+    // checks if theres an app for a certain course//
+    //  @param:  void			           //
+    //  returns: boolean: true if empty else false //
+    //  <runtime> 0(1) </runtime>                  //
+    /////////////////////////////////////////////////
+    bool appExists(string);
 
     /////////////////////////////////////////////////
     //  returns the number of elements in the Queue//

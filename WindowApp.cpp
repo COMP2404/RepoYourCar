@@ -594,6 +594,9 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
  	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
 	string courseString;
 	courseString = (theCourse);
+	
+	//AppQueue* qCopy = theApp->appQueue.sortAll();
+
 	cout << "Getting Pending List" << endl;
 	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
 	if(!theApp->appQueue.isEmpty()){
