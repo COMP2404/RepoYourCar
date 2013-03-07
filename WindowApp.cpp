@@ -587,17 +587,24 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	//gtk_widget_destroy(theApp->summary_combo);
 
-	
+	cout << "Updating Combo" << endl;
 	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
+	cout << "Removed Text" << endl;
 	const gchar* theCourse;
  	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
 	string courseString;
 	courseString = (theCourse);
 	
 	//AppQueue* qCopy = theApp->appQueue.sortAll();
-	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
-	qCopy = qCopy->sortByGPA();	
 
+	cout << "Getting Pending List" << endl;
+	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
+	if(!theApp->appQueue.isEmpty()){
+		cout << "Sorting by GPA" << endl;
+		qCopy = qCopy->sortByGPA();
+	}
+			
+	cout << "Got Pending List" << endl;
 	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
 	string s1,s2,s3,s4,s5,s6,s7 ,s8;
 	
@@ -605,8 +612,9 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	char theInput[200];
 	string input[100];//string array for each Application
-	
-	Application* tmpApp = qCopy->popFront();
+	Application* tmpApp = NULL;
+	if(qCopy != NULL)
+		 tmpApp = qCopy->popFront();
 	 int i = 0;
 	//for(int i=0; i<length; i++){
 	while(tmpApp != NULL){
