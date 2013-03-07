@@ -17,6 +17,7 @@ Application::Application(GradStudent *g, UndergradStudent *u, int appNum, string
      if(gs != NULL){
      	cout << "grad app" << endl;
      	stuFirst = gs->getFirst();
+		stuYearStanding = 5;//flag for graduate
 		stuLast = gs->getLast();
 		stuEmail = gs->getEmail();
 		stuID = gs->getStudentNumber();

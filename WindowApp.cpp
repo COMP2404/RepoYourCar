@@ -594,6 +594,7 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	string courseString;
 	courseString = (theCourse);
 	
+	//AppQueue* qCopy = theApp->appQueue.sortAll();
 	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
 	qCopy = qCopy->sortByGPA();	
 
