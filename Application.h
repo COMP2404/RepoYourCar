@@ -28,30 +28,30 @@ public:
 	string   getCourse(void);
 	string   getStatus();
 
-	int      getStuCGPA();
-	int      getStuMGPA();
+	//int      getStuCGPA();
+	//int      getStuMGPA();
 	string   getStuFirst();
 	string   getStuLast();
 	string   getStuEmail();
-	string   getStuMajor();
-	string   getStuProgram();
-	string   getStuArea();
-	string   getStuSuper();
-	int      getStuYrStanding();
+	//string   getStuMajor();
+	//string   getStuProgram();
+	//string   getStuArea();
+	//string   getStuSuper();
+	//int      getStuYrStanding();
 	string   getStuID();
-	void 	 setRelatedCourses(CourseQueue*);
+	//void 	 setRelatedCourses(CourseQueue*);
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
 
-	bool printApp(bool);
-	Application(GradStudent*, UndergradStudent*, int, string="unknown", string="pending");
+	bool printApp();
+	Application(int, string="unknown", string="pending");
 	~Application();
 	CourseQueue	*relatedCourses;
 	CourseQueue	*relatedTAPositions;
 	JobQueue	*relatedWorkEXP;
 	//------------------------------
 
-private:
+protected:
 	//VARIABLES---------------------
 //Student *applicant;
 	int     applicationNumber;
@@ -60,17 +60,17 @@ private:
 	
 	string  applicationStatus;
 	//Student members:
-	int    stuCGPA;
-	int    stuMGPA;
+	//int    stuCGPA;
+	//int    stuMGPA;
 	string stuFirst;
 	string stuLast;
 	string stuEmail;
-	string stuMajor;
-	int    stuYearStanding;
+	//string stuMajor;
+	//int    stuYearStanding;
 	string stuID;
-	string stuProgram;
-	string stuArea;
-	string stuSuper;
+	//string stuProgram;
+	//string stuArea;
+	//string stuSuper;
 	//------------------------------
 };
 

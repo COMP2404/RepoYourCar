@@ -4,12 +4,12 @@
 #include <iostream>
 using namespace std;
 
-Application::Application(GradStudent *g, UndergradStudent *u, int appNum, string cor, string stat){
+Application::Application(int appNum, string cor, string stat){
 	//CONSTRUCTOR!===========
         applicationNumber = appNum;
         course 		  = cor;
         applicationStatus = stat;
-//	
+        /*
         GradStudent *gs;
         UndergradStudent *ugs;
         gs = g;
@@ -36,7 +36,7 @@ Application::Application(GradStudent *g, UndergradStudent *u, int appNum, string
 		stuCGPA = u->getCGPA();
 		stuMGPA = u->getMajorGPA();
      }
-      
+      */
 	
 	
 	
@@ -48,17 +48,17 @@ int      Application::getApplicationNumber(){ return applicationNumber; }
 string   Application::getCourse(){ return course; }
 string   Application::getStatus(){ return applicationStatus; }
 
-int      Application::getStuCGPA(){ return stuCGPA; }
-int      Application::getStuMGPA(){ return stuMGPA; }
+//int      Application::getStuCGPA(){ return stuCGPA; }
+//int      Application::getStuMGPA(){ return stuMGPA; }
 string   Application::getStuFirst(){ return stuFirst; }
 string   Application::getStuLast(){ return stuLast; }
 string   Application::getStuEmail(){ return stuEmail; }
-string   Application::getStuMajor(){ return stuMajor; }
-int      Application::getStuYrStanding(){ return stuYearStanding; }
+//string   Application::getStuMajor(){ return stuMajor; }
+//int      Application::getStuYrStanding(){ return stuYearStanding; }
 string   Application::getStuID(){ return stuID; }
-string 	 Application::getStuArea(){ return stuArea;}
-string   Application::getStuSuper(){ return stuSuper;}
-string   Application::getStuProgram(){return stuProgram;}
+//string 	 Application::getStuArea(){ return stuArea;}
+//string   Application::getStuSuper(){ return stuSuper;}
+//string   Application::getStuProgram(){return stuProgram;}
 //===============================================================================
 
 //Destructor:
@@ -67,7 +67,8 @@ Application::~Application(){
 }
 
 
-bool Application::printApp(bool gradApp){
+bool Application::printApp(){
+	/*
 	int i;
 
 	//debugging stuff..
@@ -170,15 +171,18 @@ bool Application::printApp(bool gradApp){
 		outFile << tempJQueue.front()->getEndDate() << endl;
 		tempJQueue.popFront();
 	}
-	outFile << "ENDAPP" << endl;	
+	outFile << "ENDAPP" << endl;	*/
 
 }
-
+/*
 void Application::setRelatedCourses(CourseQueue *queue){
 	relatedCourses = queue;
 	
 }
 
+
+
+*/
 void Application::setRelatedTAPositions(CourseQueue *queue){
 	relatedTAPositions = queue;
 
@@ -188,5 +192,3 @@ void Application::setRelatedWorkEXP(JobQueue *queue){
 	relatedWorkEXP = queue;
 
 }
-
-

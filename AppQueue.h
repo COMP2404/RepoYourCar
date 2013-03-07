@@ -3,6 +3,8 @@
 
 //#include "Queue.h"
 #include "Application.h"
+#include "GradApp.h"
+#include "UndergradApp.h"
 
 //#include "Student.h"
 //#include "Control.h"
@@ -34,7 +36,7 @@ class AppQueue
     //  returns: void			           //
     //  <runtime> 0(Queue.size) </runtime>         //
     /////////////////////////////////////////////////
-    void  pushBack(Application*); //adds an item to the back of the queue
+    void  pushBack(GradApp*, UndergradApp*); //adds an item to the back of the queue
 
     /////////////////////////////////////////////////
     //  removes and returns the first item         //
@@ -66,7 +68,7 @@ class AppQueue
     //  returns: Node ptr			   //
     //  <runtime> 0(1) </runtime>                  //
     /////////////////////////////////////////////////
-    AppNode* createNode(Application* );
+    AppNode* createNode(GradApp *, UndergradApp*);
 
     /////////////////////////////////////////////////
     //gets a subset Queue of pending apps by course//

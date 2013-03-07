@@ -10,6 +10,9 @@
 #include "Student.h"
 #include "GradStudent.h"
 #include "UndergradStudent.h"
+#include "GradApp.h"
+#include "UndergradApp.h"
+
 #include "main.h"
 #include <cstdlib>
 #include <string.h>
@@ -24,7 +27,7 @@ class Control{
 		friend class WindowApp;
 		int createWindow(int, char**);
 		static bool errorCheck(string*, string*, string*, string*, string*, string*, string*, string*, string*, string*, string*, string*,  WindowApp*);
-		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*,WindowApp*);
+		static bool submit(string*, string*, string*, int, int, string*, int, string*, string*, string*, string*, string*, WindowApp*);
 		static void cancel();
 		void loadApplications(WindowApp*);
 		

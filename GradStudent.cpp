@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-GradStudent::GradStudent(int cgpa, int gpa, string f, string l, string e, string s, int year, string num, string research, string prog, string super)
+GradStudent::GradStudent(string f, string l, string e, string num, string research, string prog, string super)
 			:stuArea(research), stuProgram(prog), stuSupervisor(super), Student(f, l, e, num)
 {
 	//GradStudent Constructor

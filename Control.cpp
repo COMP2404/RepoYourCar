@@ -358,7 +358,7 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
 		g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
 
-		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, theApp);
+		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, &string10, &string11, &string12, theApp);
 		
 		//submit(string*, string*, string*, int, int, string*, int, string*);
 	}
@@ -381,37 +381,51 @@ void Control::killSubmitWindow(GtkWidget *widget, WindowApp *theApp){
 //**********************************************************************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum, WindowApp *theApp){
+bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum, string* area, string* program, string* supervisor, WindowApp *theApp){
 	static int applicationNum = 1;
 
 	Student* s ;
 	//theApp->studentRepeat = s;
 	GradStudent *gs = NULL;
 	UndergradStudent *ugs = NULL;
-	Application *a;
+	//Application *a;
+	GradApp *ga = NULL;
+	UndergradApp *uga = NULL;
 	if(theApp->gradApp){
 		cout << "pushing grad app" << endl;
-		gs = new GradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
-		a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
+		gs = new GradStudent(*first, *last, *email, *stunum, *area, *program, *supervisor);
+		//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
+		ga = new GradApp(gs, applicationNum++, *course, "PENDING");
+		ga->setRelatedTAPositions(theApp->cQTa);
+		ga->setRelatedWorkEXP(theApp->jQRelated);
+		theApp->appQueue.pushBack(ga, uga);
+		if(!ga->printApp())
+				return false;
 	}
 	else{
 		cout << "pushing ugrad app" << endl;
 		ugs = new UndergradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
-		a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
+		//a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
+		//uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
+		uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
+		uga->setRelatedCourses(theApp->cQRelated);
+		uga->setRelatedTAPositions(theApp->cQTa);
+		uga->setRelatedWorkEXP(theApp->jQRelated);
+		theApp->appQueue.pushBack(ga, uga);
+		if(!uga->printApp())
+				return false;
 	}
 	//Application *a = new Application(s, applicationNum++, *course, "PENDING");
-	a->setRelatedCourses(theApp->cQRelated);
-	a->setRelatedTAPositions(theApp->cQTa);
-	a->setRelatedWorkEXP(theApp->jQRelated);
 	
-	theApp->studentApp = a;
-	theApp->appQueue.pushBack(a);
+	
+	//theApp->studentApp = a;
+	//theApp->appQueue.pushBack(a);
 	//theApp->appQueue.isEmpty();
-	//apples = a;
+	
 
 	//Control::printApp(a);
-	if(!a->printApp(theApp->gradApp))
-		return false;
+	//if(!a->printApp(theApp->gradApp))
+	//	return false;
 
 	
 	return true;
@@ -657,17 +671,36 @@ void Control::loadApplications(WindowApp *theApp){
 
 		//NOW initialise an application
 		cout << "Initialise a student* and set its Queues... " << endl;
+		GradApp *ga = NULL;
+		UndergradApp *uga = NULL;
+		if(aGrad){
+			GradStudent *stu = new GradStudent(f, l, e, i, area, program, supervisor);
+			ga = new GradApp(stu, a,c,s);
+			ga->setRelatedTAPositions(relatedT);
+			ga->setRelatedWorkEXP(relatedJ);
+			theApp->appQueue.pushBack(ga, uga);
+		}
+		else{
+			
+			UndergradStudent *stu = new UndergradStudent(cgpa, mgpa, f, l, e, m, y, i);
+			uga = new UndergradApp(stu,a,c,s);
+			uga->setRelatedCourses(relatedC);
+			uga->setRelatedTAPositions(relatedT);
+			uga->setRelatedWorkEXP(relatedJ);
+			theApp->appQueue.pushBack(ga, uga);
+		}
+		/*
 		Student *stu = new Student(f, l, e, i);
 		GradStudent *gs = NULL;
 		UndergradStudent *ugs = NULL;
 		Application *newApp = new Application(gs, ugs, a, c, s);
 		if (relatedC != 0){
-		newApp->setRelatedCourses(relatedC);
+			newApp->setRelatedCourses(relatedC);
 		}
 		newApp->setRelatedTAPositions(relatedT);
 		newApp->setRelatedWorkEXP(relatedJ);
 		cout << "Check! now pushing an app" << endl;
-		theApp->appQueue.pushBack(newApp);
+		theApp->appQueue.pushBack(newApp);*/
 		cout << "Roger!!" << endl;
 
 		cout << "Need to maybe break!" << endl;

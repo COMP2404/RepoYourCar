@@ -586,7 +586,7 @@ void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
 void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	//gtk_widget_destroy(theApp->summary_combo);
-
+/*
 	cout << "Updating Combo" << endl;
 	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
 	cout << "Removed Text" << endl;
@@ -644,7 +644,7 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	
 	gtk_widget_show_all(theApp->window);
-
+*/
 }
 
 

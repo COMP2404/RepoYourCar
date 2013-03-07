@@ -6,7 +6,7 @@
 
 class UndergradStudent: public Student{
 	public:
-		UndergradStudent(int=-1, int=-1, string="unknown", string ="", string="", string="unknown", int=-1, string="10000000", string="Undeclared", string="MCS", string="Unknown");
+		UndergradStudent(int=-1, int=-1, string="unknown", string ="", string="", string="unknown", int=-1, string="10000000");
 		~UndergradStudent();
 		int    getCGPA(void);
 		int    getMajorGPA(void);

@@ -63,8 +63,9 @@ AppQueue::AppQueue(AppQueue& q){
 	nTmp->data = tmp->data;//for the last iteration since the loop wont evaluate on tmp->next==NULL
 }
 
-void AppQueue::pushBack(Application* app){	
-	AppNode* node = createNode(app);
+void AppQueue::pushBack(GradApp *ga, UndergradApp *uga){
+	
+	AppNode* node = createNode(ga, uga);
 	AppNode* tmpNode = head;
 	if(head == NULL){
 		head = node;		
@@ -94,9 +95,13 @@ Application* AppQueue::front(){
 }
 
 //returns a node with the application data inside it
-AppQueue::AppNode* AppQueue::createNode(Application *theApp){
+AppQueue::AppNode* AppQueue::createNode(GradApp *ga, UndergradApp *uga){
 	AppNode* tempNode = new AppNode();
-	tempNode->data = theApp;
+	if(ga != NULL)
+		tempNode->data = ga;
+	else{
+		tempNode->data = uga;
+	}
 	tempNode->next = NULL;
 	return tempNode;
 }
@@ -200,7 +205,7 @@ AppQueue* AppQueue::sortByGPA(){
 		tmp = tmp->next;
 	}
 	//-----------SORT THE APPLICATIONS BY GPA------------//
-	for(int i=count-1; i>=0; i--){//BSORT
+	/*for(int i=count-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
                         if(appArr[j]->getStuMGPA() > appArr[j+1]->getStuMGPA()){
@@ -211,11 +216,11 @@ AppQueue* AppQueue::sortByGPA(){
                         }
                 }
                 if(!swapped) break;
-        }
+        }*/
 
 	for(int i=0; i<count; i++){	
 		//cout << "d\n";
-		sorted->pushBack(appArr[i]);
+		//sorted->pushBack(appArr[i]);
 	}
 
 	//delete [] *appArr;//clean up the mess
@@ -227,7 +232,7 @@ void AppQueue::print() const{
 	AppNode* tmp = head;
 	while(tmp!=NULL){
 		if(tmp->data != NULL)
-			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << " gpa: " << tmp->data->getStuCGPA() << endl;
+//			cout << "Application ID: " << tmp->data->getApplicationNumber() << " Name: " << tmp->data->getStuFirst() << " " << tmp->data->getStuLast() << " gpa: " << tmp->data->getStuCGPA() << endl;
 		tmp=tmp->next;
 	}
 }
