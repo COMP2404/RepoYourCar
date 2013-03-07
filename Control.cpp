@@ -386,16 +386,18 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 
 	Student* s ;
 	//theApp->studentRepeat = s;
-	GradStudent *gs;
-	UndergradStudent *ugs;
+	GradStudent *gs = NULL;
+	UndergradStudent *ugs = NULL;
 	Application *a;
 	if(theApp->gradApp){
+		cout << "pushing grad app" << endl;
 		gs = new GradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
-		a  = new Application(gs, applicationNum++, *course, "PENDING");
+		a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
 	}
 	else{
+		cout << "pushing ugrad app" << endl;
 		ugs = new UndergradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
-		a  = new Application(ugs, applicationNum++, *course, "PENDING");
+		a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
 	}
 	//Application *a = new Application(s, applicationNum++, *course, "PENDING");
 	a->setRelatedCourses(theApp->cQRelated);
@@ -437,7 +439,7 @@ void Control::loadApplications(WindowApp *theApp){
 
 	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
-	string  c, s, f, l, e, m, i;
+	string  c, s, f, l, e, m, i, program, area, supervisor;
 	bool aGrad;
 	//CourseQueue *aCourseQueue = new CourseQueue();
 	//CourseQueue *bCourseQueue = new CourseQueue();
@@ -475,46 +477,79 @@ void Control::loadApplications(WindowApp *theApp){
 		{	
 			cout << "UNDERGRADUATE APP" << endl;
 			aGrad = false;
+			inFile.getline(text, THIS_BUF); // application number 
+			cout << "got this text: " << text << endl;
+			a = atoi(text);
+			inFile.getline(text, THIS_BUF); // application course
+			cout << "got this text: " << text << endl;
+			c = text;
+			inFile.getline(text, THIS_BUF); // application status
+			cout << "got this text: " << text << endl;
+			s = text;
+			inFile.getline(text, THIS_BUF); // cGPA
+			cout << "got this text: " << text << endl;
+			cgpa = atoi(text);
+			inFile.getline(text, THIS_BUF); // mGPA
+			cout << "got this text: " << text << endl;
+			mgpa = atoi(text);
+			inFile.getline(text, THIS_BUF); // First Name
+			cout << "got this text: " << text << endl;
+			f = text;
+			inFile.getline(text, THIS_BUF); // Last Name
+			cout << "got this text: " << text << endl;
+			l = text;
+			inFile.getline(text, THIS_BUF); // Email
+			cout << "got this text: " << text << endl;
+			e = text;
+			inFile.getline(text, THIS_BUF); // Major
+			cout << "got this text: " << text << endl;
+			m = text;
+			inFile.getline(text, THIS_BUF); // Year Standing
+			cout << "got this text: " << text << endl;
+			y = atoi(text);
+			inFile.getline(text, THIS_BUF); // Student Number
+			cout << "got this text: " << text << endl;
+			i = text;
 				
 		}
 		else{
 			aGrad = true;
+			inFile.getline(text, THIS_BUF); // application number 
+			cout << "got this text: " << text << endl;
+			a = atoi(text);
+			inFile.getline(text, THIS_BUF); // application course
+			cout << "got this text: " << text << endl;
+			c = text;
+			inFile.getline(text, THIS_BUF); // application status
+			cout << "got this text: " << text << endl;
+			s = text;
+			inFile.getline(text, THIS_BUF); // program
+			cout << "got this text: " << text << endl;
+			program = atoi(text);
+			inFile.getline(text, THIS_BUF); // area
+			cout << "got this text: " << text << endl;
+			area = atoi(text);
+			inFile.getline(text, THIS_BUF); // First Name
+			cout << "got this text: " << text << endl;
+			f = text;
+			inFile.getline(text, THIS_BUF); // Last Name
+			cout << "got this text: " << text << endl;
+			l = text;
+			inFile.getline(text, THIS_BUF); // Email
+			cout << "got this text: " << text << endl;
+			e = text;
+			inFile.getline(text, THIS_BUF); // supervisor
+			cout << "got this text: " << text << endl;
+			supervisor = text;
+			inFile.getline(text, THIS_BUF); // Student Number
+			cout << "got this text: " << text << endl;
+			i = text;
 		}	
 		
 		//read an entire application
-		inFile.getline(text, THIS_BUF); // application number 
-		cout << "got this text: " << text << endl;
-		a = atoi(text);
-		inFile.getline(text, THIS_BUF); // application course
-		cout << "got this text: " << text << endl;
-		c = text;
-		inFile.getline(text, THIS_BUF); // application status
-		cout << "got this text: " << text << endl;
-		s = text;
-		inFile.getline(text, THIS_BUF); // cGPA
-		cout << "got this text: " << text << endl;
-		cgpa = atoi(text);
-		inFile.getline(text, THIS_BUF); // mGPA
-		cout << "got this text: " << text << endl;
-		mgpa = atoi(text);
-		inFile.getline(text, THIS_BUF); // First Name
-		cout << "got this text: " << text << endl;
-		f = text;
-		inFile.getline(text, THIS_BUF); // Last Name
-		cout << "got this text: " << text << endl;
-		l = text;
-		inFile.getline(text, THIS_BUF); // Email
-		cout << "got this text: " << text << endl;
-		e = text;
-		inFile.getline(text, THIS_BUF); // Major
-		cout << "got this text: " << text << endl;
-		m = text;
-		inFile.getline(text, THIS_BUF); // Year Standing
-		cout << "got this text: " << text << endl;
-		y = atoi(text);
-		inFile.getline(text, THIS_BUF); // Student Number
-		cout << "got this text: " << text << endl;
-		i = text;
+		
+		
+		
 
 		//read the related courses
 		cout << "SLEEPING" << endl;
@@ -622,9 +657,10 @@ void Control::loadApplications(WindowApp *theApp){
 
 		//NOW initialise an application
 		cout << "Initialise a student* and set its Queues... " << endl;
-		Student *stu = new Student(cgpa, mgpa, f, l, e, m, y, i);
-
-		Application *newApp = new Application(stu, a, c, s);
+		Student *stu = new Student(f, l, e, i);
+		GradStudent *gs = NULL;
+		UndergradStudent *ugs = NULL;
+		Application *newApp = new Application(gs, ugs, a, c, s);
 		if (relatedC != 0){
 		newApp->setRelatedCourses(relatedC);
 		}

@@ -2,14 +2,14 @@
 #include <string>
 #include <iostream>
 
-Student::Student(int cgpa, int gpa, string f, string l, string e, string s, int year, string num){
-	CGPA = cgpa;
-        majorGPA = gpa;
+Student::Student(string f, string l, string e, string num){
+		//CGPA = cgpa;
+      //  majorGPA = gpa;
         first = f;
         last = l;
         email = e;
-        major = s;
-        yearStanding = year;
+      //  major = s;
+      //  yearStanding = year;
         stuNumber = num;
 	
 }
@@ -18,10 +18,13 @@ string Student::getStudentNumber(){ return stuNumber; }
 string Student::getFirst(){ return first; }
 string Student::getLast(){ return last; }
 string Student::getEmail(){ return email; }
-string Student::getMajor(){ return major; }
-int Student::getYearStanding(){ return yearStanding; }
-int Student::getMajorGPA(){ return majorGPA; }
-int Student::getCGPA(){ return CGPA; }
+//string Student::getMajor(){ return major; }
+//string Student::getSupervisor(){return supervisor;}
+//string Student::getProgram(){ return program;}
+//string Student::getArea(){return area;}
+//int Student::getYearStanding(){ return yearStanding; }
+//int Student::getMajorGPA(){ return majorGPA; }
+//int Student::getCGPA(){ return CGPA; }
 
 
 //==========================================================

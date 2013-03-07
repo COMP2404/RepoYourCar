@@ -2,9 +2,12 @@
 #define APPLICATION_H
 
 #include "Student.h"
+#include "GradStudent.h"
+#include "UndergradStudent.h"
 #include <string>
 #include <iostream>
 #include <fstream>
+
 //#include "AppQueue.h"
 #define APP_MAX_BUF 1000
 
@@ -20,6 +23,7 @@ public:
 	//FUNCTIONS---------------------
 	
 //Student* getApplicant(void);
+	
 	int      getApplicationNumber(void);
 	string   getCourse(void);
 	string   getStatus();
@@ -30,6 +34,9 @@ public:
 	string   getStuLast();
 	string   getStuEmail();
 	string   getStuMajor();
+	string   getStuProgram();
+	string   getStuArea();
+	string   getStuSuper();
 	int      getStuYrStanding();
 	string   getStuID();
 	void 	 setRelatedCourses(CourseQueue*);
@@ -37,7 +44,7 @@ public:
 	void	 setRelatedWorkEXP(JobQueue*);
 
 	bool printApp(bool);
-	Application(Student*, int, string="unknown", string="pending");
+	Application(GradStudent*, UndergradStudent*, int, string="unknown", string="pending");
 	~Application();
 	CourseQueue	*relatedCourses;
 	CourseQueue	*relatedTAPositions;
@@ -61,6 +68,9 @@ private:
 	string stuMajor;
 	int    stuYearStanding;
 	string stuID;
+	string stuProgram;
+	string stuArea;
+	string stuSuper;
 	//------------------------------
 };
 

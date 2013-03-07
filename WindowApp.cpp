@@ -94,7 +94,7 @@ void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
 	
 	gtk_widget_show_all(theApp->admin_window);
 
-	g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (WindowApp::viewSummary), theApp);
+	g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (WindowApp::viewSummaryChoice), theApp);
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (WindowApp::closeAdminPage), theApp);
 
 }
@@ -531,6 +531,51 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (WindowApp::relatedCourses2), theApp);
   	return 0;
 }
+
+
+
+
+
+void WindowApp::viewSummaryChoice(GtkWidget*widget, WindowApp *theApp){
+	theApp->summary_choice_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->summary_choice_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->summary_choice_window), 400, 200);
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
+	gtk_window_set_title(GTK_WINDOW(theApp->summary_choice_window), "Make a Choice!");
+	
+	theApp->summary_choice_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(theApp->summary_choice_window), theApp->summary_choice_frame);
+
+	theApp->btnOneCourse = gtk_button_new_with_label("One Course");
+	gtk_widget_set_size_request(theApp->btnOneCourse , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnOneCourse , 50, 100);	
+
+
+	theApp->btnAllCourses = gtk_button_new_with_label("All Courses");
+	gtk_widget_set_size_request(theApp->btnAllCourses , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnAllCourses , 150, 100);	
+	
+	const gchar* message;
+	//message = s.c_str();
+	//theApp->summaryMessage = gtk_label_new(message);
+	//gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_message, 10, 10); 
+
+
+	gtk_widget_show_all(theApp->summary_choice_window);
+
+	g_signal_connect(theApp->btnOneCourse, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
+	g_signal_connect(theApp->btnAllCourses, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
+}
+
+void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
+	if(widget == theApp->btnOneCourse)
+		theApp->allCourses = false;
+	else
+		theApp->allCourses = true;
+	gtk_widget_destroy(theApp->summary_choice_window);
+	WindowApp::viewSummary(widget,theApp);
+}
+
 
 
 

@@ -4,19 +4,43 @@
 #include <iostream>
 using namespace std;
 
-Application::Application(Student *s, int appNum, string cor, string stat){
+Application::Application(GradStudent *g, UndergradStudent *u, int appNum, string cor, string stat){
 	//CONSTRUCTOR!===========
         applicationNumber = appNum;
         course 		  = cor;
         applicationStatus = stat;
-	stuCGPA = s->getCGPA();
-	stuMGPA = s->getMajorGPA();
-	stuFirst = s->getFirst();
-	stuLast = s->getLast();
-	stuEmail = s->getEmail();
-	stuMajor = s->getMajor();
-	stuYearStanding = s->getYearStanding();
-	stuID = s->getStudentNumber();
+//	
+        GradStudent *gs;
+        UndergradStudent *ugs;
+        gs = g;
+        ugs = u;
+     if(gs != NULL){
+     	cout << "grad app" << endl;
+     	stuFirst = gs->getFirst();
+		stuLast = gs->getLast();
+		stuEmail = gs->getEmail();
+		stuID = gs->getStudentNumber();
+		stuProgram = gs->getProgram();
+		stuArea = gs->getArea();
+		stuSuper = gs->getSupervisor();
+     }
+     else if(ugs != NULL){
+     	cout << "ugrad app" << endl;
+     	stuFirst = u->getFirst();
+     	
+		stuLast = u->getLast();
+		stuEmail = u->getEmail();
+		stuMajor = u->getMajor();
+		stuYearStanding = u->getYearStanding();
+		stuID = u->getStudentNumber();
+		stuCGPA = u->getCGPA();
+		stuMGPA = u->getMajorGPA();
+     }
+      
+	
+	
+	
+	
 }
 //==============================GETTERS==========================================
 //Student* Application::getApplicant(){ return applicant; }
@@ -32,6 +56,9 @@ string   Application::getStuEmail(){ return stuEmail; }
 string   Application::getStuMajor(){ return stuMajor; }
 int      Application::getStuYrStanding(){ return stuYearStanding; }
 string   Application::getStuID(){ return stuID; }
+string 	 Application::getStuArea(){ return stuArea;}
+string   Application::getStuSuper(){ return stuSuper;}
+string   Application::getStuProgram(){return stuProgram;}
 //===============================================================================
 
 //Destructor:
@@ -68,23 +95,35 @@ bool Application::printApp(bool gradApp){
 
 	if(gradApp){
 		outFile << "Graduate" << endl;
+		outFile << applicationNumber << endl;
+		outFile << course << endl;
+		outFile << applicationStatus << endl;
+		outFile << stuProgram << endl;
+		outFile << stuArea << endl;
+		
+		outFile << stuFirst << endl;
+		outFile << stuLast << endl;
+		outFile << stuEmail << endl;
+		outFile << stuSuper << endl;
+		outFile << stuID << endl;
 	}
 	else{
 		outFile << "underGrad" << endl;
+		outFile << applicationNumber << endl;
+		outFile << course << endl;
+		outFile << applicationStatus << endl;
+		outFile << stuCGPA << endl;
+		outFile << stuMGPA << endl;
+		outFile << stuFirst << endl;
+		outFile << stuLast << endl;
+		outFile << stuEmail << endl;
+		outFile << stuMajor << endl;
+		outFile << stuYearStanding << endl;
+		outFile << stuID << endl;
 	}
 
 	//Save the Application data:	
-	outFile << applicationNumber << endl;
-	outFile << course << endl;
-	outFile << applicationStatus << endl;
-	outFile << stuCGPA << endl;
-	outFile << stuMGPA << endl;
-	outFile << stuFirst << endl;
-	outFile << stuLast << endl;
-	outFile << stuEmail << endl;
-	outFile << stuMajor << endl;
-	outFile << stuYearStanding << endl;
-	outFile << stuID << endl;
+	
 
 	int aSize;
 	if(!gradApp){

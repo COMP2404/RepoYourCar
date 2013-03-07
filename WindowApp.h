@@ -29,6 +29,8 @@ class WindowApp{
 		
 		GtkWidget *grad_research, *grad_research_combo, *grad_sup, *grad_program_combo, *grad_apply, *lbl_grad_sup;
 
+		GtkWidget *summary_choice_window, *summary_choice_frame, *btnOneCourse, *btnAllCourses, *summaryMessage;
+
 		Application *studentApp;
 		Course *studentCourse;
 		CourseQueue *cQRelated, *cQTa;
@@ -41,6 +43,7 @@ class WindowApp{
 		bool extra;
 		int page;
 		bool gradApp;
+		bool allCourses;
 		
 		/*WindowApp();
 		~WindowApp();*/
@@ -66,11 +69,13 @@ class WindowApp{
 	protected:
 		static void adminPage(GtkWidget*, WindowApp*);
 		static void viewSummary(GtkWidget*, WindowApp*);
+		static void viewSummaryChoice(GtkWidget*, WindowApp*);
 		static void mainMenu(GtkWidget*, WindowApp*);
 		static void popWindow(string, WindowApp*);
 		static void closePopWindow(GtkWidget*, WindowApp*);
 		static void closeAdminPage(GtkWidget*, WindowApp*);
 		static void closeStudentPage(GtkWidget*, WindowApp*);
+		static void closeSummaryChoice(GtkWidget*, WindowApp*);
 		static void studentPage(GtkWidget*, WindowApp*);
 		static int makeApplication(GtkWidget*, WindowApp*);	
 		static int makeGradApplication(GtkWidget*, WindowApp*);	

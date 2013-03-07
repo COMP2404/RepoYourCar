@@ -9,29 +9,35 @@ public:
 	string TACourses[MAX_BUF];
 	//------------------------------
 	//FUNCTIONS---------------------
-	Student(int=-1, int=-1, string="unknown", string ="", string="", string="unknown", int=-1, string="10000000");//Constructor
+	Student(string ="", string="", string="unknown", string="10000000");//Constructor
 	~Student();//Destructor
 
 	string getStudentNumber(void);	
-	int    getCGPA(void);
-	int    getMajorGPA(void);
+	//int    getCGPA(void);
+	//int    getMajorGPA(void);
 	string getFirst(void);
 	string getLast(void);
 	string getEmail(void);
-	string getMajor(void);
-	int    getYearStanding(void);
+	//string getMajor(void);
+	//string getSupervisor(void);
+	//string getProgram(void);
+	//string getArea(void);
+	//int    getYearStanding(void);
 	//-------------------------------
 
 private:
 	//VARIABLES----------------------
-	int    CGPA;
-	int    majorGPA;
+	//int    CGPA;
+	//int    majorGPA;
 	string first;
 	string last;
 	string email;
-	string major;
-	int    yearStanding;
+	//string major;
+	//int    yearStanding;
 	string stuNumber;
+	//string stuProgram;
+	//string stuArea;
+	//string stuSuper;
 	
 	//-------------------------------
 };
