@@ -1,4 +1,4 @@
-OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o GradStudent.o UndergradStudent.o
+OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o GradStudent.o UndergradStudent.o GradApp.o UndergradApp.o
 
 cuTaes: $(OBJECTS)
 		g++ $(OBJECTS) -o cuTaes `pkg-config gtkmm-3.0 --cflags --libs` 
@@ -27,6 +27,12 @@ Queue.o:	Queue.cpp Queue.h
 
 Application.o:	Application.cpp Application.h
 		g++ -c Application.cpp
+
+GradApp.o:	GradApp.cpp GradApp.h
+		g++ -c GradApp.cpp
+
+UndergradApp.o:	UndergradApp.cpp UndergradApp.h
+		g++ -c UndergradApp.cpp
 
 Student.o:	Student.cpp Student.h
 		g++ -c Student.cpp
