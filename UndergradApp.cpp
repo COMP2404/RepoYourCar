@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string stat):Application(0,"",""){
+UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string stat): Application(0,"","","undergrad"){
 
 
 }
@@ -14,6 +14,7 @@ int      UndergradApp::getStuCGPA(){ return stuCGPA; }
 int      UndergradApp::getStuMGPA(){ return stuMGPA; }
 string   UndergradApp::getStuMajor(){ return stuMajor; }
 int      UndergradApp::getStuYrStanding(){ return stuYearStanding; }
+
 
 
 bool UndergradApp::printApp(){

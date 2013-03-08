@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-GradApp::GradApp(GradStudent *gs, int appNum, string cor, string stat):Application(0,"",""){
+GradApp::GradApp(GradStudent *gs, int appNum, string cor, string stat):Application(0,"","","grad"){
 	applicationNumber = appNum;
     course 		  = cor;
     applicationStatus = stat;
@@ -24,9 +24,10 @@ GradApp::~GradApp(){
 }
 
 //==============================GETTERS==========================================
-//string 	 Application::getStuArea(){ return stuArea;}
-//string   Application::getStuSuper(){ return stuSuper;}
-//string   Application::getStuProgram(){return stuProgram;}
+string 	 GradApp::getStuArea(){ return stuArea;}
+string   GradApp::getStuSuper(){ return stuSuper;}
+string   GradApp::getStuProgram(){return stuProgram;}
+//string   GradApp::getType() {return stuType;}
 
 
 bool GradApp::printApp(){

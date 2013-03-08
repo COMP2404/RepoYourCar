@@ -4,11 +4,12 @@
 #include <iostream>
 using namespace std;
 
-Application::Application(int appNum, string cor, string stat){
+Application::Application(int appNum, string cor, string stat,string type){
 	//CONSTRUCTOR!===========
         applicationNumber = appNum;
         course 		  = cor;
         applicationStatus = stat;
+        stuType = type;
         /*
         GradStudent *gs;
         UndergradStudent *ugs;
@@ -17,7 +18,6 @@ Application::Application(int appNum, string cor, string stat){
      if(gs != NULL){
      	cout << "grad app" << endl;
      	stuFirst = gs->getFirst();
-		stuYearStanding = 5;//flag for graduate
 		stuLast = gs->getLast();
 		stuEmail = gs->getEmail();
 		stuID = gs->getStudentNumber();
@@ -57,6 +57,7 @@ string   Application::getStuEmail(){ return stuEmail; }
 //string   Application::getStuMajor(){ return stuMajor; }
 //int      Application::getStuYrStanding(){ return stuYearStanding; }
 string   Application::getStuID(){ return stuID; }
+string   Application::getType(){  return stuType; }
 //string 	 Application::getStuArea(){ return stuArea;}
 //string   Application::getStuSuper(){ return stuSuper;}
 //string   Application::getStuProgram(){return stuProgram;}
@@ -193,3 +194,4 @@ void Application::setRelatedWorkEXP(JobQueue *queue){
 	relatedWorkEXP = queue;
 
 }
+

@@ -5,7 +5,7 @@
 using namespace std;
 
 UndergradStudent::UndergradStudent(int cgpa, int gpa, string f, string l, string e, string s, int year, string num)
-			:CGPA(cgpa), majorGPA(gpa), yearStanding(year), Student(f, l, e, num)
+			:CGPA(cgpa), majorGPA(gpa), yearStanding(year), Student(f, l, e, num,"undergrad")
 {
 	//UndergradStudent Constructor
 }

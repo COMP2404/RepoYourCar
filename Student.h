@@ -9,7 +9,7 @@ public:
 	string TACourses[MAX_BUF];
 	//------------------------------
 	//FUNCTIONS---------------------
-	Student(string ="", string="", string="unknown", string="10000000");//Constructor
+	Student(string ="", string="", string="unknown", string="10000000", string="student");//Constructor
 	~Student();//Destructor
 
 	string getStudentNumber(void);	

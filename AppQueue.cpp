@@ -126,6 +126,7 @@ AppQueue* AppQueue::getPendingList(string course){
 
 	if(head == NULL){//the working AppQueue is empty
 		//list->head = NULL;
+
 		return list;
 	}
 	//------Make the head a wanted node--------	
@@ -135,7 +136,7 @@ AppQueue* AppQueue::getPendingList(string course){
 		
 		cout<< course<< endl;
 		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "PENDING"){
-			
+			cout << tmpNode->data->getCourse() << endl;
 			list->head = tmpNode;
 			break;
 		}
@@ -207,15 +208,15 @@ AppQueue* AppQueue::sortByGPA(){
 
 	AppNode* tmp = head;
 
-	Application* tempApp;
-	Application* appArr[count];//list of applications to be sorted
+	/*UndergradApp* tempApp;
+	UndergradApp* appArr[count];//list of applications to be sorted
 	//-----------GET A LIST OF APPLICATIONS----------//
 	while(tmp != NULL){	
 		appArr[i++] = tmp->data;		
 		tmp = tmp->next;
 	}
 	//-----------SORT THE APPLICATIONS BY GPA------------//
-	/*for(int i=count-1; i>=0; i--){//BSORT
+	for(int i=count-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
                         if(appArr[j]->getStuMGPA() > appArr[j+1]->getStuMGPA()){
@@ -226,15 +227,15 @@ AppQueue* AppQueue::sortByGPA(){
                         }
                 }
                 if(!swapped) break;
-        }*/
+        }
 
 	for(int i=0; i<count; i++){	
 		//cout << "d\n";
-		//sorted->pushBack(appArr[i]);
+		sorted->pushBack(appArr[i]);
 	}
 
 	//delete [] *appArr;//clean up the mess
-
+	*/
 	return sorted;
 }
 int AppQueue::getNumCourses(){
@@ -278,7 +279,7 @@ AppQueue* AppQueue::sortAll(){
 			       "Comp2404", "Comp2406", "Comp2501", "Comp2601", "Comp2804", "Comp2807", "Comp3000", "Comp3002", "Comp3004", "Comp3005", "Comp3007", "Comp3008", "Comp3203", "Comp3308", "Comp3501", "Comp3601", 
 			       "Comp3802", "Comp3803", "Comp3804", "Comp3805", "Comp3806", "Comp3807", "Comp3999", "Comp4000", "serf"};
 	string courseList[MAX_BUF];
-	
+	/*
 	int theNum = 0;//index/counter for courseList
 	cout<<"here we go\n";
 	for(int k=0; k<40; k++){//for all Above courses^^
@@ -318,7 +319,7 @@ AppQueue* AppQueue::sortAll(){
 	//----------ASSIGN THE APPLICATIONS TO BASED ON APPLICANT GRAD/UNDERGRAD-------------//
 	cout<<"here we go4\n";
 	for(int k=0; k<j; k++){//for all applications
-		if(appArr[k]->getStuYrStanding() == 5)
+//		if(appArr[k]->getStuYrStanding() == 5)
 			grads[gnum++] = appArr[k];
 		else
 			unders[unum++] = appArr[k];
@@ -329,7 +330,7 @@ AppQueue* AppQueue::sortAll(){
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
 			if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
-		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
+//		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
 		                        tempApp = unders[j+1];
 		                        unders[j+1] = unders[j];
 		                        unders[j]=tempApp;
@@ -337,14 +338,15 @@ AppQueue* AppQueue::sortAll(){
 		                }
 			}
                 }
-                if(!swapped) break;
+ //               if(!swapped) break;
         }
 	cout<<"here we go6\n";
+	int i;
 	for(int i=gnum-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
 			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
-		                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
+	                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
 		                        tempApp = grads[j+1];
 		                        grads[j+1] = grads[j];
 		                        grads[j]=tempApp;
@@ -358,14 +360,15 @@ AppQueue* AppQueue::sortAll(){
 	cout<<"here we go7\n";
 	for(int i=0; i<unum; i++){	
 		//cout << "d\n";
-		sorted->pushBack(unders[i]);
+//		sorted->pushBack(unders[i]);
 	}
 	for(int i=0; i<gnum; i++){	
 		//cout << "d\n";
 		sorted->pushBack(grads[i]);
 	}
 	cout<<"went!\n";
-	return sorted;
+	*/
+	return false;
 	
 }
 

@@ -22,29 +22,24 @@ public:
 	//------------------------------
 	//FUNCTIONS---------------------
 	
-//Student* getApplicant(void);
+
 	
 	int      getApplicationNumber(void);
 	string   getCourse(void);
 	string   getStatus();
 
-	//int      getStuCGPA();
-	//int      getStuMGPA();
 	string   getStuFirst();
 	string   getStuLast();
 	string   getStuEmail();
-	//string   getStuMajor();
-	//string   getStuProgram();
-	//string   getStuArea();
-	//string   getStuSuper();
-	//int      getStuYrStanding();
+	string 	 getType();
+	
 	string   getStuID();
-	//void 	 setRelatedCourses(CourseQueue*);
+	
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
 
-	bool printApp();
-	Application(int, string="unknown", string="pending");
+	virtual bool printApp();
+	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
 	CourseQueue	*relatedCourses;
 	CourseQueue	*relatedTAPositions;
@@ -68,6 +63,7 @@ protected:
 	//string stuMajor;
 	//int    stuYearStanding;
 	string stuID;
+	string stuType;
 	//string stuProgram;
 	//string stuArea;
 	//string stuSuper;

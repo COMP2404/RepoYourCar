@@ -478,7 +478,7 @@ void Control::loadApplications(WindowApp *theApp){
 		JobQueue*    relatedJ = new JobQueue();
 		
 		inFile.getline(text, THIS_BUF); // application type
-		cout << "APP TYPE: " << text << endl;
+		
 		if (strlen(text) == 0){
 			break;
 		}		
@@ -492,71 +492,72 @@ void Control::loadApplications(WindowApp *theApp){
 			cout << "UNDERGRADUATE APP" << endl;
 			aGrad = false;
 			inFile.getline(text, THIS_BUF); // application number 
-			cout << "got this text: " << text << endl;
+			 
 			a = atoi(text);
 			inFile.getline(text, THIS_BUF); // application course
-			cout << "got this text: " << text << endl;
+			 
 			c = text;
 			inFile.getline(text, THIS_BUF); // application status
-			cout << "got this text: " << text << endl;
+			 
 			s = text;
 			inFile.getline(text, THIS_BUF); // cGPA
-			cout << "got this text: " << text << endl;
+			 
 			cgpa = atoi(text);
 			inFile.getline(text, THIS_BUF); // mGPA
-			cout << "got this text: " << text << endl;
+			 
 			mgpa = atoi(text);
 			inFile.getline(text, THIS_BUF); // First Name
-			cout << "got this text: " << text << endl;
+			 
 			f = text;
 			inFile.getline(text, THIS_BUF); // Last Name
-			cout << "got this text: " << text << endl;
+			 
 			l = text;
 			inFile.getline(text, THIS_BUF); // Email
-			cout << "got this text: " << text << endl;
+			 
 			e = text;
 			inFile.getline(text, THIS_BUF); // Major
-			cout << "got this text: " << text << endl;
+			 
 			m = text;
 			inFile.getline(text, THIS_BUF); // Year Standing
-			cout << "got this text: " << text << endl;
+			
 			y = atoi(text);
 			inFile.getline(text, THIS_BUF); // Student Number
-			cout << "got this text: " << text << endl;
+			
 			i = text;
 				
 		}
 		else{
 			aGrad = true;
 			inFile.getline(text, THIS_BUF); // application number 
-			cout << "got this text: " << text << endl;
+		
 			a = atoi(text);
 			inFile.getline(text, THIS_BUF); // application course
-			cout << "got this text: " << text << endl;
+			
 			c = text;
 			inFile.getline(text, THIS_BUF); // application status
-			cout << "got this text: " << text << endl;
+			
 			s = text;
 			inFile.getline(text, THIS_BUF); // program
-			cout << "got this text: " << text << endl;
-			program = atoi(text);
+			
+			program = text;
+			
 			inFile.getline(text, THIS_BUF); // area
-			cout << "got this text: " << text << endl;
-			area = atoi(text);
+			
+			area = text;
 			inFile.getline(text, THIS_BUF); // First Name
-			cout << "got this text: " << text << endl;
+			
 			f = text;
 			inFile.getline(text, THIS_BUF); // Last Name
-			cout << "got this text: " << text << endl;
+			
 			l = text;
 			inFile.getline(text, THIS_BUF); // Email
-			cout << "got this text: " << text << endl;
+			
 			e = text;
 			inFile.getline(text, THIS_BUF); // supervisor
-			cout << "got this text: " << text << endl;
+			
 			supervisor = text;
 			inFile.getline(text, THIS_BUF); // Student Number
-			cout << "got this text: " << text << endl;
+			
 			i = text;
 		}	
 		
@@ -566,39 +567,37 @@ void Control::loadApplications(WindowApp *theApp){
 		
 
 		//read the related courses
-		cout << "SLEEPING" << endl;
+		
 		
 		if (!aGrad){
-		cout << "READING RELATED COURSES " << endl;
+		
 		while (1){ //untill you get to the TA positions
 			inFile.getline(text, THIS_BUF);
-			cout << "TEXT IT GOT, BREAKING ON 'RELATED TA POSITIONS': " << text << endl;
 			
 			if(strcmp(text, "RELATEDTAPOSITIONS") == 0)
 			{	
-				cout << "breaking...From Related Courses" << endl;
+				
 				break;
 				
 			}
 			cTitle = text;
 
-			cout << "SHOULD BE COURSE TITLE: " << cTitle << endl;
+			
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE FINAL GRADE: " << text << endl;
+			
 			cSuper = text;
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE YEAR: " << text << endl;			
+					
 			cYear = atoi(text);
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE TERM: " << text << endl;
+			
 			cTerm = text;
-			cout << "CREATING COURSE AND PUSHING: " << endl;
+			
 			//make a course with the information and "N/A" supervisor
 			Course *cor = new Course(cTitle, cYear, cTerm, "N/A", cSuper);
-			cout << "COURSE CREATED " << endl;
-			cout << "NOW PUSHING " << endl;
+			
 			relatedC->pushBack(cor);	
-			cout << "DONE" << endl;
+			
 				
 		}
 		
@@ -608,30 +607,30 @@ void Control::loadApplications(WindowApp *theApp){
 		}			
 
 		//read the related TA positions
-		cout << "READING RELATED TA POSITIONS " << endl;
-		sleep(2);
+		
+		
 		while (1){
 
 			inFile.getline(text, THIS_BUF);			
-			cout << "TEXT IT GOT, BREAKING ON 'WORKEXP': " << text << endl;	
-			sleep(2);		
+				
+					
 			if(strcmp(text, "WORKEXP") ==0)
 			{
-				cout << "breaking...from TA" << endl;
+				
 				break;
 				
 			}
-			cout << "SHOULD BE TITLE: " << text << endl;
+			
 			cTitle = text;
-			sleep(2);
+			
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE Supervisor: " << text << endl;
+			
 			cSuper = text;
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE YEAR: " << text << endl;
+			
 			cYear = atoi(text);
 			inFile.getline(text, THIS_BUF);
-			cout << "SHOULD BE TERM: " << text << endl;
+			
 			cTerm = text;
 			//make a course with the information and "N/A" grade
 			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper, "N/A");
@@ -639,30 +638,30 @@ void Control::loadApplications(WindowApp *theApp){
 			
 		}
 		//read the related Work EXP
-		cout << "READING RELATED WORK" << endl;
+		
 		while (1){
 			inFile.getline(text, THIS_BUF);
-			cout << "TEXT IT GOT, BREAKING ON 'ENDAPP': " << text << endl;		
+					
 			if(strcmp(text, "ENDAPP") ==0)
 			{
-				cout << "breaking...From work" << endl;
+				
 				break;
 				
 			}
-			cout << "SHOULD BE TITLE: " << text << endl;
+			
 			jTitle = text;
 			inFile.getline(text, THIS_BUF);
 			jTasks = text;
-			cout << "SHOULD BE TASKS: " << text << endl;
+			
 			inFile.getline(text, THIS_BUF);
 			jDuration = text;
-			cout << "SHOULD BE Drration: " << text << endl;
+			
 			inFile.getline(text, THIS_BUF);
 			jStart = text;
-			cout << "SHOULD BE START: " << text << endl;
+			
 			inFile.getline(text, THIS_BUF);
 			jEnd = text;
-			cout << "SHOULD BE END: " << text << endl;
+			
 
 			Job *aJob = new Job(jTitle, jTasks, jDuration, jStart, jEnd);
 			relatedJ->pushBack(aJob);
@@ -670,7 +669,7 @@ void Control::loadApplications(WindowApp *theApp){
 		}
 
 		//NOW initialise an application
-		cout << "Initialise a student* and set its Queues... " << endl;
+		
 		GradApp *ga = NULL;
 		UndergradApp *uga = NULL;
 		if(aGrad){
@@ -689,34 +688,7 @@ void Control::loadApplications(WindowApp *theApp){
 			uga->setRelatedWorkEXP(relatedJ);
 			theApp->appQueue.pushBack(ga, uga);
 		}
-		/*
-		Student *stu = new Student(f, l, e, i);
-		GradStudent *gs = NULL;
-		UndergradStudent *ugs = NULL;
-		Application *newApp = new Application(gs, ugs, a, c, s);
-		if (relatedC != 0){
-			newApp->setRelatedCourses(relatedC);
-		}
-		newApp->setRelatedTAPositions(relatedT);
-		newApp->setRelatedWorkEXP(relatedJ);
-		cout << "Check! now pushing an app" << endl;
-		theApp->appQueue.pushBack(newApp);*/
-		cout << "Roger!!" << endl;
-
-		cout << "Need to maybe break!" << endl;
 		
-		
-		
-
-/*
-		Application *a = new Application(s, applicationNum++, *course, "PENDING");
-	a->setRelatedCourses(theApp->cQRelated);
-	a->setRelatedTAPositions(theApp->cQTa);
-	a->setRelatedWorkEXP(theApp->jQRelated);
-	
-	theApp->studentApp = a;
-	theApp->appQueue.pushBack(theApp->appQueue.createNode(a));
-		*/
 			
   	}
  
@@ -1378,6 +1350,7 @@ int Control::createWindow(int argc, char** argv)
 	gtk_init(&argc, &argv);
 	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	loadApplications(theApp);
+	cout << "app loaded" << endl;
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
 	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);

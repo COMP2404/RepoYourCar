@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-Student::Student(string f, string l, string e, string num){
+Student::Student(string f, string l, string e, string num,string type){
 		//CGPA = cgpa;
       //  majorGPA = gpa;
         first = f;

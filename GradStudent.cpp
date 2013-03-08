@@ -5,7 +5,7 @@
 using namespace std;
 
 GradStudent::GradStudent(string f, string l, string e, string num, string research, string prog, string super)
-			:stuArea(research), stuProgram(prog), stuSupervisor(super), Student(f, l, e, num)
+			:stuArea(research), stuProgram(prog), stuSupervisor(super), Student(f, l, e, num,"grad")
 {
 	//GradStudent Constructor
 }
