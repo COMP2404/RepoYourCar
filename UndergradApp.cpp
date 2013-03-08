@@ -4,7 +4,18 @@
 using namespace std;
 
 UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string stat): Application(0,"","","undergrad"){
-
+	applicationNumber = appNum;
+    course 		  = cor;
+    applicationStatus = stat;
+	
+ 	stuFirst = ugs->getFirst();
+	stuLast = ugs->getLast();
+	stuEmail = ugs->getEmail();
+	stuID = ugs->getStudentNumber();
+	stuCGPA = ugs->getCGPA();
+	stuMGPA = ugs->getMajorGPA();
+	stuMajor = ugs->getMajor();
+	stuYearStanding = ugs->getYearStanding();
 
 }
 

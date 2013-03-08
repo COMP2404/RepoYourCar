@@ -146,7 +146,178 @@ void WindowApp::viewSummary(GtkWidget *widget, WindowApp *theApp){
 	}
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
 	g_signal_connect(GTK_COMBO_BOX(theApp->admin_combo), "changed", G_CALLBACK   (WindowApp::updateCombo), theApp);
+	if(theApp->allCourses)
+		updateCombo(widget,theApp);
 }
+
+
+void WindowApp::viewSummaryChoice(GtkWidget*widget, WindowApp *theApp){
+	theApp->summary_choice_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(theApp->summary_choice_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(theApp->summary_choice_window), 400, 200);
+	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
+	gtk_window_set_title(GTK_WINDOW(theApp->summary_choice_window), "Make a Choice!");
+	
+	theApp->summary_choice_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(theApp->summary_choice_window), theApp->summary_choice_frame);
+
+	theApp->btnOneCourse = gtk_button_new_with_label("One Course");
+	gtk_widget_set_size_request(theApp->btnOneCourse , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnOneCourse , 50, 100);	
+
+
+	theApp->btnAllCourses = gtk_button_new_with_label("All Courses");
+	gtk_widget_set_size_request(theApp->btnAllCourses , 80, 35);
+	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnAllCourses , 150, 100);	
+	
+	const gchar* message;
+	
+
+	
+	gtk_widget_show_all(theApp->summary_choice_window);
+
+
+	g_signal_connect(theApp->btnOneCourse, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
+	g_signal_connect(theApp->btnAllCourses, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
+
+}
+
+void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
+	if(widget == theApp->btnOneCourse)
+		theApp->allCourses = false;
+	else{
+		theApp->allCourses = true;
+		
+	}
+		
+	gtk_widget_destroy(theApp->summary_choice_window);
+	WindowApp::viewSummary(widget,theApp);
+}
+
+
+
+
+
+
+
+
+void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
+	
+	//gtk_widget_destroy(theApp->summary_combo);
+
+	cout << "Updating Combo" << endl;
+	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
+	cout << "Removed Text" << endl;
+	
+	AppQueue* qCopy = new AppQueue(theApp->appQueue);
+	
+	//AppQueue* qCopy = theApp->appQueue.sortAll();
+	if(theApp->allCourses){
+		qCopy = qCopy->sortAll();
+		
+		gtk_widget_set_sensitive(theApp->admin_combo, FALSE);
+	}
+	else{
+		const gchar* theCourse;
+	 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
+		string courseString;
+		courseString = (theCourse);
+		cout << courseString << endl;
+		qCopy = theApp->appQueue.getPendingList(courseString);
+		qCopy = qCopy->sortAll();
+	}
+	
+			
+	cout << "Got Pending List" << endl;
+	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
+	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
+	
+	//int length = qCopy->size();
+	
+	char theInput[200];
+	string input[100];//string array for each Application
+	Application* tmpApp = NULL;
+	Application* app;
+    
+	GradApp* ga = NULL;
+	UndergradApp *uga = NULL;
+	
+	if(qCopy != NULL){
+		app = (qCopy->popFront());
+		cout << "Popped Front" << endl;
+		
+		
+	}
+	
+	 int i = 0;
+	//for(int i=0; i<length; i++){
+	while(app != NULL){
+		std::stringstream ss1; 
+		std::stringstream ss2; 
+		std::stringstream ss3;
+		if(app->getType() == "grad"){
+			ga = static_cast<GradApp*>(app);
+			s1 = ga->getStuFirst();
+			//cout << s1 << endl;
+			s2 = ga->getStuLast();
+			s6 = ga->getStuEmail();
+			s7 = ga->getStuID();
+			s9 = ga->getStuArea();
+			s10 = ga->getStuProgram();
+			s11 = ga->getStuSuper();
+			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
+		}
+		else{
+
+			uga = static_cast<UndergradApp*>(app);	
+			s1 = uga->getStuFirst();
+			cout << s1 << endl;
+			s2 = uga->getStuLast();
+				 
+			ss1 << uga->getStuYrStanding();
+			s3 = ss1.str();
+			s4 = uga->getStuMajor();
+			ss2 << uga->getStuCGPA();
+			s5 = ss2.str();
+			s6 = uga->getStuEmail();
+			s7 = uga->getStuID();
+			ss3 << uga->getStuMGPA();
+			s8 = ss3.str();
+			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+		}
+
+			
+		 
+		
+		//theInput = input[i];
+		strcpy(theInput,input[i].c_str());
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->summary_combo), theInput);
+		i++;
+		app = qCopy->popFront();	
+		if(app != NULL){
+			if(app->getType() == "grad"){
+				ga = static_cast<GradApp*>(app);
+				
+
+			}
+			else{
+				uga = dynamic_cast<UndergradApp*>(app);
+			}
+		}
+		
+	}
+	
+	
+	gtk_widget_show_all(theApp->window);
+
+}
+
+
+
+
+
+
+
 
 void WindowApp::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	/////////////////////////////////////////////////////
@@ -536,167 +707,7 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 
 
 
-void WindowApp::viewSummaryChoice(GtkWidget*widget, WindowApp *theApp){
-	theApp->summary_choice_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(theApp->summary_choice_window), GTK_WIN_POS_CENTER);	
-	gtk_window_set_default_size(GTK_WINDOW(theApp->summary_choice_window), 400, 200);
-	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
-	gtk_window_set_title(GTK_WINDOW(theApp->summary_choice_window), "Make a Choice!");
-	
-	theApp->summary_choice_frame = gtk_fixed_new();
-	gtk_container_add(GTK_CONTAINER(theApp->summary_choice_window), theApp->summary_choice_frame);
 
-	theApp->btnOneCourse = gtk_button_new_with_label("One Course");
-	gtk_widget_set_size_request(theApp->btnOneCourse , 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnOneCourse , 50, 100);	
-
-
-	theApp->btnAllCourses = gtk_button_new_with_label("All Courses");
-	gtk_widget_set_size_request(theApp->btnAllCourses , 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->summary_choice_frame), theApp->btnAllCourses , 150, 100);	
-	
-	const gchar* message;
-	//message = s.c_str();
-	//theApp->summaryMessage = gtk_label_new(message);
-	//gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_message, 10, 10); 
-
-
-	gtk_widget_show_all(theApp->summary_choice_window);
-
-	g_signal_connect(theApp->btnOneCourse, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
-	g_signal_connect(theApp->btnAllCourses, "clicked", G_CALLBACK (WindowApp::closeSummaryChoice), theApp);
-}
-
-void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
-	if(widget == theApp->btnOneCourse)
-		theApp->allCourses = false;
-	else
-		theApp->allCourses = true;
-	gtk_widget_destroy(theApp->summary_choice_window);
-	WindowApp::viewSummary(widget,theApp);
-}
-
-
-
-
-
-
-
-
-void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
-	
-	//gtk_widget_destroy(theApp->summary_combo);
-
-	cout << "Updating Combo" << endl;
-	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
-	cout << "Removed Text" << endl;
-	const gchar* theCourse;
- 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
-	string courseString;
-	courseString = (theCourse);
-	
-	//AppQueue* qCopy = theApp->appQueue.sortAll();
-
-	cout << "Getting Pending List" << endl;
-	AppQueue* qCopy = theApp->appQueue.getPendingList(courseString);//call copy constructor
-	if(!theApp->appQueue.isEmpty()){
-		cout << "Sorting by GPA" << endl;
-		//qCopy = qCopy->sortByGPA();
-	}
-			
-	cout << "Got Pending List" << endl;
-	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
-	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
-	
-	//int length = qCopy->size();
-	
-	char theInput[200];
-	string input[100];//string array for each Application
-	Application* tmpApp = NULL;
-	Application* app;
-    
-	GradApp* ga = NULL;
-	UndergradApp *uga = NULL;
-	
-	if(qCopy != NULL){
-		app = (qCopy->popFront());
-		cout << "Popped Front" << endl;
-		
-		
-	}
-		 
-
-	if(app->getType() == "grad"){
-		ga = static_cast<GradApp*>(app);
-		cout << "Got Type" << endl;
-		cout << ga->getStuArea() << endl;
-
-	}
-	else{
-		uga = dynamic_cast<UndergradApp*>(app);
-	}
-	 int i = 0;
-	//for(int i=0; i<length; i++){
-	while(app != NULL){
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
-		if(app->getType() == "grad"){
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
-		}
-		else{
-
-				
-			s1 = uga->getStuFirst();
-			cout << s1 << endl;
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
-		}
-
-			
-		 
-		
-		//theInput = input[i];
-		strcpy(theInput,input[i].c_str());
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->summary_combo), theInput);
-		i++;
-		app = qCopy->popFront();	
-		if(app != NULL){
-			if(app->getType() == "grad"){
-				ga = static_cast<GradApp*>(app);
-				cout << "Got Type" << endl;
-				cout << ga->getStuArea() << endl;
-
-			}
-			else{
-				uga = dynamic_cast<UndergradApp*>(app);
-			}
-		}
-		
-	}
-	
-	
-	gtk_widget_show_all(theApp->window);
-
-}
 
 
 

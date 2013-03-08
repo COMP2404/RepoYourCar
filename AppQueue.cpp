@@ -123,10 +123,10 @@ AppQueue* AppQueue::getPendingList(string course){
 	AppQueue& copy = *this;
 
 	AppQueue* list = new AppQueue(copy);//call copy contructor
-
+	cout << "In Pending List" << endl;
 	if(head == NULL){//the working AppQueue is empty
 		//list->head = NULL;
-
+		cout << "In Pending List" << endl;
 		return list;
 	}
 	//------Make the head a wanted node--------	
@@ -275,11 +275,13 @@ bool AppQueue::appExists(string app){
 }
 
 AppQueue* AppQueue::sortAll(){
-	string allCourses[] = {"Comp1001", "Comp1004", "Comp1005", "Comp1006", "Comp1405", "Comp1406", "Comp1501", "Comp1601", "Comp1805", "Comp1807", "Comp2001", "Comp2002", "Comp2004", "Comp2006", "Comp2401", "Comp2402", 
-			       "Comp2404", "Comp2406", "Comp2501", "Comp2601", "Comp2804", "Comp2807", "Comp3000", "Comp3002", "Comp3004", "Comp3005", "Comp3007", "Comp3008", "Comp3203", "Comp3308", "Comp3501", "Comp3601", 
-			       "Comp3802", "Comp3803", "Comp3804", "Comp3805", "Comp3806", "Comp3807", "Comp3999", "Comp4000", "serf"};
+	string allCourses[] = {"COMP1001", "COMP1004", "COMP1005", "COMP1006", "COMP1405", "COMP1406", "COMP1501", "COMP1601", 
+			       "COMP1805", "COMP1807", "COMP2001", "COMP2002", "COMP2004", "COMP2006", "COMP2401", "COMP2402", 
+			       "COMP2404", "COMP2406", "COMP2501", "COMP2601", "COMP2804", "COMP2807", "COMP3000", "COMP3002",
+ 			       "COMP3004", "COMP3005", "COMP3007", "COMP3008", "COMP3203", "COMP3308", "COMP3501", "COMP3601", 
+			       "COMP3802", "COMP3803", "COMP3804", "COMP3805", "COMP3806", "COMP3807", "COMP3999", "COMP4000" };
 	string courseList[MAX_BUF];
-	/*
+	
 	int theNum = 0;//index/counter for courseList
 	cout<<"here we go\n";
 	for(int k=0; k<40; k++){//for all Above courses^^
@@ -299,57 +301,58 @@ AppQueue* AppQueue::sortAll(){
 
 	AppNode* tmp = head;
 
-	Application* tempApp;
-	Application* appArr[MAX_BUF];//2D-list of applications to be sorted..all courses and all applications of that course.
+	GradApp* tempGApp;
+	UndergradApp* tempUApp;
+	//Application* appArr[MAX_BUF];//2D-list of applications to be sorted..all courses and all applications of that course.
 	cout<<"here we go3\n";
+	//arrays for undergrads and grads
+	int unum = 0;
+	UndergradApp* unders[MAX_BUF];
+	int gnum = 0;
+	GradApp* grads[MAX_BUF];
 	//-----------GET A LIST OF APPLICATIONS SORTED BY COURSE----------//
+	//----------ASSIGN THE APPLICATIONS TO APParrays BASED ON APPLICANT GRAD/UNDERGRAD-------------//
 	for(i=0; i<theNum; i++){//for all courses
 		tmp = head;
 		while(tmp != NULL){
-			if(tmp->data->getCourse().compare(courseList[i]) == 0)
-				appArr[j++] = tmp->data;
+			if(tmp->data->getCourse().compare(courseList[i]) == 0){
+				if(tmp->data->getType() == "grad")
+					grads[gnum++] = static_cast<GradApp*>(tmp->data);
+
+				else
+					unders[unum++] = static_cast<UndergradApp*>(tmp->data);
+			}
 			tmp=tmp->next;		
 		}
 	}
-	//arrays for undergrads and grads
-	int unum = 0;
-	Application* unders[MAX_BUF];
-	int gnum = 0;
-	Application* grads[MAX_BUF];
-	//----------ASSIGN THE APPLICATIONS TO BASED ON APPLICANT GRAD/UNDERGRAD-------------//
-	cout<<"here we go4\n";
-	for(int k=0; k<j; k++){//for all applications
-//		if(appArr[k]->getStuYrStanding() == 5)
-			grads[gnum++] = appArr[k];
-		else
-			unders[unum++] = appArr[k];
-	}
-	//-----------SORT THE APPLICATIONS BY GPA------------//
+	//-----------SORT THE UNDERGRAD APPLICATIONS BY GPA------------//
 	cout<<"here we go5\n";
 	for(int i=unum-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
 			if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
-//		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
-		                        tempApp = unders[j+1];
+		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
+		                        tempUApp = unders[j+1];
 		                        unders[j+1] = unders[j];
-		                        unders[j]=tempApp;
+		                        unders[j]=tempUApp;
 		                        swapped=true;
 		                }
 			}
                 }
- //               if(!swapped) break;
+                if(!swapped) break;
         }
+	//-----------SORT THE GRAD APPLICATIONS BY ALPHA------------//
 	cout<<"here we go6\n";
-	int i;
 	for(int i=gnum-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
-			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
-	                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
-		                        tempApp = grads[j+1];
+			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by Name, move on
+
+		                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
+
+		                        tempGApp = grads[j+1];
 		                        grads[j+1] = grads[j];
-		                        grads[j]=tempApp;
+		                        grads[j]=tempGApp;
 		                        swapped=true;
 		                }
 			}
@@ -358,17 +361,17 @@ AppQueue* AppQueue::sortAll(){
         }
 	//-----------FINALLY, PUSH THESE EFFERS TO THE SORTED QUEUE!--------------//
 	cout<<"here we go7\n";
-	for(int i=0; i<unum; i++){	
-		//cout << "d\n";
-//		sorted->pushBack(unders[i]);
-	}
 	for(int i=0; i<gnum; i++){	
 		//cout << "d\n";
-		sorted->pushBack(grads[i]);
+		sorted->pushBack(grads[i], NULL);
 	}
+	for(int i=0; i<unum; i++){	
+		//cout << "d\n";
+		sorted->pushBack(NULL, unders[i]);
+	}
+	
 	cout<<"went!\n";
-	*/
-	return false;
+	return sorted;
 	
 }
 

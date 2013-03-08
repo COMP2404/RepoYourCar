@@ -48,25 +48,20 @@ public:
 
 protected:
 	//VARIABLES---------------------
-//Student *applicant;
+
 	int     applicationNumber;
 	string  course;
 	
 	
 	string  applicationStatus;
-	//Student members:
-	//int    stuCGPA;
-	//int    stuMGPA;
+	
 	string stuFirst;
 	string stuLast;
 	string stuEmail;
-	//string stuMajor;
-	//int    stuYearStanding;
+	
 	string stuID;
 	string stuType;
-	//string stuProgram;
-	//string stuArea;
-	//string stuSuper;
+	
 	//------------------------------
 };
 
