@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>225</x>
+      <y>160</y>
+      <w>150</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>Application
+--
++*relatedCourses: CourseQueue
++*relatedTAPositions: CourseQueue
++*relatedWorkEXP: JobQueue
+-applicationNumber: int
+-course: string
+-applicationStatus: string
+-stuCGPA: int
+-stuMGPA: int
+-stuFirst: string
+-stuLast: string
+-stuEmail: string
+-stuMajor: string
+-stuYearStanding: int
+-stuID: string
+-stuProgram: string
+-stuArea: string
+-stuSuper: string
+--
++getApplicationNumber(void): int
++getCourse(void): string
++getStatus(void): string
++getStuCGPA(void): int
++getStuMGPA(void): int
++getStuFirst(void): string
++getStuLast(void): string
++getStuEmail(void): string
++getStuMajor(void): string
++getStuProgram(void): string
++getStuArea(void): string
++getStuSuper(void): string
++getStuYrStanding(void): int
++getStuID(void): string
++setRelatedCourses(CourseQueue*): void
++setRelatedTAPosition(CourseQueue*): void
++setRelatedWorkEXP(JobQueue*): void
++printApp(bool): bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>475</x>
+      <y>540</y>
+      <w>195</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>AppQueue
+--
+-head: AppNode*
+--
++pushBack(GradApp*, UndergraApp*): void
++popFront(void): Application*
++front(void): Application*
++isEmpty(void): bool
++createNode(GradApp*, UndergradApp*): AppNode*
++getPendingList(string): AppQueue*
++sortByGPA(void): AppQueue*
++sortAll(void): AppQueue*
++getNumCourses(void): int
++appExists(string): bool
++size(void) const: int
++print(void) const: void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>545</x>
+      <y>100</y>
+      <w>195</w>
+      <h>265</h>
+    </coordinates>
+    <panel_attributes>Control
+--
+-applicationList: AppQueue
+--
++createWindow(int, char**): int
++static errorCheck(string*, string*, string*, string*,
+					string*, string*, string*, string*,
+					string*, string*, string*, string*,
+					WindowApp*): bool
++static sumbit      (string*, string*, string*, string*,
+					string*, string*, string*, string*,
+					string*, string*, string*, string*,
+					WindowApp*): bool
++static cancel(void): void
++loadApplications(WinodwApp*): void
+-static printApp(Application*): bool
+-errorCheck2(void): bool
+#static killSubmitWindow(GtkWidget*, WindowApp*): void
+#static getInfo(GtkWidget*,WindowApp*): void
+#static quickCheck(GtkWidget*,WindowApp*): void
+#static quickCheck2(GtkWidget*,WindowApp*): void
+#static quickCheck3(GtkWidget*,WindowApp*): void
+#static addAnother(GtkWidget*,WindowApp*): void
+#static addAnother2(GtkWidget*,WindowApp*): void
+#static addAnother3(GtkWidget*,WindowApp*): void
+#static finishExtra(GtkWidget*,WindowApp*): void
+#static submitToMain(GtkWidget*,WindowApp*): void
+#static submitToPepeat(GtkWidget*,WindowApp*): void
+#static addAnother(GtkWidget*,WindowApp*): void
+#static moveOn(GtkWidget*,WindowApp*): void
+#static moveOn2(GtkWidget*,WindowApp*): void
+#static moveOn3(GtkWidget*,WindowApp*): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1035</x>
+      <y>760</y>
+      <w>105</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Course
+--
+-title: string
+-supervisor: string
+-term: string
+-year: int
+-final: string
+--
++getYear(void): int
++getTerm(void): string
++getSupervisor(void): string
++getTitle(void): string
++getFinal(void): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>730</x>
+      <y>685</y>
+      <w>125</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>CourseQueue
+--
+-head: CourseNode*
+--
++pushBack(Course*): void
++popFront(void): Course*
++front(void): Course*
++isEmpty(void): bool
++createNode(Course*): CourseNode*
++size(void) const: int
++print(void) const: void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>390</x>
+      <y>705</y>
+      <w>105</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>GradStudent
+
+--
+-stuArea: string
+-stuProgram: string
+-stuSupervisor: string
+--
++getSupervisor(void): string
++getProgram(void): string
++getArea(void): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1100</x>
+      <y>555</y>
+      <w>140</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Job
+--
+-jobTitle: string
+-tasks: string
+-duration: string
+-startDate: string
+-endDate: string
+--
++getJobTitle(void): string
++getDuration(void): string
++getStartDate(void): string
++getEndDate(void): string
++getTasks(void): string
++getNumTasks(void): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>745</x>
+      <y>565</y>
+      <w>115</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>JobQueue
+--
+-head: JobNode*
+--
++pushBack(Job*): void
++popFront(void): Job*
++front(void): Job*
++isEmpty(void): bool
++createNode(Job*): JobNode*
++size(void) const: int
++print(void) const: void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>880</x>
+      <y>0</y>
+      <w>290</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>WindowApp
+--
++*studentApp: Application
++*studentCourse: Course
++*cQRelated: CourseQueue
++*jRelated: JobQueue
++appQueue: AppQueue
++moveOn: bool
++checkGood: bool
++extra: bool
++page: int
++gradApp: bool
++allCourses: bool
+-strfName: string
+-strlName: string
+-strMajor: string
+-strGPA: string
+-strCgpa: string
+-strEmail: string
+-strYear: string
+-strStuNum: string
+--
++setfName(string): void
++setlName(string): void
++setMajor(string): void
++setGpa(string): void
++setEmail(string): void
++setYear(string): void
++setCgpa(string): void
++setStuNum(string): void
++getfName(void): string
++getlName(void): string
++getMajor(void): string
++getGpa(void): string
++getEmail(void): string
++getYear(void): string
++getStuNum(void): string
++getCpga(void): string
+#static adminPage(GtkWidget*, WindowApp*): void
+#static viewSummary(GtkWidget*, WindowApp*): void
+#static viewSummaryChoice(GtkWidget*, WindowApp*): void
+#static mainMenu(GtkWidget*, WindowApp*): void
+#static popWindow(string, WindowApp*): void
+#static closePopWindow(GtkWidget*, WindowApp*): void
+#static closeAdminPage(GtkWidget*, WindowApp*): void
+#static closeStudentPage(GtkWidget*, WindowApp*): void
+#static closeSummaryChoice(GtkWidget*, WindowApp*): void
+#static studentPage(GtkWidget*, WindowApp*): void
+#static makeApplication(GtkWidget*, WindowApp*): void	
+#static makeGradApplication(GtkWidget*, WindowApp*): void	
+#static void updateCombo(GtkWidget*, WindowApp*): void
+#static workExperience(GtkWidget *, WindowApp *): void
+#static relatedCourses1(GtkWidget *, WindowApp *): void
+#static relatedCourses2(GtkWidget *, WindowApp *): void
+#static finishExtra(GtkWidget*,WindowApp*): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>270</x>
+      <y>550</y>
+      <w>120</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>Student
+--
++TACourses[]: string
+-first: string
+-last: string
+-email: string
+-stuNumber: string
+--
++getStudentNumber(void): string
++getFirst(void): string
++getLast(void): string
++getEmail(void): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>245</x>
+      <y>695</y>
+      <w>105</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>UndergradStudent
+--
+-CGPA: int
+-majorGPA: int
+-major: string
+-yearStanding: int
+--
++getCGPA(void): int
++getMajorGPA(void): int
++getMajor(void): string
++getYearStanding(void): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>880</x>
+      <y>740</y>
+      <w>105</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>CourseNode
+--
+-data: Course*
+-next: CourseNode*
+--
++getData(void): Course</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>90</x>
+      <y>275</y>
+      <w>134</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>125;15;15;75</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>575</x>
+      <y>745</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>AppNode
+--
+-data: Application*
+-next: AppNode</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>35</x>
+      <y>485</y>
+      <w>145</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>UndergradApp
+--
+-stuMajor:string
+-stuYearStanding:int
+-stuCGPA: int
+-stuMGPA: int
+--
++getStuCGPA(void): int
++getStuMGPA(void): int
++getStuMajor(void): string
++getStuYrStanidng(void): int
++setRelatedCourses(CourseQueue*): void
++printApp(void): bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>350</y>
+      <w>105</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>GradApp
+--
+-stuProgram: string
+-stuArea: string
+-stuSuper: string
+--
++getStuProgram(void): string
++getStuArea(void): string
++getStuSuper: string
++printApp(void): bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>125</x>
+      <y>415</y>
+      <w>94</w>
+      <h>79</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>85;15;15;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>375</x>
+      <y>90</y>
+      <w>179</w>
+      <h>89</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+0..*  :  1</panel_attributes>
+    <additional_attributes>15;80;170;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>725</x>
+      <y>55</y>
+      <w>149</w>
+      <h>79</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+ 1 : 1</panel_attributes>
+    <additional_attributes>140;15;15;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>465</y>
+      <w>64</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;- 
+
+     1 : 1</panel_attributes>
+    <additional_attributes>55;75;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>635</y>
+      <w>24</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>15;15;15;60</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>640</y>
+      <w>59</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>15;15;50;65</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>490</x>
+      <y>350</y>
+      <w>114</w>
+      <h>199</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+        1: 1</panel_attributes>
+    <additional_attributes>15;190;105;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>840</x>
+      <y>545</y>
+      <w>94</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1 : 0..*</panel_attributes>
+    <additional_attributes>85;30;15;20</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>935</x>
+      <y>575</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>jobNode
+--
+-data: Job*
+-next: JobNode*
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1020</x>
+      <y>550</y>
+      <w>84</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1 : 1
+ 
+
+
+</panel_attributes>
+    <additional_attributes>75;25;15;20</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>840</x>
+      <y>675</y>
+      <w>59</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1 : 0..*</panel_attributes>
+    <additional_attributes>50;60;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>970</x>
+      <y>720</y>
+      <w>84</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1 : 1</panel_attributes>
+    <additional_attributes>75;30;15;20</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>550</x>
+      <y>650</y>
+      <w>104</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+ 
+ 
+    1 : 0..* </panel_attributes>
+    <additional_attributes>95;90;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1000</x>
+      <y>590</y>
+      <w>24</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;40;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>965</x>
+      <y>605</y>
+      <w>59</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+ 1 : 0..*</panel_attributes>
+    <additional_attributes>15;25;50;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>965</x>
+      <y>595</y>
+      <w>24</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;15;15;35</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>765</y>
+      <w>444</w>
+      <h>79</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1:1</panel_attributes>
+    <additional_attributes>15;70;435;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>145</x>
+      <y>470</y>
+      <w>99</w>
+      <h>374</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90;15;15;365</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>950</x>
+      <y>770</y>
+      <w>24</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;45;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>910</x>
+      <y>785</y>
+      <w>64</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1: 0..*</panel_attributes>
+    <additional_attributes>15;25;55;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>915</x>
+      <y>775</y>
+      <w>24</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;15;15;35</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>650</x>
+      <y>765</y>
+      <w>24</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;40;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>605</x>
+      <y>780</y>
+      <w>69</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1: 0..*</panel_attributes>
+    <additional_attributes>15;25;60;20</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>610</x>
+      <y>770</y>
+      <w>24</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>15;15;15;35</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>695</x>
+      <y>350</y>
+      <w>64</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+        1: 1</panel_attributes>
+    <additional_attributes>55;215;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>645</x>
+      <y>350</y>
+      <w>99</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+        1: 1</panel_attributes>
+    <additional_attributes>90;335;15;15</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>655</x>
+      <y>570</y>
+      <w>99</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1 : 1</panel_attributes>
+    <additional_attributes>90;25;15;25</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>655</x>
+      <y>615</y>
+      <w>84</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+ 
+1 : 2</panel_attributes>
+    <additional_attributes>75;90;15;15</additional_attributes>
+  </element>
+</diagram>
