@@ -94,6 +94,15 @@ void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
 	
 	gtk_widget_show_all(theApp->admin_window);
 
+	if(theApp->appQueue.isEmpty()){
+		gtk_widget_set_sensitive(theApp->admin_viewSummary, FALSE);
+	}
+	else{
+		gtk_widget_set_sensitive(theApp->admin_viewSummary, TRUE);
+	}
+
+	
+
 	g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (WindowApp::viewSummaryChoice), theApp);
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (WindowApp::closeAdminPage), theApp);
 

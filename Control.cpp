@@ -762,6 +762,7 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 			unsigned validRC1 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
   			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
 			if (validRC1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
 				cout << ", at position " << validRC1 << endl;
@@ -919,9 +920,10 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 
 			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned validdur = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validdur = (string3).find_first_not_of("0123456789");
 			unsigned startDate = (string4).find_first_not_of("0123456789/");
 			unsigned endDate = (string5).find_first_not_of("0123456789/");
+			//string startYear = "00";
   
 			if (validRW != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
@@ -941,8 +943,8 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 		   	}
 			
 			else if (validdur != string::npos) {
-				cout << "You entered a non-alphabetical character, " << (string3)[validdur];
-				cout << ", at position " << validdur << endl;
+				cout << "Enter # of months" << (string3)[validdur];
+				//cout << ", at position " << validdur << endl;
 				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
 				theApp->checkGood = false;
 				theApp->moveOn = false;
