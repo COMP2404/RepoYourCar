@@ -1049,21 +1049,84 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 
-	int yr = atoi(string2.c_str());
-	Course* cor = new Course(string1, yr, string3, "N/A", string4);
-	theApp->cQRelated->pushBack(cor);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		cout << "Checking this right hre2" << endl;
+		theApp->checkGood = true;
+		gtk_widget_set_sensitive(theApp->ei_continue, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat, TRUE);
+		
+		
+			cout << "Checking this right hre3" << endl;
+			int yr = atoi(string2.c_str());
+			unsigned validRC1 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			cout << "Checking this right hre" << endl;
+			if (validRC1 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
+				cout << ", at position " << validRC1 << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character in Related Courses", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+			
+  
+			else if (validterm1 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string3)[validterm1];
+				cout << ", at position " << validterm1 << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+			
+			else if (grade != string::npos) {
+				cout << "Please Enter a Letter Grade" << endl;
+				WindowApp::popWindow("Please Enter a Letter Grade", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+
+			else if (yr < 1990 || yr > 2013) {
+				cout << "Year must be between 1990 and 2013" << endl; 
+				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+			}
+			
+			if(theApp->checkGood){
+			int yr = atoi(string2.c_str());
+			Course* cor = new Course(string1, yr, string3, "N/A", string4);
+			theApp->cQRelated->pushBack(cor);
+			
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_year1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_term1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
+
+			gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
+
+			gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+
+			gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
+		}
+		
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
 	
-
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse1), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year1), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term1), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_finalGrade), "");
-
-	gtk_widget_set_sensitive(theApp->ei_continue, FALSE);
-
-	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
-
-	gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
 
 
 }
@@ -1085,16 +1148,82 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 	string2 = (s2);
 	string3 = (s3);
 	string4 = (s4);
-	int yr = atoi(string2.c_str());
-	Course* cor = new Course(string1, yr, string3, "N/A", string4);
-	theApp->cQTa->pushBack(cor);
 
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse2), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_year2), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_term2), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_supervisor), "");
-	gtk_widget_set_sensitive(theApp->ei_continue2, FALSE);
-	gtk_widget_set_sensitive(theApp->ei_repeat2, FALSE);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""){
+		theApp->checkGood = true;
+		gtk_widget_set_sensitive(theApp->ei_continue2, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat2, TRUE);
+		
+			int yr = atoi(string2.c_str());
+
+
+			unsigned validRC2 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validterm2 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned supervisor = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  
+			if (validRC2 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRC2];
+				cout << ", at position " << validRC2 << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+			
+  
+			else if (validterm2 != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
+				cout << ", at position " << validterm2 << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+			
+			else if (supervisor != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
+				cout << ", at position " << supervisor << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+				
+		   	}
+
+
+			else if (yr < 1990 || yr > 2013) {
+				cout << "Year must be between 1990 and 2013" << endl; 
+				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+				
+			}
+
+			if(theApp->checkGood){
+			int yr = atoi(string2.c_str());
+			Course* cor = new Course(string1, yr, string3, "N/A", string4);
+			theApp->cQTa->pushBack(cor);
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->ei_supervisor), "");
+			gtk_widget_set_sensitive(theApp->ei_continue2, FALSE);
+			gtk_widget_set_sensitive(theApp->ei_repeat2, FALSE);
+		}
+		
+		
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+	
 	
 }
 
@@ -1116,18 +1245,86 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 	string3 = (s3);
 	string4 = (s4);
 	string5 = (s5);
-	
-	Job* job = new Job(s1, s2, s3, s4, s5);
-	theApp->jQRelated->pushBack(job);
-	
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_responsabilities), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_duration), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_startDate), "");
-	gtk_entry_set_text(GTK_ENTRY(theApp->ei_endDate), "");
 
-	gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
-	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
+	if(string1 != "" && string2 != "" && string3 != "" && string4 != ""&& string5 != ""){
+		gtk_widget_set_sensitive(theApp->ei_finish, TRUE);
+		gtk_widget_set_sensitive(theApp->ei_repeat3, TRUE);
+		theApp->checkGood = true;
+		
+			
+
+
+			unsigned validRW = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validresp = (string2).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned validdur = (string3).find_first_not_of("0123456789");
+			unsigned startDate = (string4).find_first_not_of("0123456789/");
+			unsigned endDate = (string5).find_first_not_of("0123456789/");
+			//string startYear = "00";
+  
+			if (validRW != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
+				cout << ", at position " << validRW << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+			
+  
+			else if (validresp != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string2)[validresp];
+				cout << ", at position " << validresp << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+			
+			else if (validdur != string::npos) {
+				cout << "Enter # of months" << (string3)[validdur];
+				//cout << ", at position " << validdur << endl;
+				WindowApp::popWindow("You entered a non-alphabetical character", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+			
+			else if (startDate != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
+				cout << ", at position " << startDate << endl;
+				WindowApp::popWindow("Wrong Format for Start Date", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+			
+			else if (endDate != string::npos) {
+				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
+				cout << ", at position " << endDate << endl;
+				WindowApp::popWindow("Wrong Format for End Date", theApp);
+				theApp->checkGood = false;
+				theApp->moveOn = false;
+		   	}
+
+			if(theApp->checkGood){
+				Job* job = new Job(s1, s2, s3, s4, s5);
+				theApp->jQRelated->pushBack(job);
+				
+				gtk_entry_set_text(GTK_ENTRY(theApp->ei_relevantWork), "");
+				gtk_entry_set_text(GTK_ENTRY(theApp->ei_responsabilities), "");
+				gtk_entry_set_text(GTK_ENTRY(theApp->ei_duration), "");
+				gtk_entry_set_text(GTK_ENTRY(theApp->ei_startDate), "");
+				gtk_entry_set_text(GTK_ENTRY(theApp->ei_endDate), "");
+
+				gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
+				gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
+			}
+		
+		
+	}
+
+
+
+	
+	
 }
 
 
