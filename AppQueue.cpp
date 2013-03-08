@@ -45,6 +45,12 @@ AppQueue::~AppQueue(){
 ///////////////////////////////
 
 AppQueue::AppQueue(AppQueue& q){
+
+	//VARS FOR NEW STUDENT AND APPLICATION
+	string first, last, em, snum, res, pro, sup, major;
+	int yr, cg, mg;
+	GradApp* ga;
+	UndergradApp* ua;
 	//cout << "IN COPY CTOR\n";
 	if(q.head==NULL) return;
 
@@ -54,23 +60,44 @@ AppQueue::AppQueue(AppQueue& q){
 
 	AppNode* nPrev;//to connect the nodes in q
 	AppNode* nTmp = head;//iteration node for q
-	while(tmp->next!=NULL){	
-		//Application* newApp;
-		//*newApp = *(tmp->data);//MAKE A COMPY OF THE DATA***
-		//nTmp->data = newApp;//copy over the data from this queue to q
-		nTmp->data = tmp->data;		
+	while(tmp != NULL){	
+		//GET BASIC iNFO
+		first = tmp->data->getStuFirst();
+		last = tmp->data->getStuLast();
+		em = tmp->data->getStuEmail();
+		snum = tmp->data->getStuID();
+		if(tmp->data->getType() == "grad"){
+			GradApp* tmpGApp = static_cast<GradApp*>(tmp->data);//now its a grad app
+			//GET GRAD INFO
+			res = tmpGApp->getStuArea();
+			pro = tmpGApp->getStuProgram();
+			sup = tmpGApp->getStuSuper();
+			GradStudent* gs = new GradStudent(first, last, em, snum, res, pro, sup);
+			ga = new GradApp(gs, tmpGApp->getApplicationNumber(), tmpGApp->getCourse(), tmpGApp->getStatus());
+			nTmp->data = ga;
+		}
+		else{
+			UndergradApp* tmpUApp = static_cast<UndergradApp*>(tmp->data);
+			//GET UNDERGRAD INFO
+			yr = tmpUApp->getStuYrStanding();
+			cg = tmpUApp->getStuCGPA();
+			mg = tmpUApp->getStuMGPA();
+			major = tmpUApp->getStuMajor();
+			UndergradStudent* us = new UndergradStudent(cg, mg, first, last, em, major, yr, snum);
+			ua = new UndergradApp(us, tmpUApp->getApplicationNumber(), tmpUApp->getCourse(), tmpUApp->getStatus());
+			nTmp->data = ua;
+		}
+	
 		nPrev = nTmp;//make prev node this node before moving on	
 		tmp = tmp->next;//advance iteration node for source Queue
-		AppNode* node = new AppNode();//make a new node for each existing node		
-		nTmp = node;
-		nPrev->next=nTmp;//connect the nodes in the new Queue	
+		if(tmp != NULL){
+			AppNode* node = new AppNode();//make a new node for each existing node		
+			nTmp = node;
+			nPrev->next=nTmp;
+		}
+		//connect the nodes in the new Queue	
 	}
 
-	//for the last iteration since the loop wont evaluate on tmp->next==NULL
-	//Application* newApp;
-	//*newApp = *(tmp->data);//MAKE A COMPY OF THE DATA***
-	//nTmp->data = newApp;//copy over the data from this queue to q
-	nTmp->data = tmp->data;
 }
 
 void AppQueue::pushBack(GradApp *ga, UndergradApp *uga){
@@ -154,14 +181,16 @@ AppQueue* AppQueue::getPendingList(string course){
 
 	while(tmpNode != NULL){
 		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
-			cout<<tmpNode->data->getCourse() << endl;
+			
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
 		else if(tmpNode->data->getStatus() != "PENDING"){//its not pending
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong
 		}
 		else{
+			cout<< "prev to temp" << endl;
 			prevNode=tmpNode;//advance iteration node
+			cout<< "prev to temp2" << endl;
 		}
 		tmpNode=tmpNode->next;   //advance iteration node
 	}
