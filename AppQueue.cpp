@@ -25,7 +25,6 @@ AppQueue::AppNode::~AppNode(){
 ///////////////////////////////
 
 AppQueue::~AppQueue(){
-/*
 	cout<<"Destruction"<<endl;
 	AppNode* tmpNode = head;
 	AppNode* dNode;
@@ -33,11 +32,10 @@ AppQueue::~AppQueue(){
 	while(tmpNode != NULL){		
 		dNode=tmpNode;	
 		cout<<"about to advance in destructor"<<endl;
-		tmpNode=tmpNode->next;//THIS IS RAGETASTIC
+		tmpNode=tmpNode->next;
 		cout << "deleting node: " << endl;
 		delete dNode;	
 	}
-*/
 }
 
 ///////////////////////////////
