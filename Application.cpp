@@ -63,6 +63,17 @@ string   Application::getType(){  return stuType; }
 //string   Application::getStuProgram(){return stuProgram;}
 //===============================================================================
 
+//==============================OPERATORS========================================
+Application& Application::operator-(){
+	applicationStatus = "closed";
+}
+
+Application& Application::operator+(){
+	applicationStatus = "assigned";
+}
+//===============================================================================
+
+
 //Destructor:
 Application::~Application(){
 

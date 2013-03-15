@@ -46,6 +46,9 @@ public:
 	JobQueue	*relatedWorkEXP;
 	//------------------------------
 
+	Application& operator-();//unary '-' changes status of application to "closed"
+    Application& operator+();//unary '+' changes status to "assigned"
+
 protected:
 	//VARIABLES---------------------
 

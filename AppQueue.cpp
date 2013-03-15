@@ -98,6 +98,70 @@ AppQueue::AppQueue(AppQueue& q){
 
 }
 
+Application* AppQueue::operator[](int index){
+	//returns application at index param
+	if(index < 0 || index > size()) return NULL;//exception should be thrown
+	int i=0;//counter index
+	AppNode* tmp = head;
+	while(tmp != NULL){
+		if(i++ == index){
+			return tmp->data;
+		}
+		tmp = tmp->next;
+	}
+	return NULL;//should never get here...in case of fault
+}
+
+AppQueue& AppQueue::operator+=(Application* app){
+	//adds the application to the queue
+	if(app->getType() == "GRAD"){
+		GradApp* ga = dynamic_cast<GradApp*>(app);
+		pushBack(ga, NULL);
+	}else{
+		UndergradApp* ua = dynamic_cast<UndergradApp*>(app);
+		pushBack(NULL, ua);
+	}
+	return *this;//enable cascading
+}
+
+AppQueue& AppQueue::operator+=(AppQueue& q){
+	//concatinates the incoming queue to *this
+	AppNode* tmp = q.head;
+
+	while(tmp != NULL){//for all items of q
+		*this += tmp->data;//call data version of operator+=
+		tmp = tmp->next;
+	}
+
+	return *this;//cascade
+}
+AppQueue AppQueue::operator+(Application* app){
+	//makes new queue with += functionality
+	AppQueue* nQ = new AppQueue();
+	*nQ += *this;//assign all elements from this to new queue
+	*nQ += app;//add the incoming app to new queue
+
+	return *nQ;
+}
+
+AppQueue AppQueue::operator+(AppQueue& qu){
+	//makes new queue with += functionality
+	AppQueue* nQ = new AppQueue();//create new queue
+	*nQ += *this;//populate the new queue with current elements
+	*nQ += qu;//concatinate current(new) queue with incoming queue
+
+	return *nQ;
+}
+AppQueue& AppQueue::operator-=(Application*){}//removes this app from the queue if contained
+AppQueue& AppQueue::operator-=(AppQueue&){}//removes all elements from incoming queue from this if contained
+AppQueue  AppQueue::operator-(Application*){}//created new queue with all but incomint app
+AppQueue  AppQueue::operator-(AppQueue&){}//creates a new queue with all but apps from incoming 
+
+AppQueue& 	 AppQueue::operator!(){
+	//logical not: empties the queue
+	delete this;
+}
+
 void AppQueue::pushBack(GradApp *ga, UndergradApp *uga){
 	
 	AppNode* node = createNode(ga, uga);

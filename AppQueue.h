@@ -116,6 +116,20 @@ class AppQueue
     //  returns: int	 			   //
     //  <runtime> 0(n) </runtime>                  //
     /////////////////////////////////////////////////
+
+    ///////////////////OPERATORS/////////////////////
+    Application* operator[](int);//returns application at index param
+    AppQueue& operator+=(Application*);//adds the application to the queue
+    AppQueue& operator+=(AppQueue&);//concatinates the incoming queue to *this
+    AppQueue  operator+(Application*);//makes new queue with += functionality
+    AppQueue  operator+(AppQueue&);//makes new queue with += functionality
+    AppQueue& operator-=(Application*);//removes this app from the queue if contained
+    AppQueue& operator-=(AppQueue&);//removes all elements from incoming queue from this if contained
+    AppQueue  operator-(Application*);//created new queue with all but incomint app
+    AppQueue  operator-(AppQueue&);//creates a new queue with all but apps from incoming 
+    AppQueue& operator!();//logical not: empties the queue
+    /////////////////////////////////////////////////
+
     int size() const;
 
     void print() const;
