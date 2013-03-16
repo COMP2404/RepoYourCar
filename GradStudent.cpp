@@ -10,6 +10,8 @@ GradStudent::GradStudent(string f, string l, string e, string num, string resear
 	//GradStudent Constructor
 }
 
+GradStudent::~GradStudent(){}
+
 string GradStudent::getSupervisor(){
 	return stuSupervisor;
 }

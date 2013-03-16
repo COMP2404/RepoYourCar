@@ -10,6 +10,8 @@ UndergradStudent::UndergradStudent(int cgpa, int gpa, string f, string l, string
 	//UndergradStudent Constructor
 }
 
+UndergradStudent::~UndergradStudent(){}
+
 int UndergradStudent::getCGPA(){
 	return CGPA;
 }

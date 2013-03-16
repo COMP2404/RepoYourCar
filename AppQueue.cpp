@@ -114,7 +114,7 @@ Application* AppQueue::operator[](int index){
 
 AppQueue& AppQueue::operator+=(Application* app){
 	//adds the application to the queue
-	if(app->getType() == "GRAD"){
+	if(app->getType() == "grad"){
 		GradApp* ga = dynamic_cast<GradApp*>(app);
 		pushBack(ga, NULL);
 	}else{
@@ -135,6 +135,7 @@ AppQueue& AppQueue::operator+=(AppQueue& q){
 
 	return *this;//cascade
 }
+
 AppQueue AppQueue::operator+(Application* app){
 	//makes new queue with += functionality
 	AppQueue* nQ = new AppQueue();
@@ -152,12 +153,61 @@ AppQueue AppQueue::operator+(AppQueue& qu){
 
 	return *nQ;
 }
-AppQueue& AppQueue::operator-=(Application*){}//removes this app from the queue if contained
-AppQueue& AppQueue::operator-=(AppQueue&){}//removes all elements from incoming queue from this if contained
-AppQueue  AppQueue::operator-(Application*){}//created new queue with all but incomint app
-AppQueue  AppQueue::operator-(AppQueue&){}//creates a new queue with all but apps from incoming 
 
-AppQueue& 	 AppQueue::operator!(){
+AppQueue& AppQueue::operator-=(Application* app){
+	//removes this app from the queue if contained
+	AppNode* tmp = head;
+	AppNode* prev = head;
+	while(tmp != NULL){
+		if (tmp->data == app){//found the app to remove
+			if(tmp == head)//head is the one to be removed
+				head = tmp->next;
+			else
+				prev->next = tmp->next;//cut out the current node
+
+			//delete tmp;//clean up memory for node and application
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}	
+	return *this;
+}
+
+AppQueue& AppQueue::operator-=(AppQueue& q){
+	//removes all elements from incoming queue from this if contained
+	AppNode* tmp = q.head;
+	while(tmp != NULL){
+		*this -= tmp->data;//call operator above
+		tmp = tmp->next;
+	}
+	
+	return *this;
+}
+
+AppQueue AppQueue::operator-(Application* app){
+	//created new queue with all but incoming app
+	AppQueue* nq = new AppQueue();
+	*nq += *this;//fill the new queue with all elements of this qeue
+	*nq -= app;
+
+	return *nq;
+}
+
+AppQueue AppQueue::operator-(AppQueue& q){
+	//creates a new queue with all but apps from incoming 
+	AppQueue* nq = new AppQueue();
+	AppNode* tmp = q.head;
+
+	*nq += *this;//fill it with this stuff
+
+	while(tmp != NULL){
+		*nq -= tmp->data;
+		tmp = tmp->next;
+	}
+	return *nq;
+}
+
+AppQueue& AppQueue::operator!(){
 	//logical not: empties the queue
 	delete this;
 }

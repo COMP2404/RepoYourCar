@@ -21,6 +21,22 @@ steps(input the application information).
 To view applications, select "Admin" from the main menu.
 You will be prompted for a course for which you would like to view the applicants or
 an option to view all applications.
+
+
+<OperatorTestFile>
+compile all objects with
+	'make' command
+
+compile the main with:
+	g++ -c operatorTest.cpp
+
+link together with
+	g++ -o test operatorTest.o Course.o Job.o Student.o UndergradStudent.o GradStudent.o UndergradApp.o GradApp.o Application.o CourseQueue.o JobQueue.o AppQueue.o
+
+run the tests with
+	./test
+
+</OperatorTestFile>
 		
 *
 *
