@@ -13,6 +13,23 @@
 #include <string>
 #include <iostream>
 using namespace std;
+
+//////PROTOTYPES/////
+//SUBSCRIPT OPERATOR
+void testSS(AppQueue&);
+//TESTS FOR THE PLUS RELATED OPERATORS
+void testPE1(AppQueue&);
+void testPE2(AppQueue&);
+void testP1(AppQueue&);
+void testP2(AppQueue&);
+//TESTS FOR THE MINUS RELATED OPERATORS
+void testME1(AppQueue&);
+void testME2(AppQueue&);
+void testM1(AppQueue&);
+void testM2(AppQueue&);
+//TEST FOR THE NOT OPERATOR
+void testN(AppQueue&);
+
 int main(){
 	//=========================================TEMPLATES FOR OBJECT PARAMETERS===============================================
 	//GradStudent(string first, string last, string email, string studentnum, string research, string program, string supervisor)
@@ -54,9 +71,77 @@ int main(){
 	queue.pushBack(NULL, &valApp);
 	queue.pushBack(NULL, &smithApp);
 
+	testSS(queue);
+	
+	testPE1(queue);
+
+	testPE2(queue);
+
+	testP1(queue);
+
+	testP2(queue);
+
+	testME1(queue);
+
+	testME2(queue);
+
+	testM1(queue);
+
+	testM2(queue);
+
+	testN(queue);
 
 
-
-
+	cout<<endl<<endl<<endl;
 	return 0;
+}
+
+//TEST SUBSCRiPT
+void testSS(AppQueue& q){
+	cout << "------ABOUT TO TEST THE SUBSCRIPT OPERATOR------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------the application from the queues print------ " << endl << q;
+	cout << endl << "." << endl << "." << endl;
+
+	for(int i=0; i< q.size(); i++){
+		cout<< "--Printing the app at this subscript: " << i << " " << *(q[i]) << endl;//cascading in effect
+	}
+}
+
+//TEST +=(Application)
+void testPE1(AppQueue& app){
+	
+}
+//TEST +=(Queue)
+void testPE2(AppQueue& app){
+
+}
+//TEST +(Application)
+void testP1(AppQueue& app){
+	
+}
+//TEST +(Queue)
+void testP2(AppQueue& app){
+	
+}
+
+//TEST -=(Application)
+void testME1(AppQueue& app){
+	
+}
+//TEST -=(Queue)
+void testME2(AppQueue& app){
+	
+}
+//TEST -(Application)
+void testM1(AppQueue& app){
+	
+}
+//TEST -(Queue)
+void testM2(AppQueue& app){
+	
+}
+
+//TEST LOGICAL NOT
+void testN(AppQueue& app){
+	
 }

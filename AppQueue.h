@@ -15,6 +15,7 @@ class AppQueue
     friend class WindowApp;
  class AppNode
   {
+    friend ostream& operator<<(ostream&, AppQueue&);
     friend class AppQueue;
 	friend class Control;
     friend class WindowApp;
@@ -128,6 +129,8 @@ class AppQueue
     AppQueue  operator-(Application*);//created new queue with all but incomint app
     AppQueue  operator-(AppQueue&);//creates a new queue with all but apps from incoming 
     AppQueue& operator!();//logical not: empties the queue
+
+    friend ostream&  operator<<(ostream&, AppQueue&);
     /////////////////////////////////////////////////
 
     int size() const;

@@ -71,6 +71,12 @@ Application& Application::operator-(){
 Application& Application::operator+(){
 	applicationStatus = "assigned";
 }
+
+ostream& operator<<(ostream& out, Application& app){
+	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course;
+
+	return out;
+}
 //===============================================================================
 
 

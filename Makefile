@@ -58,5 +58,12 @@ run:
 clean:
 		rm *.o cuTaes
 
+test:	operatorTest.cpp UndergradStudent.cpp UndergradStudent.h UndergradApp.cpp UndergradApp.h GradStudent.cpp GradStudent.h GradApp.cpp GradApp.h AppQueue.cpp AppQueue.h
+		g++ -c operatorTest.cpp
+		g++ -o test operatorTest.o Course.o Job.o Student.o UndergradStudent.o GradStudent.o UndergradApp.o GradApp.o Application.o CourseQueue.o JobQueue.o AppQueue.o
+
+runtest:	
+		./test
+
 package:
-	tar -cvf 2404A3.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Course.cpp Course.h Job.cpp Job.h UndergradStudent.h UndergradStudent.cpp GradStudent.cpp GradStudent.h GradApp.h GradApp.cpp UndergradApp.h UndergradApp.cpp Makefile courses.txt gradResearch.txt UMLpdf.pdf 2404UMLandDoc.pdf README.txt
+	tar -cvf 2404A3.tar main.cpp Student.cpp Application.cpp WindowApp.cpp Control.cpp main.h Student.h Application.h WindowApp.h Control.h Queue.h Queue.cpp Node.cpp Node.h AppQueue.cpp AppQueue.h CourseQueue.cpp CourseQueue.h JobQueue.cpp JobQueue.h Course.cpp Course.h Job.cpp Job.h UndergradStudent.h UndergradStudent.cpp GradStudent.cpp GradStudent.h GradApp.h GradApp.cpp UndergradApp.h UndergradApp.cpp Makefile courses.txt gradResearch.txt UMLpdf.pdf 2404UMLandDoc.pdf README.txt operatorTest.cpp

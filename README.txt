@@ -28,13 +28,10 @@ compile all objects with
 	'make' command
 
 compile the main with:
-	g++ -c operatorTest.cpp
-
-link together with
-	g++ -o test operatorTest.o Course.o Job.o Student.o UndergradStudent.o GradStudent.o UndergradApp.o GradApp.o Application.o CourseQueue.o JobQueue.o AppQueue.o
+	'make test' command
 
 run the tests with
-	./test
+	./test || 'make runtest' command
 
 </OperatorTestFile>
 		

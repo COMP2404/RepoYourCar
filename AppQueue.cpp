@@ -212,6 +212,15 @@ AppQueue& AppQueue::operator!(){
 	delete this;
 }
 
+ostream& operator<<(ostream& out, AppQueue& q){
+	AppQueue::AppNode* tmp = q.head; 
+	while(tmp != NULL){
+		out << *(tmp->data) << endl;;
+		tmp = tmp->next;
+	}
+	return out;
+}
+
 void AppQueue::pushBack(GradApp *ga, UndergradApp *uga){
 	
 	AppNode* node = createNode(ga, uga);

@@ -17,12 +17,13 @@ using namespace std;
 #include "JobQueue.h"
 
 class Application{
+
+	friend   ostream& operator<<(ostream&, Application&);
 public:
 	//VARIABLES---------------------	
 	//------------------------------
 	//FUNCTIONS---------------------
 	
-
 	
 	int      getApplicationNumber(void);
 	string   getCourse(void);
