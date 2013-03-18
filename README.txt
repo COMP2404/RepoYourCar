@@ -20,6 +20,16 @@ not have any main functionality.
 
 
 
+marks to get back:
+-2 report appears in a combo box
+-2 tab sequence is weird
+-5 summary choosing from grad or undergrad
+-2 sorting not working correctly
+-2 course names hard coded in AppQueue
+-2 view all was from general information only
+
+
+
 
 
 
