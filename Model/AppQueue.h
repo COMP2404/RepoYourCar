@@ -129,6 +129,7 @@ class AppQueue
     AppQueue  operator-(Application*);//created new queue with all but incomint app
     AppQueue  operator-(AppQueue&);//creates a new queue with all but apps from incoming 
     AppQueue& operator!();//logical not: empties the queue
+    AppQueue& operator=(const AppQueue&);
 
     friend ostream&  operator<<(ostream&, AppQueue&);
     /////////////////////////////////////////////////
@@ -144,3 +145,4 @@ class AppQueue
 
 
 #endif
+

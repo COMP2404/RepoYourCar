@@ -42,6 +42,7 @@ public:
 	virtual bool printApp();
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
+	Application(Application&);//COPY CONSTRUCTOR!
 	CourseQueue	*relatedCourses;
 	CourseQueue	*relatedTAPositions;
 	JobQueue	*relatedWorkEXP;
@@ -71,3 +72,4 @@ protected:
 
 
 #endif
+

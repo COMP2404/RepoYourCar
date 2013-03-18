@@ -41,6 +41,40 @@ AppQueue::~AppQueue(){
 ///////////////////////////////
 //	  COPY CTOR	     //
 ///////////////////////////////
+/*
+AppQueue::AppQueue(AppQueue& q){
+
+	//VARS FOR NEW STUDENT AND APPLICATION
+	string first, last, em, snum, res, pro, sup, major;
+	int yr, cg, mg;
+	GradApp* ga;
+	UndergradApp* ua;
+	//cout << "IN COPY CTOR\n";
+	if(q.head==NULL) return;
+
+
+	AppNode* tmp = q.head;//iteration node for original AppQueue
+	head = new AppNode();//head node for the new AppQueue
+
+	AppNode* nPrev;//to connect the nodes in q
+	AppNode* nTmp = head;//iteration node for q
+	while(tmp != NULL){	
+		//GET BASIC iNFO
+		Application* ta = new Application(*(tmp->data));//call copy constructor for application
+		nTmp->data = ta;//assign the copied data
+
+		nPrev = nTmp;//make prev node this node before moving on	
+		tmp = tmp->next;//advance iteration node for source Queue
+		if(tmp != NULL){
+			AppNode* node = new AppNode();//make a new node for each existing node		
+			nTmp = node;
+			nPrev->next=nTmp;
+		}
+		//connect the nodes in the new Queue	
+	}
+
+}
+*/
 
 AppQueue::AppQueue(AppQueue& q){
 
@@ -112,6 +146,12 @@ Application* AppQueue::operator[](int index){
 	return NULL;//should never get here...in case of fault
 }
 
+AppQueue& AppQueue::operator=(const AppQueue& q){
+	cout<<"*************************************************************************************************\n";
+	
+	return *this;
+}
+
 AppQueue& AppQueue::operator+=(Application* app){
 	//adds the application to the queue
 	if(app->getType() == "grad"){
@@ -138,20 +178,21 @@ AppQueue& AppQueue::operator+=(AppQueue& q){
 
 AppQueue AppQueue::operator+(Application* app){
 	//makes new queue with += functionality
-	AppQueue* nQ = new AppQueue();
-	*nQ += *this;//assign all elements from this to new queue
-	*nQ += app;//add the incoming app to new queue
+	//cout << "in +app" <<endl;
+	AppQueue nQ;
+	nQ += *this;//assign all elements from this to new queue
+	nQ += app;//add the incoming app to new queue
 
-	return *nQ;
+	return nQ;
 }
 
 AppQueue AppQueue::operator+(AppQueue& qu){
 	//makes new queue with += functionality
-	AppQueue* nQ = new AppQueue();//create new queue
-	*nQ += *this;//populate the new queue with current elements
-	*nQ += qu;//concatinate current(new) queue with incoming queue
+	AppQueue nQ;//create new queue
+	nQ += *this;//populate the new queue with current elements
+	nQ += qu;//concatinate current(new) queue with incoming queue
 
-	return *nQ;
+	return nQ;
 }
 
 AppQueue& AppQueue::operator-=(Application* app){
@@ -213,6 +254,7 @@ AppQueue& AppQueue::operator!(){
 }
 
 ostream& operator<<(ostream& out, AppQueue& q){
+	if(q.isEmpty()) out << "The Queue is empty"<<endl;
 	AppQueue::AppNode* tmp = q.head; 
 	while(tmp != NULL){
 		out << *(tmp->data) << endl;;

@@ -71,6 +71,15 @@ int main(){
 	queue.pushBack(NULL, &valApp);
 	queue.pushBack(NULL, &smithApp);
 
+	/*
+	cout<<"\n\nTESTING NEW cOPY CTOR\n\n ";
+	Application generalApp = nanaApp;
+	cout << generalApp << endl;
+	GradApp* copy = dynamic_cast<GradApp*>(&nanaApp);
+	cout << *copy << endl;
+	*/
+
+
 	testSS(queue);
 	
 	testPE1(queue);
@@ -99,7 +108,7 @@ int main(){
 //TEST SUBSCRiPT
 void testSS(AppQueue& q){
 	cout << "------ABOUT TO TEST THE SUBSCRIPT OPERATOR------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the application from the queues print------ " << endl << q;
+	cout << "------the applications from the queues print------ " << endl << q;
 	cout << endl << "." << endl << "." << endl;
 
 	for(int i=0; i< q.size(); i++){
@@ -108,40 +117,87 @@ void testSS(AppQueue& q){
 }
 
 //TEST +=(Application)
-void testPE1(AppQueue& app){
-	
+void testPE1(AppQueue& q){
+	cout << "------ABOUT TO TEST THE += APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------the applications from the queues print------ " << endl << q;
+	cout << endl << "." << endl << "." << endl;
+
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	GradApp* castleApp = new GradApp(&castle, 10290, "COMP4000", "pending");
+	UndergradApp* georgeApp = new UndergradApp(&lilly, 20362, "COMP1003", "pending");
+
+	q += castleApp;
+	q += georgeApp;
+
+	cout << "---------The Queue with += Applications---------- " << endl << q;
+
 }
 //TEST +=(Queue)
-void testPE2(AppQueue& app){
+void testPE2(AppQueue& q){
+	cout << "------ABOUT TO TEST THE += QUEUE------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------the new queues print------ " << endl ;
+	cout << endl << "." << endl << "." << endl;
+	AppQueue tQ;
+	cout << tQ <<endl;
+
+	tQ += q;
+	cout<<"-------the previous queue has been added to the new queue-----------" <<endl;
+	cout<< "--printing the new queue again" << endl << endl;
+	cout<< tQ <<endl;
 
 }
 //TEST +(Application)
-void testP1(AppQueue& app){
+void testP1(AppQueue& q){
+	cout << "------ABOUT TO TEST THE + APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------making a new grad and undergrad application------ " << endl ;
+
+	GradStudent grad("A", "Grad", "student@carleton.ca", "100991199", "Time Travel", "his son");
+	UndergradStudent ugrad(11, 12, "An", "Undergrad", "noreply@carleton.ca", "Quantum Mechanics", 2, "10092843" );
+	GradApp* gradapp = new GradApp(&grad, 10399, "COMP3808", "pending");
+	UndergradApp* ugradapp = new UndergradApp(&ugrad, 20400, "COMP1406", "pending");
+
+	cout << "---here they are---: " << endl << *ugradapp << endl << *gradapp << endl;
+	cout << endl << "." << endl << "." << endl;
+	cout << "--Setting new queue equal to old + both new applications" <<endl;
+	AppQueue tQ;
+	tQ = (q + gradapp); // + ugradapp;
+	cout << "------------Here is the resulting queue---------------" <<endl;
+	cout << tQ <<endl;
 	
 }
+
 //TEST +(Queue)
-void testP2(AppQueue& app){
+void testP2(AppQueue& q){
 	
 }
 
 //TEST -=(Application)
-void testME1(AppQueue& app){
+void testME1(AppQueue& q){
 	
 }
 //TEST -=(Queue)
-void testME2(AppQueue& app){
+void testME2(AppQueue& q){
 	
 }
 //TEST -(Application)
-void testM1(AppQueue& app){
+void testM1(AppQueue& q){
 	
 }
 //TEST -(Queue)
-void testM2(AppQueue& app){
+void testM2(AppQueue& q){
 	
 }
 
 //TEST LOGICAL NOT
-void testN(AppQueue& app){
-	
+void testN(AppQueue& q){
+	/*
+	cout << "------ABOUT TO TEST THE LOGICAL NOT------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------the applications from the queues print before operation------ " << endl << q;
+	cout << endl << "." << endl << "." << endl;
+
+	!q;
+
+	cout<<endl << "Should be an empty queue: " << endl << q;
+	*/
 }
