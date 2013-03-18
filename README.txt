@@ -21,6 +21,7 @@ not have any main functionality.
 
 
 marks to get back:
+-2 UML does not show model / view disconnection
 -2 report appears in a combo box
 -2 tab sequence is weird
 -5 summary choosing from grad or undergrad
