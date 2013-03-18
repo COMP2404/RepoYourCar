@@ -7,50 +7,50 @@ main.o:		main.cpp main.h
 		g++ -c main.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
 
 
-WindowApp.o:	WindowApp.cpp WindowApp.h
-		g++ -c WindowApp.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
+WindowApp.o:	View/WindowApp.cpp View/WindowApp.h
+		g++ -c View/WindowApp.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
 
-Control.o:	Control.cpp Control.h
-		g++ -c Control.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
+Control.o:	Control/Control.cpp Control/Control.h
+		g++ -c Control/Control.cpp  `pkg-config gtkmm-3.0 --cflags --libs`
 
-AppQueue.o:	AppQueue.cpp AppQueue.h
-		g++ -c AppQueue.cpp
+AppQueue.o:	Model/AppQueue.cpp Model/AppQueue.h
+		g++ -c Model/AppQueue.cpp
 
-CourseQueue.o:	CourseQueue.cpp CourseQueue.h
-		g++ -c CourseQueue.cpp
+CourseQueue.o:	Model/CourseQueue.cpp Model/CourseQueue.h
+		g++ -c Model/CourseQueue.cpp
 
-JobQueue.o:	JobQueue.cpp JobQueue.h
-		g++ -c JobQueue.cpp
+JobQueue.o:	Model/JobQueue.cpp Model/JobQueue.h
+		g++ -c Model/JobQueue.cpp
 
-Queue.o:	Queue.cpp Queue.h
-		g++ -c Queue.cpp	
+Queue.o:	Model/Queue.cpp Model/Queue.h
+		g++ -c Model/Queue.cpp	
 
-Application.o:	Application.cpp Application.h
-		g++ -c Application.cpp
+Application.o:	Model/Application.cpp Model/Application.h
+		g++ -c Model/Application.cpp
 
-GradApp.o:	GradApp.cpp GradApp.h
-		g++ -c GradApp.cpp
+GradApp.o:	Model/GradApp.cpp Model/GradApp.h
+		g++ -c Model/GradApp.cpp
 
-UndergradApp.o:	UndergradApp.cpp UndergradApp.h
-		g++ -c UndergradApp.cpp
+UndergradApp.o:	Model/UndergradApp.cpp Model/UndergradApp.h
+		g++ -c Model/UndergradApp.cpp
 
-Student.o:	Student.cpp Student.h
-		g++ -c Student.cpp
+Student.o:	Model/Student.cpp Model/Student.h
+		g++ -c Model/Student.cpp
 
-GradStudent.o:	GradStudent.cpp GradStudent.h	
-		g++ -c GradStudent.cpp
+GradStudent.o:	Model/GradStudent.cpp Model/GradStudent.h	
+		g++ -c Model/GradStudent.cpp
 
-UndergradStudent.o:	UndergradStudent.cpp UndergradStudent.h	
-		g++ -c UndergradStudent.cpp
+UndergradStudent.o:	Model/UndergradStudent.cpp Model/UndergradStudent.h	
+		g++ -c Model/UndergradStudent.cpp
 
-Course.o:	Course.cpp Course.h
-		g++ -c Course.cpp
+Course.o:	Model/Course.cpp Model/Course.h
+		g++ -c Model/Course.cpp
 
-Job.o:		Job.cpp Job.h
-		g++ -c Job.cpp
+Job.o:		Model/Job.cpp Model/Job.h
+		g++ -c Model/Job.cpp
 
-Node.o:		Node.cpp Node.h
-		g++ -c Node.cpp
+Node.o:		Model/Node.cpp Model/Node.h
+		g++ -c Model/Node.cpp
 
 run:
 		./cuTaes
