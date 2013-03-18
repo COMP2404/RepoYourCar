@@ -1,3 +1,32 @@
+TO DO:
+** Seperate Window App into smaller classes
+	- these classes should be small atomic units of forms and windows that can be resued across the application
+
+** The View needs a manager class that takes care of which classes and functions to call. The WindowApp
+	should not be the one to take care of calling functions in order. The functions should return, and the
+	manager should decide which functions to call based on that.
+
+**The Control class should not have any knowledge of the nitty gritty of the UI. The get info function should
+be able to take in data from any location. To solve this, the View should pass through an object containing the data.
+
+**Seperate the control class functions such as error checking and loading into seperate classes. The control class should
+not have any main functionality.
+
+** make sure that there is an option for the TA to have no experience necessary
+
+** fix up error checking feedback, allow related courses to accept "comp1001" for instance
+
+** error checking should be FORM specific as well as FORMAT specific
+
+
+
+
+
+
+
+
+
+
 ======READ ME========
 (Read-Only)
 =====================
