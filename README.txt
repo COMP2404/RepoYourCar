@@ -28,6 +28,10 @@ marks to get back:
 -2 sorting not working correctly
 -2 course names hard coded in AppQueue
 -2 view all was from general information only
+--------------
+-17
+
+best possible mark of 74%
 
 
 
