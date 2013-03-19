@@ -11,6 +11,7 @@
 #include "../Model/Application.h"
 #include "../Model/Course.h"
 #include "../Model/AppQueue.h"
+#include "AdminManager.h"
 //
 //#include <String.h>
 
