@@ -1,5 +1,6 @@
 #include "WindowApp.h"
 #include "../Control/Control.h"
+#include "AdminPage.h"
 /*WindowApp::WindowApp(){
 	setfName("");
 	setlName("");
@@ -74,8 +75,13 @@ string WindowApp::getStuNum(){
 
 
 void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
+	//AdminPage admin;
+	//admin.adminPage(theApp);
 
-	theApp->admin_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	AdminManager admin;
+
+
+	/*theApp->admin_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->admin_window), GTK_WIN_POS_CENTER);	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->admin_window), 400, 200);
 	
@@ -105,7 +111,7 @@ void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 	g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (WindowApp::viewSummaryChoice), theApp);
 	g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (WindowApp::closeAdminPage), theApp);
-
+	*/
 }
 
 
