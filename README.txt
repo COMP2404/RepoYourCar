@@ -1,4 +1,7 @@
 TO DO:
+
+FIXES--------------
+
 ** Seperate Window App into smaller classes
 	- these classes should be small atomic units of forms and windows that can be resued across the application
 
@@ -18,9 +21,40 @@ not have any main functionality.
 
 ** error checking should be FORM specific as well as FORMAT specific
 
+ASSIGNMENT 4 IMPLEMENTATIONS---------
 
+----Edit Application Feature----
 
-marks to get back:
+-only pending ones(could use get pending for all courses like in sortAll)
+-only their own application
+  -must enter personal info and create a getAppByName or something similar
+  -we are aloud to trust the user to enter their own name (no credentials require)
+-cancel application option
+  -changes the application.status to "closed" (using Application::operator-() )
+-submit changes option
+  -will call a function that replaces the aplication at a specified location, 
+   using the queues operator[]
+-cancel button
+  -aborts changes
+
+----View Summary Feature----
+
+-must be able to select a specific app and save it to permanent storage
+  -this will save all information in the application (not just basic info)
+
+----Assign Succesful Candidate Option----
+
+-will be accessed through the admin window
+-sets the selected applications status to "assigned"
+  -using the Application::operator+() 
+-gets the rest of the applications from that person and sets their status to "closed"
+
+----Operator Testing File----
+
+-finish the functions for testing each of AppQueue's overloaded operators
+
+MARKS TO GET BACK---------------------------
+
 -2 UML does not show model / view disconnection
 -2 report appears in a combo box
 -2 tab sequence is weird
