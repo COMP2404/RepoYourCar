@@ -83,6 +83,11 @@ ostream& operator<<(ostream& out, Application& app){
 
 	return out;
 }
+
+bool Application::operator==(Application& app){
+	return (applicationNumber == app.getApplicationNumber ()
+				    && course == app.getCourse() );
+}
 //===============================================================================
 
 

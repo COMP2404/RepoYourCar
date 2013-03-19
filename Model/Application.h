@@ -50,6 +50,7 @@ public:
 
 	Application& operator-();//unary '-' changes status of application to "closed"
     Application& operator+();//unary '+' changes status to "assigned"
+    bool 		 operator==(Application&);
 
 protected:
 	//VARIABLES---------------------

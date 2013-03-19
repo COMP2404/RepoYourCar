@@ -200,7 +200,7 @@ AppQueue& AppQueue::operator-=(Application* app){
 	AppNode* tmp = head;
 	AppNode* prev = head;
 	while(tmp != NULL){
-		if (tmp->data == app){//found the app to remove
+		if (*(tmp->data) == *app){//found the app to remove
 			if(tmp == head)//head is the one to be removed
 				head = tmp->next;
 			else
@@ -217,40 +217,48 @@ AppQueue& AppQueue::operator-=(Application* app){
 AppQueue& AppQueue::operator-=(AppQueue& q){
 	//removes all elements from incoming queue from this if contained
 	AppNode* tmp = q.head;
+	//for all elements of the incoming queue:
 	while(tmp != NULL){
 		*this -= tmp->data;//call operator above
 		tmp = tmp->next;
 	}
 	
-	return *this;
+	return *this;//cascading
 }
 
 AppQueue AppQueue::operator-(Application* app){
 	//created new queue with all but incoming app
-	AppQueue* nq = new AppQueue();
-	*nq += *this;//fill the new queue with all elements of this qeue
-	*nq -= app;
+	AppQueue nq;
+	nq += *this;//fill the new queue with all elements of this qeue
+	nq -= app;//use operator-=(Application*) defined above
 
-	return *nq;
+	return nq;
 }
 
 AppQueue AppQueue::operator-(AppQueue& q){
 	//creates a new queue with all but apps from incoming 
-	AppQueue* nq = new AppQueue();
-	AppNode* tmp = q.head;
+	AppQueue nq;
 
-	*nq += *this;//fill it with this stuff
+	nq += *this;//fill it with this stuff
 
-	while(tmp != NULL){
-		*nq -= tmp->data;
-		tmp = tmp->next;
-	}
-	return *nq;
+	nq -= q;//use the -=(AppQueue&) operator defined above
+
+	return nq;
 }
 
 AppQueue& AppQueue::operator!(){
 	//logical not: empties the queue
-	delete this;
+	AppNode* curr = head;
+	AppNode* prev;
+	head = NULL;//Queue is now, for all intents and purposes, empty.
+
+	//Cleanup like after a crazy party:
+	while(curr != NULL){
+		prev = curr;
+		curr = curr->next;
+		delete prev;
+
+	}
 }
 
 ostream& operator<<(ostream& out, AppQueue& q){
