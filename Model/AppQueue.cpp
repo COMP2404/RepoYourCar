@@ -473,6 +473,58 @@ bool AppQueue::appExists(string app){
 	}
 	return false;
 }
+int AppQueue::getIndex(Application* app){
+	AppNode* tmp = head;
+	int i = 0;
+	while(tmp != NULL){//for all applications
+		if( *(tmp->data) == *app)//if it satisfies the application's '=='
+			return i;//this is it's index
+		tmp = tmp->next;
+	}
+	return -1;
+}
+
+AppQueue* AppQueue::getAppsByName(string name){
+	GradApp* ga;
+	UndergradApp* ua;
+	AppNode* tmp = head;
+	AppQueue* nQ = new AppQueue();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		if(tmp->data->getType() == "grad"){
+			ga = dynamic_cast<GradApp*>(tmp->data);
+			if(ga->getStuName() == name){//if they are by the target person
+				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
+			}
+		}else{
+			ua = dynamic_cast<UndergradApp*>(tmp->data);
+			if(ua->getStuName() == name){//if they are by the target person
+				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
+			}	
+		}
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+void AppQueue::assignSuccesfulCandidate(Application* app){
+	AppQueue* otherApps;
+	if(app->getType() == "grad"){
+		GradApp* ga = dynamic_cast<GradApp*>(app);
+		otherApps = getAppsByName(ga->getStuName());
+	}else{
+		UndergradApp* ua = dynamic_cast<UndergradApp*>(app);
+		otherApps = getAppsByName(ua->getStuName());
+	}
+
+	AppNode* tmp = otherApps->head;//this queue has all the applications by that person
+	while(tmp != NULL){
+		tmp->data->operator-();//USE operator-() to assign status to closed
+		tmp = tmp->next;
+	}
+
+	app->operator+();//use operator+() to assign the winning app status to "assigned"
+
+}
 
 AppQueue* AppQueue::sortAll(){
 	string allCourses[] = {"COMP1001", "COMP1004", "COMP1005", "COMP1006", "COMP1405", "COMP1406", "COMP1501", "COMP1601", 

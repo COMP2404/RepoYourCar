@@ -23,6 +23,7 @@ public:
 	string   getStuArea();
 	string   getStuSuper();
 	bool 	 printApp();
+	string 	 getStuName();
 private:
 	string stuProgram;
 	string stuArea;

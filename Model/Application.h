@@ -38,7 +38,7 @@ public:
 	
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
-
+	//virtual string getStuName();
 	virtual bool printApp();
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();

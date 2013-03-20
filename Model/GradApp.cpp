@@ -27,6 +27,7 @@ GradApp::~GradApp(){
 string 	 GradApp::getStuArea(){ return stuArea;}
 string   GradApp::getStuSuper(){ return stuSuper;}
 string   GradApp::getStuProgram(){return stuProgram;}
+string 	 GradApp::getStuName(){ return stuFirst; }
 //string   GradApp::getType() {return stuType;}
 
 
