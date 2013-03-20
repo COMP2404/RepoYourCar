@@ -25,15 +25,15 @@ AppQueue::AppNode::~AppNode(){
 ///////////////////////////////
 
 AppQueue::~AppQueue(){
-	cout<<"Destruction"<<endl;
+	//cout<<"Destruction"<<endl;
 	AppNode* tmpNode = head;
 	AppNode* dNode;
 	//go through the list freeing all nodes
 	while(tmpNode != NULL){		
 		dNode=tmpNode;	
-		cout<<"about to advance in destructor"<<endl;
+		//cout<<"about to advance in destructor"<<endl;
 		tmpNode=tmpNode->next;
-		cout << "deleting node: " << endl;
+		//cout << "deleting node: " << endl;
 		delete dNode;	
 	}
 }
@@ -146,9 +146,63 @@ Application* AppQueue::operator[](int index){
 	return NULL;//should never get here...in case of fault
 }
 
-AppQueue& AppQueue::operator=(const AppQueue& q){
+AppQueue& AppQueue::operator=(const AppQueue& rhs){
 	cout<<"*************************************************************************************************\n";
+	//VARS FOR NEW STUDENT AND APPLICATION
+	string first, last, em, snum, res, pro, sup, major;
+	int yr, cg, mg;
+	GradApp* ga;
+	UndergradApp* ua;
+	//cout << "IN COPY CTOR\n";
+	if(rhs.head==NULL){
+		this->operator!();//empty this queue to match the rhs
+		return *this;	
+	} 
+
+
+	AppNode* tmp = rhs.head;//iteration node for original AppQueue
+	head = new AppNode();//head node for the new AppQueue
+
+	AppNode* nPrev;//to connect the nodes in q
+	AppNode* nTmp = head;//iteration node for q
+	while(tmp != NULL){	
+		//GET BASIC iNFO
+		first = tmp->data->getStuFirst();
+		last = tmp->data->getStuLast();
+		em = tmp->data->getStuEmail();
+		snum = tmp->data->getStuID();
+		if(tmp->data->getType() == "grad"){
+			GradApp* tmpGApp = static_cast<GradApp*>(tmp->data);//now its a grad app
+			//GET GRAD INFO
+			res = tmpGApp->getStuArea();
+			pro = tmpGApp->getStuProgram();
+			sup = tmpGApp->getStuSuper();
+			GradStudent* gs = new GradStudent(first, last, em, snum, res, pro, sup);
+			ga = new GradApp(gs, tmpGApp->getApplicationNumber(), tmpGApp->getCourse(), tmpGApp->getStatus());
+			nTmp->data = ga;
+		}
+		else{
+			UndergradApp* tmpUApp = static_cast<UndergradApp*>(tmp->data);
+			//GET UNDERGRAD INFO
+			yr = tmpUApp->getStuYrStanding();
+			cg = tmpUApp->getStuCGPA();
+			mg = tmpUApp->getStuMGPA();
+			major = tmpUApp->getStuMajor();
+			UndergradStudent* us = new UndergradStudent(cg, mg, first, last, em, major, yr, snum);
+			ua = new UndergradApp(us, tmpUApp->getApplicationNumber(), tmpUApp->getCourse(), tmpUApp->getStatus());
+			nTmp->data = ua;
+		}
 	
+		nPrev = nTmp;//make prev node this node before moving on	
+		tmp = tmp->next;//advance iteration node for source Queue
+		if(tmp != NULL){
+			AppNode* node = new AppNode();//make a new node for each existing node		
+			nTmp = node;
+			nPrev->next=nTmp;
+		}
+		//connect the nodes in the new Queue	
+	}
+	cout<<"***************************************************************************************************\n";
 	return *this;
 }
 
