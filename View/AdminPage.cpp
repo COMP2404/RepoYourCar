@@ -26,11 +26,19 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	
 	window->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(window->admin_cancel, 80, 35);
+
+	window->admin_assigned = gtk_button_new_with_label("Assign App to Successful");
+	gtk_widget_set_size_request(window->admin_assigned, 80, 35);
+
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_combo, 50, 50);
+	if(window->pending)
+		gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_assigned, 190, 150);
 	window->summary_combo =  gtk_combo_box_text_new();
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->summary_combo, 50, 100);
 	
+	gtk_widget_set_sensitive(window->admin_assigned, FALSE);
+
 	gtk_container_add(GTK_CONTAINER(window->admin_window), window->admin_frame);
 	
 	gtk_widget_show_all(window->admin_window);
@@ -54,13 +62,26 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), text);
 	}
 	
-	//g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
+	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
 	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
+	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
 	//if(window->allCourses)
 	//	updateCombo(widget,theApp);
 }
 void AdminPage::viewSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	window->showSummaryChoice(widget, window);
+	
+}
+void AdminPage::setAppSelected(GtkWidget *widget, AdminWindow *window){
+	if(window->pending){
+		window->appSelected = true;
+		gtk_widget_set_sensitive(window->admin_assigned, TRUE);
+		window->selectedIndex = gtk_combo_box_get_active (GTK_COMBO_BOX(window->summary_combo));
+		 
+	}
+}
+
+void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 	
 }
 
@@ -72,24 +93,25 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
 	if(window->pending){
 		if(window->allCourses){
-			cout << "Pending all courses" <<endl;
+			
+			qCopy = window->theApp->appQueue.getPendingList("all");
 			qCopy = qCopy->sortAll();
 			
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
 		}
 		else{
-			cout << "Pending one courses" <<endl;
+			
 			const gchar* theCourse;
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;
 			courseString = (theCourse);
-			cout << courseString << endl;
+			
 			qCopy = window->theApp->appQueue.getPendingList(courseString);
 			qCopy = qCopy->sortAll();
 		}
 	}else{
 		if(window->allCourses){
-			
+
 		}else{
 
 		}
@@ -97,8 +119,6 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	}
 	
 	
-			
-	cout << "Got Pending List" << endl;
 	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
 	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
 	

@@ -372,7 +372,7 @@ AppQueue::AppNode* AppQueue::createNode(GradApp *ga, UndergradApp *uga){
 AppQueue* AppQueue::getPendingList(string course){
 	//------Get a copy of the working Queue-------
 	bool all = false;
-	if(course == "all" || "ALL") all = true;
+	if(course == "all" || course == "ALL") all = true;
 
 	AppQueue& copy = *this;
 
@@ -390,7 +390,7 @@ AppQueue* AppQueue::getPendingList(string course){
 		
 		cout<< course<< endl;
 		if( (tmpNode->data->getCourse().compare(course) == 0 || all) && (tmpNode->data->getStatus() == "PENDING" || tmpNode->data->getStatus() == "pending") ){
-			cout << tmpNode->data->getCourse() << endl;
+			cout << " adding the course " + tmpNode->data->getCourse() << endl;
 			list->head = tmpNode;
 			break;
 		}
