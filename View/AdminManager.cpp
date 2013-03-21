@@ -1,7 +1,8 @@
 #include "AdminManager.h"
-AdminManager::AdminManager(){
+AdminManager::AdminManager(WindowApp *theApp){
 	adminPage = new AdminPage();
 	window = new AdminWindow();
+	window->theApp = theApp;
 	adminPage->adminPage(window);
 	
 }

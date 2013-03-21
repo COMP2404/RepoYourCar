@@ -17,6 +17,7 @@ class AdminManager;
 class AdminPage{
 	public:
 		friend class AdminManager;
+		friend class AdminWindow;
 		void adminPage(AdminWindow*);
 
 		
@@ -24,6 +25,9 @@ class AdminPage{
 		static GtkWidget *admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login, 
 			*summary_combo, *adminTest;
 		static void cleanup(GtkWidget *, AdminWindow *);
+		static void viewSummary(GtkWidget *, AdminWindow *);
+		static void viewSummaryChoice(GtkWidget *, AdminWindow *);
+		static void updateCombo(GtkWidget *, AdminWindow *);
 		AdminWindow *window;
 		
 

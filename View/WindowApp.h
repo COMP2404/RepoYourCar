@@ -12,14 +12,42 @@
 #include "../Model/Course.h"
 #include "../Model/AppQueue.h"
 #include "AdminManager.h"
+#include "MainMenu.h"
+#include "GradAppPage.h"
+#include "UnderGradAppPage.h"
+#include "StudentPage.h"
+#include "AppManager.h"
+#include "../Model/GradAppData.h"
+#include "../Model/UGradAppData.h"
+
+#include "../Model/AppQueue.h"
+#include "../Model/Student.h"
+#include "../Model/GradStudent.h"
+#include "../Model/UndergradStudent.h"
+#include "../Model/GradApp.h"
+#include "../Model/UndergradApp.h"
 //
 //#include <String.h>
 
 using namespace std;
 class Control;
+class MainMenu;
+class GradAppPage;
+class UnderGradAppPage;
+class AppManager;
+class StudentPage;
+class WindowApp;
 class WindowApp{
 	public:
 		friend class Control;
+		friend class AppManager;
+		friend class GradAppPage;
+		friend class UnderGradAppPage;
+		friend class RelatedCoursesTwoForm;
+		friend class RelatedCoursesOneForm;
+		friend class WorkExperienceForm;
+		friend class AdminWindow;
+		friend class AdminPage;
 		//Control Control;
 		GtkWidget *label, *info_label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, *major, *lblMajor, *gpa, *lblGpa, *cgpa, *lblCgpa, *stuNum,*lblstuNum, *email, *lblEmail, *year, *lblYear, *submit, *cancel, *combo,  *ei_relatedCourse1, *ei_relatedCourse2, *ei_term1, *ei_term2, *ei_year1, *ei_year2, *ei_finalGrade, *ei_supervisor, *ei_relevantWork, *ei_responsabilities, *ei_duration, *ei_startDate, *ei_endDate, *ei_continue, *ei_continue2, *ei_repeat, *ei_repeat2, *ei_repeat3, *ei_finish, *ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, *ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities
 			,*lblpickCourse, *lblpickArea, *lblpickProgram;
@@ -37,7 +65,7 @@ class WindowApp{
 		CourseQueue *cQRelated, *cQTa;
 		JobQueue *jQRelated;
 		AppQueue appQueue;
-		
+		static WindowApp *instance;
 
 		bool moveOn;
 		bool checkGood;
@@ -67,6 +95,16 @@ class WindowApp{
 		string getCgpa();
 	private:
 		string strfName, strlName, strMajor, strGpa, strCgpa, strEmail, strYear, strStuNum;
+		MainMenu *main;
+		GradAppPage *gradPage;
+		UnderGradAppPage *underPage;
+		StudentPage *stuPage;
+		AppManager *appMan;
+		GradAppPage *gradAppPage;
+		//GradForm *gradForm;
+		UnderGradAppPage *uGradAppPage;
+		//UnderGradForm *uGradForm;
+		
 	protected:
 		static void adminPage(GtkWidget*, WindowApp*);
 		static void viewSummary(GtkWidget*, WindowApp*);
@@ -87,7 +125,11 @@ class WindowApp{
 		static void relatedCourses2(GtkWidget *, WindowApp *);
 		
 		static void finishExtra(GtkWidget*,WindowApp*);
+		static void submitToMain(GtkWidget*,WindowApp*);
 				
+		static void submitGradApp(WindowApp*);
+		static void submitUGradApp(WindowApp*);
+		static WindowApp* getInstance();
 };
 
 #endif

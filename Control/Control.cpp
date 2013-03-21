@@ -26,209 +26,6 @@ int THIS_BUF = 1000;
 
 bool Control::errorCheck(string* course, string* first, string* last, string* mgpa, string* gpa, string* email, string* year, string* major, string* stunum, string* areas, string* program, string* supervisor, WindowApp *theApp){
 
-	bool good = true;
-	int mg;
-	int cg;
-	int yr;
-	unsigned invalidF = (*first).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
-	unsigned invalidL = (*last).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
-	unsigned invalidSup = (*supervisor).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'");
-	string stringToFind1("@carleton.ca");
-	unsigned validChars1 = (*email).find(stringToFind1);
-	unsigned invalidE = (*major).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ");
-	unsigned validStu = (*stunum).find_first_not_of("0123456789");
-	unsigned validGPA = (*gpa).find_first_not_of("0123456789");
-	unsigned validCGPA = (*mgpa).find_first_not_of("0123456789");
-	
-	if(!theApp->gradApp){
-		mg = atoi(mgpa->c_str());	
-		cg = atoi(gpa->c_str());
-		yr = atoi(year->c_str());
-
-		if(mgpa->length() == 0){
-			cout << "MGPA is empty" <<endl;
-			WindowApp::popWindow("MGPA is empty", theApp);
-			return !good;
-		}
-                
-		else if(gpa->length() == 0){
-			cout << "GPA is empty" <<endl;
-			WindowApp::popWindow("GPA is empty", theApp);
-			return !good;
-		}
-
-		else if(year->length() == 0){
-			cout << "year is Empty" <<endl;
-			WindowApp::popWindow("year is Empty", theApp);
-			return !good;
-		}
-               
-		else if(major->length() == 0){
-			cout << "Major is Empty" <<endl;
-			WindowApp::popWindow("Major is Empty", theApp);
-			return !good;
-		}
-		else if (validGPA != string::npos) {
-			cout << "You entered a non-alphabetical character, " << (*gpa)[validGPA];
-			cout << ", at position " << validGPA << endl;
-			
-			WindowApp::popWindow("Please Enter a valid GPA", theApp);
-			return !good;
-		
-  		}
-		else if (validCGPA != string::npos) {
-			cout << "You entered a non-alphabetical character, " << (*mgpa)[validCGPA];
-			cout << ", at position " << validCGPA << endl;
-				
-			WindowApp::popWindow("Please Enter a valid CGPA", theApp);
-			return !good;
-			
-	   	}
-		
-			
-		else if(mg < 0 || mg > 12){
-			WindowApp::popWindow("Enter a GPA between 0 and 12", theApp);
-			return !good;
-		}
-		else if(cg < 0 || cg > 12){
-			WindowApp::popWindow("Enter a CGPA between 0 and 12", theApp);
-			return !good;
-		}
-		else if (yr < 1 || yr > 4) {
-			cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
-			WindowApp::popWindow("Year standing must be either 1, 2, 3, or 4.", theApp);
-			return !good;
-		}
-		else if (invalidE != string::npos) {
-			cout << "You entered a non-alphabetical character, " << (*major)[invalidE];
-			cout << ", at position " << invalidE << endl;
-			WindowApp::popWindow("You entered a non-alphabetical character in major", theApp);
-			return !good;
-   		}
-	}
-	if(theApp->gradApp){
-
-		//string* areas, string* program, string* supervisor
-		if(areas->length() == 0){
-			cout << "Study Area is empty" <<endl;
-			WindowApp::popWindow("Choose a main study area", theApp);
-			return !good;
-		
-		}
-		else if(program->length() == 0){
-			cout << "Program is empty" <<endl;
-			WindowApp::popWindow("Choose a program", theApp);
-			return !good;
-			
-		}
-
-
-
-	}
-	
-
-	if(course->length() == 0){
-		cout << "Course is empty" <<endl;
-		WindowApp::popWindow("Choose a course", theApp);
-		return !good;
-		
-	}
-		
-	else if(first->length() == 0){
-		cout << "First name is empty" <<endl;
-		WindowApp::popWindow("First name is empty", theApp);
-		return !good;
-	}
-                
-		
-	else if(last->length() == 0){
-		cout << "Last Name is Empty" <<endl;
-		WindowApp::popWindow("Last Name is Empty", theApp);
-		return !good;
-	}
-                
-	
-                
-	else if(email->length() == 0){
-		cout << "Email is Empty" <<endl;
-		WindowApp::popWindow("Email is Empty", theApp);
-		return !good;
-	}
-                	
-	
-                
-	else if(stunum->length() == 0){
-		cout << "Student Number is Empty" <<endl;
-		WindowApp::popWindow("Student Number is Empty", theApp);
-		return !good;
-	}
-
-	
-	
-	
-  
-	else if (invalidF != string::npos) {
-		cout << "You entered a non-alphabetical character, " << (*first)[invalidF];
-		cout << ", at position " << invalidF << endl;
-			
-		WindowApp::popWindow("You entered a non-alphabetical character in first name", theApp);
-		return !good;
-		
-   	}
-
-
-	
-  
-	else if (invalidL != string::npos) {
-		cout << "You entered a non-alphabetical character, " << (*last)[invalidL];
-		cout << ", at position " << invalidL << endl;
-		WindowApp::popWindow("You entered a non-alphabetical character in last name", theApp);
-		return !good;
-   	}
-
-   	else if (invalidSup != string::npos) {
-		cout << "You entered a non-alphabetical character, " << (*supervisor)[invalidSup];
-		cout << ", at position " << invalidSup << endl;
-		WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
-		return !good;
-   	}
-
-
-	
-
-	else if (validChars1 == string::npos) {
-		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
-		WindowApp::popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.", theApp);
-		return !good;
-	}
-
-	
-  
-	
-
-
-	
-	else if (validStu != string::npos) {
-		cout << "You entered a character which is not a number between 0-9: " << (*stunum)[validStu];
-		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
-		WindowApp::popWindow("Your student number contains invalid characters", theApp);
-		return !good;
-    }
-
-	else if ((*stunum).length() != 9) {
-		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
-		WindowApp::popWindow("A valid student number has exactly 9 characters.", theApp);
-		return !good;
-	}
-	
-	cout << "Its getting to here" << endl;
-
-
-		
-
-	
-
-	return good;
 }
 
 
@@ -240,128 +37,14 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 
 
 int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
-	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;
-	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="", string10="", string11="", string12="";
-	double c, g;
-	int num;
-	if(!theApp->gradApp){
-		
-		s1 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->combo));
-		if(s1==NULL)
-			s1="";
-		s2 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
-		
-		s3 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
-		s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
-		s5 = gtk_entry_get_text(GTK_ENTRY(theApp->cgpa));        
-	    s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
-		s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
-		s8 = gtk_entry_get_text(GTK_ENTRY(theApp->major));
-		s9 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
-		string1 = (s1);
-		string2 = (s2);
-		string3 = (s3);
-		string4 = (s4);
-		string5 = (s5);
-		string6 = (s6);
-		string7 = (s7);
-		string8 = (s8);
-		string9 = (s9);
-	}
-	else{
-		//const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;
-		//string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
-		//
-		
-		s1 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->combo));
-		if(s1==NULL)
-			s1="";
-
-		s2 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->grad_research_combo));
-		if(s2==NULL)
-			s2="";
-		s3 = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->grad_program_combo));
-		if(s3==NULL)
-			s3="";
-		s4 = gtk_entry_get_text(GTK_ENTRY(theApp->fName));
-		
-		s5 = gtk_entry_get_text(GTK_ENTRY(theApp->lName));
-		//s4 = gtk_entry_get_text(GTK_ENTRY(theApp->gpa));
-		//s5 = gtk_entry_get_text(GTK_ENTRY(theApp->cgpa));        
-	    s6 = gtk_entry_get_text(GTK_ENTRY(theApp->email));
-		//s7 = gtk_entry_get_text(GTK_ENTRY(theApp->year));
-		s7 = gtk_entry_get_text(GTK_ENTRY(theApp->grad_sup));
-		s8 = gtk_entry_get_text(GTK_ENTRY(theApp->stuNum));
-		string1 = (s1);
-		string2 = (s4);
-		string3 = (s5);
-		//string4 = (s4);
-		//string5 = (s5);
-		string6 = (s6);
-		string9 = (s8);
-		string10 = (s2);
-		string11 = (s3);
-		string12 = (s7);
-		//1 string* course, 2 string* first, 3 string* last, 4 string* mgpa, 
-		//5 string* gpa, 6 string* email, 7 string* year, 8 string* major, 
-		//9 string* stunum, 10 string* areas, 11 string* program, 12 string* supervisor, WindowApp *theApp
-
-	}
 	
-	
-        
-	
-    if (Control::errorCheck(&string1,&string2,&string3,&string4,&string5,&string6,&string7, &string8, &string9, &string10, &string11, &string12, theApp))
-	{
-		//Create a new student
-		c = atof(s4);
-		g = atof(s5);
-		num = atoi(s7);
-
-
-
-
-		/////////////////////////////////////////////////////
-		//-----------Create new submission window -------////
-		/////////////////////////////////////////////////////
-
-		theApp->submitWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-		gtk_window_set_position(GTK_WINDOW(theApp->submitWindow), GTK_WIN_POS_CENTER);
-	
-		gtk_window_set_default_size(GTK_WINDOW(theApp->submitWindow), 250, 100);
-		gtk_window_set_title(GTK_WINDOW(theApp->submitWindow), "Submit Page");
-	
-	
-
-		/////////////////////////////////////////////////////
-		//-----------Add frame onto window---------------////
-		/////////////////////////////////////////////////////
-		theApp->submitFrame = gtk_fixed_new();
-	
-
-		gtk_container_add(GTK_CONTAINER(theApp->submitWindow), theApp->submitFrame);
-
-		//submission page
-		theApp->submitFinish = gtk_button_new_with_label("Finish");
-		theApp->submitRepeat = gtk_button_new_with_label("Make Another");
-
-	
-		gtk_widget_set_size_request(theApp->submitFinish, 80, 35);
-		gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitFinish, 30, 20);
-
-	
-		gtk_widget_set_size_request(theApp->submitRepeat, 80, 35);
-		gtk_fixed_put(GTK_FIXED(theApp->submitFrame), theApp->submitRepeat, 150, 20);
-
-		gtk_widget_show_all(theApp->submitWindow);
-
 		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
 		g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
 
-		Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, &string10, &string11, &string12, theApp);
+		//Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, &string10, &string11, &string12, theApp);
 		
 		//submit(string*, string*, string*, int, int, string*, int, string*);
-	}
+	
 	
 	return 0;
 }
@@ -1547,15 +1230,16 @@ int Control::createWindow(int argc, char** argv)
 	
 	// initialize GTK+
 	gtk_init(&argc, &argv);
-	theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	loadApplications(theApp);
-	cout << "app loaded" << endl;
+	/*theApp->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	
+	//cout << "app loaded" << endl;
 	gtk_window_set_position(GTK_WINDOW(theApp->window), GTK_WIN_POS_CENTER);
 	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->window), 400, 200);
 	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Main Menu");
-	cout << "Calling WindowApp mani menu" <<endl;
+	//cout << "Calling WindowApp mani menu" <<endl;*/
 	WindowApp::mainMenu(theApp->window, theApp);
 	
 
