@@ -13,6 +13,10 @@ void AdminWindow::draw(){
 	gtk_widget_set_size_request(admin_viewSummary, 150, 35);
 	gtk_fixed_put(GTK_FIXED(admin_frame), admin_viewSummary , 100, 50);
 
+	admin_assigned = gtk_button_new_with_label("View Summary Of Assigned Applications");
+	gtk_widget_set_size_request(admin_assigned, 150, 35);
+	gtk_fixed_put(GTK_FIXED(admin_frame), admin_assigned , 100, 150);
+
 	admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(admin_cancel, 80, 35);
 	gtk_fixed_put(GTK_FIXED(admin_frame), admin_cancel , 100, 150);
@@ -61,16 +65,19 @@ void AdminWindow::showSummary(){
 }
 
 
-void AdminWindow::showSummaryChoice(AdminWindow *window){
+void AdminWindow::showSummaryChoice(GtkWidget *widget,AdminWindow *window){
 	window->sum = new SummaryChoiceWindow();
 	
 	window->sum->draw();
-
-	//g_signal_connect(sum->btnOneCourse, "clicked", G_CALLBACK (AdminPage::viewSummary), window);
-	//g_signal_connect(sum->btnAllCourses, "clicked", G_CALLBACK   (AdminPage::viewSummary), window);
-	g_signal_connect(window->sum->btnOneCourse, "clicked", G_CALLBACK (AdminWindow::closeSummaryChoice), window);
-	g_signal_connect(window->sum->btnAllCourses, "clicked", G_CALLBACK (AdminWindow::closeSummaryChoice), window);
-
+	if(widget == window->admin_viewSummary){
+		window->pending = true;
+	}
+	else{
+		window->pending = false;
+	}
+	g_signal_connect(window->sum->btnOneCourse, "clicked", G_CALLBACK (AdminPage::viewSummary), window);
+	g_signal_connect(window->sum->btnAllCourses, "clicked", G_CALLBACK   (AdminPage::viewSummary), window);
+	
 }
 
 void AdminWindow::closeSummaryChoice(GtkWidget *widget, AdminWindow *window){

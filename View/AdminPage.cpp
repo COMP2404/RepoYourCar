@@ -7,6 +7,7 @@ void AdminPage::adminPage(AdminWindow *window){
 	//g_signal_connect(manager.admin_viewSummary, "clicked", G_CALLBACK (AdminManager::viewSummaryClicked), this);
 	//g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
 	g_signal_connect(window->admin_viewSummary, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
+	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
 	//g_signal_connect (manager.admin_window, "delete-event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 	//g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 }
@@ -52,38 +53,42 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 		
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), text);
 	}
+	
 	//g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (Control::submitToMain), theApp);
 	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
 	//if(window->allCourses)
 	//	updateCombo(widget,theApp);
 }
 void AdminPage::viewSummaryChoice(GtkWidget *widget, AdminWindow *window){
-	window->showSummaryChoice(window);
+	window->showSummaryChoice(widget, window);
 	
 }
 
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
-	cout << "Updating Combo" << endl;
+	
 	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
-	cout << "Removed Text" << endl;
+	
 	
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
+	if(window->pending){
+		if(window->allCourses){
+			qCopy = qCopy->sortAll();
+			
+			gtk_widget_set_sensitive(window->admin_combo, FALSE);
+		}
+		else{
+			const gchar* theCourse;
+		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
+			string courseString;
+			courseString = (theCourse);
+			cout << courseString << endl;
+			qCopy = window->theApp->appQueue.getPendingList(courseString);
+			qCopy = qCopy->sortAll();
+		}
+	}else{
+
+	}
 	
-	//AppQueue* qCopy = theApp->appQueue.sortAll();
-	if(window->allCourses){
-		qCopy = qCopy->sortAll();
-		
-		gtk_widget_set_sensitive(window->admin_combo, FALSE);
-	}
-	else{
-		const gchar* theCourse;
-	 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
-		string courseString;
-		courseString = (theCourse);
-		cout << courseString << endl;
-		qCopy = window->theApp->appQueue.getPendingList(courseString);
-		qCopy = qCopy->sortAll();
-	}
 	
 			
 	cout << "Got Pending List" << endl;

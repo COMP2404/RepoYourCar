@@ -23,11 +23,12 @@ class AdminWindow{
 		friend class AdminPage;
 		friend class AdminManager;
 		bool allCourses;
+		bool pending;
 		//AdminPage adminPage;
 		
 
 	private:
-		GtkWidget *admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_login, 
+		GtkWidget *admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_assigned, *admin_login, 
 			*summary_combo, *adminTest;
 
 		WindowApp *theApp;
@@ -35,7 +36,7 @@ class AdminWindow{
 		//void viewSummaryClicked(GtkWidget* ,AdminManager &);
 		void draw();
 		void showSummary();
-		static void showSummaryChoice(AdminWindow *);
+		static void showSummaryChoice(GtkWidget*,AdminWindow *);
 		static void closeSummaryChoice(GtkWidget*,AdminWindow *);
 		
 		
