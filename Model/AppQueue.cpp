@@ -371,7 +371,9 @@ AppQueue::AppNode* AppQueue::createNode(GradApp *ga, UndergradApp *uga){
 //return a subset Queue of pending applications by specified course code
 AppQueue* AppQueue::getPendingList(string course){
 	//------Get a copy of the working Queue-------
-	
+	bool all = false;
+	if(course == "all" || "ALL") all = true;
+
 	AppQueue& copy = *this;
 
 	AppQueue* list = new AppQueue(copy);//call copy contructor
@@ -387,7 +389,7 @@ AppQueue* AppQueue::getPendingList(string course){
 	while(tmpNode!=NULL){
 		
 		cout<< course<< endl;
-		if(tmpNode->data->getCourse().compare(course) == 0 && (tmpNode->data->getStatus() == "PENDING" || tmpNode->data->getStatus() == "pending") ){
+		if( (tmpNode->data->getCourse().compare(course) == 0 || all) && (tmpNode->data->getStatus() == "PENDING" || tmpNode->data->getStatus() == "pending") ){
 			cout << tmpNode->data->getCourse() << endl;
 			list->head = tmpNode;
 			break;
@@ -409,7 +411,7 @@ AppQueue* AppQueue::getPendingList(string course){
 			
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
-		else if(tmpNode->data->getStatus() != "PENDING"){//its not pending
+		else if(tmpNode->data->getStatus() != "PENDING" && tmpNode->data->getStatus() != "pending"){//its not pending
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong
 		}
 		else{
@@ -629,31 +631,25 @@ AppQueue* AppQueue::getAppsByName(string name){
 }
 
 Application* AppQueue::getOriginal(Application* app){
-	/*
+	
 	GradApp* ga;
 	UndergradApp* ua;
 	AppNode* tmp = head;
-	AppQueue* nQ = new AppQueue();//this will only hold applications from a specific person
 	while(tmp != NULL){//for all applications
-		if(tmp->data->getType() == "grad"){
-			ga = dynamic_cast<GradApp*>(tmp->data);
-			if(ga->getStuName() == name){//if they are by the target person
-				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
-			}
-		}else{
-			ua = dynamic_cast<UndergradApp*>(tmp->data);
-			if(ua->getStuName() == name){//if they are by the target person
-				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
-			}	
+		if(*app == *(tmp->data)){
+			return tmp->data;//return the original application that matches input parameter
 		}
 		tmp = tmp->next;
 	}
-	return nQ;
-	*/
+	return NULL;
+	
 }
 
 void AppQueue::assignSuccesfulCandidate(Application* app){
 	AppQueue* otherApps;
+
+	app = getOriginal(app);//app is not the copy and is now the original
+
 	if(app->getType() == "grad"){
 		GradApp* ga = dynamic_cast<GradApp*>(app);
 		otherApps = getAppsByName(ga->getStuName());
