@@ -83,6 +83,11 @@ ostream& operator<<(ostream& out, Application& app){
 
 	return out;
 }
+
+bool Application::operator==(Application& app){
+	return (applicationNumber == app.getApplicationNumber ()
+				    && course == app.getCourse() );
+}
 //===============================================================================
 
 
@@ -199,6 +204,10 @@ bool Application::printApp(){
 	outFile << "ENDAPP" << endl;	*/
 
 }
+
+
+
+
 /*
 void Application::setRelatedCourses(CourseQueue *queue){
 	relatedCourses = queue;

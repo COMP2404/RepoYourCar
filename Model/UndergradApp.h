@@ -23,6 +23,9 @@ public:
 	int      getStuYrStanding();
 	void 	 setRelatedCourses(CourseQueue*);
 	bool 	 printApp();
+	string   getStuName();
+	bool     saveSummary();
+
 
 private:
 	string stuMajor;

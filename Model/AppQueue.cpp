@@ -25,15 +25,15 @@ AppQueue::AppNode::~AppNode(){
 ///////////////////////////////
 
 AppQueue::~AppQueue(){
-	cout<<"Destruction"<<endl;
+	//cout<<"Destruction"<<endl;
 	AppNode* tmpNode = head;
 	AppNode* dNode;
 	//go through the list freeing all nodes
 	while(tmpNode != NULL){		
 		dNode=tmpNode;	
-		cout<<"about to advance in destructor"<<endl;
+		//cout<<"about to advance in destructor"<<endl;
 		tmpNode=tmpNode->next;
-		cout << "deleting node: " << endl;
+		//cout << "deleting node: " << endl;
 		delete dNode;	
 	}
 }
@@ -146,9 +146,63 @@ Application* AppQueue::operator[](int index){
 	return NULL;//should never get here...in case of fault
 }
 
-AppQueue& AppQueue::operator=(const AppQueue& q){
+AppQueue& AppQueue::operator=(const AppQueue& rhs){
 	cout<<"*************************************************************************************************\n";
+	//VARS FOR NEW STUDENT AND APPLICATION
+	string first, last, em, snum, res, pro, sup, major;
+	int yr, cg, mg;
+	GradApp* ga;
+	UndergradApp* ua;
+	//cout << "IN COPY CTOR\n";
+	if(rhs.head==NULL){
+		this->operator!();//empty this queue to match the rhs
+		return *this;	
+	} 
+
+
+	AppNode* tmp = rhs.head;//iteration node for original AppQueue
+	head = new AppNode();//head node for the new AppQueue
+
+	AppNode* nPrev;//to connect the nodes in q
+	AppNode* nTmp = head;//iteration node for q
+	while(tmp != NULL){	
+		//GET BASIC iNFO
+		first = tmp->data->getStuFirst();
+		last = tmp->data->getStuLast();
+		em = tmp->data->getStuEmail();
+		snum = tmp->data->getStuID();
+		if(tmp->data->getType() == "grad"){
+			GradApp* tmpGApp = static_cast<GradApp*>(tmp->data);//now its a grad app
+			//GET GRAD INFO
+			res = tmpGApp->getStuArea();
+			pro = tmpGApp->getStuProgram();
+			sup = tmpGApp->getStuSuper();
+			GradStudent* gs = new GradStudent(first, last, em, snum, res, pro, sup);
+			ga = new GradApp(gs, tmpGApp->getApplicationNumber(), tmpGApp->getCourse(), tmpGApp->getStatus());
+			nTmp->data = ga;
+		}
+		else{
+			UndergradApp* tmpUApp = static_cast<UndergradApp*>(tmp->data);
+			//GET UNDERGRAD INFO
+			yr = tmpUApp->getStuYrStanding();
+			cg = tmpUApp->getStuCGPA();
+			mg = tmpUApp->getStuMGPA();
+			major = tmpUApp->getStuMajor();
+			UndergradStudent* us = new UndergradStudent(cg, mg, first, last, em, major, yr, snum);
+			ua = new UndergradApp(us, tmpUApp->getApplicationNumber(), tmpUApp->getCourse(), tmpUApp->getStatus());
+			nTmp->data = ua;
+		}
 	
+		nPrev = nTmp;//make prev node this node before moving on	
+		tmp = tmp->next;//advance iteration node for source Queue
+		if(tmp != NULL){
+			AppNode* node = new AppNode();//make a new node for each existing node		
+			nTmp = node;
+			nPrev->next=nTmp;
+		}
+		//connect the nodes in the new Queue	
+	}
+	cout<<"***************************************************************************************************\n";
 	return *this;
 }
 
@@ -200,7 +254,7 @@ AppQueue& AppQueue::operator-=(Application* app){
 	AppNode* tmp = head;
 	AppNode* prev = head;
 	while(tmp != NULL){
-		if (tmp->data == app){//found the app to remove
+		if (*(tmp->data) == *app){//found the app to remove
 			if(tmp == head)//head is the one to be removed
 				head = tmp->next;
 			else
@@ -217,40 +271,48 @@ AppQueue& AppQueue::operator-=(Application* app){
 AppQueue& AppQueue::operator-=(AppQueue& q){
 	//removes all elements from incoming queue from this if contained
 	AppNode* tmp = q.head;
+	//for all elements of the incoming queue:
 	while(tmp != NULL){
 		*this -= tmp->data;//call operator above
 		tmp = tmp->next;
 	}
 	
-	return *this;
+	return *this;//cascading
 }
 
 AppQueue AppQueue::operator-(Application* app){
 	//created new queue with all but incoming app
-	AppQueue* nq = new AppQueue();
-	*nq += *this;//fill the new queue with all elements of this qeue
-	*nq -= app;
+	AppQueue nq;
+	nq += *this;//fill the new queue with all elements of this qeue
+	nq -= app;//use operator-=(Application*) defined above
 
-	return *nq;
+	return nq;
 }
 
 AppQueue AppQueue::operator-(AppQueue& q){
 	//creates a new queue with all but apps from incoming 
-	AppQueue* nq = new AppQueue();
-	AppNode* tmp = q.head;
+	AppQueue nq;
 
-	*nq += *this;//fill it with this stuff
+	nq += *this;//fill it with this stuff
 
-	while(tmp != NULL){
-		*nq -= tmp->data;
-		tmp = tmp->next;
-	}
-	return *nq;
+	nq -= q;//use the -=(AppQueue&) operator defined above
+
+	return nq;
 }
 
 AppQueue& AppQueue::operator!(){
 	//logical not: empties the queue
-	delete this;
+	AppNode* curr = head;
+	AppNode* prev;
+	head = NULL;//Queue is now, for all intents and purposes, empty.
+
+	//Cleanup like after a crazy party:
+	while(curr != NULL){
+		prev = curr;
+		curr = curr->next;
+		delete prev;
+
+	}
 }
 
 ostream& operator<<(ostream& out, AppQueue& q){
@@ -325,7 +387,7 @@ AppQueue* AppQueue::getPendingList(string course){
 	while(tmpNode!=NULL){
 		
 		cout<< course<< endl;
-		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "PENDING"){
+		if(tmpNode->data->getCourse().compare(course) == 0 && (tmpNode->data->getStatus() == "PENDING" || tmpNode->data->getStatus() == "pending") ){
 			cout << tmpNode->data->getCourse() << endl;
 			list->head = tmpNode;
 			break;
@@ -359,6 +421,74 @@ AppQueue* AppQueue::getPendingList(string course){
 	}
 	
 	return list;
+}
+
+AppQueue* AppQueue::getAppsByCourse(string course){
+	//------Get a copy of the working Queue-------
+	
+	AppQueue& copy = *this;
+
+	AppQueue* list = new AppQueue(copy);//call copy contructor
+	if(head == NULL){//the working AppQueue is empty
+		//list->head = NULL;
+		return list;
+	}
+	//------Make the head a wanted node--------	
+	AppNode* tmpNode = list->head;
+	while(tmpNode!=NULL){
+
+		if(tmpNode->data->getCourse().compare(course) == 0 ){
+			cout << tmpNode->data->getCourse() << endl;
+			list->head = tmpNode;
+			break;
+		}
+		tmpNode=tmpNode->next;
+	}
+	if(tmpNode == NULL){
+		if(list->head->data->getCourse().compare(course) != 0){
+			 AppQueue* finalQ = new AppQueue();
+			return finalQ;
+		}
+	}
+	//------Remove unwanted nodes from Queue------
+	tmpNode = list->head;
+	AppNode* prevNode = tmpNode;
+
+	while(tmpNode != NULL){
+		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
+		}
+		else{
+			prevNode=tmpNode;//advance iteration node
+		}
+		tmpNode=tmpNode->next;   //advance iteration node
+	}
+	
+	return list;
+}
+
+AppQueue* AppQueue::getAssignedList(){
+	//------Get a queue of assigned applications-------
+	
+	AppQueue* Q = new AppQueue();
+	GradApp* ga;
+	UndergradApp* ua;
+	AppNode* tmpNode = head;
+
+	while(tmpNode != NULL){
+		if(tmpNode->data->getStatus() == "ASSIGNED" || tmpNode->data->getStatus() == "assigned"){
+			if(tmpNode->data->getType() == "grad"){
+				ga = dynamic_cast<GradApp*>(tmpNode->data);
+				Q->pushBack(ga, NULL);
+			}
+			else{
+				ua = dynamic_cast<UndergradApp*>(tmpNode->data);
+				Q->pushBack(NULL, ua);
+			}
+		}	
+		tmpNode = tmpNode->next;
+	}
+	return Q;
 }
 
 /*AppQueue* AppQueue::getPendingList(string course){
@@ -464,6 +594,58 @@ bool AppQueue::appExists(string app){
 		tmp = tmp->next;
 	}
 	return false;
+}
+int AppQueue::getIndex(Application* app){
+	AppNode* tmp = head;
+	int i = 0;
+	while(tmp != NULL){//for all applications
+		if( *(tmp->data) == *app)//if it satisfies the application's '=='
+			return i;//this is it's index
+		tmp = tmp->next;
+	}
+	return -1;
+}
+
+AppQueue* AppQueue::getAppsByName(string name){
+	GradApp* ga;
+	UndergradApp* ua;
+	AppNode* tmp = head;
+	AppQueue* nQ = new AppQueue();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		if(tmp->data->getType() == "grad"){
+			ga = dynamic_cast<GradApp*>(tmp->data);
+			if(ga->getStuName() == name){//if they are by the target person
+				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
+			}
+		}else{
+			ua = dynamic_cast<UndergradApp*>(tmp->data);
+			if(ua->getStuName() == name){//if they are by the target person
+				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
+			}	
+		}
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+void AppQueue::assignSuccesfulCandidate(Application* app){
+	AppQueue* otherApps;
+	if(app->getType() == "grad"){
+		GradApp* ga = dynamic_cast<GradApp*>(app);
+		otherApps = getAppsByName(ga->getStuName());
+	}else{
+		UndergradApp* ua = dynamic_cast<UndergradApp*>(app);
+		otherApps = getAppsByName(ua->getStuName());
+	}
+
+	AppNode* tmp = otherApps->head;//this queue has all the applications by that person
+	while(tmp != NULL){
+		tmp->data->operator-();//USE operator-() to assign status to closed
+		tmp = tmp->next;
+	}
+
+	app->operator+();//use operator+() to assign the winning app status to "assigned"
+
 }
 
 AppQueue* AppQueue::sortAll(){

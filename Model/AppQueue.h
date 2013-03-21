@@ -112,11 +112,45 @@ class AppQueue
     bool appExists(string);
 
     /////////////////////////////////////////////////
-    //  returns the number of elements in the Queue//
-    //  @param:  void       		   	   //
-    //  returns: int	 			   //
+    //  returns the index of the element passed in //
+    //  @param:  Application         		   	   //
+    //  returns: int	 			               //
     //  <runtime> 0(n) </runtime>                  //
     /////////////////////////////////////////////////
+    int getIndex(Application*);
+
+    /////////////////////////////////////////////////
+    //  returns queue of applications for a person //
+    //  @param:  string                            //
+    //  returns: AppQueue*                         //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    AppQueue* getAppsByName(string);
+
+
+    /////////////////////////////////////////////////
+    //  returns queue of applications for a course //
+    //  @param:  string                            //
+    //  returns: AppQueue*                         //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    AppQueue* getAppsByCourse(string);
+
+    /////////////////////////////////////////////////
+    //  returns queue of 'assigned' applications   //
+    //  @param:  void                              //
+    //  returns: AppQueue*                         //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    AppQueue* getAssignedList();
+
+    /////////////////////////////////////////////////
+    //sets status of applications chosen and closed//
+    //  @param:  Application*                      //
+    //  returns: AppQueue                          //
+    //  <runtime> 0(2n) </runtime>                 //
+    /////////////////////////////////////////////////
+    void assignSuccesfulCandidate(Application*);
 
     ///////////////////OPERATORS/////////////////////
     Application* operator[](int);//returns application at index param
@@ -134,6 +168,12 @@ class AppQueue
     friend ostream&  operator<<(ostream&, AppQueue&);
     /////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////
+    //  returns the number of elements in the Queue//
+    //  @param:  void                      //
+    //  returns: int                   //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
     int size() const;
 
     void print() const;

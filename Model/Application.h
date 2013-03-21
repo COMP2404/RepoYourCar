@@ -38,7 +38,9 @@ public:
 	
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
+	//bool 	 saveSummary();
 
+	//virtual string getStuName();
 	virtual bool printApp();
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
@@ -50,6 +52,7 @@ public:
 
 	Application& operator-();//unary '-' changes status of application to "closed"
     Application& operator+();//unary '+' changes status to "assigned"
+    bool 		 operator==(Application&);
 
 protected:
 	//VARIABLES---------------------

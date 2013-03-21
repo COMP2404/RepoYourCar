@@ -27,7 +27,79 @@ GradApp::~GradApp(){
 string 	 GradApp::getStuArea(){ return stuArea;}
 string   GradApp::getStuSuper(){ return stuSuper;}
 string   GradApp::getStuProgram(){return stuProgram;}
+string 	 GradApp::getStuName(){ return stuFirst; }
 //string   GradApp::getType() {return stuType;}
+
+bool GradApp::saveSummary(){
+	
+	//debugging stuff..
+	int i;
+	int aSize;
+	
+	//int rlTAS = relatedTAPositions->size();
+	//int rlWS = relatedWorkEXP->size();
+	//there.
+
+
+	//Course tempCourse;
+	string fileName = applicationNumber + ".txt";
+
+    ofstream outFile("fileName", ios::out|ios::app);
+
+    if (!outFile) {
+            cout<<"Could not open file"<<endl;
+            return false;
+    }
+
+
+	outFile << "Graduate Application:" << endl;
+	outFile << "Application Number: " << applicationNumber << endl;
+	outFile << "Course: " << course << endl;
+	outFile << "Application Status: " << applicationStatus << endl;
+	outFile << "Student's Program: " << stuProgram << endl;
+	outFile << stuArea << endl;
+		
+	outFile << "First Name: " << stuFirst << endl;
+	outFile << "Last Name: " << stuLast << endl;
+	outFile << "Email: " << stuEmail << endl;
+	outFile << stuSuper << endl;
+	outFile << "Student ID: " << stuID << endl;
+
+
+	//Save the Application data:	
+	
+
+	//Save the related TA positions:
+	outFile << "Related TA Positions:" << endl <<endl; // header	
+
+	CourseQueue otherTemp(*relatedTAPositions);
+	aSize = otherTemp.size();
+	for(i=0; i < aSize; i++){
+		outFile << "Related TA Position " << i << ":" <<endl;
+		outFile << "Title: " << otherTemp.front()->getTitle() << endl;
+		outFile << "Supervisor: " << otherTemp.front()->getSupervisor() << endl;
+		outFile << "Year: " << otherTemp.front()->getYear() << endl;
+		outFile << "Term: " << otherTemp.front()->getTerm() << endl;
+		otherTemp.popFront();
+	}
+
+	//Save related work EXP
+	outFile << "Related Work Experience" << endl <<endl; //header
+
+	JobQueue tempJQueue(*relatedWorkEXP);
+	aSize = tempJQueue.size();
+	for(i=0; i < aSize; i++){
+		outFile << "Related Job " << i << ":" <<endl;
+		outFile << "Title: " << tempJQueue.front()->getJobTitle() << endl;
+		outFile << "Tasks: " << tempJQueue.front()->getTasks() << endl;
+		outFile << "Duration : " << tempJQueue.front()->getDuration() << endl;
+		outFile << "Start Date: " << tempJQueue.front()->getStartDate() << endl;
+		outFile << "End Date: " << tempJQueue.front()->getEndDate() << endl;
+		tempJQueue.popFront();
+	}
+	
+
+}
 
 
 bool GradApp::printApp(){
