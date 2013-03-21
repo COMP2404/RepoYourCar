@@ -82,7 +82,23 @@ void AdminPage::setAppSelected(GtkWidget *widget, AdminWindow *window){
 }
 
 void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
-	
+	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
+	if(window->allCourses){
+		qCopy = qCopy->getPendingList("all");
+		qCopy = qCopy->sortAll();
+		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
+		cout << *qCopy;
+	}
+	else{
+		const gchar* theCourse;
+		theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
+		qCopy = qCopy->getPendingList(theCourse);
+		qCopy = qCopy->sortAll();
+		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
+		cout << *qCopy;
+	}
+		
+
 }
 
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
@@ -91,6 +107,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
 	
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
+	cout << *qCopy;
 	if(window->pending){
 		if(window->allCourses){
 

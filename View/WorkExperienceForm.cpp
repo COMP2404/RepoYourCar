@@ -83,11 +83,11 @@ void WorkExperienceForm::addAnotherGrad(GtkWidget* widget,WindowApp* windowApp){
 		char *c1;
 		string string1 = "", string2= "", string3="", string4="", string5="";
 
-		s1 = gtk_entry_get_text(GTK_ENTRY(windowApp->ei_relevantWork));
-		s2 = gtk_entry_get_text(GTK_ENTRY(windowApp->ei_responsabilities));
-		s3 = gtk_entry_get_text(GTK_ENTRY(windowApp->ei_duration)); 
-		s4 = gtk_entry_get_text(GTK_ENTRY(windowApp->ei_startDate));
-		s5 = gtk_entry_get_text(GTK_ENTRY(windowApp->ei_endDate));
+		s1 = gtk_entry_get_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_relevantWork));
+		s2 = gtk_entry_get_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_responsabilities));
+		s3 = gtk_entry_get_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_duration)); 
+		s4 = gtk_entry_get_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_startDate));
+		s5 = gtk_entry_get_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_endDate));
 		       
 		  
 		  
@@ -99,11 +99,11 @@ void WorkExperienceForm::addAnotherGrad(GtkWidget* widget,WindowApp* windowApp){
 		Job* job = new Job(s1, s2, s3, s4, s5);
 		windowApp->jQRelated->pushBack(job);
 		
-		gtk_entry_set_text(GTK_ENTRY(windowApp->ei_relevantWork), "");
-		gtk_entry_set_text(GTK_ENTRY(windowApp->ei_responsabilities), "");
-		gtk_entry_set_text(GTK_ENTRY(windowApp->ei_duration), "");
-		gtk_entry_set_text(GTK_ENTRY(windowApp->ei_startDate), "");
-		gtk_entry_set_text(GTK_ENTRY(windowApp->ei_endDate), "");
+		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_relevantWork), "");
+		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_responsabilities), "");
+		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_duration), "");
+		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_startDate), "");
+		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_endDate), "");
 		
 	}
 	else{
