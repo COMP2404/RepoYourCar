@@ -72,14 +72,16 @@ string   Application::getType(){  return stuType; }
 //==============================OPERATORS========================================
 Application& Application::operator-(){
 	applicationStatus = "closed";
+	return *this;
 }
 
 Application& Application::operator+(){
 	applicationStatus = "assigned";
+	return *this;
 }
 
 ostream& operator<<(ostream& out, Application& app){
-	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course;
+	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course << " Status: " << app.applicationStatus;
 
 	return out;
 }

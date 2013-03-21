@@ -16,19 +16,22 @@ using namespace std;
 
 //////PROTOTYPES/////
 //SUBSCRIPT OPERATOR
-void testSS(AppQueue&);
+void testSS();
 //TESTS FOR THE PLUS RELATED OPERATORS
-void testPE1(AppQueue&);
-void testPE2(AppQueue&);
-void testP1(AppQueue&);
-void testP2(AppQueue&);
+void testPE1();
+void testPE2();
+void testP1();
+void testP2();
 //TESTS FOR THE MINUS RELATED OPERATORS
-void testME1(AppQueue&);
-void testME2(AppQueue&);
-void testM1(AppQueue&);
-void testM2(AppQueue&);
+void testME1();
+void testME2();
+void testM1();
+void testM2();
 //TEST FOR THE NOT OPERATOR
 void testN();
+//TESTS FOR APPLICATION OPERATORS
+void testAppP();
+void testAppM();
 
 int main(){
 	cout << "For maximum clarity, please enlarge your window to the fullest\n\n";
@@ -40,6 +43,81 @@ int main(){
 	//UndergradApp(UndergradStudent *ugs, int appNum, string course, string appstatus)
 	//=======================================================================================================================
 
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
+	/*
+	cout<<"\n\nTESTING NEW cOPY CTOR\n\n ";
+	Application generalApp = nanaApp;
+	cout << generalApp << endl;
+	GradApp* copy = dynamic_cast<GradApp*>(&nanaApp);
+	cout << *copy << endl;
+	*/
+
+	//FUNCTIONS FOR TESTING THE OPERATORS
+	testSS();
+	
+	testPE1();
+
+	testPE2();
+
+	testP1();
+
+	testP2();
+
+	testME1();
+
+	testME2();
+
+	testM1();
+
+	testM2();
+
+	testN();
+
+	testAppP();//testing Application::operator+();
+
+	testAppM();//testing Application::operator-();
+
+	cout<<endl<<endl<<endl;
+	return 0;
+}
+
+//TEST SUBSCRiPT
+void testSS(){
+	cout << "=========================================ABOUT TO TEST THE SUBSCRIPT OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	/////////////////////STUDENTS/////////////////////////
 	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
 	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
@@ -71,56 +149,49 @@ int main(){
 	queue.pushBack(NULL, &sydApp);
 	queue.pushBack(NULL, &valApp);
 	queue.pushBack(NULL, &smithApp);
-
-	/*
-	cout<<"\n\nTESTING NEW cOPY CTOR\n\n ";
-	Application generalApp = nanaApp;
-	cout << generalApp << endl;
-	GradApp* copy = dynamic_cast<GradApp*>(&nanaApp);
-	cout << *copy << endl;
-	*/
-
-
-	testSS(queue);
-	
-	testPE1(queue);
-
-	testPE2(queue);
-
-	testP1(queue);
-
-	testP2(queue);
-
-	testME1(queue);
-
-	testME2(queue);
-
-	testM1(queue);
-
-	testM2(queue);
-
-	testN();
-
-
-	cout<<endl<<endl<<endl;
-	return 0;
-}
-
-//TEST SUBSCRiPT
-void testSS(AppQueue& q){
-	cout << "------ABOUT TO TEST THE SUBSCRIPT OPERATOR------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the applications from the queues print------ " << endl << q;
+	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
 
-	for(int i=0; i< q.size(); i++){
-		cout<< "--Printing the app at this subscript: " << i << " " << *(q[i]) << endl;//cascading in effect
+	for(int i=0; i< queue.size(); i++){
+		cout<< "--Printing the queue at this subscript: " << i << " " << *(queue[i]) << endl;//cascading in effect
 	}
+	cout <<endl;
 }
 
 //TEST +=(Application)
-void testPE1(AppQueue& q){
-	cout << "------ABOUT TO TEST THE += APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the applications from the queues print------ " << endl << q;
+void testPE1(){
+	cout << "=========================================ABOUT TO TEST THE += APPLICATION OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+
+	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
 
 	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
@@ -130,16 +201,53 @@ void testPE1(AppQueue& q){
 
 	cout << "------created applications for Lillian and Castle-------\n";
 
-	q += lApp;
-	q += castleApp;
+	queue += lApp;
+	queue += castleApp;
 	
 
-	cout << "---------The Queue with += on the new applications---------- " << endl << q;
+	cout << "---------The Queue with += on the new applications---------- " << endl << queue;
 
 }
 //TEST +=(Queue)
-void testPE2(AppQueue& q){
-	cout << "------ABOUT TO TEST THE += QUEUE------" << endl << "." << endl << "." << endl << "." <<endl;
+void testPE2(){
+	cout << "===========================================ABOUT TO TEST THE += QUEUE OPERATOR==============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
+
 	cout << "------Making a new queue:------ " << endl ;
 	cout << endl << "." << endl << "." << endl;
 	AppQueue tQ;
@@ -158,17 +266,54 @@ void testPE2(AppQueue& q){
 
 	cout << "-----here is the queue with dick and jane:-----\n" << tQ << endl;
 
-	cout << "-----here is another queue:------\n" << q << endl << endl;
+	cout << "-----here is another queue:------\n" << queue << endl << endl;
 
 	cout<<"-----adding this queue to the smaller queue:-------" <<endl;
-	tQ += q;//TEST THE += OPERATOR FOR QUEUE&
+	tQ += queue;//TEST THE += OPERATOR FOR QUEUE&
 	cout<< "------printing the result queue------" << endl << endl;
 	cout<< tQ <<endl;
 
 }
 //TEST +(Application)
-void testP1(AppQueue& q){
-	cout << "------ABOUT TO TEST THE + APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
+void testP1(){
+	cout << "=========================================ABOUT TO TEST THE + APPLICATION OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
+
 	cout << "------making a new grad and undergrad application------ " << endl ;
 
 	//Make some applications to test with
@@ -179,166 +324,257 @@ void testP1(AppQueue& q){
 
 	cout << "-------here they are-------: " << endl << *ugradapp << endl << *gradapp << endl;
 	cout << endl << "." << endl << "." << endl;
-	cout << "--------here is the queue that we will be adding to:--------\n" << q << endl << endl;
+	cout << "--------here is the queue that we will be adding to:--------\n" << queue << endl << endl;
 	cout << "\n\n-------Setting new queue equal to old + new grad application-------" <<endl;
 	AppQueue tQ;
-	tQ = (q + gradapp); // + ugradapp;
+	tQ = (queue + gradapp); // + ugradapp;
 	cout << "------------Here is the resulting queue---------------" <<endl;
 	cout << tQ <<endl <<endl;//using overloaded << operator on cout and the queue
 
 	cout << "------Setting new queue equal to old + new unedrgrad application...W/O new grad app------" <<endl;
-	tQ = (q + ugradapp); //call the operator+(Application*)
+	tQ = (queue + ugradapp); //call the operator+(Application*)
 	cout << "------------Here is the resulting queue---------------" <<endl;
 	cout << tQ <<endl;
 	
 }
 
 //TEST +(Queue)
-void testP2(AppQueue& q){
-	cout << "------ABOUT TO TEST THE + QUEUE------" << endl << "." << endl << "." << endl << "." <<endl;
+void testP2(){
+	cout << "===========================================ABOUT TO TEST THE + QUEUE OPERATOR==============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------making a new queue to play with------ " << endl ;
+
+
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
 
 	//Make a new queue to hold the addition of two other queues
 	AppQueue tQ;
 
 	///////////////////STUDENTS///////////////////////////
-	GradStudent bill("Ralph", "A", "ralph@carleton.ca", "100938324", "BasketWeaving", "jones");
-	GradStudent monkeys("John", "B.", "telecaster@carleton.ca", "100937782", "Dinosaurs", "tool");
-	GradStudent nana("Tim", "FromTimmins", "tim@carleton.ca", "100892372", "Music", "prof. A.");
-	GradStudent someguy("Jenny", "O.", "jen@carleton.ca", "10072209", "Health Sciences", "Rondo");
-	UndergradStudent george(10, 11, "Sam", "antha", "sam@carleton.ca", "RockThrowing", 2, "100998377" );
-	UndergradStudent syd(11, 7, "Paul", "D.", "paul@carleton.ca", "NaturalDisasters", 2, "100819372" );
-	UndergradStudent valerie(12, 9, "Natalie", "S.", "goldontheceiling@carleton.ca", "Business", 2, "100342789" );
-	UndergradStudent smith(1, 8, "Matt", "F.", "matt@carleton.ca", "Psyc", 2, "100192105" );
-	UndergradStudent oogly(12, 12, "Maddi", "W.", "maddi@carleton.ca", "Culinary Arts", 3, "100543672");
+	GradStudent ralph("Ralph", "A", "ralph@carleton.ca", "100938324", "BasketWeaving", "jones");
+	GradStudent john("John", "B.", "telecaster@carleton.ca", "100937782", "Dinosaurs", "tool");
+	GradStudent tim("Tim", "FromTimmins", "tim@carleton.ca", "100892372", "Music", "prof. A.");
+	GradStudent jenny("Jenny", "O.", "jen@carleton.ca", "10072209", "Health Sciences", "Rondo");
+	UndergradStudent sam(10, 11, "Sam", "antha", "sam@carleton.ca", "RockThrowing", 2, "100998377" );
+	UndergradStudent paul(11, 7, "Paul", "D.", "paul@carleton.ca", "NaturalDisasters", 2, "100819372" );
+	UndergradStudent natalie(12, 9, "Natalie", "S.", "goldontheceiling@carleton.ca", "Business", 2, "100342789" );
+	UndergradStudent matt(1, 8, "Matt", "F.", "matt@carleton.ca", "Psyc", 2, "100192105" );
+	UndergradStudent maddi(12, 12, "Maddi", "W.", "maddi@carleton.ca", "Culinary Arts", 3, "100543672");
 	////////////////////APPLICATIONS//////////////////////
-	GradApp* billApp = new GradApp(&bill, 10231, "COMP2801", "pending");
-	GradApp* monkeyApp = new GradApp(&monkeys, 10232, "COMP2206", "pending");
-	GradApp* nanaApp = new GradApp(&nana, 10234, "COMP3800", "pending");
-	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
-	UndergradApp* georgeApp = new UndergradApp(&george, 20394, "COMP2404", "pending");
-	UndergradApp* sydApp = new UndergradApp(&syd, 20396, "COMP1406", "pending");
-	UndergradApp* valApp = new UndergradApp(&valerie, 20397, "COMP3001", "pending");
-	UndergradApp* smithApp = new UndergradApp(&smith, 20395, "COMP2104", "pending");
-	UndergradApp* ooglyApp = new UndergradApp(&oogly, 21000, "COMP2501", "pending");
+	GradApp* ralphApp = new GradApp(&ralph, 10231, "COMP2801", "pending");
+	GradApp* johnApp = new GradApp(&john, 10232, "COMP2206", "pending");
+	GradApp* timApp = new GradApp(&tim, 10234, "COMP3800", "pending");
+	GradApp* jennyApp = new GradApp(&jenny, 10888, "COMP1406", "pending");
+	UndergradApp* samApp = new UndergradApp(&sam, 20394, "COMP2404", "pending");
+	UndergradApp* paulApp = new UndergradApp(&paul, 20396, "COMP1406", "pending");
+	UndergradApp* natalieApp = new UndergradApp(&natalie, 20397, "COMP3001", "pending");
+	UndergradApp* mattApp = new UndergradApp(&matt, 20395, "COMP2104", "pending");
+	UndergradApp* maddiApp = new UndergradApp(&maddi, 21000, "COMP2501", "pending");
 
 	//A queue for the apps
 	AppQueue qu;
 	//Push all these apps to the queue
-	qu.pushBack(billApp, NULL);
-	qu.pushBack(monkeyApp, NULL);
-	qu.pushBack(nanaApp, NULL);
-	qu.pushBack(someApp, NULL);
-	qu.pushBack(NULL,  georgeApp);
-	//qu.pushBack(NULL,  sydApp);
-	qu.pushBack(NULL,  valApp);
-	qu.pushBack(NULL,  smithApp);
-	qu.pushBack(NULL,  ooglyApp);
+	qu.pushBack(ralphApp, NULL);
+	qu.pushBack(johnApp, NULL);
+	qu.pushBack(timApp, NULL);
+	qu.pushBack(jennyApp, NULL);
+	qu.pushBack(NULL,  samApp);
+	//qu.pushBack(NULL,  paulApp);
+	qu.pushBack(NULL,  paulApp);
+	qu.pushBack(NULL,  natalieApp);
+	qu.pushBack(NULL,  maddiApp);
 
-	cout << "----here is the first queue in our addition:----\n" << q << endl << endl;
+	cout << "----here is the first queue in our addition:----\n" << queue << endl << endl;
 
 	cout << "------------Here is the other queue in the addition---------------" <<endl;
 	cout << qu <<endl <<endl;//using overloaded << operator on cout and the queue
 
 	cout << "---Setting new queue equal to above two queues' SUM---" <<endl;
-	tQ = (q + qu); //call the operator+(Application*)
+	tQ = (queue + qu); //call the operator+(Application*)
 	cout << "------------Here is the resulting queue---------------" <<endl;
 	cout << tQ <<endl;
 }
 
 //TEST -=(Application)
-void testME1(AppQueue& q){
-	cout << "------ABOUT TO TEST THE -= APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the applications from the queues print------ " << endl << q;
+void testME1(){
+	cout << "=========================================ABOUT TO TEST THE -= APPLICATION OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	
+	/////////////////////STUDENTS/////////////////////////
+	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
+	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
+
+	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
 
-	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
-	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
+
 	//these applications already exist in the queue as per the applications '==' operator.
-	GradApp* castleApp = new GradApp(&castle, 10290, "COMP4000", "pending");
-	GradApp* billApp = new GradApp(&bill, 10231, "COMP2401", "pending");
-
 	//remove them from the queue
-	q -= castleApp;
-	q -= billApp;
+	queue -= &castleApp;
+	queue -= &billApp;
 
-	cout << "---------The Queue after -= Castle and Bill applications---------- " << endl << q;
+	cout << "---------The Queue after -= Castle and Bill applications---------- " << endl << queue;
 
 	cout <<"------A huge success! now trying again with the FUN application-----\n";
 
-	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
-	GradApp* funApp = new GradApp(&fun, 10233, "COMP2406", "pending");
+	queue -= &funApp;
 
-	q -= funApp;
-
-	cout << "---------The Queue after -= Different application---------- " << endl << q;
+	cout << "---------The Queue after -= FUN application---------- " << endl << queue;
 
 	cout <<"------Finally, trying again with application which isnt in queue-----\n";
 
 	GradStudent yoko("Yoko", "Ono" "yoko@carleton.ca", "100852392", "Chilling", "Lindsey Buckingham");
 	GradApp* yokoApp = new GradApp(&yoko, 10973, "COMP2706", "pending");
 
-	q -= yokoApp;
+	queue -= yokoApp;
 
-	cout << "---------The Queue after -= Different application---------- " << endl << q;
+	cout << "---------The Queue after -= Different application---------- " << endl << queue <<endl;
 }
 //TEST -=(Queue)
-void testME2(AppQueue& q){
-	cout << "------ABOUT TO TEST THE -= QUEUE------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the applications from the target queue's print------ " << endl << q;
+void testME2(){
+	cout << "===========================================ABOUT TO TEST THE -= QUEUE OPERATOR==============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	//////////////////////THE QUEUE///////////////////////
+	AppQueue queue;
 
-	cout << "------building some applications and inserting them in a new queue\n";
-	///////////////////STUDENTS///////////////////////////
+	/////////////////////STUDENTS/////////////////////////
 	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
 	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
 	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
-	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
-	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	GradStudent castle("Castle", "Rook", "castle@carleton.ca", "100236374", "History", "some dude");
 	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
 	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
 	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
 	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
+	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
+	////////////////////APPLICATIONS//////////////////////
+	GradApp billApp(&bill, 10231, "COMP2401", "pending");
+	GradApp monkeyApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp funApp(&fun, 10233, "COMP2406", "pending");
+	GradApp castleApp(&castle, 10290, "COMP4000", "pending");
+	GradApp nanaApp(&nana, 10234, "COMP3803", "pending");
+	UndergradApp georgeApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp sydApp(&syd, 20396, "COMP4000", "pending");
+	UndergradApp lApp(&lilly, 20362, "COMP1003", "pending");
+	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
+	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
+
+	//////////////////////POPULATE////////////////////////
+	queue.pushBack(&billApp, NULL);
+	queue.pushBack(&monkeyApp, NULL);
+	queue.pushBack(&funApp, NULL);
+	queue.pushBack(&nanaApp, NULL);
+	queue.pushBack(&castleApp, NULL);
+	queue.pushBack(NULL, &georgeApp);
+	queue.pushBack(NULL, &sydApp);
+	queue.pushBack(NULL, &valApp);
+	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(NULL, &lApp);
+
+	cout << "------the applications from the target queue's print------ " << endl << queue;
+
+	cout << "------building some applications and inserting them in a new queue\n";
+	///////////////////STUDENTS///////////////////////////
+	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
 	UndergradStudent oogly(12, 12, "Oogly", "Woogly", "oogly@carleton.ca", "Culinary Arts", 3, "100363672");
 	////////////////////APPLICATIONS//////////////////////
-	GradApp* billApp = new GradApp(&bill, 10231, "COMP2401", "pending");
-	GradApp* monkeyApp = new GradApp(&monkeys, 10232, "COMP2406", "pending");
-	GradApp* nanaApp = new GradApp(&nana, 10234, "COMP3803", "pending");
-	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
-	UndergradApp* georgeApp = new UndergradApp(&george, 20394, "COMP2404", "pending");
-	UndergradApp* sydApp = new UndergradApp(&syd, 20396, "COMP4000", "pending");
-	UndergradApp* valApp = new UndergradApp(&valerie, 20397, "COMP3001", "pending");
-	UndergradApp* smithApp = new UndergradApp(&smith, 20395, "COMP2404", "pending");
-	UndergradApp* ooglyApp = new UndergradApp(&oogly, 21000, "COMP2001", "pending");
-	UndergradApp* lApp = new UndergradApp(&lilly, 20362, "COMP1003", "pending");
+	GradApp someApp(&someguy, 10888, "COMP1406", "pending");
+	UndergradApp ooglyApp(&oogly, 21000, "COMP2001", "pending");
 
 	//A queue for the apps
 	AppQueue qu;
 	//Push all these apps to the queue
-	qu.pushBack(billApp, NULL);
-	qu.pushBack(monkeyApp, NULL);
-	qu.pushBack(nanaApp, NULL);
-	qu.pushBack(someApp, NULL);
-	qu.pushBack(NULL,  georgeApp);
-	//qu.pushBack(NULL,  sydApp);
-	qu.pushBack(NULL,  valApp);
-	qu.pushBack(NULL,  smithApp);
-	qu.pushBack(NULL,  ooglyApp);
+	qu.pushBack(&billApp, NULL);
+	qu.pushBack(&monkeyApp, NULL);
+	qu.pushBack(&nanaApp, NULL);
+	qu.pushBack(&someApp, NULL);
+	qu.pushBack(&funApp, NULL);
+	qu.pushBack(&castleApp,  NULL);
+	qu.pushBack(NULL,  &georgeApp);
+	qu.pushBack(NULL,  &valApp);
+	qu.pushBack(NULL,  &smithApp);
+	qu.pushBack(NULL,  &ooglyApp);
 
 	cout << "-----The queue is loaded, here it is: notice it has a couple applications not in the target queue\n";
 	cout << qu;
 	cout << "-----Performing target -= new\n";
-	q -= qu;
-	cout << "-----here is the result...it should only have Syd's and Lilly's applications\n" << q; 
+	queue -= qu;
+	cout << "-----here is the result...it should only have Syd's and Lilly's applications\n" << queue; 
 
 	//empty the queue
-	q -= sydApp;
-	q -= lApp;
-	cout << "-----and now it should be empty...\n" << q << endl;
+	queue -= &sydApp;
+	queue -= &lApp;
+	cout << "-----and now it should be empty...\n" << queue << endl;
 
 }
 //TEST -(Application)
-void testM1(AppQueue& q){
-	cout << "------ABOUT TO TEST THE - APPLICATION------" << endl << "." << endl << "." << endl << "." <<endl;
+void testM1(){
+	AppQueue q;
+	cout << "=========================================ABOUT TO TEST THE - APPLICATION OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------Rebuilding the queue------\n";
 	/////////////////////STUDENTS/////////////////////////
 	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
@@ -380,7 +616,7 @@ void testM1(AppQueue& q){
 	cout << "---Setting new queue equal to first queue - george application---" <<endl;
 	tQ = (q - georgeApp); 
 	cout << "------------Here is the resulting queue---------------" <<endl;
-	cout << tQ <<endl;
+	cout << tQ <<endl << endl;
 
 	cout << "---Setting new queue equal to first queue - smith application---" <<endl;
 	tQ = (q - smithApp);
@@ -390,33 +626,47 @@ void testM1(AppQueue& q){
 		 << "minus an application and therefore the changes are local to the current queue being printed...\n";
 }
 //TEST -(Queue)
-void testM2(AppQueue& q){
-	cout << "------ABOUT TO TEST THE - QUEUE------" << endl << "." << endl << "." << endl << "." <<endl;
-	cout << "------the applications from the target queue's print------ " << endl << q;
-
-	cout << "------building some applications and inserting them in a new queue\n";
-	///////////////////STUDENTS///////////////////////////
+void testM2(){
+	AppQueue q;
+	cout << "===========================================ABOUT TO TEST THE - QUEUE OPERATOR=============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "------Rebuilding the queue------\n";
+	/////////////////////STUDENTS/////////////////////////
 	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
 	GradStudent monkeys("Arctic", "Monkeys", "telecaster@carleton.ca", "100934782", "CompSci", "visor");
+	GradStudent fun("Fun", "-", "some@carleton.ca", "100828392", "Baking", "lolapalooza");
 	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
-	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
-	UndergradStudent lilly(10, 10, "Lillian", "Wutang", "apatosaurus@carleton.ca", "Dinosaurs", 2, "100827348" );
 	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
 	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
 	UndergradStudent valerie(12, 9, "Valerie", "Dee", "goldontheceiling@carleton.ca", "Business", 2, "100346789" );
 	UndergradStudent smith(1, 8, "Agent", "Smith", "anderson@carleton.ca", "Anderson", 2, "100101101" );
-	UndergradStudent oogly(12, 12, "Oogly", "Woogly", "oogly@carleton.ca", "Culinary Arts", 3, "100363672");
 	////////////////////APPLICATIONS//////////////////////
 	GradApp* billApp = new GradApp(&bill, 10231, "COMP2401", "pending");
 	GradApp* monkeyApp = new GradApp(&monkeys, 10232, "COMP2406", "pending");
+	GradApp* funApp = new GradApp(&fun, 10233, "COMP2406", "pending");
 	GradApp* nanaApp = new GradApp(&nana, 10234, "COMP3803", "pending");
-	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
 	UndergradApp* georgeApp = new UndergradApp(&george, 20394, "COMP2404", "pending");
 	UndergradApp* sydApp = new UndergradApp(&syd, 20396, "COMP4000", "pending");
 	UndergradApp* valApp = new UndergradApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp* smithApp = new UndergradApp(&smith, 20395, "COMP2404", "pending");
+
+	//////////////////////POPULATE////////////////////////
+	q.pushBack(billApp, NULL);
+	q.pushBack(monkeyApp, NULL);
+	q.pushBack(funApp, NULL);
+	q.pushBack(nanaApp, NULL);
+	q.pushBack(NULL, georgeApp);
+	q.pushBack(NULL, sydApp);
+	q.pushBack(NULL, valApp);
+	q.pushBack(NULL, smithApp);
+	cout << "------the applications from the target queue's print------ " << endl << q;
+
+	cout << "------building some applications and inserting them in a new queue\n";
+	///////////////////STUDENTS///////////////////////////
+	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
+	UndergradStudent oogly(12, 12, "Oogly", "Woogly", "oogly@carleton.ca", "Culinary Arts", 3, "100363672");
+	////////////////////APPLICATIONS//////////////////////
+	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
 	UndergradApp* ooglyApp = new UndergradApp(&oogly, 21000, "COMP2001", "pending");
-	UndergradApp* lApp = new UndergradApp(&lilly, 20362, "COMP1003", "pending");
 
 	//the queue to be subtracted
 	AppQueue qu;
@@ -433,9 +683,9 @@ void testM2(AppQueue& q){
 	qu.pushBack(NULL,  smithApp);
 	
 
-	cout << "\n------ here is the new queue (almost identical to eliminate many during subtraction)------\n";
+	cout << "\n------ here is the new queue (almost identical to first one, to eliminate many apps during subtraction)------\n";
 	cout << qu <<endl;
-	cout << "-------performing: aQueue = first shown minus second shown-------\n";
+	cout << "-------performing: aQueue = (first shown) minus (second shown)-------\n";
 	AppQueue aQueue;
 	aQueue = q - qu;
 
@@ -449,7 +699,7 @@ void testM2(AppQueue& q){
 void testN(){
 	AppQueue q;//The queue to be used
 
-	cout << "------ABOUT TO TEST THE LOGICAL NOT------" << endl << "." << endl << "." << endl << "." <<endl;
+	cout << "=========================================ABOUT TO TEST THE LOGICAL NOT OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------Populating the queue...(generating dinos!)------\n";
 
 	///////////////////STUDENTS///////////////////////////
@@ -496,5 +746,48 @@ void testN(){
 	q.pushBack(stegA, NULL);
 	
 	cout << "---queue should now have two applications:---\n" << q <<endl;
+
+}
+
+void testAppP(){
+	cout << "===========================================ABOUT TO TEST THE APPLICATION:: + OPERATOR=============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	GradApp* nanaApp = new GradApp(&nana, 10234, "COMP3803", "pending");
+	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
+	UndergradApp* georgeApp = new UndergradApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp* sydApp = new UndergradApp(&syd, 20396, "COMP4000", "pending");
+
+	cout << "--------Here are some applications:--------- \n" << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
+
+	nanaApp->operator+();
+	someApp->operator+();
+	georgeApp->operator+();
+	sydApp->operator+();
+	cout << "--------Here are those same apps after the unary + is performed on them---------\n";
+	cout << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl <<endl;
+}
+
+void testAppM(){
+	cout << "===========================================ABOUT TO TEST THE APPLICATION:: - OPERATOR=============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	GradStudent nana("Naena", "Lapsodpesia", "nights@carleton.ca", "100829372", "Music", "coolguy");
+	GradStudent someguy("honey nut", "cheerios", "cheerio@carleton.ca", "100726209", "Health Sciences", "Dr. Oz");
+	UndergradStudent george(10, 11, "George", "Lamp", "lamp@carleton.ca", "InteriorLighting", 2, "100998877" );
+	UndergradStudent syd(11, 7, "Syd", "Barrett", "shineon@carleton.ca", "Music", 2, "100829372" );
+	GradApp* nanaApp = new GradApp(&nana, 10234, "COMP3803", "pending");
+	GradApp* someApp = new GradApp(&someguy, 10888, "COMP1406", "pending");
+	UndergradApp* georgeApp = new UndergradApp(&george, 20394, "COMP2404", "pending");
+	UndergradApp* sydApp = new UndergradApp(&syd, 20396, "COMP4000", "pending");
+
+	cout << "--------Here are some applications:--------- \n" << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
+
+	nanaApp->operator-();
+	someApp->operator-();
+	georgeApp->operator-();
+	sydApp->operator-();
+	cout << "--------Here are those same apps after the unary - is performed on them---------\n";
+	cout << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
 
 }

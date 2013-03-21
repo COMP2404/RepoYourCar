@@ -16,7 +16,7 @@ GradApp::GradApp(GradStudent *gs, int appNum, string cor, string stat):Applicati
 	stuArea = gs->getArea();
 	stuSuper = gs->getSupervisor();
 
-	cout << "created grad app" << endl;
+	//cout << "created grad app" << endl;
 
 }
 GradApp::~GradApp(){

@@ -147,7 +147,7 @@ Application* AppQueue::operator[](int index){
 }
 
 AppQueue& AppQueue::operator=(const AppQueue& rhs){
-	cout<<"*************************************************************************************************\n";
+	//cout<<"*************************************************************************************************\n";
 	//VARS FOR NEW STUDENT AND APPLICATION
 	string first, last, em, snum, res, pro, sup, major;
 	int yr, cg, mg;
@@ -202,7 +202,7 @@ AppQueue& AppQueue::operator=(const AppQueue& rhs){
 		}
 		//connect the nodes in the new Queue	
 	}
-	cout<<"***************************************************************************************************\n";
+	//cout<<"***************************************************************************************************\n";
 	return *this;
 }
 
