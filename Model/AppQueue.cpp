@@ -372,7 +372,7 @@ AppQueue::AppNode* AppQueue::createNode(GradApp *ga, UndergradApp *uga){
 AppQueue* AppQueue::getPendingList(string course){
 	//------Get a copy of the working Queue-------
 	bool all = false;
-	if(course == "all" || "ALL") all = true;
+	if(course == "all" || course == "ALL") all = true;
 
 	AppQueue& copy = *this;
 
@@ -407,7 +407,7 @@ AppQueue* AppQueue::getPendingList(string course){
 	AppNode* prevNode = tmpNode;
 
 	while(tmpNode != NULL){
-		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+		if(tmpNode->data->getCourse().compare(course) != 0  && !all){//not same course
 			
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}
