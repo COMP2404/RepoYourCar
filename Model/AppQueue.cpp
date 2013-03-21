@@ -628,6 +628,30 @@ AppQueue* AppQueue::getAppsByName(string name){
 	return nQ;
 }
 
+Application* AppQueue::getOriginal(Application* app){
+	/*
+	GradApp* ga;
+	UndergradApp* ua;
+	AppNode* tmp = head;
+	AppQueue* nQ = new AppQueue();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		if(tmp->data->getType() == "grad"){
+			ga = dynamic_cast<GradApp*>(tmp->data);
+			if(ga->getStuName() == name){//if they are by the target person
+				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
+			}
+		}else{
+			ua = dynamic_cast<UndergradApp*>(tmp->data);
+			if(ua->getStuName() == name){//if they are by the target person
+				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
+			}	
+		}
+		tmp = tmp->next;
+	}
+	return nQ;
+	*/
+}
+
 void AppQueue::assignSuccesfulCandidate(Application* app){
 	AppQueue* otherApps;
 	if(app->getType() == "grad"){

@@ -152,6 +152,14 @@ class AppQueue
     /////////////////////////////////////////////////
     void assignSuccesfulCandidate(Application*);
 
+    /////////////////////////////////////////////////
+    //returns the version of this app that is current//
+    //  @param:  Application*                      //
+    //  returns: Application*                      //
+    //  <runtime> 0(2n) </runtime>                 //
+    /////////////////////////////////////////////////
+    Application* getOriginal(Application*);
+
     ///////////////////OPERATORS/////////////////////
     Application* operator[](int);//returns application at index param
     AppQueue& operator+=(Application*);//adds the application to the queue
