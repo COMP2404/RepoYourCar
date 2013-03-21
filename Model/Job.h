@@ -19,6 +19,12 @@ public:
 	string	getEndDate(void);
 	string  getTasks(void);	
 	int getNumTasks(void);
+
+	void 	setJobTitle(string);
+	void	setDuration(string);
+	void	setEndDate(string);
+	void  	setTasks(string);	
+	void 	setNumTasks(int);
 	//-------------------------------
 
 private:

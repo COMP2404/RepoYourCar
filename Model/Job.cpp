@@ -19,6 +19,11 @@ string Job::getStartDate() {return startDate;}
 string Job::getEndDate() {return endDate;}
 
 int Job::getNumTasks() {return r;}
+
+void 	Job::setJobTitle(string s){jobTitle = s;}
+void	Job::setDuration(string s){duration = s;}
+void	Job::setEndDate(string s){endDate = s;}
+void  	Job::setTasks(string s){tasks = s;}
 //==========================================================
 
 //DESTRUCTOR:
