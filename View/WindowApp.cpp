@@ -337,7 +337,7 @@ void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
 }
 
 void WindowApp::submitGradApp(WindowApp* theApp){
-	/*
+	
 	cout<<"submitting grad app" <<endl;
 	static int applicationNum = 1;
 
@@ -348,19 +348,29 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	//Application *a;
 	GradApp *ga = NULL;
 	UndergradApp *uga = NULL;
+
+	string first,last,email,stunum,areas,program,supervisor,course;
+	first = theApp->gradAppPage->formData->first;
+	last = theApp->gradAppPage->formData->last;
+	email = theApp->gradAppPage->formData->email;
+	areas = theApp->gradAppPage->formData->areas;
+	program = theApp->gradAppPage->formData->program;
+	supervisor = theApp->gradAppPage->formData->supervisor;
+	stunum = theApp->gradAppPage->formData->stuNum;
+	course = theApp->gradAppPage->formData->course;
 	
 	
-	gs = new GradStudent(data->first, data->last, data->email, data->stuNum, data->areas, data->program, data->supervisor);
+	gs = new GradStudent(first, last, email, stunum, areas, program, supervisor);
 	//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
-	ga = new GradApp(gs, applicationNum++, data->course, "PENDING");
-	//ga->setRelatedTAPositions(theApp->cQTa);
-	//ga->setRelatedWorkEXP(theApp->jQRelated);
-	//theApp->appQueue.pushBack(ga, uga);
-	//if(!ga->printApp())
-	//		return;
+	ga = new GradApp(gs, applicationNum++, course, "PENDING");
+	ga->setRelatedTAPositions(theApp->cQTa);
+	ga->setRelatedWorkEXP(theApp->jQRelated);
+	theApp->appQueue.pushBack(ga, uga);
+	if(!ga->printApp())
+			return;
 	
 	
-	*///vie
+	
 
 }
 void WindowApp::submitUGradApp(WindowApp* theApp){

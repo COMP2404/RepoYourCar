@@ -24,6 +24,8 @@ class AdminWindow{
 		friend class AdminManager;
 		bool allCourses;
 		bool pending;
+		bool appSelected;
+		int selectedIndex;
 		//AdminPage adminPage;
 		
 

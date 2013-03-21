@@ -72,12 +72,14 @@ void AdminWindow::showSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	window->sum->draw();
 	if(widget == window->admin_viewSummary){
 		window->pending = true;
+		
 		cout << "Pending" << endl;
 	}
 	else{
 		window->pending = false;
 		cout << "Assigned" << endl;
 	}
+	window->appSelected = false;
 	g_signal_connect(window->sum->btnOneCourse, "clicked", G_CALLBACK (AdminWindow::closeSummaryChoice), window);
 	g_signal_connect(window->sum->btnAllCourses, "clicked", G_CALLBACK   (AdminWindow::closeSummaryChoice), window);
 	
