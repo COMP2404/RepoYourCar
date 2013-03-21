@@ -125,7 +125,7 @@ class AppQueue
     //  returns: AppQueue*                         //
     //  <runtime> 0(n) </runtime>                  //
     /////////////////////////////////////////////////
-    AppQueue* getAppsByName(string);
+    AppQueue* getAppsByName(string, string);
 
 
     /////////////////////////////////////////////////

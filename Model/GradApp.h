@@ -25,6 +25,7 @@ public:
 	bool 	 printApp();
 	string 	 getStuName();
 	bool     saveSummary();
+	string   getStuLast();
 
 private:
 	string stuProgram;

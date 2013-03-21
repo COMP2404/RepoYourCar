@@ -608,7 +608,7 @@ int AppQueue::getIndex(Application* app){
 	return -1;
 }
 
-AppQueue* AppQueue::getAppsByName(string name){
+AppQueue* AppQueue::getAppsByName(string name, string last){
 	GradApp* ga;
 	UndergradApp* ua;
 	AppNode* tmp = head;
@@ -616,12 +616,12 @@ AppQueue* AppQueue::getAppsByName(string name){
 	while(tmp != NULL){//for all applications
 		if(tmp->data->getType() == "grad"){
 			ga = dynamic_cast<GradApp*>(tmp->data);
-			if(ga->getStuName() == name){//if they are by the target person
+			if(ga->getStuName() == name && ga->getStuLast() == last){//if they are by the target person
 				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
 			}
 		}else{
 			ua = dynamic_cast<UndergradApp*>(tmp->data);
-			if(ua->getStuName() == name){//if they are by the target person
+			if(ua->getStuName() == name && ua->getStuLast() == last){//if they are by the target person
 				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
 			}	
 		}
@@ -652,10 +652,10 @@ void AppQueue::assignSuccesfulCandidate(Application* app){
 
 	if(app->getType() == "grad"){
 		GradApp* ga = dynamic_cast<GradApp*>(app);
-		otherApps = getAppsByName(ga->getStuName());
+		otherApps = getAppsByName(ga->getStuName(), ga->getStuLast());
 	}else{
 		UndergradApp* ua = dynamic_cast<UndergradApp*>(app);
-		otherApps = getAppsByName(ua->getStuName());
+		otherApps = getAppsByName(ua->getStuName(), ua->getStuLast());
 	}
 
 	AppNode* tmp = otherApps->head;//this queue has all the applications by that person
