@@ -1,5 +1,4 @@
-OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o GradStudent.o UndergradStudent.o GradApp.o UndergradApp.o AdminPage.o AdminManager.o
-
+OBJECTS = main.o WindowApp.o Application.o Student.o Control.o Queue.o Node.o AppQueue.o CourseQueue.o JobQueue.o Job.o Course.o GradStudent.o UndergradStudent.o GradApp.o UndergradApp.o AdminPage.o AdminManager.o AdminWindow.o SummaryChoiceWindow.o MainMenu.o ErrorWindow.o GradAppPage.o UnderGradAppPage.o StudentPage.o AppManager.o GradForm.o UnderGradForm.o RelatedCoursesOneForm.o RelatedCoursesTwoForm.o WorkExperienceForm.o Form.o AppPage.o GradErrorCheck.o UGradErrorCheck.o GradAppData.o UGradAppData.o GradSubmitWindow.o UGradSubmitWindow.o RelatedOneData.o RelatedTwoData.o WorkExperienceData.o
 cuTaes: $(OBJECTS)
 		g++ $(OBJECTS) -o cuTaes `pkg-config gtkmm-3.0 --cflags --libs` 
 
@@ -19,8 +18,56 @@ AppQueue.o:	Model/AppQueue.cpp Model/AppQueue.h
 AdminManager.o: View/AdminManager.cpp View/AdminManager.h
 		g++ -c View/AdminManager.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
+AppManager.o: View/AppManager.cpp View/AppManager.h
+		g++ -c View/AppManager.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
 AdminPage.o: View/AdminPage.cpp View/AdminPage.h
 		g++ -c View/AdminPage.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+AdminWindow.o: View/AdminWindow.cpp View/AdminWindow.h
+		g++ -c View/AdminWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+AppPage.o: View/AppPage.cpp View/AppPage.h
+		g++ -c View/AppPage.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+GradAppPage.o: View/GradAppPage.cpp View/GradAppPage.h
+		g++ -c View/GradAppPage.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+UnderGradAppPage.o: View/UnderGradAppPage.cpp View/UnderGradAppPage.h
+		g++ -c View/UnderGradAppPage.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+GradForm.o: View/GradForm.cpp View/GradForm.h
+		g++ -c View/GradForm.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+UnderGradForm.o: View/UnderGradForm.cpp View/UnderGradForm.h
+		g++ -c View/UnderGradForm.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+Form.o: View/Form.cpp View/Form.h
+		g++ -c View/Form.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+StudentPage.o: View/StudentPage.cpp View/StudentPage.h
+		g++ -c View/StudentPage.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+ErrorWindow.o: View/ErrorWindow.cpp View/ErrorWindow.h
+		g++ -c View/ErrorWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+MainMenu.o: View/MainMenu.cpp View/MainMenu.h
+		g++ -c View/MainMenu.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+RelatedCoursesOneForm.o: View/RelatedCoursesOneForm.cpp View/RelatedCoursesOneForm.h
+		g++ -c View/RelatedCoursesOneForm.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+RelatedCoursesTwoForm.o: View/RelatedCoursesTwoForm.cpp View/RelatedCoursesTwoForm.h
+		g++ -c View/RelatedCoursesTwoForm.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+WorkExperienceForm.o: View/WorkExperienceForm.cpp View/WorkExperienceForm.h
+		g++ -c View/WorkExperienceForm.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+GradSubmitWindow.o: View/GradSubmitWindow.cpp View/GradSubmitWindow.h
+		g++ -c View/GradSubmitWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+
+UGradSubmitWindow.o: View/UGradSubmitWindow.cpp View/UGradSubmitWindow.h
+		g++ -c View/UGradSubmitWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
 CourseQueue.o:	Model/CourseQueue.cpp Model/CourseQueue.h
 		g++ -c Model/CourseQueue.cpp
@@ -40,11 +87,36 @@ GradApp.o:	Model/GradApp.cpp Model/GradApp.h
 UndergradApp.o:	Model/UndergradApp.cpp Model/UndergradApp.h
 		g++ -c Model/UndergradApp.cpp
 
+GradErrorCheck.o:	Model/GradErrorCheck.cpp Model/GradErrorCheck.h
+		g++ -c Model/GradErrorCheck.cpp
+
+UGradErrorCheck.o:	Model/UGradErrorCheck.cpp Model/UGradErrorCheck.h
+		g++ -c Model/UGradErrorCheck.cpp
+
+GradAppData.o:	Model/GradAppData.cpp Model/GradAppData.h
+		g++ -c Model/GradAppData.cpp
+
+UGradAppData.o:	Model/UGradAppData.cpp Model/UGradAppData.h
+		g++ -c Model/UGradAppData.cpp
+
+RelatedOneData.o:	Model/RelatedOneData.cpp Model/RelatedOneData.h
+		g++ -c Model/RelatedOneData.cpp
+
+RelatedTwoData.o:	Model/RelatedTwoData.cpp Model/RelatedTwoData.h
+		g++ -c Model/RelatedTwoData.cpp
+
+WorkExperienceData.o:	Model/WorkExperienceData.cpp Model/WorkExperienceData.h
+		g++ -c Model/WorkExperienceData.cpp
+
+
 Student.o:	Model/Student.cpp Model/Student.h
 		g++ -c Model/Student.cpp
 
 GradStudent.o:	Model/GradStudent.cpp Model/GradStudent.h	
 		g++ -c Model/GradStudent.cpp
+
+SummaryChoiceWindow.o: View/SummaryChoiceWindow.cpp View/SummaryChoiceWindow.h
+		g++ -c View/SummaryChoiceWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
 UndergradStudent.o:	Model/UndergradStudent.cpp Model/UndergradStudent.h	
 		g++ -c Model/UndergradStudent.cpp
