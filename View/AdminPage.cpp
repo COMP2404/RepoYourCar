@@ -72,11 +72,13 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
 	if(window->pending){
 		if(window->allCourses){
+			cout << "Pending all courses" <<endl;
 			qCopy = qCopy->sortAll();
 			
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
 		}
 		else{
+			cout << "Pending one courses" <<endl;
 			const gchar* theCourse;
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;
@@ -86,7 +88,12 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 			qCopy = qCopy->sortAll();
 		}
 	}else{
+		if(window->allCourses){
+			
+		}else{
 
+		}
+		
 	}
 	
 	

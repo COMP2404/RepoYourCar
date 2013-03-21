@@ -15,11 +15,12 @@ void AdminWindow::draw(){
 
 	admin_assigned = gtk_button_new_with_label("View Summary Of Assigned Applications");
 	gtk_widget_set_size_request(admin_assigned, 150, 35);
-	gtk_fixed_put(GTK_FIXED(admin_frame), admin_assigned , 100, 150);
+	gtk_fixed_put(GTK_FIXED(admin_frame), admin_assigned , 100, 110);
+
 
 	admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(admin_cancel, 80, 35);
-	gtk_fixed_put(GTK_FIXED(admin_frame), admin_cancel , 100, 150);
+	gtk_fixed_put(GTK_FIXED(admin_frame), admin_cancel , 50, 150);
 	
 	gtk_widget_show_all(admin_window);
 
@@ -65,18 +66,20 @@ void AdminWindow::showSummary(){
 }
 
 
-void AdminWindow::showSummaryChoice(GtkWidget *widget,AdminWindow *window){
+void AdminWindow::showSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	window->sum = new SummaryChoiceWindow();
-	
+	//cout<<""<<endl;
 	window->sum->draw();
 	if(widget == window->admin_viewSummary){
 		window->pending = true;
+		cout << "Pending" << endl;
 	}
 	else{
 		window->pending = false;
+		cout << "Assigned" << endl;
 	}
-	g_signal_connect(window->sum->btnOneCourse, "clicked", G_CALLBACK (AdminPage::viewSummary), window);
-	g_signal_connect(window->sum->btnAllCourses, "clicked", G_CALLBACK   (AdminPage::viewSummary), window);
+	g_signal_connect(window->sum->btnOneCourse, "clicked", G_CALLBACK (AdminWindow::closeSummaryChoice), window);
+	g_signal_connect(window->sum->btnAllCourses, "clicked", G_CALLBACK   (AdminWindow::closeSummaryChoice), window);
 	
 }
 
