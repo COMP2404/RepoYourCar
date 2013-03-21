@@ -387,7 +387,7 @@ AppQueue* AppQueue::getPendingList(string course){
 	while(tmpNode!=NULL){
 		
 		cout<< course<< endl;
-		if(tmpNode->data->getCourse().compare(course) == 0 && tmpNode->data->getStatus() == "PENDING"){
+		if(tmpNode->data->getCourse().compare(course) == 0 && (tmpNode->data->getStatus() == "PENDING" || tmpNode->data->getStatus() == "pending") ){
 			cout << tmpNode->data->getCourse() << endl;
 			list->head = tmpNode;
 			break;
@@ -421,6 +421,74 @@ AppQueue* AppQueue::getPendingList(string course){
 	}
 	
 	return list;
+}
+
+AppQueue* AppQueue::getAppsByCourse(string course){
+	//------Get a copy of the working Queue-------
+	
+	AppQueue& copy = *this;
+
+	AppQueue* list = new AppQueue(copy);//call copy contructor
+	if(head == NULL){//the working AppQueue is empty
+		//list->head = NULL;
+		return list;
+	}
+	//------Make the head a wanted node--------	
+	AppNode* tmpNode = list->head;
+	while(tmpNode!=NULL){
+
+		if(tmpNode->data->getCourse().compare(course) == 0 ){
+			cout << tmpNode->data->getCourse() << endl;
+			list->head = tmpNode;
+			break;
+		}
+		tmpNode=tmpNode->next;
+	}
+	if(tmpNode == NULL){
+		if(list->head->data->getCourse().compare(course) != 0){
+			 AppQueue* finalQ = new AppQueue();
+			return finalQ;
+		}
+	}
+	//------Remove unwanted nodes from Queue------
+	tmpNode = list->head;
+	AppNode* prevNode = tmpNode;
+
+	while(tmpNode != NULL){
+		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
+		}
+		else{
+			prevNode=tmpNode;//advance iteration node
+		}
+		tmpNode=tmpNode->next;   //advance iteration node
+	}
+	
+	return list;
+}
+
+AppQueue* AppQueue::getAssignedList(){
+	//------Get a queue of assigned applications-------
+	
+	AppQueue* Q = new AppQueue();
+	GradApp* ga;
+	UndergradApp* ua;
+	AppNode* tmpNode = head;
+
+	while(tmpNode != NULL){
+		if(tmpNode->data->getStatus() == "ASSIGNED" || tmpNode->data->getStatus() == "assigned"){
+			if(tmpNode->data->getType() == "grad"){
+				ga = dynamic_cast<GradApp*>(tmpNode->data);
+				Q->pushBack(ga, NULL);
+			}
+			else{
+				ua = dynamic_cast<UndergradApp*>(tmpNode->data);
+				Q->pushBack(NULL, ua);
+			}
+		}	
+		tmpNode = tmpNode->next;
+	}
+	return Q;
 }
 
 /*AppQueue* AppQueue::getPendingList(string course){

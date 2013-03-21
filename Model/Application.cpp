@@ -204,6 +204,10 @@ bool Application::printApp(){
 	outFile << "ENDAPP" << endl;	*/
 
 }
+
+
+
+
 /*
 void Application::setRelatedCourses(CourseQueue *queue){
 	relatedCourses = queue;

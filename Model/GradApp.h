@@ -24,6 +24,8 @@ public:
 	string   getStuSuper();
 	bool 	 printApp();
 	string 	 getStuName();
+	bool     saveSummary();
+
 private:
 	string stuProgram;
 	string stuArea;

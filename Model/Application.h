@@ -38,6 +38,8 @@ public:
 	
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
+	//bool 	 saveSummary();
+
 	//virtual string getStuName();
 	virtual bool printApp();
 	Application(int, string="unknown", string="pending", string="grad");

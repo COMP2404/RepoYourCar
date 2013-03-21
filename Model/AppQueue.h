@@ -122,11 +122,27 @@ class AppQueue
     /////////////////////////////////////////////////
     //  returns queue of applications for a person //
     //  @param:  string                            //
-    //  returns: AppQueue                          //
+    //  returns: AppQueue*                         //
     //  <runtime> 0(n) </runtime>                  //
     /////////////////////////////////////////////////
     AppQueue* getAppsByName(string);
 
+
+    /////////////////////////////////////////////////
+    //  returns queue of applications for a course //
+    //  @param:  string                            //
+    //  returns: AppQueue*                         //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    AppQueue* getAppsByCourse(string);
+
+    /////////////////////////////////////////////////
+    //  returns queue of 'assigned' applications   //
+    //  @param:  void                              //
+    //  returns: AppQueue*                         //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    AppQueue* getAssignedList();
 
     /////////////////////////////////////////////////
     //sets status of applications chosen and closed//
