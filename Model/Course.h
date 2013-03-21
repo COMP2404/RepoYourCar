@@ -18,6 +18,12 @@ public:
 	string	getSupervisor(void);
 	string	getTitle(void);
 	string   getFinal(void);
+
+	void 	setYear(int);
+	void 	setTerm(string);
+	void	setSupervisor(string);
+	void	setTitle(string);
+	void    setFinal(string);
 	//-------------------------------
 
 private:
