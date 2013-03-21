@@ -407,7 +407,7 @@ AppQueue* AppQueue::getPendingList(string course){
 	AppNode* prevNode = tmpNode;
 
 	while(tmpNode != NULL){
-		if(tmpNode->data->getCourse().compare(course) != 0){//not same course
+		if(tmpNode->data->getCourse().compare(course) != 0  && !all){//not same course
 			
 			prevNode->next = tmpNode->next;//cut out the node that doesnt belong			
 		}

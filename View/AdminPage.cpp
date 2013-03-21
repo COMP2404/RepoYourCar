@@ -93,8 +93,9 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
 	if(window->pending){
 		if(window->allCourses){
-			
-			qCopy = window->theApp->appQueue.getPendingList("all");
+
+			qCopy = qCopy->getPendingList("all");
+
 			qCopy = qCopy->sortAll();
 			
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
@@ -105,14 +106,25 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;
 			courseString = (theCourse);
-			
-			qCopy = window->theApp->appQueue.getPendingList(courseString);
+
+			qCopy = qCopy->getPendingList(courseString);
+
 			qCopy = qCopy->sortAll();
 		}
 	}else{
 		if(window->allCourses){
 
+			qCopy = qCopy->getAssignedList();
+			qCopy = qCopy->sortAll();
+
 		}else{
+			const gchar* theCourse;
+		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
+			string courseString;
+			courseString = (theCourse);
+			qCopy = qCopy->getAppsByCourse(courseString);//subset the queue to only for one course
+			qCopy = qCopy->getAssignedList();//further subset the queue to only have "assigned"
+			qCopy = qCopy->sortAll();//sort all
 
 		}
 		
