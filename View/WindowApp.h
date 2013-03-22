@@ -107,7 +107,7 @@ class WindowApp{
 		UnderGradAppPage *uGradAppPage;
 		Application *editApp;
 		GradApp *editGApp;
-		UnderGradApp *editUApp;
+		UndergradApp *editUApp;
 		//UnderGradForm *uGradForm;
 		
 	protected:

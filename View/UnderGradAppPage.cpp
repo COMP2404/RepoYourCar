@@ -38,7 +38,7 @@ void UnderGradAppPage::workExp(WindowApp *app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,false);
 	g_signal_connect(app->uGradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishUGrad), app);
-	//g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
+	g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
 
 }
 void UnderGradAppPage::getInfo(GtkWidget *widget, WindowApp *windowApp){
@@ -90,6 +90,14 @@ void UnderGradAppPage::submit(WindowApp *app){
 	AppManager::submitUGradApp(app);
 
 }
-void UnderGradAppPage::fillInData(Application* editApp){
+void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
+	theApp->uGradAppPage->edit = true;
+	UndergradApp *editApp = dynamic_cast<UndergradApp*>(app);
+	theApp->editUApp = editApp;
 
+
+	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->uGradAppPage->form->combo), (editApp->getCourse()).c_str());
+	gtk_combo_box_set_active(GTK_COMBO_BOX(theApp->uGradAppPage->form->combo),0); 
+	
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->fName), (editApp->getStuFirst()).c_str());
 }

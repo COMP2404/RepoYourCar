@@ -9,8 +9,7 @@ AppManager::AppManager(bool grad, WindowApp *theApp){
 	}
 	else if(!grad){
 		theApp->uGradAppPage = new UnderGradAppPage();
-		
-		
+
 		theApp->uGradAppPage->draw(theApp);
 		theApp->uGradAppPage->edit = false;
 	}
@@ -26,4 +25,7 @@ void AppManager::submitUGradApp(WindowApp* theApp){
 
 void AppManager::fillInData(Application * editApp, WindowApp *theApp){
 	theApp->gradAppPage->fillInData(editApp,theApp);
+}
+void AppManager::fillInUData(Application * editApp, WindowApp *theApp){
+	theApp->uGradAppPage->fillInData(editApp,theApp);
 }

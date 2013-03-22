@@ -123,10 +123,10 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
 		}
 		else{
-
+			
 			uga = static_cast<UndergradApp*>(app);	
 			s1 = uga->getStuFirst();
-			cout << s1 << endl;
+			
 			s2 = uga->getStuLast();
 				 
 			ss1 << uga->getStuYrStanding();
@@ -139,6 +139,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 			ss3 << uga->getStuMGPA();
 			s8 = ss3.str();
 			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+
 		}
 
 			
@@ -148,7 +149,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 		strcpy(theInput,input[i].c_str());
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->stuPage->appCombo), theInput);
 		i++;
-		//app = cpQ.popFront();	
+		app = temp->popFront();	
 		if(app != NULL){
 			if(app->getType() == "grad"){
 				ga = static_cast<GradApp*>(app);
@@ -165,7 +166,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 
 
 
-
+	
 	
 	g_signal_connect(GTK_COMBO_BOX(theApp->stuPage->appCombo), "changed", G_CALLBACK (StudentPage::editApp), theApp);
 }
@@ -174,17 +175,13 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 
 	AppQueue *temp;
 	temp = new AppQueue(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
-	if(temp->isEmpty())
-		cout << "empty queue" <<endl;
-	cout << "got temp queue" <<endl;
-
-
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
-	cout << "got index" + index <<endl;
+	
 	Application *app = (*temp)[index];
-	cout << "got temp app" <<endl;
-	app = theApp->appQueue.getOriginal(app);
-	cout << "got original app" <<endl;
+	
+	//app = theApp->appQueue.getOriginal(app);
+	
+	cout << app->getType() << endl;
 	if(app->getType() == "grad"){
 		cout << "got type" <<endl;
 		AppManager *appMan = new AppManager(true, theApp);
@@ -192,7 +189,7 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	}
 	else{
 		AppManager *appMan = new AppManager(false, theApp);
-		//appMan->fillInData(app, theApp);
+		appMan->fillInUData(app, theApp);
 	}
 	
 }

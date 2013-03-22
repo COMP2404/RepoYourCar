@@ -54,7 +54,7 @@ class UnderGradAppPage : public AppPage{
 		static void workExp(WindowApp*);
 		void errorCheck(WindowApp*);
 		void submit(WindowApp*);
-		static void fillInData(Application*);
+		static void fillInData(Application*,WindowApp*);
 		//static void workExperience(GtkWidget*,UnderGradAppPage*);
 		
 		

@@ -113,8 +113,8 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		}
 		
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);
-		//if(windowApp->gradAppPage->edit)
-			//GradAppPage::fillInRelated(windowApp);
+		if(windowApp->gradAppPage->edit)
+			GradAppPage::fillInRelated(windowApp);
 	}
 	
 

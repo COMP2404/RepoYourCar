@@ -135,11 +135,13 @@ void GradAppPage::fillInData(Application* app, WindowApp *theApp){
 }
 
 void GradAppPage::fillInRelated(WindowApp* theApp){
-
-	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), "aawd");
-	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), "aawd");
-	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), "aawd");
-	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), "aawd");
+	//theApp->gradAppPage->relatedQueue = new CourseQueue(*(theApp->editGApp->relatedTAPositions));	
+	//Course *course = theApp->gradAppPage->relatedQueue->popFront();
+	
+	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
+	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), ""+course->getYear());
+	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
 }
 void GradAppPage::fillInWorkExp(WindowApp* theApp){
 	

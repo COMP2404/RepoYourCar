@@ -47,5 +47,6 @@ class AppManager{
 		static void pushRelTwoData();
 		static void pushWorkExpData();
 		static void fillInData(Application*, WindowApp*);
+		static void fillInUData(Application*, WindowApp*);
 };
 #endif
