@@ -816,3 +816,85 @@ bool AppQueue::writeToFile(){
 
 	return true;
 }
+
+bool AppQueue::saveSummaries(){
+	char theInput[200];
+	string input[100];//string array for each Application
+	UndergradApp* uga;
+	GradApp* ga;
+	Application* app;
+	//THIS WILL NOT BE APPEND...OVERWRITING OLD FILE WITH CURRENT APPLICATIONS
+	ofstream out("Summaries.txt");
+	if(!out.is_open()){
+		cout << "Could not open Summaries.txt\n";
+		return false;//Error opening file
+	} 
+
+	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
+
+	AppQueue qCopy = *this;//COPY CTOR
+
+	int i = 0;
+	//FOR ALL APPLICATIONS IN COPY OF THIS QUEUE:
+	while(app != NULL){
+		std::stringstream ss1; 
+		std::stringstream ss2; 
+		std::stringstream ss3;
+		if(app->getType() == "grad"){
+			ga = static_cast<GradApp*>(app);
+			s1 = ga->getStuFirst();
+			//cout << s1 << endl;
+			s2 = ga->getStuLast();
+			s6 = ga->getStuEmail();
+			s7 = ga->getStuID();
+			s9 = ga->getStuArea();
+			s10 = ga->getStuProgram();
+			s11 = ga->getStuSuper();
+			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
+		}
+		else{
+
+			uga = static_cast<UndergradApp*>(app);	
+			s1 = uga->getStuFirst();
+			cout << s1 << endl;
+			s2 = uga->getStuLast();
+				 
+			ss1 << uga->getStuYrStanding();
+			s3 = ss1.str();
+			s4 = uga->getStuMajor();
+			ss2 << uga->getStuCGPA();
+			s5 = ss2.str();
+			s6 = uga->getStuEmail();
+			s7 = uga->getStuID();
+			ss3 << uga->getStuMGPA();
+			s8 = ss3.str();
+			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+		}
+
+				
+			 
+			
+		//theInput = input[i];
+		//get a new application from the copy of *this queue
+		i++;
+		app = qCopy.popFront();	
+		if(app != NULL){
+			if(app->getType() == "grad"){
+				ga = static_cast<GradApp*>(app);
+					
+			}
+			else{
+				uga = dynamic_cast<UndergradApp*>(app);
+			}
+		}
+		
+
+	}
+
+	out << "=====================SUMMARIES:=========================\n";
+	for(int j=0; j<i; j++){
+		out << input[i] << endl;//output each string for a summary
+	}
+
+	return true;
+}

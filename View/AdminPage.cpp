@@ -88,6 +88,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-wrte the text file with changes
+		//REFRESH THE LIST OF PENDING APPLICANTS
+		updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 	else{
@@ -97,6 +99,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-write the text file with changes
+		//REFRESH THE LIST OF PENDING APPLICANTS
+		updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 		

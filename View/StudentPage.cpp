@@ -146,7 +146,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 		strcpy(theInput,input[i].c_str());
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->stuPage->appCombo), theInput);
 		i++;
-		app = theApp->stuPage->qCopy->popFront();	
+		//app = cpQ.popFront();	
 		if(app != NULL){
 			if(app->getType() == "grad"){
 				ga = static_cast<GradApp*>(app);
@@ -170,7 +170,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	int index;
 	AppQueue *temp = theApp->stuPage->qCopy;
-	cout << "got temp queue" <<endl;
+	cout << "got temp queue:" << *temp << endl;
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
 	cout << "got index" <<endl;
 	Application *app = (*temp)[index];
