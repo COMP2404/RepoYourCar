@@ -10,11 +10,13 @@ We sincerely apologize in advance to you for having to mark this assignment. We 
 2. The Edit an Application Feature is abysmal. We literally made negative progress on this one tonight, because of phantom Seg Faults. Sometimes, we would not even change the code, and we would get a seg fault, then comment out the block, and slowly uncomment it and it would disappear!! You can imagine how I feel as I'm writing this....
 Most of the info is loaded into the app, and the form for making the app is re-used which is awesome, but we kept getting so many phantom seg faults, we just could not finish the implementation. It will not replace the old app, but push the new one onto the queue.
 
-3. Some of the Cancel buttons do not work. We changed this when switching over to a better MVC and ran out of time to change them all back.
+3. The Process is not killed when the X is clicked
 
-4. The Process is not killed when the X is clicked
+4. The error checking has stopped working on the main form. It is still implemented, but the dialog boxes do not show up anymore. It will also seg fault if any field is left blank.
 
-5. The error checking has stopped working on the main form. It is still implemented, but the dialog boxes do not show up anymore. It will also seg fault if any field is left blank.
+5. Having said this, the operators and the test file are beautiful, and if you can look past the subtle imperfections all of the
+functionality and assignment requirements are present and working (minus half of edit an app feature).
+
 
 
 
