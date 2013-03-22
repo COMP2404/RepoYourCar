@@ -120,6 +120,8 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 			qCopy = qCopy->getPendingList("all");
 
 			qCopy = qCopy->sortAll();
+
+			//qCopy->saveSummaries();//TESTING THE FUNCTION (WORKS...need a place to put this now)
 			
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
 		}
