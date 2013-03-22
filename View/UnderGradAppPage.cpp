@@ -95,9 +95,20 @@ void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	UndergradApp *editApp = dynamic_cast<UndergradApp*>(app);
 	theApp->editUApp = editApp;
 
+	//string CGPA,GPA,major,year;
+	//CGPA = "" + editApp->getStuCGPA;
 
 	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->uGradAppPage->form->combo), (editApp->getCourse()).c_str());
 	gtk_combo_box_set_active(GTK_COMBO_BOX(theApp->uGradAppPage->form->combo),0); 
 	
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->fName), (editApp->getStuFirst()).c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->lName), (editApp->getStuLast()).c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->email), (editApp->getStuEmail()).c_str());
+	//gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->cgpa), CGPA);
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->gpa), (""+editApp->getStuMGPA()));
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->major), (editApp->getStuMajor()).c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->year), (""+editApp->getStuYrStanding()));
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->stuNum), (editApp->getStuID()).c_str());
+
+	
 }

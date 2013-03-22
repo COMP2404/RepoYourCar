@@ -39,8 +39,8 @@ void GradAppPage::workExp(WindowApp* app){
 	workExperience->create(app,true);
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
-	if(app->gradAppPage->edit)
-		g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
+	//if(app->gradAppPage->edit)
+	//	g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
 
 }
 void GradAppPage::getInfo(GtkWidget *widget, WindowApp *app){
