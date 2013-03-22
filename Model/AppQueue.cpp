@@ -669,11 +669,19 @@ void AppQueue::assignSuccesfulCandidate(Application* app){
 }
 
 AppQueue* AppQueue::sortAll(){
-	string allCourses[] = {"COMP1001", "COMP1004", "COMP1005", "COMP1006", "COMP1405", "COMP1406", "COMP1501", "COMP1601", 
-			       "COMP1805", "COMP1807", "COMP2001", "COMP2002", "COMP2004", "COMP2006", "COMP2401", "COMP2402", 
-			       "COMP2404", "COMP2406", "COMP2501", "COMP2601", "COMP2804", "COMP2807", "COMP3000", "COMP3002",
- 			       "COMP3004", "COMP3005", "COMP3007", "COMP3008", "COMP3203", "COMP3308", "COMP3501", "COMP3601", 
-			       "COMP3802", "COMP3803", "COMP3804", "COMP3805", "COMP3806", "COMP3807", "COMP3999", "COMP4000" };
+	string allCourses[100];
+	int numCourses = 0;
+
+	ifstream inFile("courses.txt", ios::in);
+
+	if (!inFile) {
+		cout << "no file!!!" << endl;
+	}	
+	while (getline(inFile, allCourses[numCourses])) {
+		cout << "Added a course!: " << numCourses << endl;
+		numCourses++;		
+	}
+
 	string courseList[MAX_BUF];
 	
 	int theNum = 0;//index/counter for courseList

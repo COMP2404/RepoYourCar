@@ -75,7 +75,7 @@ class WindowApp{
 		int page;
 		bool gradApp;
 		bool allCourses;
-		
+		static int applicationNum; 		
 		/*WindowApp();
 		~WindowApp();*/
 		void setfName(string);
