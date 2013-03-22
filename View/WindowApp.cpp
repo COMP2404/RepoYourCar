@@ -333,10 +333,10 @@ void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
 
 }
 
-void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
+//void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
 	//gtk_widget_destroy(theApp->student_window);
 
-}
+//}
 
 void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
 	gtk_widget_destroy(theApp->stuPage->student_frame);
