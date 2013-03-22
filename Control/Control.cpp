@@ -16,8 +16,6 @@ int THIS_BUF = 1000;
 
 
 
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
 						//main form error checking
@@ -65,7 +63,6 @@ void Control::killSubmitWindow(GtkWidget *widget, WindowApp *theApp){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 bool Control::submit(string* course, string* first, string* last, int mgpa, int gpa, string* email, int year, string* major, string* stunum, string* area, string* program, string* supervisor, WindowApp *theApp){
-	static int applicationNum = 1;
 
 	Student* s ;
 	//theApp->studentRepeat = s;
@@ -78,7 +75,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		cout << "pushing grad app" << endl;
 		gs = new GradStudent(*first, *last, *email, *stunum, *area, *program, *supervisor);
 		//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
-		ga = new GradApp(gs, applicationNum++, *course, "PENDING");
+		ga = new GradApp(gs, theApp->applicationNum++, *course, "PENDING");
 		ga->setRelatedTAPositions(theApp->cQTa);
 		ga->setRelatedWorkEXP(theApp->jQRelated);
 		theApp->appQueue.pushBack(ga, uga);
@@ -90,7 +87,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		ugs = new UndergradStudent(gpa, mgpa, *first, *last, *email, *major, year, *stunum);
 		//a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
 		//uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
-		uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
+		uga = new UndergradApp(ugs, theApp->applicationNum++, *course, "PENDING");
 		uga->setRelatedCourses(theApp->cQRelated);
 		uga->setRelatedTAPositions(theApp->cQTa);
 		uga->setRelatedWorkEXP(theApp->jQRelated);
@@ -174,9 +171,9 @@ void Control::loadApplications(WindowApp *theApp){
 		{	
 			cout << "UNDERGRADUATE APP" << endl;
 			aGrad = false;
-			inFile.getline(text, THIS_BUF); // application number 
-			 
+			inFile.getline(text, THIS_BUF); // application number  
 			a = atoi(text);
+			theApp->applicationNum = a;
 			inFile.getline(text, THIS_BUF); // application course
 			 
 			c = text;

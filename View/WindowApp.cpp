@@ -57,7 +57,7 @@ string WindowApp::getStuNum(){
 	return strStuNum;
 }
 
-
+int WindowApp::applicationNum;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //**********************************************************************************************************************************************************************//
@@ -345,7 +345,7 @@ void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
 void WindowApp::submitGradApp(WindowApp* theApp){
 	
 	cout<<"submitting grad app" <<endl;
-	static int applicationNum = 1;
+	//static int applicationNum = 1;
 
 	Student* s ;
 	//theApp->studentRepeat = s;
@@ -382,7 +382,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 void WindowApp::submitUGradApp(WindowApp* theApp){
 	
 
-	static int applicationNum = 1;
+	//static int applicationNum = 1;
 
 	Student* s ;
 	//theApp->studentRepeat = s;
