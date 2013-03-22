@@ -66,6 +66,7 @@ class WindowApp{
 		CourseQueue *cQRelated, *cQTa;
 		JobQueue *jQRelated;
 		AppQueue appQueue;
+		
 		Application *originalApp;
 		static WindowApp *instance;
 

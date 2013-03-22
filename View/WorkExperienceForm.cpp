@@ -3,7 +3,7 @@
 void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 	if(!grad){
 		windowApp->uGradAppPage->form->ei_lblRelevantWork = gtk_label_new("Relevant Work :");
-		windowApp->uGradAppPage->form->ei_lblDuration = gtk_label_new("Duration :");
+		windowApp->uGradAppPage->form->ei_lblDuration = gtk_label_new("Duration (#months):");
 		windowApp->uGradAppPage->form->ei_lblStartDate = gtk_label_new("Start Date (dd/mm/yr) :");
 		windowApp->uGradAppPage->form->ei_lblEndDate = gtk_label_new("End Date (dd/mm/yr) :");
 		windowApp->uGradAppPage->form->ei_lblResponsabilities = gtk_label_new("Responsabilities :");
@@ -41,7 +41,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 	}
 	else{
 		windowApp->gradAppPage->form->ei_lblRelevantWork = gtk_label_new("Relevant Work :");
-		windowApp->gradAppPage->form->ei_lblDuration = gtk_label_new("Duration :");
+		windowApp->gradAppPage->form->ei_lblDuration = gtk_label_new("Duration (#months):");
 		windowApp->gradAppPage->form->ei_lblStartDate = gtk_label_new("Start Date (dd/mm/yr) :");
 		windowApp->gradAppPage->form->ei_lblEndDate = gtk_label_new("End Date (dd/mm/yr) :");
 		windowApp->gradAppPage->form->ei_lblResponsabilities = gtk_label_new("Responsabilities :");

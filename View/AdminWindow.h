@@ -26,12 +26,13 @@ class AdminWindow{
 		bool pending;
 		bool appSelected;
 		int selectedIndex;
+		AppQueue *saveQueue;
 		//AdminPage adminPage;
 		
 
 	private:
 		GtkWidget *admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_assigned, *admin_login, 
-			*summary_combo, *adminTest;
+			*summary_combo, *adminTest, *printSum;
 
 		WindowApp *theApp;
 		SummaryChoiceWindow *sum;

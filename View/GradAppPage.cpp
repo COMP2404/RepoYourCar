@@ -24,8 +24,9 @@ void GradAppPage::draw(WindowApp *windowApp){
 }
 
 void GradAppPage::close(GtkWidget *widget, WindowApp *page){
-	//gtk_widget_destroy(windowApp->gradAppPage->window);
+	gtk_widget_destroy(page->gradAppPage->form->window);
 }
+
 void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 
 	RelatedCoursesTwoForm *relatedCourses2 = new RelatedCoursesTwoForm();

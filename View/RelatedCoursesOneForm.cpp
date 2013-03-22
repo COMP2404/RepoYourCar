@@ -11,7 +11,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	
 	app->uGradAppPage->form->ei_lblRelatedCourse = gtk_label_new("Related Course :");
 	app->uGradAppPage->form->ei_lblTerm = gtk_label_new("Term :");
-	app->uGradAppPage->form->ei_lblYear = gtk_label_new("Year (2012-Present):");
+	app->uGradAppPage->form->ei_lblYear = gtk_label_new("Year (1990-Present):");
 	app->uGradAppPage->form->ei_lblFinalGrade = gtk_label_new("Final Grade (Letter):");
 
 	/////////////////////////////////////////////////////

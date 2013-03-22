@@ -1,4 +1,5 @@
 #include "UnderGradAppPage.h"
+#include <sstream>
 UnderGradAppPage::UnderGradAppPage(){
 	this->form = new UnderGradForm();
 }
@@ -17,9 +18,10 @@ void UnderGradAppPage::draw(WindowApp *windowApp){
 	g_signal_connect(GTK_COMBO_BOX(windowApp->uGradAppPage->form->combo), "changed", G_CALLBACK   (UnderGradAppPage::related1), windowApp);
   	//return;
 }
-void UnderGradAppPage::close(GtkWidget *widget, WindowApp *app){
-	//gtk_widget_destroy(page->form->window);
+void UnderGradAppPage::close(GtkWidget *widget, WindowApp *page){
+	gtk_widget_destroy(page->uGradAppPage->form->window);
 }
+
 void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	RelatedCoursesOneForm *relatedCourses1 = new RelatedCoursesOneForm();
 	relatedCourses1->create(app);
@@ -103,10 +105,25 @@ void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->fName), (editApp->getStuFirst()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->lName), (editApp->getStuLast()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->email), (editApp->getStuEmail()).c_str());
+
 	//gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->cgpa), (""+editApp->getStuCGPA()).c_str());
-	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->gpa), (""+editApp->getStuMGPA()));
+	//gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->gpa), (""+editApp->getStuMGPA()));
+
+
+	int nu = editApp->getStuMGPA();
+	string mgpa = static_cast<ostringstream*>( &(ostringstream() << nu) )->str();
+
+	int ni = editApp->getStuCGPA();
+	string gpa = static_cast<ostringstream*>( &(ostringstream() << ni) )->str();
+
+	int yr = editApp->getStuYrStanding();
+	string year = static_cast<ostringstream*>( &(ostringstream() << yr) )->str();
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->cgpa), (gpa.c_str()) );
+
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->gpa), (mgpa.c_str()) );
+
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->major), (editApp->getStuMajor()).c_str());
-	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->year), (""+editApp->getStuYrStanding()));
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->year), (year.c_str()));
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->stuNum), (editApp->getStuID()).c_str());
 
 	
