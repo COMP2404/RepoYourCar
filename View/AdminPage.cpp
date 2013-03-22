@@ -27,17 +27,22 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	window->admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(window->admin_cancel, 80, 35);
 
+	window->printSum = gtk_button_new_with_label("Save Summary");
+	gtk_widget_set_size_request(window->printSum, 80, 35);
+
 	window->admin_assigned = gtk_button_new_with_label("Assign App to Successful");
 	gtk_widget_set_size_request(window->admin_assigned, 80, 35);
 
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_cancel , 100, 150);
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_combo, 50, 50);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->printSum, 150, 100);
 	if(window->pending)
 		gtk_fixed_put(GTK_FIXED(window->admin_frame), window->admin_assigned, 190, 150);
 	window->summary_combo =  gtk_combo_box_text_new();
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->summary_combo, 50, 100);
 	
 	gtk_widget_set_sensitive(window->admin_assigned, FALSE);
+	gtk_widget_set_sensitive(window->printSum, FALSE);
 
 	gtk_container_add(GTK_CONTAINER(window->admin_window), window->admin_frame);
 	
@@ -63,7 +68,8 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	}
 	
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
-	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
+	g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);
+	//g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
 	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
 	//if(window->allCourses)
 	//	updateCombo(widget,theApp);
@@ -154,7 +160,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		}
 		
 	}
-	
+	window->saveQueue = new AppQueue(*qCopy);
 	
 	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
 	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
@@ -236,4 +242,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
 	
 	gtk_widget_show_all(window->admin_window);
+}
+void AdminPage::saveTheSum(GtkWidget *widget, AdminWindow *window){
+	window->saveQueue->saveSummaries();
 }
