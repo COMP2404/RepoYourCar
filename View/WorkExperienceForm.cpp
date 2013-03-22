@@ -36,6 +36,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_endDate,550, 400);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);*/
+		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
 		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
 	}
 	else{
@@ -62,12 +63,6 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		windowApp->gradAppPage->form->ei_finish = gtk_button_new_with_label("Finish");
 		windowApp->gradAppPage->form->ei_repeat3 = gtk_button_new_with_label("Add Another");
 
-		if(windowApp->gradAppPage->edit){
-			windowApp->gradAppPage->form->btnCycle = gtk_button_new_with_label("Edit Next");
-			gtk_widget_set_size_request(windowApp->gradAppPage->form->btnCycle, 80, 35);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->btnCycle, 500, 500);
-			//GradAppPage::fillInWorkExp(windowApp);
-		}
 
 		
 		gtk_widget_set_size_request(windowApp->gradAppPage->form->ei_finish, 80, 35);
@@ -82,6 +77,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
+		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, FALSE);
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);
 	}
 }
@@ -176,7 +172,7 @@ void WorkExperienceForm::finishUGrad(GtkWidget* widget, WindowApp* windowApp){
 		string5 = (s5);
 		Job* job = new Job(s1, s2, s3, s4, s5);
 		windowApp->jQRelated->pushBack(job);
-
+		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, TRUE);
 		WorkExperienceForm::cleanupUGrad(windowApp);
 	}else{
 
@@ -204,7 +200,7 @@ void WorkExperienceForm::finishGrad(GtkWidget*widget,WindowApp* windowApp){
 		string5 = (s5);
 		Job* job = new Job(s1, s2, s3, s4, s5);
 		windowApp->jQRelated->pushBack(job);
-
+		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, TRUE);
 		WorkExperienceForm::cleanupGrad(windowApp);
 	}
 	else{

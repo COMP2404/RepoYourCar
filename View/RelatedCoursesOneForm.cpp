@@ -55,7 +55,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->ei_repeat, 550, 430);
 	
 
-
+	gtk_widget_set_sensitive(app->uGradAppPage->form->submit, FALSE);
 	/////////////////////////////////////////////////////
 	//-----------Make Buttons Not Clickable-------------////
 	/////////////////////////////////////////////////////

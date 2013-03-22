@@ -39,7 +39,7 @@ class GradForm : public Form {
 			*ei_startDate, *ei_endDate, *ei_continue, *ei_continue2, *ei_repeat, *ei_repeat2, *ei_repeat3, *ei_finish, 
 			*ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, 
 			*ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities,
-			*lblpickCourse, *lblpickArea, *lblpickProgram, *btnCycle;
+			*lblpickCourse, *lblpickArea, *lblpickProgram, *btnCycle, *chkExperience;
 		
 		virtual void draw(GradForm *);
 		
