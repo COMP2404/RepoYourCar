@@ -372,7 +372,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	ga->setRelatedTAPositions(theApp->cQTa);
 	ga->setRelatedWorkEXP(theApp->jQRelated);
 	theApp->appQueue.pushBack(ga, uga);
-	if(!ga->printApp())
+	if(!ga->printApp(true))
 			return;
 	
 	
@@ -409,7 +409,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	uga->setRelatedTAPositions(theApp->cQTa);
 	uga->setRelatedWorkEXP(theApp->jQRelated);
 	theApp->appQueue.pushBack(ga, uga);
-	if(!uga->printApp())
+	if(!uga->printApp(true))
 			return;
 
 }

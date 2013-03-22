@@ -1,5 +1,6 @@
 #include "GradApp.h"
 #include <string>
+#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -103,8 +104,8 @@ bool GradApp::saveSummary(){
 }
 
 
-bool GradApp::printApp(){
-	Application::printApp();
+bool GradApp::printApp(bool append){
+	//Application::printApp();
 	
 	int k = relatedTAPositions->size();
 	cout << "SIZE OF RELATED TA POSITIONS: "<< k << endl;
@@ -112,9 +113,72 @@ bool GradApp::printApp(){
 	cout << "SIZE OF RELATED WORK EXP: " << l << endl;	
 	//there.
 
-
+	ofstream outFile("Applications.txt", ios::out|ios::app);
 	//Course tempCourse;
-    ofstream outFile("Applications.txt", ios::out|ios::app);
+
+    if (!outFile) {
+            //ios::out<<"Could not open file"<<endl;
+            return false;
+    }
+    cout << "printing app" << l << endl;
+    outFile << "Graduate" << endl;
+	outFile << applicationNumber << endl;
+
+	outFile << course << endl;
+	outFile << applicationStatus << endl;
+	outFile << stuProgram << endl;
+	outFile << stuArea << endl;
+	
+	outFile << stuFirst << endl;
+	outFile << stuLast << endl;
+	outFile << stuEmail << endl;
+	outFile << stuSuper << endl;
+	outFile << stuID << endl;
+
+	int aSize;
+
+	//Save the related TA positions:
+	outFile << "RELATEDTAPOSITIONS" << endl; // header	
+
+	CourseQueue otherTemp(*relatedTAPositions);
+	aSize = otherTemp.size();
+	int i;
+	for(i=0; i < aSize; i++){
+		cout << "inside course queue" << endl;
+		outFile << otherTemp.front()->getTitle() << endl;
+		outFile << otherTemp.front()->getSupervisor() << endl;
+		outFile << otherTemp.front()->getYear() << endl;
+		outFile << otherTemp.front()->getTerm() << endl;
+		otherTemp.popFront();
+	}
+
+	//Save related work EXP
+	outFile << "WORKEXP" << endl; //header
+
+	JobQueue tempJQueue(*relatedWorkEXP);
+	aSize = tempJQueue.size();
+	for(i=0; i < aSize; i++){
+		outFile << tempJQueue.front()->getJobTitle() << endl;
+		outFile << tempJQueue.front()->getTasks() << endl;
+		outFile << tempJQueue.front()->getDuration() << endl;
+		outFile << tempJQueue.front()->getStartDate() << endl;
+		outFile << tempJQueue.front()->getEndDate() << endl;
+		tempJQueue.popFront();
+	}
+	outFile << "ENDAPP" << endl;
+}
+
+bool GradApp::printModifiedApp(ofstream& outFile){
+	//Application::printApp();
+	
+	int k = relatedTAPositions->size();
+	cout << "SIZE OF RELATED TA POSITIONS: "<< k << endl;
+	int l = relatedWorkEXP->size();
+	cout << "SIZE OF RELATED WORK EXP: " << l << endl;	
+	//there.
+
+	//ofstream outFile("Applications.txt", ios::out|ios::app);
+	//Course tempCourse;
 
     if (!outFile) {
             //ios::out<<"Could not open file"<<endl;

@@ -793,4 +793,26 @@ bool AppQueue::isEmpty(){
 	return (head == NULL);
 } 
 
+bool AppQueue::writeToFile(){
+	UndergradApp* ua;
+	GradApp* ga;
+	//THIS WILL NOT BE APPEND...OVERWRITING OLD FILE WITH CURRENT APPLICATIONS
+	ofstream out("Applications.txt");
 
+	AppNode* tmp = head;
+	while(tmp != NULL){
+		if(tmp->data->getType() == "grad"){
+			ga = dynamic_cast<GradApp*>(tmp->data);
+			ga->printModifiedApp(out);
+		}else{
+			ua = dynamic_cast<UndergradApp*>(tmp->data);
+			ua->printModifiedApp(out);
+		}
+		tmp = tmp->next;
+	}
+
+
+
+
+	return true;
+}

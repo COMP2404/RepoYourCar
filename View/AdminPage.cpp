@@ -87,7 +87,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->getPendingList("all");
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
-		cout << *qCopy;
+		window->theApp->appQueue.writeToFile();//re-wrte the text file with changes
+		//cout << *qCopy;
 	}
 	else{
 		const gchar* theCourse;
@@ -95,7 +96,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->getPendingList(theCourse);
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
-		cout << *qCopy;
+		window->theApp->appQueue.writeToFile();//re-write the text file with changes
+		//cout << *qCopy;
 	}
 		
 

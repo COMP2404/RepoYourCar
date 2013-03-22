@@ -44,6 +44,8 @@ Application::Application(int appNum, string cor, string stat,string type){
 	
 }
 
+bool Application::printModifiedApp(ofstream& out){}
+
 Application::Application(Application& app){
 	cout << "IN APP CCTOR\n";
 	
@@ -99,7 +101,7 @@ Application::~Application(){
 }
 
 
-bool Application::printApp(){
+bool Application::printApp(bool append){
 	/*
 	int i;
 

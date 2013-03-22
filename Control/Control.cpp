@@ -82,7 +82,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		ga->setRelatedTAPositions(theApp->cQTa);
 		ga->setRelatedWorkEXP(theApp->jQRelated);
 		theApp->appQueue.pushBack(ga, uga);
-		if(!ga->printApp())
+		if(!ga->printApp(true))
 				return false;
 	}
 	else{
@@ -95,7 +95,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		uga->setRelatedTAPositions(theApp->cQTa);
 		uga->setRelatedWorkEXP(theApp->jQRelated);
 		theApp->appQueue.pushBack(ga, uga);
-		if(!uga->printApp())
+		if(!uga->printApp(true))
 				return false;
 	}
 	//Application *a = new Application(s, applicationNum++, *course, "PENDING");
