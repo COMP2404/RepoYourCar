@@ -5,7 +5,7 @@
 #include "Application.h"
 #include "GradApp.h"
 #include "UndergradApp.h"
-
+#include <sstream>
 //#include "Student.h"
 //#include "Control.h"
 
@@ -167,6 +167,14 @@ class AppQueue
     //  <runtime> 0(n) </runtime>                  //
     /////////////////////////////////////////////////
     bool writeToFile(void);
+
+    /////////////////////////////////////////////////
+    //overwrites the text file for summaries storage//
+    //  @param:  void                              //
+    //  returns: void                              //
+    //  <runtime> 0(n^2) </runtime>                //
+    /////////////////////////////////////////////////
+    bool saveSummaries(void);
 
     ///////////////////OPERATORS/////////////////////
     Application* operator[](int);//returns application at index param

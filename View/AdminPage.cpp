@@ -88,6 +88,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-wrte the text file with changes
+		//REFRESH THE LIST OF PENDING APPLICANTS
+		updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 	else{
@@ -97,6 +99,8 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		qCopy = qCopy->sortAll();
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-write the text file with changes
+		//REFRESH THE LIST OF PENDING APPLICANTS
+		updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 		
@@ -116,6 +120,8 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 			qCopy = qCopy->getPendingList("all");
 
 			qCopy = qCopy->sortAll();
+
+			//qCopy->saveSummaries();//TESTING THE FUNCTION (WORKS...need a place to put this now)
 			
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
 		}
