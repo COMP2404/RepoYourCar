@@ -3,7 +3,10 @@ ACKNOWLEDGEMENTS AND WARNINGS:
 
 Dear T.A.
 
-We sincerely apologize in advance to you for having to mark this assignment. We realize it's horribly structured, not all implemented and generally confusing. In our previous assignment, we actually had all of the structure well put together, but the design of the program needed to be COMPLETELY overhauled to incorporate MVC. We went from about 10 classes to well over 50. Unfortunately, this took much much longer than expected, and introduced more problems than we physically had time to do, even staying up until past 3 A.M. every single day for the better part of the last two weeks. As I'm writing this, it's 6:43 in the morning and I've been up for the better part of the last 48 hours, mostly working on this assignment. Just so you do not get overwhelmed with frustration, I will include a list of things that are confusing and just plain don't work.
+We sincerely apologize in advance to you for the time it may take to understand some of the implementation you will see. 
+We realize it's horribly structured, not all implemented and generally confusing. So we would like to save you some time and explain some of the things you may question find yourself questioning. 
+
+In our previous assignment, we actually had all of the structure well put together, but the design of the program needed to be COMPLETELY overhauled to incorporate MVC. We went from about 10 classes to well over 50. Unfortunately, this took much much longer than expected, and introduced more problems than we physically had time to resolve, even staying up until past 3 A.M. every single day for the better part of the last two weeks. As I'm writing this, it's 6:43 in the morning and I've been up for the better part of the last 48 hours, mostly working on this assignment. Just so you do not get overwhelmed with frustration, I will include a list of things that are confusing and just plain don't work.
 
 1. When getting a summary in the admin page, you must click on the top Combo box first, then hover your mouse over the small one beneath it to load them. This is not at all intuitive, and we would chage it given more time.
 
@@ -23,11 +26,17 @@ functionality and assignment requirements are present and working (minus half of
 
 
 
-
-
-======READ ME========
-(Read-Only)
-=====================
+=============================================READ ME===============================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~(Read-Only)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+===================================================================================================
+*
+*
+*
+*
+*
+*
+*
+*
 -program graphics built on GTKmm library
 -packaged using `pkg-config gtkmm-3.0 --cflags --libs`
 -compile using Makefile's "make" command
@@ -69,4 +78,6 @@ run the tests with
 *
 *
 *
-</readme>
+=============================================</readme>===============================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================================================================================
