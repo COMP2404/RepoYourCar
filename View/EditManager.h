@@ -1,5 +1,5 @@
-#ifndef APP_MANAGER
-#define APP_MANAGER
+#ifndef EDIT_MANAGER
+#define EDIT_MANAGER
 #include <iostream>
 #include <string.h>
 #include <fstream>
@@ -17,7 +17,6 @@
 #include "../Model/RelatedOneData.h"
 #include "../Model/RelatedTwoData.h"
 #include "../Model/WorkExperienceData.h"
-#include "../Model/Application.h"
 //
 //#include <String.h>
 
@@ -39,12 +38,11 @@ class AppManager{
 		UnderGradAppPage *underPage;
 		GradForm *gradForm;
 		UnderGradForm *underForm;
-		
 		static void submitGradApp(WindowApp*);
 		static void submitUGradApp(WindowApp*);
 		static void pushRelOneData();
 		static void pushRelTwoData();
 		static void pushWorkExpData();
-		static void fillInData(Application*);
+		
 };
 #endif

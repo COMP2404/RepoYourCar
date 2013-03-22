@@ -17,6 +17,7 @@ class RelatedCoursesTwoForm;
 #include "../Model/GradAppData.h"
 #include "../Model/GradErrorCheck.h"
 #include "GradSubmitWindow.h"
+#include "../Model/Application.h"
 using namespace std;
 
 class WindowApp;
@@ -47,6 +48,7 @@ class GradAppPage : public AppPage{
 		static void getInfo(GtkWidget*,WindowApp*);
 		void errorCheck(WindowApp*);
 		void submit(WindowApp*);
+		static void fillInData(Application*);
 		
 		
 		

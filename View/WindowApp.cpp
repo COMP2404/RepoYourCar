@@ -319,9 +319,10 @@ void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	theApp->stuPage = new StudentPage();
 	theApp->stuPage->draw();
 
+
 	g_signal_connect(theApp->stuPage->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
 	g_signal_connect(theApp->stuPage->grad_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
-	//g_signal_connect(student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
+	g_signal_connect(theApp->stuPage->student_edit, "clicked", G_CALLBACK (WindowApp::editStudent), theApp);
 	/*
 	
 
@@ -332,8 +333,13 @@ void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 }
 
 void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
-	gtk_widget_destroy(theApp->student_window);
+	//gtk_widget_destroy(theApp->student_window);
 
+}
+
+void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->stuPage->student_frame);
+	theApp->stuPage->chooseApp(theApp);
 }
 
 void WindowApp::submitGradApp(WindowApp* theApp){

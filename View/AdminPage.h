@@ -30,6 +30,7 @@ class AdminPage{
 		static void updateCombo(GtkWidget *, AdminWindow *);
 		static void setAppSelected(GtkWidget *, AdminWindow *);
 		static void setAppSuccess(GtkWidget *, AdminWindow *);
+		
 		AdminWindow *window;
 		
 

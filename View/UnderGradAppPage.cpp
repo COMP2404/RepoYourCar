@@ -90,3 +90,6 @@ void UnderGradAppPage::submit(WindowApp *app){
 	AppManager::submitUGradApp(app);
 
 }
+void UnderGradAppPage::fillInData(Application* editApp){
+
+}

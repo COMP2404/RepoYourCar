@@ -103,4 +103,6 @@ void GradAppPage::submit(WindowApp *app){
 	g_signal_connect (submitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), submitWindow);
 	AppManager::submitGradApp(app);
 }
-
+void GradAppPage::fillInData(Application* editApp){
+	
+}

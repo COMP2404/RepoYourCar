@@ -1,5 +1,5 @@
-#ifndef UNDERGRAD_APP_PAGE
-#define UNDERGRAD_APP_PAGE
+#ifndef EDIT_GRAD
+#define EDIT_GRAD
 #include <iostream>
 #include <string.h>
 #include <fstream>
@@ -19,7 +19,6 @@ class WorkExperienceForm;
 #include "../Model/UGradAppData.h"
 #include "../Model/UGradErrorCheck.h"
 #include "UGradSubmitWindow.h"
-#include "../Model/Application.h"
 
 
 //
@@ -28,7 +27,7 @@ class WorkExperienceForm;
 using namespace std;
 
 class WindowApp;
-class UnderGradAppPage : public AppPage{
+class EditGradPage{
 	public:
 		friend class WindowApp;
 		friend class AppManager;
@@ -53,7 +52,6 @@ class UnderGradAppPage : public AppPage{
 		static void workExp(WindowApp*);
 		void errorCheck(WindowApp*);
 		void submit(WindowApp*);
-		static void fillInData(Application*);
 		//static void workExperience(GtkWidget*,UnderGradAppPage*);
 		
 		

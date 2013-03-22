@@ -23,12 +23,6 @@ void AppManager::submitUGradApp(WindowApp* theApp){
 	WindowApp::submitUGradApp(theApp);
 }
 
-void pushRelOneData(RelatedOneData * data){
+void AppManager::fillInData(Application * editApp){
 	
-}
-void pushRelTwoData(RelatedTwoData *data){
-
-}
-void pushWorkExpData(WorkExperienceData *data){
-
 }
