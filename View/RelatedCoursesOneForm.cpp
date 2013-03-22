@@ -53,13 +53,13 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	
 	gtk_widget_set_size_request(app->uGradAppPage->form->ei_repeat, 80, 35);
 	gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->ei_repeat, 550, 430);
-	gtk_widget_show_all(app->uGradAppPage->form->appFrame);
+	
 
 
 	/////////////////////////////////////////////////////
 	//-----------Make Buttons Not Clickable-------------////
 	/////////////////////////////////////////////////////
-
+	gtk_widget_show_all(app->uGradAppPage->form->appFrame);
 	
 }
 

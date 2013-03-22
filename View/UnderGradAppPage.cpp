@@ -38,7 +38,7 @@ void UnderGradAppPage::workExp(WindowApp *app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,false);
 	g_signal_connect(app->uGradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishUGrad), app);
-	g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
+	//g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
 
 }
 void UnderGradAppPage::getInfo(GtkWidget *widget, WindowApp *windowApp){

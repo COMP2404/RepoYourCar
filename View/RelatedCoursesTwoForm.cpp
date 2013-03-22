@@ -8,6 +8,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 	if(!grad){
 		cout << "creating form 2" << endl;
 		gtk_window_resize(GTK_WINDOW(windowApp->uGradAppPage->form->window), 800,600);
+
 		windowApp->uGradAppPage->form->ei_lblRelatedCourse = gtk_label_new("Related Course :");
 		
 		windowApp->uGradAppPage->form->ei_lblTerm = gtk_label_new("Term :");
@@ -24,8 +25,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		/////////////////////////////////////////////////////
 		//-----------New Buttons, labels and entries------////
 		/////////////////////////////////////////////////////
-		
-
+	
 		windowApp->uGradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Add Another");
 		
 		
@@ -52,6 +52,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_lblSupervisor, 400, 370);
 		//gtk_widget_set_sensitive(ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(ei_repeat2, FALSE);
+		
 		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
 		
 	}
@@ -83,11 +84,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		windowApp->gradAppPage->form->ei_continue2 = gtk_button_new_with_label("Continue");
 
 		
-		if(windowApp->gradAppPage->edit){
-			windowApp->gradAppPage->form->btnCycle = gtk_button_new_with_label("Edit Next");
-			gtk_widget_set_size_request(windowApp->gradAppPage->form->btnCycle, 80, 35);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->btnCycle, 500, 500);
-		}
+		
 		
 		gtk_widget_set_size_request(windowApp->gradAppPage->form->ei_continue2, 80, 35);
 
@@ -108,8 +105,16 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat2, FALSE);
-		GradAppPage::fillInRelated(windowApp);
+		if(windowApp->gradAppPage->edit){
+			windowApp->gradAppPage->form->btnCycle = gtk_button_new_with_label("Edit Next");
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->btnCycle, 80, 35);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->btnCycle, 500, 500);
+
+		}
+		
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);
+		//if(windowApp->gradAppPage->edit)
+			//GradAppPage::fillInRelated(windowApp);
 	}
 	
 

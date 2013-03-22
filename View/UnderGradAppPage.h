@@ -38,6 +38,7 @@ class UnderGradAppPage : public AppPage{
 		friend class RelatedCoursesOneForm;
 		friend class WorkExperienceForm;
 		UnderGradAppPage();
+		bool edit;
 	private:
 		UnderGradForm *form;
 		RelatedCoursesOneForm *relatedCourses1;

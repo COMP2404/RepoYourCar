@@ -192,7 +192,7 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	}
 	else{
 		AppManager *appMan = new AppManager(false, theApp);
-		appMan->fillInData(app, theApp);
+		//appMan->fillInData(app, theApp);
 	}
 	
 }

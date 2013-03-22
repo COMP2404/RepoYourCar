@@ -4,7 +4,7 @@ AppManager::AppManager(bool grad, WindowApp *theApp){
 		
 		theApp->gradAppPage = new GradAppPage();
 		theApp->gradAppPage->draw(theApp);
-		
+		theApp->gradAppPage->edit = false;
 		
 	}
 	else if(!grad){
@@ -12,6 +12,7 @@ AppManager::AppManager(bool grad, WindowApp *theApp){
 		
 		
 		theApp->uGradAppPage->draw(theApp);
+		theApp->uGradAppPage->edit = false;
 	}
 	
 	
