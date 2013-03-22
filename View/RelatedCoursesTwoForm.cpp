@@ -279,7 +279,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			if (validRC2 != string::npos) {
 				cout << "You entered an invalidcharacter, " << (string1)[validRC2];
 				cout << ", at position " << validRC2 << endl;
-				//WindowApp::popWindow("You entered an invalid character in Related Courses", theApp);
+				WindowApp::popWindow("You entered an invalid character in Related Courses", theApp);
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -289,7 +289,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			else if (validterm2 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
 				cout << ", at position " << validterm2 << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
+				WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -299,7 +299,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
 				cout << ", at position " << supervisor << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
+				WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -309,7 +309,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
-				//WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;

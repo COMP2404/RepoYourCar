@@ -95,7 +95,7 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 			if (validRC1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
 				cout << ", at position " << validRC1 << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in Related Courses", theApp);
+				WindowApp::popWindow("You entered a non-alphabetical character in Related Courses", theApp);
 				return false;
 		   	}
 			
@@ -103,21 +103,21 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 			else if (validterm1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm1];
 				cout << ", at position " << validterm1 << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
+				WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
 				return false;
 		   	}
 
 			
 			else if (grade != string::npos) {
 				cout << "Please Enter a Letter Grade" << endl;
-				//WindowApp::popWindow("Please Enter a Letter Grade", theApp);
+				WindowApp::popWindow("Please Enter a Letter Grade", theApp);
 				return false;return false;
 		   	}
 
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
-				//WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
 				return false;
 			}
 			return true;
