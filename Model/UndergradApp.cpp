@@ -235,19 +235,19 @@ bool UndergradApp::printModifiedApp(ofstream& outFile){
 	int aSize;
 	int i;
 	//Save the related courses for undergraduates:
-		cout << "SAVING RELATED COURSES: " << endl;
-		CourseQueue tempQ(*relatedCourses);
-		aSize = tempQ.size();
-		cout << "SIZE OF tempQ: " << aSize << endl; 
-		for(i=0; i < aSize; i++){
-			cout << "Inside for loop! i is: " << i <<  endl;
-			cout << "And tempQ.size is: " << tempQ.size() << endl;
-			outFile << tempQ.front()->getTitle() << endl;
-			outFile << tempQ.front()->getFinal() << endl;
-			outFile << tempQ.front()->getYear() << endl;
-			outFile << tempQ.front()->getTerm() << endl;
-			tempQ.popFront();
-		}
+	cout << "SAVING RELATED COURSES: " << endl;
+	CourseQueue tempQ(*relatedCourses);
+	aSize = tempQ.size();
+	cout << "SIZE OF tempQ: " << aSize << endl; 
+	for(i=0; i < aSize; i++){
+		cout << "Inside for loop! i is: " << i <<  endl;
+		cout << "And tempQ.size is: " << tempQ.size() << endl;
+		outFile << tempQ.front()->getTitle() << endl;
+		outFile << tempQ.front()->getFinal() << endl;
+		outFile << tempQ.front()->getYear() << endl;
+		outFile << tempQ.front()->getTerm() << endl;
+		tempQ.popFront();
+	}
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
