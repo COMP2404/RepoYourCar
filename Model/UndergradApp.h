@@ -22,10 +22,11 @@ public:
 	string   getStuMajor();
 	int      getStuYrStanding();
 	void 	 setRelatedCourses(CourseQueue*);
-	bool 	 printApp();
+	bool 	 printApp(bool);
 	string   getStuName();
 	bool     saveSummary();
 	string   getStuLast();
+	bool 	 printModifiedApp(ofstream&);
 
 
 private:

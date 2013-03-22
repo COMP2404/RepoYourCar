@@ -160,6 +160,14 @@ class AppQueue
     /////////////////////////////////////////////////
     Application* getOriginal(Application*);
 
+    /////////////////////////////////////////////////
+    //overwrites the text file for applications storage//
+    //  @param:  void                              //
+    //  returns: void                              //
+    //  <runtime> 0(n) </runtime>                  //
+    /////////////////////////////////////////////////
+    bool writeToFile(void);
+
     ///////////////////OPERATORS/////////////////////
     Application* operator[](int);//returns application at index param
     AppQueue& operator+=(Application*);//adds the application to the queue

@@ -41,7 +41,8 @@ public:
 	//bool 	 saveSummary();
 
 	//virtual string getStuName();
-	virtual bool printApp();
+	virtual bool printApp(bool);
+	virtual bool printModifiedApp(ofstream&);
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
 	Application(Application&);//COPY CONSTRUCTOR!

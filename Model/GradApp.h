@@ -22,10 +22,11 @@ public:
 	string   getStuProgram();
 	string   getStuArea();
 	string   getStuSuper();
-	bool 	 printApp();
+	bool 	 printApp(bool);
 	string 	 getStuName();
 	bool     saveSummary();
 	string   getStuLast();
+	bool 	 printModifiedApp(ofstream&);
 
 private:
 	string stuProgram;
