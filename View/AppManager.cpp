@@ -23,6 +23,6 @@ void AppManager::submitUGradApp(WindowApp* theApp){
 	WindowApp::submitUGradApp(theApp);
 }
 
-void AppManager::fillInData(Application * editApp){
-	
+void AppManager::fillInData(Application * editApp, WindowApp *theApp){
+	theApp->gradAppPage->fillInData(editApp,theApp);
 }

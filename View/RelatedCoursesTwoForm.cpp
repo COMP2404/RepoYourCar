@@ -83,7 +83,11 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		windowApp->gradAppPage->form->ei_continue2 = gtk_button_new_with_label("Continue");
 
 		
-
+		if(windowApp->gradAppPage->edit){
+			windowApp->gradAppPage->form->btnCycle = gtk_button_new_with_label("Edit Next");
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->btnCycle, 80, 35);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->btnCycle, 500, 500);
+		}
 		
 		gtk_widget_set_size_request(windowApp->gradAppPage->form->ei_continue2, 80, 35);
 
@@ -104,6 +108,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat2, FALSE);
+		GradAppPage::fillInRelated(windowApp);
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);
 	}
 	

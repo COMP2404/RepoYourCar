@@ -32,6 +32,7 @@ class AppManager{
 	public:
 		friend class GradAppPage;
 		friend class UnderGradAppPage;
+		friend class StudentPage;
 		
 		AppManager(bool,WindowApp*);
 	private:
@@ -45,6 +46,6 @@ class AppManager{
 		static void pushRelOneData();
 		static void pushRelTwoData();
 		static void pushWorkExpData();
-		static void fillInData(Application*);
+		static void fillInData(Application*, WindowApp*);
 };
 #endif

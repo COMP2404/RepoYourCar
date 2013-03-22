@@ -19,7 +19,7 @@
 #include "AppManager.h"
 #include "../Model/GradAppData.h"
 #include "../Model/UGradAppData.h"
-
+class UnderGradApp;
 #include "../Model/AppQueue.h"
 #include "../Model/Student.h"
 #include "../Model/GradStudent.h"
@@ -66,6 +66,7 @@ class WindowApp{
 		CourseQueue *cQRelated, *cQTa;
 		JobQueue *jQRelated;
 		AppQueue appQueue;
+		Application *originalApp;
 		static WindowApp *instance;
 
 		bool moveOn;
@@ -105,6 +106,8 @@ class WindowApp{
 		//GradForm *gradForm;
 		UnderGradAppPage *uGradAppPage;
 		Application *editApp;
+		GradApp *editGApp;
+		UnderGradApp *editUApp;
 		//UnderGradForm *uGradForm;
 		
 	protected:

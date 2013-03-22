@@ -75,6 +75,8 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 	slname = gtk_entry_get_text(GTK_ENTRY(theApp->stuPage->lastName));
 	first = (sfname);
 	last =(slname);
+	theApp->stuPage->theFName = first;
+	theApp->stuPage->theLName = last;
 
 	AppQueue *temp;
 	//
@@ -169,20 +171,25 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 }
 void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	int index;
-	AppQueue *temp = theApp->stuPage->qCopy;
+	AppQueue *temp;
+	temp = new AppQueue(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
+	if(temp->isEmpty())
+		cout << "empty queue" <<endl;
 	cout << "got temp queue" <<endl;
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
-	cout << "got index" <<endl;
+	cout << "got index" + index <<endl;
 	Application *app = (*temp)[index];
 	cout << "got temp app" <<endl;
-	//app = theApp->appQueue.getOriginal(app);
+	app = theApp->appQueue.getOriginal(app);
 	cout << "got original app" <<endl;
 	if(app->getType() == "grad"){
 		cout << "got type" <<endl;
 		AppManager *appMan = new AppManager(true, theApp);
+		appMan->fillInData(app, theApp);
 	}
 	else{
 		AppManager *appMan = new AppManager(false, theApp);
+		appMan->fillInData(app, theApp);
 	}
 	
 }
