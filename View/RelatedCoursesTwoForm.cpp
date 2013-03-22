@@ -61,7 +61,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		windowApp->gradAppPage->form->ei_lblRelatedCourse = gtk_label_new("Related Course :");
 		
 		windowApp->gradAppPage->form->ei_lblTerm = gtk_label_new("Term :");
-		windowApp->gradAppPage->form->ei_lblYear = gtk_label_new("Year (1993-present) :");
+		windowApp->gradAppPage->form->ei_lblYear = gtk_label_new("Year (1993-Present) :");
 		windowApp->gradAppPage->form->ei_lblSupervisor = gtk_label_new("Supervisor :");
 
 

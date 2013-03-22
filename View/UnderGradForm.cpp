@@ -94,7 +94,7 @@ void UnderGradForm::draw(){
 	gtk_fixed_put(GTK_FIXED(appFrame), lblCgpa, 30, 400);
 	lblEmail = gtk_label_new("Email Address :");
 	gtk_fixed_put(GTK_FIXED(appFrame), lblEmail, 30, 430);
-	lblYear = gtk_label_new("Year :");
+	lblYear = gtk_label_new("Year (1-4):");
 	gtk_fixed_put(GTK_FIXED(appFrame), lblYear, 30, 460);
 	lblstuNum = gtk_label_new("Student Number :");
 	gtk_fixed_put(GTK_FIXED(appFrame), lblstuNum, 30, 490);
