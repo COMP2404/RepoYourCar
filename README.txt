@@ -12,6 +12,11 @@ Most of the info is loaded into the app, and the form for making the app is re-u
 
 3. Some of the Cancel buttons do not work. We changed this when switching over to a better MVC and ran out of time to change them all back.
 
+4. The Process is not killed when the X is clicked
+
+5. The error checking has stopped working on the main form. It is still implemented, but the dialog boxes do not show up anymore. It will also seg fault if any field is left blank.
+
+
 
 
 
