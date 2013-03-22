@@ -17,9 +17,10 @@ void UnderGradAppPage::draw(WindowApp *windowApp){
 	g_signal_connect(GTK_COMBO_BOX(windowApp->uGradAppPage->form->combo), "changed", G_CALLBACK   (UnderGradAppPage::related1), windowApp);
   	//return;
 }
-void UnderGradAppPage::close(GtkWidget *widget, WindowApp *app){
-	//gtk_widget_destroy(page->form->window);
+void UnderGradAppPage::close(GtkWidget *widget, WindowApp *page){
+	gtk_widget_destroy(page->uGradAppPage->form->window);
 }
+
 void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	RelatedCoursesOneForm *relatedCourses1 = new RelatedCoursesOneForm();
 	relatedCourses1->create(app);
