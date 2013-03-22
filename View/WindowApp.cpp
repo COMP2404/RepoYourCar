@@ -323,13 +323,14 @@ void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	g_signal_connect(theApp->stuPage->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
 	g_signal_connect(theApp->stuPage->grad_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
 	g_signal_connect(theApp->stuPage->student_edit, "clicked", G_CALLBACK (WindowApp::editStudent), theApp);
-	/*
-	
 
-	g_signal_connect(theApp->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
-	g_signal_connect(theApp->grad_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
-	g_signal_connect(theApp->student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
-	*/
+	g_signal_connect(theApp->stuPage->student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
+
+}
+
+void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){
+	gtk_widget_destroy(theApp->stuPage->student_window);
+
 }
 
 void WindowApp::closeStudentPage(GtkWidget *widget, WindowApp *theApp){

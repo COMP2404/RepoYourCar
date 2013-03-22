@@ -5,7 +5,7 @@ void AdminPage::adminPage(AdminWindow *window){
 	window->draw();
 
 	//g_signal_connect(manager.admin_viewSummary, "clicked", G_CALLBACK (AdminManager::viewSummaryClicked), this);
-	//g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
+	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
 	g_signal_connect(window->admin_viewSummary, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
 	//g_signal_connect (manager.admin_window, "delete-event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
@@ -65,6 +65,7 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
 	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
 	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
+	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
 	//if(window->allCourses)
 	//	updateCombo(widget,theApp);
 }
