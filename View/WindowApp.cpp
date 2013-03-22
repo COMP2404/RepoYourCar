@@ -372,12 +372,23 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	ga = new GradApp(gs, applicationNum++, course, "PENDING");
 	ga->setRelatedTAPositions(theApp->cQTa);
 	ga->setRelatedWorkEXP(theApp->jQRelated);
+	/*
+	if(theApp->gradAppPage->edit){
+		Application* app = theApp->appQueue.getOriginal(theApp->editGApp);
+		*app = *(theApp->editGApp);
+	}
+	else{
+		cout << "Making a new one\n";
+		theApp->appQueue.pushBack(ga, uga);
+		if(!ga->printApp(true))
+				return;
+	}
+	*/
+	
+	cout << "Making a new one\n";
 	theApp->appQueue.pushBack(ga, uga);
 	if(!ga->printApp(true))
 			return;
-	
-	
-	
 
 }
 void WindowApp::submitUGradApp(WindowApp* theApp){
