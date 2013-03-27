@@ -86,9 +86,11 @@ void UnderGradAppPage::errorCheck(WindowApp *app){
 		cout<<"check failed!"<<endl;
 }
 void UnderGradAppPage::submit(WindowApp *app){
-	UGradSubmitWindow *submitWindow = new UGradSubmitWindow();
-	submitWindow->draw(submitWindow);
-	g_signal_connect (submitWindow->submitFinish, "clicked", G_CALLBACK (UGradSubmitWindow::close), submitWindow);
+	app->uSubmitWindow = new UGradSubmitWindow();
+	app->uSubmitWindow->draw(app->uSubmitWindow);
+	//UGradSubmitWindow *submitWindow = new UGradSubmitWindow();
+	//submitWindow->draw(submitWindow);
+	g_signal_connect (app->uSubmitWindow->submitFinish, "clicked", G_CALLBACK (UGradSubmitWindow::close), app);
 	AppManager::submitUGradApp(app);
 
 }

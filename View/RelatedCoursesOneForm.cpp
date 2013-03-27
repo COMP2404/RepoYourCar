@@ -95,7 +95,7 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 			if (validRC1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
 				cout << ", at position " << validRC1 << endl;
-				WindowApp::popWindow("You entered a non-alphabetical character in Related Courses", theApp);
+				RelatedCoursesOneForm::popWindow("You entered a non-alphabetical character in Related Courses");
 				return false;
 		   	}
 			
@@ -103,21 +103,21 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 			else if (validterm1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm1];
 				cout << ", at position " << validterm1 << endl;
-				WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
+				RelatedCoursesOneForm::popWindow("You entered a non-alphabetical character in term");
 				return false;
 		   	}
 
 			
 			else if (grade != string::npos) {
 				cout << "Please Enter a Letter Grade" << endl;
-				WindowApp::popWindow("Please Enter a Letter Grade", theApp);
+				RelatedCoursesOneForm::popWindow("Please Enter a Letter Grade");
 				return false;return false;
 		   	}
 
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
-				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				RelatedCoursesOneForm::popWindow("Year must be between 1990 and 2013");
 				return false;
 			}
 			return true;
@@ -200,4 +200,33 @@ void RelatedCoursesOneForm::cleanup(WindowApp* app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblTerm);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblFinalGrade);
+}
+
+void RelatedCoursesOneForm::RelatedCoursesOneForm::popWindow(string s){
+	GtkWidget* error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(error_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	GtkWidget* error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(error_window), error_frame);
+
+	GtkWidget* error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	GtkWidget* error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_message, 10, 10); 
+
+
+	gtk_widget_show_all(error_window);
+
+	g_signal_connect(error_dismiss, "clicked", G_CALLBACK (RelatedCoursesOneForm::closePopWindow), error_window);
+	
+}
+
+void RelatedCoursesOneForm::closePopWindow(GtkWidget *widget, GtkWidget *window){
+	gtk_widget_destroy(window);
 }

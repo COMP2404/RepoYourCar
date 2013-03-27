@@ -92,7 +92,7 @@ void WindowApp::viewSummaryChoice(GtkWidget*widget, WindowApp *theApp){
 }
 
 void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
-	if(widget == theApp->btnOneCourse)
+	/*if(widget == theApp->btnOneCourse)
 		theApp->allCourses = false;
 	else{
 		theApp->allCourses = true;
@@ -101,6 +101,7 @@ void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
 		
 	gtk_widget_destroy(theApp->summary_choice_window);
 	WindowApp::viewSummary(widget,theApp);
+	*/
 }
 
 
@@ -108,7 +109,7 @@ void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
 void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	//gtk_widget_destroy(theApp->summary_combo);
-
+/*
 	cout << "Updating Combo" << endl;
 	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
 	cout << "Removed Text" << endl;
@@ -213,7 +214,7 @@ void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	
 	gtk_widget_show_all(theApp->window);
-
+	*/
 }
 
 
@@ -254,7 +255,7 @@ void WindowApp::mainMenu(GtkWidget *widget, WindowApp *theApp){
 
 
 void WindowApp::popWindow(string s, WindowApp *theApp){
-	theApp->error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	/*theApp->error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(theApp->error_window), GTK_WIN_POS_CENTER);	
 	gtk_window_set_default_size(GTK_WINDOW(theApp->error_window), 400, 200);
 	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
@@ -275,15 +276,16 @@ void WindowApp::popWindow(string s, WindowApp *theApp){
 	gtk_widget_show_all(theApp->error_window);
 
 	g_signal_connect(theApp->error_dismiss, "clicked", G_CALLBACK (WindowApp::closePopWindow), theApp);
+	*/
 }
 
 void WindowApp::closePopWindow(GtkWidget *widget, WindowApp *theApp){
-	gtk_widget_destroy(theApp->error_window);
+	//gtk_widget_destroy(theApp->error_window);
 }
 
 void WindowApp::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
 	
-	gtk_widget_destroy(theApp->admin_window);
+//	gtk_widget_destroy(theApp->admin_window);
 }
 
 
@@ -499,7 +501,7 @@ void WindowApp::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
 
 
 void WindowApp::workExperience(GtkWidget *widget, WindowApp *theApp){
-	
+/*	
 	/////////////////////////////////////////////////////
 	//-----------Remove Old Text Entries------////
 	/////////////////////////////////////////////////////
@@ -571,11 +573,12 @@ void WindowApp::workExperience(GtkWidget *widget, WindowApp *theApp){
 	g_signal_connect (theApp->ei_duration, "changed", G_CALLBACK (Control::quickCheck3), theApp);
 	g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::moveOn3), theApp);
 	g_signal_connect(theApp->ei_repeat3, "clicked", G_CALLBACK(Control::addAnother3), theApp);
+	*/
 }
 
 
 void WindowApp::submitToMain(GtkWidget* widget, WindowApp* theApp){
-	gtk_widget_destroy(theApp->appFrame);
-	WindowApp::mainMenu(NULL,theApp);
+	//gtk_widget_destroy(theApp->appFrame);
+	//WindowApp::mainMenu(NULL,theApp);
 	
 }

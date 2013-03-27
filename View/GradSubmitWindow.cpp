@@ -39,7 +39,8 @@ void GradSubmitWindow::draw(GradSubmitWindow *theApp){
 void GradSubmitWindow::submit(){
 
 }
-void GradSubmitWindow::close(GtkWidget *widget, GradSubmitWindow *page){
+void GradSubmitWindow::close(GtkWidget *widget, WindowApp *page){
 	cout<<"closing"<<endl;
-	gtk_widget_destroy(page->submitWindow);
+	gtk_widget_destroy(page->gSubmitWindow->submitWindow);
+	GradAppPage::close(widget,page);
 }

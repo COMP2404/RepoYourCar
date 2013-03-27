@@ -36,8 +36,8 @@ bool Control::errorCheck(string* course, string* first, string* last, string* mg
 
 int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 	
-		g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
-		g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
+	//	g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
+		//g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
 
 		//Control::submit(&string1,&string2,&string3,c,g,&string6,num, &string8, &string9, &string10, &string11, &string12, theApp);
 		
@@ -48,8 +48,8 @@ int Control::getInfo(GtkWidget *widget, WindowApp *theApp){
 }
 
 void Control::killSubmitWindow(GtkWidget *widget, WindowApp *theApp){
-	gtk_widget_destroy(theApp->submitWindow);
-	submitToMain(widget,theApp);
+	//gtk_widget_destroy(theApp->submitWindow);
+	//submitToMain(widget,theApp);
 }
 
 
@@ -414,7 +414,7 @@ void Control::moveOn3(GtkWidget *widget, WindowApp *theApp){
 
 void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 	
-
+/*
 	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
@@ -487,11 +487,12 @@ void Control::quickCheck(GtkWidget *widget, WindowApp *theApp){
 		
 		
 	}
+	*/
 }
 
 void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 	
-
+	/*
 	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="";
@@ -568,10 +569,12 @@ void Control::quickCheck2(GtkWidget *widget, WindowApp *theApp){
 		
 		
 	}
+
+	*/
 }
 
 void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
-	
+	/*
 
 	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
@@ -659,6 +662,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 		}
 		
 	}
+	*/
 }
 
 
@@ -672,7 +676,7 @@ void Control::quickCheck3(GtkWidget *widget, WindowApp *theApp){
 
 void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 		
-	
+	/*
 	/////////////////////////////////////////////////////
 	//-----------Remove Old Labels and text entires--////
 	/////////////////////////////////////////////////////
@@ -693,7 +697,7 @@ void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 	gtk_window_resize(GTK_WINDOW(theApp->window), 400,600);
 	gtk_widget_set_sensitive(theApp->submit, TRUE);
 	theApp->extra =false;
-
+	*/
 }
 
 
@@ -712,7 +716,7 @@ void Control::finishExtra(GtkWidget *widget, WindowApp *theApp){
 
 
 void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
-	const gchar *s1, *s2, *s3, *s4, *s5;
+/*	const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="";
 	
@@ -793,9 +797,9 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 			gtk_widget_set_sensitive(theApp->ei_repeat, FALSE);
 		}
 		
+		*/
 		
-		
-	}
+	//}
 
 
 
@@ -812,7 +816,7 @@ void Control::addAnother(GtkWidget *widget, WindowApp *theApp){
 }
 
 void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
-	const gchar *s1, *s2, *s3, *s4, *s5;
+	/*const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="";
 	
@@ -891,9 +895,9 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 		}
 		
 		
+		*/
 		
-		
-	}
+//	}
 
 
 
@@ -908,7 +912,7 @@ void Control::addAnother2(GtkWidget *widget, WindowApp *theApp){
 }
 
 void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
-	const gchar *s1, *s2, *s3, *s4, *s5;
+	/*const gchar *s1, *s2, *s3, *s4, *s5;
 	char *c1;
 	string string1 = "", string2= "", string3="", string4="", string5="";
 	
@@ -1003,7 +1007,7 @@ void Control::addAnother3(GtkWidget *widget, WindowApp *theApp){
 
 
 
-	
+	*/
 	
 }
 
@@ -1108,8 +1112,8 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 		
 	}
 	*/
-	gtk_widget_destroy(theApp->appFrame);
-	WindowApp::mainMenu(widget,theApp);
+	//gtk_widget_destroy(theApp->appFrame);
+	//WindowApp::mainMenu(widget,theApp);
 	
 
 
@@ -1125,8 +1129,8 @@ void Control::submitToMain(GtkWidget *widget,WindowApp *theApp){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Control::submitToRepeat(GtkWidget *widget,WindowApp *theApp){
-	gtk_widget_set_sensitive(theApp->combo, TRUE);
-	gtk_widget_hide(theApp->submitWindow);
+	//gtk_widget_set_sensitive(theApp->combo, TRUE);
+	//gtk_widget_hide(theApp->submitWindow);
 
 }
 
@@ -1237,7 +1241,7 @@ int Control::createWindow(int argc, char** argv)
 	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
 	gtk_window_set_title(GTK_WINDOW(theApp->window), "Main Menu");
 	//cout << "Calling WindowApp mani menu" <<endl;*/
-	WindowApp::mainMenu(theApp->window, theApp);
+	WindowApp::mainMenu(NULL, theApp);
 	
 
 	gtk_main();

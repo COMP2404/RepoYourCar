@@ -279,7 +279,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			if (validRC2 != string::npos) {
 				cout << "You entered an invalidcharacter, " << (string1)[validRC2];
 				cout << ", at position " << validRC2 << endl;
-				WindowApp::popWindow("You entered an invalid character in Related Courses", theApp);
+				RelatedCoursesTwoForm::popWindow("You entered an invalid character in Related Courses");
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -289,7 +289,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			else if (validterm2 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
 				cout << ", at position " << validterm2 << endl;
-				WindowApp::popWindow("You entered a non-alphabetical character in term", theApp);
+				RelatedCoursesTwoForm::popWindow("You entered a non-alphabetical character in term");
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -299,7 +299,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
 				cout << ", at position " << supervisor << endl;
-				WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
+				RelatedCoursesTwoForm::popWindow("You entered a non-alphabetical character in supervisor");
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -309,7 +309,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
-				WindowApp::popWindow("Year must be between 1990 and 2013", theApp);
+				RelatedCoursesTwoForm::popWindow("Year must be between 1990 and 2013");
 				//theApp->checkGood = false;
 				//theApp->moveOn = false;
 				return false;
@@ -360,7 +360,7 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 			if (validRC2 != string::npos) {
 				cout << "You entered an invalidcharacter, " << (string1)[validRC2];
 				cout << ", at position " << validRC2 << endl;
-				//WindowApp::popWindow("You entered an invalid character in Related Courses", theApp->gradAppPage->form);
+				RelatedCoursesTwoForm::popWindow("You entered an invalid character in Related Courses");
 				//theApp->gradAppPage->form->checkGood = false;
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
@@ -370,7 +370,7 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 			else if (validterm2 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string3)[validterm2];
 				cout << ", at position " << validterm2 << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in term", theApp->gradAppPage->form);
+				RelatedCoursesTwoForm::popWindow("You entered a non-alphabetical character in term");
 				//theApp->gradAppPage->form->checkGood = false;
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
@@ -380,7 +380,7 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
 				cout << ", at position " << supervisor << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp->gradAppPage->form);
+				RelatedCoursesTwoForm::popWindow("You entered a non-alphabetical character in supervisor");
 				//theApp->gradAppPage->form->checkGood = false;
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
@@ -390,7 +390,7 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 
-				//WindowApp::popWindow("Year must be between 1990 and 2013", theApp->gradAppPage->form);
+				RelatedCoursesTwoForm::popWindow("Year must be between 1990 and 2013");
 				//theApp->gradAppPage->form->checkGood = false;
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
@@ -432,4 +432,33 @@ void RelatedCoursesTwoForm::cleanupUGrad(WindowApp *app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblTerm);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblSupervisor);
+}
+
+void RelatedCoursesTwoForm::popWindow(string s){
+	GtkWidget* error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(error_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	GtkWidget* error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(error_window), error_frame);
+
+	GtkWidget* error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	GtkWidget* error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_message, 10, 10); 
+
+
+	gtk_widget_show_all(error_window);
+
+	g_signal_connect(error_dismiss, "clicked", G_CALLBACK (RelatedCoursesTwoForm::closePopWindow), error_window);
+	
+}
+
+void RelatedCoursesTwoForm::closePopWindow(GtkWidget *widget, GtkWidget *window){
+	gtk_widget_destroy(window);
 }

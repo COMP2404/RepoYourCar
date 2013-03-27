@@ -32,7 +32,8 @@ class GradAppPage : public AppPage{
 		friend class WindowApp;
 		friend class AppManager;
 		friend class GradAppData;
-		//friend class GradForm;
+		friend class GradSubmitWindow;
+		//friend class UGradSubmitWindow;
 		friend class RelatedCoursesTwoForm;
 		
 		friend class WorkExperienceForm; 

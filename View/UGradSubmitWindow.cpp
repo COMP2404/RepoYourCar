@@ -40,7 +40,8 @@ void UGradSubmitWindow::submit(){
 	cout<<"submitted"<<endl;
 	
 }
-void UGradSubmitWindow::close(GtkWidget *widget, UGradSubmitWindow *page){
+void UGradSubmitWindow::close(GtkWidget *widget, WindowApp *page){
 	cout<<"closing"<<endl;
-	gtk_widget_destroy(page->submitWindow);
+	gtk_widget_destroy(page->uSubmitWindow->submitWindow);
+	UnderGradAppPage::close(widget,page);
 }

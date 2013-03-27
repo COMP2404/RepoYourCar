@@ -102,9 +102,12 @@ void GradAppPage::errorCheck(WindowApp *app){
 		cout<<"check failed!"<<endl;
 }
 void GradAppPage::submit(WindowApp *app){
-	GradSubmitWindow *submitWindow = new GradSubmitWindow();
-	submitWindow->draw(submitWindow);
-	g_signal_connect (submitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), submitWindow);
+	//GradSubmitWindow *submitWindow = new GradSubmitWindow();
+	app->gSubmitWindow = new GradSubmitWindow();
+	app->gSubmitWindow->draw(app->gSubmitWindow);
+	//submitWindow->draw(submitWindow);
+	g_signal_connect (app->gSubmitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), app);
+	//g_signal_connect (submitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), submitWindow);
 	AppManager::submitGradApp(app);
 }
 void GradAppPage::fillInData(Application* app, WindowApp *theApp){
@@ -162,7 +165,7 @@ void GradAppPage::fillInWorkExp(WindowApp* theApp){
 }
 void GradAppPage::editNextJob(WindowApp *theApp){
 	if(theApp->gradAppPage->workExpQueue->isEmpty()){
-		cout << "fuck " << endl;
+		
 		//Job *job = theApp->gradAppPage->workExpQueue->popFront();
 	
 		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());

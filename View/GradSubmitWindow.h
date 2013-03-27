@@ -7,7 +7,8 @@
 #include <stdlib.h>
 #include <sstream>
 #include <gtk/gtk.h>
-
+class WindowApp;
+#include "WindowApp.h"
 
 
 //
@@ -23,7 +24,7 @@ class GradSubmitWindow{
 	private:
 		void draw(GradSubmitWindow*);
 		void submit();
-		static void close(GtkWidget*,GradSubmitWindow*);
+		static void close(GtkWidget*,WindowApp*);
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat, *submitFinish;
 		
 		

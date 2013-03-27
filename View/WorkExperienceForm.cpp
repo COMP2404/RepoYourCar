@@ -243,7 +243,7 @@ bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){
 				
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
 				cout << ", at position " << validRW << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in related work", windowApp);
+				WorkExperienceForm::popWindow("You entered a non-alphabetical character in related work");
 				return false;
 		   	}
 			
@@ -251,14 +251,14 @@ bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){
 			else if (validresp != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string2)[validresp];
 				cout << ", at position " << validresp << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character in responsabilites", windowApp);
+				WorkExperienceForm::popWindow("You entered a non-alphabetical character in responsabilites");
 				return false;
 		   	}
 			
 			else if (validdur != string::npos) {
 				cout << "Duration: enter a # for months" << (string3)[validdur];
 				//cout << ", at position " << validdur << endl;
-				//WindowApp::popWindow("Please enter a number for months", windowApp);
+				WorkExperienceForm::popWindow("Please enter a number for months");
 				return false;
 		   	}
 
@@ -266,7 +266,7 @@ bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){
 			else if (startDate != string::npos) {
 				cout << "Start Date format is incorrect " << (string4)[startDate];
 				cout << ", at position " << startDate << endl;
-				//WindowApp::popWindow("Wrong Format for Start Date", windowApp);
+				WorkExperienceForm::popWindow("Wrong Format for Start Date");
 				return false;
 		   	}
 
@@ -274,7 +274,7 @@ bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){
 			else if (endDate != string::npos) {
 				cout << "End Date format is incorrect, " << (string5)[endDate];
 				cout << ", at position " << endDate << endl;
-				//WindowApp::popWindow("Wrong Format for End Date", windowApp);
+				WorkExperienceForm::popWindow("Wrong Format for End Date");
 				return false;
 		   	}
 
@@ -318,7 +318,7 @@ bool WorkExperienceForm::errorCheckUGrad(WindowApp *windowApp){
 			if (validRW != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRW];
 				cout << ", at position " << validRW << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character", windowApp);
+				WorkExperienceForm::popWindow("You entered a non-alphabetical character in related work");
 				return false;
 		   	}
 			
@@ -326,30 +326,38 @@ bool WorkExperienceForm::errorCheckUGrad(WindowApp *windowApp){
 			else if (validresp != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string2)[validresp];
 				cout << ", at position " << validresp << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character", windowApp);
+				WorkExperienceForm::popWindow("You entered a non-alphabetical character");
 				return false;
 		   	}
 			
 			else if (validdur != string::npos) {
 				cout << "Enter # of months" << (string3)[validdur];
 				//cout << ", at position " << validdur << endl;
-				//WindowApp::popWindow("You entered a non-alphabetical character", windowApp);
+				WorkExperienceForm::popWindow("You entered a non-alphabetical character in responsabilites");
+				return false;
+		   	}
+
+			
+			else if (validdur != string::npos) {
+				cout << "Duration: enter a # for months" << (string3)[validdur];
+				//cout << ", at position " << validdur << endl;
+				WorkExperienceForm::popWindow("Please enter a number for months");
 				return false;
 		   	}
 
 			
 			else if (startDate != string::npos) {
-				cout << "You entered a non-alphabetical character, " << (string4)[startDate];
+				cout << "Start Date format is incorrect " << (string4)[startDate];
 				cout << ", at position " << startDate << endl;
-				//WindowApp::popWindow("Wrong Format for Start Date", windowApp);
+				WorkExperienceForm::popWindow("Wrong Format for Start Date");
 				return false;
 		   	}
 
 			
 			else if (endDate != string::npos) {
-				cout << "You entered a non-alphabetical character, " << (string5)[endDate];
+				cout << "End Date format is incorrect, " << (string5)[endDate];
 				cout << ", at position " << endDate << endl;
-				//WindowApp::popWindow("Wrong Format for End Date", windowApp);
+				WorkExperienceForm::popWindow("Wrong Format for End Date");
 				return false;
 		   	}
 
@@ -391,3 +399,31 @@ void WorkExperienceForm::cleanupUGrad(WindowApp* app){
 	gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
 }
 
+void WorkExperienceForm::popWindow(string s){
+	GtkWidget* error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(error_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	GtkWidget* error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(error_window), error_frame);
+
+	GtkWidget* error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	GtkWidget* error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_message, 10, 10); 
+
+
+	gtk_widget_show_all(error_window);
+
+	g_signal_connect(error_dismiss, "clicked", G_CALLBACK (WorkExperienceForm::closePopWindow), error_window);
+	
+}
+
+void WorkExperienceForm::closePopWindow(GtkWidget *widget, GtkWidget *window){
+	gtk_widget_destroy(window);
+}

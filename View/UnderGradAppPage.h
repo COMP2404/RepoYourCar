@@ -33,7 +33,7 @@ class UnderGradAppPage : public AppPage{
 		friend class WindowApp;
 		friend class AppManager;
 		friend class UGradAppData;
-		//friend class UnderGradForm;
+		friend class UGradSubmitWindow;
 		friend class RelatedCoursesTwoForm;
 		friend class RelatedCoursesOneForm;
 		friend class WorkExperienceForm;

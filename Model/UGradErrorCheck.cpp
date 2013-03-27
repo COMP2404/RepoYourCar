@@ -35,32 +35,32 @@ bool UGradErrorCheck::check(UGradAppData* data){
 
 		if(mgpa.length() == 0){
 			cout << "MGPA is empty" <<endl;
-			//WindowApp::popWindow("MGPA is empty", theApp);
+			popWindow("MGPA is empty");
 			return !good;
 		}
                 
 		else if(gpa.length() == 0){
 			cout << "GPA is empty" <<endl;
-			//WindowApp::popWindow("GPA is empty", theApp);
+			popWindow("GPA is empty");
 			return !good;
 		}
 
 		else if(year.length() == 0){
 			cout << "year is Empty" <<endl;
-			//WindowApp::popWindow("year is Empty", theApp);
+			popWindow("year is Empty");
 			return !good;
 		}
                
 		else if(major.length() == 0){
 			cout << "Major is Empty" <<endl;
-			//WindowApp::popWindow("Major is Empty", theApp);
+			popWindow("Major is Empty");
 			return !good;
 		}
 		else if (validGPA != string::npos) {
 			cout << "You entered a non-alphabetical character, " << (gpa)[validGPA];
 			cout << ", at position " << validGPA << endl;
 			
-			//WindowApp::popWindow("Please Enter a valid GPA", theApp);
+			popWindow("Please Enter a valid GPA");
 			return !good;
 		
   		}
@@ -68,29 +68,29 @@ bool UGradErrorCheck::check(UGradAppData* data){
 			cout << "You entered a non-alphabetical character, " << (mgpa)[validCGPA];
 			cout << ", at position " << validCGPA << endl;
 				
-			//WindowApp::popWindow("Please Enter a valid CGPA", theApp);
+			popWindow("Please Enter a valid CGPA");
 			return !good;
 			
 	   	}
 		
 			
 		else if(mg < 0 || mg > 12){
-			//WindowApp::popWindow("Enter a GPA between 0 and 12", theApp);
+			popWindow("Enter a GPA between 0 and 12");
 			return !good;
 		}
 		else if(cg < 0 || cg > 12){
-			//WindowApp::popWindow("Enter a CGPA between 0 and 12", theApp);
+			popWindow("Enter a CGPA between 0 and 12");
 			return !good;
 		}
 		else if (yr < 1 || yr > 4) {
 			cout << "Year standing must be either 1, 2, 3, or 4. Please try again" << endl; 
-			//WindowApp::popWindow("Year standing must be either 1, 2, 3, or 4.", theApp);
+			popWindow("Year standing must be either 1, 2, 3, or 4.");
 			return !good;
 		}
 		else if (invalidE != string::npos) {
 			cout << "You entered a non-alphabetical character, " << (major)[invalidE];
 			cout << ", at position " << invalidE << endl;
-			//WindowApp::popWindow("You entered a non-alphabetical character in major", theApp);
+			popWindow("You entered a non-alphabetical character in major");
 			return !good;
    		}
 	
@@ -99,21 +99,21 @@ bool UGradErrorCheck::check(UGradAppData* data){
 
 	if(course.length() == 0){
 		cout << "Course is empty" <<endl;
-		//WindowApp::popWindow("Choose a course", theApp);
+		popWindow("Choose a course");
 		return !good;
 		
 	}
 		
 	else if(first.length() == 0){
 		cout << "First name is empty" <<endl;
-		//WindowApp::popWindow("First name is empty", theApp);
+		popWindow("First name is empty");
 		return !good;
 	}
                 
 		
 	else if(last.length() == 0){
 		cout << "Last Name is Empty" <<endl;
-		//WindowApp::popWindow("Last Name is Empty", theApp);
+		popWindow("Last Name is Empty");
 		return !good;
 	}
                 
@@ -121,7 +121,7 @@ bool UGradErrorCheck::check(UGradAppData* data){
                 
 	else if(email.length() == 0){
 		cout << "Email is Empty" <<endl;
-		//WindowApp::popWindow("Email is Empty", theApp);
+		popWindow("Email is Empty");
 		return !good;
 	}
                 	
@@ -129,7 +129,7 @@ bool UGradErrorCheck::check(UGradAppData* data){
                 
 	else if(stunum.length() == 0){
 		cout << "Student Number is Empty" <<endl;
-		//WindowApp::popWindow("Student Number is Empty", theApp);
+		popWindow("Student Number is Empty");
 		return !good;
 	}
 
@@ -141,7 +141,7 @@ bool UGradErrorCheck::check(UGradAppData* data){
 		cout << "You entered a non-alphabetical character, " << (first)[invalidF];
 		cout << ", at position " << invalidF << endl;
 			
-		//WindowApp::popWindow("You entered a non-alphabetical character in first name", theApp);
+		popWindow("You entered a non-alphabetical character in first name");
 		return !good;
 		
    	}
@@ -152,7 +152,7 @@ bool UGradErrorCheck::check(UGradAppData* data){
 	else if (invalidL != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (last)[invalidL];
 		cout << ", at position " << invalidL << endl;
-		//WindowApp::popWindow("You entered a non-alphabetical character in last name", theApp);
+		popWindow("You entered a non-alphabetical character in last name");
 		return !good;
    	}
 
@@ -163,7 +163,7 @@ bool UGradErrorCheck::check(UGradAppData* data){
 
 	else if (validChars1 == string::npos) {
 		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
-		//WindowApp::popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.", theApp);
+		popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.");
 		return !good;
 	}
 
@@ -176,13 +176,13 @@ bool UGradErrorCheck::check(UGradAppData* data){
 	else if (validStu != string::npos) {
 		cout << "You entered a character which is not a number between 0-9: " << (stunum)[validStu];
 		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
-		//WindowApp::popWindow("Your student number contains invalid characters", theApp);
+		popWindow("Your student number contains invalid characters");
 		return !good;
     }
 
 	else if ((stunum).length() != 9) {
 		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
-		//WindowApp::popWindow("A valid student number has exactly 9 characters.", theApp);
+		popWindow("A valid student number has exactly 9 characters.");
 		return !good;
 	}
 	
@@ -194,4 +194,35 @@ bool UGradErrorCheck::check(UGradAppData* data){
 	
 
 	return good;
+}
+
+
+
+void UGradErrorCheck::popWindow(string s){
+	error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(error_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(error_window), error_frame);
+
+	error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_message, 10, 10); 
+
+
+	gtk_widget_show_all(error_window);
+
+	g_signal_connect(error_dismiss, "clicked", G_CALLBACK (UGradErrorCheck::closePopWindow), error_window);
+	
+}
+
+void UGradErrorCheck::closePopWindow(GtkWidget *widget, GtkWidget *window){
+	gtk_widget_destroy(window);
 }

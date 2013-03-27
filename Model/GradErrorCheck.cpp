@@ -30,13 +30,13 @@ bool GradErrorCheck::check(GradAppData* data){
 	//string* areas, string* program, string* supervisor
 	if(areas.length() == 0){
 		cout << "Study Area is empty" <<endl;
-		//WindowApp::popWindow("Choose a main study area", theApp);
+		popWindow("Choose a main study area");
 		return !good;
 	
 	}
 	else if(program.length() == 0){
 		cout << "Program is empty" <<endl;
-		//WindowApp::popWindow("Choose a program", theApp);
+		popWindow("Choose a program");
 		return !good;
 		
 	}
@@ -48,21 +48,21 @@ bool GradErrorCheck::check(GradAppData* data){
 
 	if(course.length() == 0){
 		cout << "Course is empty" <<endl;
-		//WindowApp::popWindow("Choose a course", theApp);
+		popWindow("Choose a course");
 		return !good;
 		
 	}
 		
 	else if(first.length() == 0){
 		cout << "First name is empty" <<endl;
-		//WindowApp::popWindow("First name is empty", theApp);
+		popWindow("First name is empty");
 		return !good;
 	}
                 
 		
 	else if(last.length() == 0){
 		cout << "Last Name is Empty" <<endl;
-		//WindowApp::popWindow("Last Name is Empty", theApp);
+		popWindow("Last Name is Empty");
 		return !good;
 	}
                 
@@ -70,7 +70,7 @@ bool GradErrorCheck::check(GradAppData* data){
                 
 	else if(email.length() == 0){
 		cout << "Email is Empty" <<endl;
-		//WindowApp::popWindow("Email is Empty", theApp);
+		popWindow("Email is Empty");
 		return !good;
 	}
                 	
@@ -78,7 +78,7 @@ bool GradErrorCheck::check(GradAppData* data){
                 
 	else if(stunum.length() == 0){
 		cout << "Student Number is Empty" <<endl;
-		//WindowApp::popWindow("Student Number is Empty", theApp);
+		popWindow("Student Number is Empty");
 		return !good;
 	}
 
@@ -90,7 +90,7 @@ bool GradErrorCheck::check(GradAppData* data){
 		cout << "You entered a non-alphabetical character, " << (first)[invalidF];
 		cout << ", at position " << invalidF << endl;
 			
-		//WindowApp::popWindow("You entered a non-alphabetical character in first name", theApp);
+		popWindow("You entered a non-alphabetical character in first name");
 		return !good;
 		
    	}
@@ -101,14 +101,14 @@ bool GradErrorCheck::check(GradAppData* data){
 	else if (invalidL != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (last)[invalidL];
 		cout << ", at position " << invalidL << endl;
-		//WindowApp::popWindow("You entered a non-alphabetical character in last name", theApp);
+		popWindow("You entered a non-alphabetical character in last name");
 		return !good;
    	}
 
    	else if (invalidSup != string::npos) {
 		cout << "You entered a non-alphabetical character, " << (supervisor)[invalidSup];
 		cout << ", at position " << invalidSup << endl;
-		//WindowApp::popWindow("You entered a non-alphabetical character in supervisor", theApp);
+		popWindow("You entered a non-alphabetical character in supervisor");
 		return !good;
    	}
 
@@ -117,7 +117,7 @@ bool GradErrorCheck::check(GradAppData* data){
 
 	else if (validChars1 == string::npos) {
 		cout << "Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register." << endl;
-		//WindowApp::popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.", theApp);
+		popWindow("Invalid e-mail address. Please enter your Carleton e-mail address (yourname@carleton.ca) to register.");
 		return !good;
 	}
 
@@ -130,13 +130,13 @@ bool GradErrorCheck::check(GradAppData* data){
 	else if (validStu != string::npos) {
 		cout << "You entered a character which is not a number between 0-9: " << (stunum)[validStu];
 		cout << ", at position " << validStu << "Please re-enter your student number." << endl;
-		//WindowApp::popWindow("Your student number contains invalid characters", theApp);
+		popWindow("Your student number contains invalid characters");
 		return !good;
     }
 
 	else if ((stunum).length() != 9) {
 		cout << "A valid student number has exactly 9 characters. Please re-enter your student number." << endl;
-		//WindowApp::popWindow("A valid student number has exactly 9 characters.", theApp);
+		popWindow("A valid student number has exactly 9 characters.");
 		return !good;
 	}
 	
@@ -148,4 +148,33 @@ bool GradErrorCheck::check(GradAppData* data){
 	
 
 	return good;
+}
+
+void GradErrorCheck::popWindow(string s){
+	error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	
+	gtk_window_set_default_size(GTK_WINDOW(error_window), 400, 200);
+	
+	gtk_window_set_title(GTK_WINDOW(error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	
+	error_frame = gtk_fixed_new();
+	gtk_container_add(GTK_CONTAINER(error_window), error_frame);
+
+	error_dismiss = gtk_button_new_with_label("Dismiss");
+	gtk_widget_set_size_request(error_dismiss , 80, 35);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_dismiss , 100, 100);	
+	const gchar* message;
+	message = s.c_str();
+	error_message = gtk_label_new(message);
+	gtk_fixed_put(GTK_FIXED(error_frame), error_message, 10, 10); 
+
+
+	gtk_widget_show_all(error_window);
+
+	g_signal_connect(error_dismiss, "clicked", G_CALLBACK (GradErrorCheck::closePopWindow), error_window);
+	
+}
+
+void GradErrorCheck::closePopWindow(GtkWidget *widget, GtkWidget *window){
+	gtk_widget_destroy(window);
 }

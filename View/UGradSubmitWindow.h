@@ -7,7 +7,8 @@
 #include <stdlib.h>
 #include <sstream>
 #include <gtk/gtk.h>
-
+class WindowApp;
+#include "WindowApp.h"
 
 
 //
@@ -19,11 +20,11 @@ using namespace std;
 class UGradSubmitWindow{
 	public:
 		friend class UnderGradAppPage;
-		
+		friend class WindowApp;
 	private:
 		void draw(UGradSubmitWindow*);
 		void submit();
-		static void close(GtkWidget*,UGradSubmitWindow*);
+		static void close(GtkWidget*,WindowApp*);
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat,*submitFinish;
 		
 		
