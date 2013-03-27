@@ -68,7 +68,7 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	}
 	
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
-	g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);
+	//g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);
 	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
 	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
 	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
@@ -117,7 +117,7 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
 	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
-	gtk_widget_set_sensitive(window->printSum, TRUE);
+	//gtk_widget_set_sensitive(window->printSum, TRUE);
 	
 	AppQueue* qCopy = new AppQueue(window->theApp->appQueue);
 	cout << *qCopy;
@@ -186,6 +186,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	 int i = 0;
 	//for(int i=0; i<length; i++){
 	while(app != NULL){
+		//gtk_widget_set_sensitive(window->printSum, TRUE);
 		std::stringstream ss1; 
 		std::stringstream ss2; 
 		std::stringstream ss3;

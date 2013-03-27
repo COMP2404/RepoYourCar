@@ -316,12 +316,13 @@ AppQueue& AppQueue::operator!(){
 }
 
 ostream& operator<<(ostream& out, AppQueue& q){
-	if(q.isEmpty()) out << "The Queue is empty"<<endl;
+/*	if(q.isEmpty()) out << "The Queue is empty"<<endl;
 	AppQueue::AppNode* tmp = q.head; 
 	while(tmp != NULL){
 		out << *(tmp->data) << endl;;
 		tmp = tmp->next;
 	}
+	*/
 	return out;
 }
 
