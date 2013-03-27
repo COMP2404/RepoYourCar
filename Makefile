@@ -88,10 +88,10 @@ UndergradApp.o:	Model/UndergradApp.cpp Model/UndergradApp.h
 		g++ -c Model/UndergradApp.cpp
 
 GradErrorCheck.o:	Model/GradErrorCheck.cpp Model/GradErrorCheck.h
-		g++ -c Model/GradErrorCheck.cpp
+		g++ -c Model/GradErrorCheck.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
 UGradErrorCheck.o:	Model/UGradErrorCheck.cpp Model/UGradErrorCheck.h
-		g++ -c Model/UGradErrorCheck.cpp
+		g++ -c Model/UGradErrorCheck.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
 GradAppData.o:	Model/GradAppData.cpp Model/GradAppData.h
 		g++ -c Model/GradAppData.cpp
