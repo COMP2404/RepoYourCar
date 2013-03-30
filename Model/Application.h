@@ -25,7 +25,7 @@ public:
 	//FUNCTIONS---------------------
 	
 	
-	int      getApplicationNumber(void);
+	virtual int      getApplicationNumber(void) = 0;
 	string   getCourse(void);
 	string   getStatus();
 

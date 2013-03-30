@@ -44,8 +44,6 @@ Application::Application(int appNum, string cor, string stat,string type){
 	
 }
 
-bool Application::printModifiedApp(ofstream& out){}
-
 Application::Application(Application& app){
 	cout << "IN APP CCTOR\n";
 	
@@ -74,23 +72,16 @@ string   Application::getType(){  return stuType; }
 //==============================OPERATORS========================================
 Application& Application::operator-(){
 	applicationStatus = "closed";
-	return *this;
 }
 
 Application& Application::operator+(){
 	applicationStatus = "assigned";
-	return *this;
 }
 
 ostream& operator<<(ostream& out, Application& app){
-	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course << " Status: " << app.applicationStatus;
+	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course;
 
 	return out;
-}
-
-bool Application::operator==(Application& app){
-	return (applicationNumber == app.getApplicationNumber ()
-				    && course == app.getCourse() );
 }
 //===============================================================================
 
@@ -101,7 +92,7 @@ Application::~Application(){
 }
 
 
-bool Application::printApp(bool append){
+bool Application::printApp(){
 	/*
 	int i;
 
@@ -208,10 +199,6 @@ bool Application::printApp(bool append){
 	outFile << "ENDAPP" << endl;	*/
 
 }
-
-
-
-
 /*
 void Application::setRelatedCourses(CourseQueue *queue){
 	relatedCourses = queue;
@@ -230,5 +217,4 @@ void Application::setRelatedWorkEXP(JobQueue *queue){
 	relatedWorkEXP = queue;
 
 }
-
 
