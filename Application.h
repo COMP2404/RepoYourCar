@@ -25,7 +25,7 @@ public:
 	//FUNCTIONS---------------------
 	
 	
-	int      getApplicationNumber(void);
+	virtual int      getApplicationNumber(void) = 0;
 	string   getCourse(void);
 	string   getStatus();
 
@@ -38,8 +38,11 @@ public:
 	
 	void	 setRelatedTAPositions(CourseQueue*);
 	void	 setRelatedWorkEXP(JobQueue*);
+	//bool 	 saveSummary();
 
-	virtual bool printApp();
+	//virtual string getStuName();
+	virtual bool printApp(bool);
+	virtual bool printModifiedApp(ofstream&);
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
 	Application(Application&);//COPY CONSTRUCTOR!
@@ -50,6 +53,7 @@ public:
 
 	Application& operator-();//unary '-' changes status of application to "closed"
     Application& operator+();//unary '+' changes status to "assigned"
+    bool 		 operator==(Application&);
 
 protected:
 	//VARIABLES---------------------
@@ -72,3 +76,4 @@ protected:
 
 
 #endif
+
