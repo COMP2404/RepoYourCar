@@ -26,7 +26,7 @@ int      UndergradApp::getStuCGPA(){ return stuCGPA; }
 int      UndergradApp::getStuMGPA(){ return stuMGPA; }
 string   UndergradApp::getStuMajor(){ return stuMajor; }
 int      UndergradApp::getStuYrStanding(){ return stuYearStanding; }
-string   UndergradApp::getStuName(){ return stuFirst; }
+string   UndergradApp::getStuFirst(){ return stuFirst; }
 string   UndergradApp::getStuLast(){ return stuLast; }
 
 

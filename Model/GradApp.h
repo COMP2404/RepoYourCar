@@ -11,22 +11,42 @@
 
 #define INCLUDED
 using namespace std;
-#include "CourseQueue.h"
-#include "JobQueue.h"
+//#include "CourseQueue.h"
+//#include "JobQueue.h"
+#include "Queue.h"
 
 class GradApp : public Application{
 public:
-	//Application(GradStudent*, UndergradStudent*, int, string="unknown", string="pending");
+	//Constructors
 	GradApp(GradStudent *, int, string, string);
-	~GradApp();
+	virtual ~GradApp();
+	///////////
+	//GETTERS//
+	//////////
+	
+	//From base Application
+	int      getApplicationNumber();
+	string   getAppStatus();
+	string   getStuFirst();
+	string   getStuLast();
+	string   getCourse();
+	string   getStatus();
+	string   getStuEmail();
+	string   getStuID();
+	string   getStuType();
+	bool 	 printApp(bool);
+	bool     saveSummary();
+	bool 	 printModifiedApp(ofstream&);
+	Application& operator-();//unary '-' changes status of application to "closed"
+    	Application& operator+();//unary '+' changes status to "assigned"
+    	bool operator==(Application&);
+
+	//New for gradApp's
 	string   getStuProgram();
 	string   getStuArea();
 	string   getStuSuper();
-	bool 	 printApp(bool);
-	string 	 getStuName();
-	bool     saveSummary();
-	string   getStuLast();
-	bool 	 printModifiedApp(ofstream&);
+
+	string 	 getStuName(); //?
 
 private:
 	string stuProgram;

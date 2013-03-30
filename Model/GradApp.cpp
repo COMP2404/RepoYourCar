@@ -25,23 +25,24 @@ GradApp::~GradApp(){
 }
 
 //==============================GETTERS==========================================
-string 	 GradApp::getStuArea(){ return stuArea;}
-string   GradApp::getStuSuper(){ return stuSuper;}
-string   GradApp::getStuProgram(){return stuProgram;}
-string 	 GradApp::getStuName(){ return stuFirst; }
-string	 GradApp::getStuLast(){ return stuLast; }
-//string   GradApp::getType() {return stuType;}
+	int GradApp::getApplicationNumber(){ return applicationNumber; }
+	string   GradApp::getStuFirst(){ return stuFirst; }
+	string   GradApp::getStuLast(){ return stuLast; }
+	string   GradApp::getCourse(){ return course; }
+	string   GradApp::getStatus(){ return applicationStatus; }
+	string   GradApp::getStuEmail(){ return stuEmail; }
+	string   GradApp::getStuID(){ return stuID; }
+	string   GradApp::getStuType(){  return stuType; }
+	
+	string 	 GradApp::getStuArea(){ return stuArea;}
+	string   GradApp::getStuSuper(){ return stuSuper;}
+	string   GradApp::getStuProgram(){return stuProgram;}
 
-bool GradApp::saveSummary(){
+	bool GradApp::saveSummary(){
 	
 	//debugging stuff..
 	int i;
 	int aSize;
-	
-	//int rlTAS = relatedTAPositions->size();
-	//int rlWS = relatedWorkEXP->size();
-	//there.
-
 
 	//Course tempCourse;
 	string fileName = applicationNumber + ".txt";
@@ -74,7 +75,7 @@ bool GradApp::saveSummary(){
 	//Save the related TA positions:
 	outFile << "Related TA Positions:" << endl <<endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	for(i=0; i < aSize; i++){
 		outFile << "Related TA Position " << i << ":" <<endl;
@@ -88,7 +89,7 @@ bool GradApp::saveSummary(){
 	//Save related work EXP
 	outFile << "Related Work Experience" << endl <<endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << "Related Job " << i << ":" <<endl;
@@ -140,7 +141,7 @@ bool GradApp::printApp(bool append){
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	int i;
 	for(i=0; i < aSize; i++){
@@ -155,7 +156,7 @@ bool GradApp::printApp(bool append){
 	//Save related work EXP
 	outFile << "WORKEXP" << endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getJobTitle() << endl;
@@ -204,7 +205,7 @@ bool GradApp::printModifiedApp(ofstream& outFile){
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	int i;
 	for(i=0; i < aSize; i++){
@@ -219,7 +220,7 @@ bool GradApp::printModifiedApp(ofstream& outFile){
 	//Save related work EXP
 	outFile << "WORKEXP" << endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getJobTitle() << endl;
