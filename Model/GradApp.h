@@ -19,7 +19,7 @@ class GradApp : public Application{
 public:
 	//Constructors
 	GradApp(GradStudent *, int, string, string);
-	virtual ~GradApp();
+	~GradApp();
 	///////////
 	//GETTERS//
 	//////////
@@ -37,9 +37,10 @@ public:
 	bool 	 printApp(bool);
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
+	
 	Application& operator-();//unary '-' changes status of application to "closed"
-    	Application& operator+();//unary '+' changes status to "assigned"
-    	bool operator==(Application&);
+    Application& operator+();//unary '+' changes status to "assigned"
+    bool operator==(Application&);
 
 	//New for gradApp's
 	string   getStuProgram();

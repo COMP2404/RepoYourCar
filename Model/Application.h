@@ -19,8 +19,8 @@ using namespace std;
 #include "JobQueue.h"
 //class Queue<Course>;
 //class Queue<Job>;
-template<typename T>
-class Queue;
+template<typename T>//FORWARD DECLERATION
+class Queue;//---------------------------
 
 class Application{
 
@@ -31,7 +31,7 @@ public:
 	//FUNCTIONS---------------------
 	
 	
-	virtual int      getApplicationNumber(void) = 0;
+	int      getApplicationNumber(void);
 	string   getCourse(void);
 	string   getStatus();
 	string	 getStuName();
@@ -47,8 +47,8 @@ public:
 	//bool 	 saveSummary();
 
 	//virtual string getStuName();
-	virtual bool printApp();
-	virtual bool printModifiedApp(ofstream&){}
+	virtual bool printApp(bool) = 0;
+	virtual bool printModifiedApp(ofstream&) = 0;
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
 	Application(Application&);//COPY CONSTRUCTOR!

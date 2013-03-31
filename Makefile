@@ -66,7 +66,7 @@ GradSubmitWindow.o: View/GradSubmitWindow.cpp View/GradSubmitWindow.h
 UGradSubmitWindow.o: View/UGradSubmitWindow.cpp View/UGradSubmitWindow.h
 		g++ -c View/UGradSubmitWindow.cpp `pkg-config gtkmm-3.0 --cflags --libs`
 
-Queue.o:	Model/Queue.h
+Queue.o:	Model/Queue.cpp Model/Queue.h
 		g++ -c Model/Queue.cpp	
 
 Application.o:	Model/Application.cpp Model/Application.h
@@ -118,7 +118,7 @@ Course.o:	Model/Course.cpp Model/Course.h
 Job.o:		Model/Job.cpp Model/Job.h
 		g++ -c Model/Job.cpp
 
-Node.o:	Model/Node.h
+Node.o:	Model/Node.cpp Model/Node.h
 		g++ -c Model/Node.cpp
 
 run:

@@ -79,6 +79,10 @@ Application& Application::operator+(){
 	applicationStatus = "assigned";
 }
 
+bool Application::operator==(Application& app){
+	return (course == app.getCourse() && applicationNumber == app.getApplicationNumber());
+}
+
 ostream& operator<<(ostream& out, Application& app){
 	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course;
 
@@ -92,9 +96,10 @@ Application::~Application(){
 
 }
 
-
+//bool printModifiedApp(ofstream& out){}
+/*
 bool Application::printApp(){
-	/*
+	
 	int i;
 
 	//debugging stuff..
@@ -197,9 +202,10 @@ bool Application::printApp(){
 		outFile << tempJQueue.front()->getEndDate() << endl;
 		tempJQueue.popFront();
 	}
-	outFile << "ENDAPP" << endl;	*/
+	outFile << "ENDAPP" << endl;	
 
 }
+*/
 /*
 void Application::setRelatedCourses(CourseQueue *queue){
 	relatedCourses = queue;

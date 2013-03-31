@@ -18,7 +18,7 @@ class UndergradApp : public Application{
 public:
 	//Constructors
 	UndergradApp(UndergradStudent *, int , string , string );
-	virtual ~UndergradApp();
+	~UndergradApp();
 
 	//From base Application
 	int      getApplicationNumber();

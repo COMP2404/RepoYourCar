@@ -20,6 +20,8 @@ UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string
 
 }
 
+UndergradApp::~UndergradApp(){}
+
 //==============================GETTERS==========================================
 
 int      UndergradApp::getStuCGPA(){ return stuCGPA; }
