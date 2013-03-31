@@ -12,6 +12,7 @@
 #include "../Model/UndergradStudent.h"
 #include "../Model/GradApp.h"
 #include "../Model/UndergradApp.h"
+#include "../Model/Queue.h"
 
 #include "../main.h"
 #include <cstdlib>
@@ -36,7 +37,7 @@ class Control{
 		
 	private:
 		
-		AppQueue applicationList;//TO BE AppQueue
+		Queue<Application> applicationList;//TO BE AppQueue
 		static bool printApp(Application*);	
 		bool errorCheck2();
 		

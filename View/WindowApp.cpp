@@ -414,7 +414,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	*/
 	
 	cout << "Making a new one\n";
-	theApp->appQueue.pushBack(ga, uga);
+	theApp->appQueue.pushBack(ga);
 	if(!ga->printApp(true))
 			return;
 
@@ -448,7 +448,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	uga->setRelatedCourses(theApp->cQRelated);
 	uga->setRelatedTAPositions(theApp->cQTa);
 	uga->setRelatedWorkEXP(theApp->jQRelated);
-	theApp->appQueue.pushBack(ga, uga);
+	theApp->appQueue.pushBack(uga);
 	if(!uga->printApp(true))
 			return;
 

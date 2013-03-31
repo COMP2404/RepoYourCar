@@ -78,9 +78,9 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 	theApp->stuPage->theFName = first;
 	theApp->stuPage->theLName = last;
 
-	AppQueue *temp;
+	Queue<Application> *temp;
 	//
-	theApp->stuPage->qCopy  = new AppQueue(*(theApp->appQueue.getAppsByName(first,last)));
+	theApp->stuPage->qCopy  = new Queue<Application>(*(theApp->appQueue.getAppsByName(first,last)));
 	//theApp->stuPage->qCopy = new AppQueue(theApp->stuPage->qCopy.getAppsByName(first,last));
 
 
@@ -173,8 +173,8 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	int index;
 
-	AppQueue *temp;
-	temp = new AppQueue(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
+	Queue<Application> *temp;
+	temp = new Queue<Application>(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
 	
 	Application *app = (*temp)[index];

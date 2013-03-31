@@ -149,7 +149,7 @@ void GradAppPage::fillInRelated(WindowApp* theApp){
 }
 void GradAppPage::fillInWorkExp(WindowApp* theApp){
 	
-	theApp->gradAppPage->workExpQueue = new JobQueue(*(theApp->editGApp->relatedWorkEXP));	
+	theApp->gradAppPage->workExpQueue = new Queue<Job>(*(theApp->editGApp->relatedWorkEXP));	
 	Job *job = theApp->gradAppPage->workExpQueue->popFront();
 //	Job *job = jobQueue->popFront();
 	//cout << job->getStartDate() << endl;

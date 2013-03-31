@@ -1,9 +1,10 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "GradApp.h"
-#include "UndergradApp.h"
+//#include "GradApp.h"
+//#include "UndergradApp.h"
 #include "Node.h"
+#include "Application.h"
 /////////////////////////////////////////////////////////
 //Template Queue class to store a collection of objects//
 /////////////////////////////////////////////////////////
@@ -29,25 +30,27 @@ class Queue
     void     print() const;
 
     ///////////////////OPERATORS/////////////////////
+
     T* operator[](int);//returns application at index param
-    Queue& operator+=(T*);//adds the application to the queue
-    Queue& operator+=(Queue<T>&);//concatinates the incoming queue to *this
-    Queue  operator+(T*);//makes new queue with += functionality
-    Queue  operator+(Queue<T>&);//makes new queue with += functionality
-    Queue& operator-=(T*);//removes this app from the queue if contained
-    Queue& operator-=(Queue<T>&);//removes all elements from incoming queue from this if contained
-    Queue  operator-(T*);//created new queue with all but incomint app
-    Queue  operator-(Queue<T>&);//creates a new queue with all but apps from incoming 
-    Queue& operator!();//logical not: empties the queue
-    Queue& operator=(const Queue<T>&);
+    Queue<T>& operator+=(T*);//adds the application to the queue
+    Queue<T>& operator+=(Queue<T>&);//concatinates the incoming queue to *this
+    Queue<T>  operator+(T*);//makes new queue with += functionality
+    Queue<T>  operator+(Queue<T>&);//makes new queue with += functionality
+    Queue<T>& operator-=(T*);//removes this app from the queue if contained
+    Queue<T>& operator-=(Queue<T>&);//removes all elements from incoming queue from this if contained
+    Queue<T>  operator-(T*);//created new queue with all but incomint app
+    Queue<T>  operator-(Queue<T>&);//creates a new queue with all but apps from incoming 
+    Queue<T>& operator!();//logical not: empties the queue
+    Queue<T>& operator=(const Queue<T>&);
 	
     //TO DO:
-    //friend ostream&  operator<<(ostream&, AppQueue&);
+    template <class U>
+    friend ostream&  operator<<(ostream&, Queue<U>&);
 
 
     //Non templated functions:
     Queue<T>*    getPendingList(string);
-    Queue<T>*    sortByGPA(void);
+    Queue<Application>*    sortByGPA(void);
     Queue<T>*    sortAll(void);
     int          getNumCourses(void);
     bool         appExists(string);
@@ -152,7 +155,7 @@ Queue<T>::Queue(Queue<T>& q){
 }
 
 template <class T>
-void Queue<T>::pushBack(T *theData){
+void Queue<T>::pushBack(T* theData){
 	
 	Node<T>* node = createNode(theData);
 	Node<T>* tmpNode = head;
@@ -203,7 +206,7 @@ Node<T>* Queue<T>::createNode(T *theData){
 template <class T>
 int Queue<T>::size() const{
   int count = 0;
-  Node<T> tempNode = head;
+  Node<T>* tempNode = head;
   while (tempNode != NULL){
   ++count;
   tempNode = tempNode->next;
@@ -282,8 +285,45 @@ Queue<T>* Queue<T>::getPendingList(string course){
 
 
 template <class T>
-Queue<T>* Queue<T>::sortByGPA(){
+Queue<Application>* Queue<T>::sortByGPA(){
   //look at AppQueue.cpp
+	int i=0;//index for appArr
+	bool swapped;
+	int count = size();
+
+	Queue<Application>* sorted = new Queue<Application>();//new linked list in sorted order
+
+	Node<Application>* tmp = head;
+
+	/*UndergradApp* tempApp;
+	UndergradApp* appArr[count];//list of applications to be sorted
+	//-----------GET A LIST OF APPLICATIONS----------//
+	while(tmp != NULL){	
+		appArr[i++] = tmp->data;		
+		tmp = tmp->next;
+	}
+	//-----------SORT THE APPLICATIONS BY GPA------------//
+	for(int i=count-1; i>=0; i--){//BSORT
+                swapped = false;
+                for(int j=0; j<i; j++){//this swaps them if they shoud be
+                        if(appArr[j]->getStuMGPA() > appArr[j+1]->getStuMGPA()){
+                                tempApp = appArr[j+1];
+                                appArr[j+1] = appArr[j];
+                                appArr[j]=tempApp;
+                                swapped=true;
+                        }
+                }
+                if(!swapped) break;
+        }
+
+	for(int i=0; i<count; i++){	
+		//cout << "d\n";
+		sorted->pushBack(appArr[i]);
+	}
+
+	//delete [] *appArr;//clean up the mess
+	*/
+	return sorted;
 }
 
 template <class T>
@@ -604,12 +644,13 @@ T* Queue<T>::operator[](int index){
 	return NULL;//should never get here...in case of fault
 }
 
-/*
 
-Needs Application->getBasicInfo or something that could maybe return an array of the info to be implemented first
+
+//Needs Application->getBasicInfo or something that could maybe return an array of the info to be implemented first
 
 template <class T>
-Queue<T>& AppQueue::operator=(const Queue<T>& rhs){
+Queue<T>& Queue<T>::operator=(const Queue<T>& rhs){
+	/*
 	//cout<<"*************************************************************************************************\n";
 	//VARS FOR NEW STUDENT AND APPLICATION
 	string first, last, em, snum, res, pro, sup, major;
@@ -668,8 +709,20 @@ Queue<T>& AppQueue::operator=(const Queue<T>& rhs){
 	}
 	//cout<<"***************************************************************************************************\n";
 	return *this;
+	*/
 }
-*/
+
+template <class T>
+ostream& operator<<(ostream& out, Queue<T>& q){
+	if(q.isEmpty()) out << "The Queue is empty"<<endl;
+	Node<T>* tmp = q.head; 
+	while(tmp != NULL){
+		out << *(tmp->data) << endl;;
+		tmp = tmp->next;
+	}
+
+	return out;
+}
 
 template <class T>
 Queue<T>& Queue<T>::operator+=(T* theData){

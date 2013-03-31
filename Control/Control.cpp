@@ -78,7 +78,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		ga = new GradApp(gs, theApp->applicationNum++, *course, "PENDING");
 		ga->setRelatedTAPositions(theApp->cQTa);
 		ga->setRelatedWorkEXP(theApp->jQRelated);
-		theApp->appQueue.pushBack(ga, uga);
+		theApp->appQueue.pushBack(ga);
 		if(!ga->printApp(true))
 				return false;
 	}
@@ -91,7 +91,7 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 		uga->setRelatedCourses(theApp->cQRelated);
 		uga->setRelatedTAPositions(theApp->cQTa);
 		uga->setRelatedWorkEXP(theApp->jQRelated);
-		theApp->appQueue.pushBack(ga, uga);
+		theApp->appQueue.pushBack(uga);
 		if(!uga->printApp(true))
 				return false;
 	}
@@ -153,9 +153,9 @@ void Control::loadApplications(WindowApp *theApp){
   	}
 
 	while (!inFile.eof()) {
-		CourseQueue* relatedC = new CourseQueue();
-		CourseQueue* relatedT = new CourseQueue();
-		JobQueue*    relatedJ = new JobQueue();
+		Queue<Course>* relatedC = new Queue<Course>();
+		Queue<Course>* relatedT = new Queue<Course>();
+		Queue<Job>*    relatedJ = new Queue<Job>();
 		
 		inFile.getline(text, THIS_BUF); // application type
 		
@@ -357,7 +357,7 @@ void Control::loadApplications(WindowApp *theApp){
 			ga = new GradApp(stu, a,c,s);
 			ga->setRelatedTAPositions(relatedT);
 			ga->setRelatedWorkEXP(relatedJ);
-			theApp->appQueue.pushBack(ga, uga);
+			theApp->appQueue.pushBack(ga);
 		}
 		else{
 			
@@ -366,18 +366,13 @@ void Control::loadApplications(WindowApp *theApp){
 			uga->setRelatedCourses(relatedC);
 			uga->setRelatedTAPositions(relatedT);
 			uga->setRelatedWorkEXP(relatedJ);
-			theApp->appQueue.pushBack(ga, uga);
+			theApp->appQueue.pushBack(uga);
 		}
 		
 			
   	}
  
 }
-
-
-
-
-
 
 
 
@@ -1225,9 +1220,9 @@ int Control::createWindow(int argc, char** argv)
 {
 	cout << "In Control CreateWindow" <<endl;
 	WindowApp *theApp = new WindowApp();
-	theApp->cQRelated = new CourseQueue();
-	theApp->cQTa = new CourseQueue();
-	theApp->jQRelated = new JobQueue();
+	theApp->cQRelated = new Queue<Course>();
+	theApp->cQTa = new Queue<Course>();
+	theApp->jQRelated = new Queue<Job>();
 	
 	// initialize GTK+
 	gtk_init(&argc, &argv);

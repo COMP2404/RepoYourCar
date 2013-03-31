@@ -30,7 +30,7 @@ class StudentPage{
 		void chooseApp(WindowApp *theApp);
 		static void editApp(GtkWidget* , WindowApp* );
 		static void updateCombo(GtkWidget*, WindowApp* );
-		AppQueue *qCopy;
+		Queue<Application> *qCopy;
 		string theFName, theLName;
 		
 };

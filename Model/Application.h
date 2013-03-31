@@ -1,6 +1,8 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "Course.h"
+#include "Job.h"
 #include "Student.h"
 #include "GradStudent.h"
 #include "UndergradStudent.h"
@@ -13,8 +15,12 @@
 
 #define INCLUDED
 using namespace std;
-#include "CourseQueue.h"
+//#include "Queue.h"
 #include "JobQueue.h"
+//class Queue<Course>;
+//class Queue<Job>;
+template<typename T>
+class Queue;
 
 class Application{
 
@@ -28,7 +34,7 @@ public:
 	virtual int      getApplicationNumber(void) = 0;
 	string   getCourse(void);
 	string   getStatus();
-
+	string	 getStuName();
 	string   getStuFirst();
 	string   getStuLast();
 	string   getStuEmail();
@@ -36,19 +42,19 @@ public:
 	
 	string   getStuID();
 	
-	void	 setRelatedTAPositions(CourseQueue*);
-	void	 setRelatedWorkEXP(JobQueue*);
+	void	 setRelatedTAPositions(Queue<Course>*);
+	void	 setRelatedWorkEXP(Queue<Job>*);
 	//bool 	 saveSummary();
 
 	//virtual string getStuName();
-	virtual bool printApp(bool);
-	virtual bool printModifiedApp(ofstream&);
+	virtual bool printApp();
+	virtual bool printModifiedApp(ofstream&){}
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
 	Application(Application&);//COPY CONSTRUCTOR!
-	CourseQueue	*relatedCourses;
-	CourseQueue	*relatedTAPositions;
-	JobQueue	*relatedWorkEXP;
+	Queue<Course>	*relatedCourses;
+	Queue<Course>	*relatedTAPositions;
+	Queue<Job>	*relatedWorkEXP;
 	//------------------------------
 
 	Application& operator-();//unary '-' changes status of application to "closed"

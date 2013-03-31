@@ -28,6 +28,9 @@ string   UndergradApp::getStuMajor(){ return stuMajor; }
 int      UndergradApp::getStuYrStanding(){ return stuYearStanding; }
 string   UndergradApp::getStuFirst(){ return stuFirst; }
 string   UndergradApp::getStuLast(){ return stuLast; }
+string   UndergradApp::getStuEmail(){ return stuEmail; }
+string   UndergradApp::getCourse(){ return course; }
+string   UndergradApp::getStuID(){ return stuID; }
 
 
 bool UndergradApp::saveSummary(){
@@ -71,7 +74,7 @@ bool UndergradApp::saveSummary(){
 
 	int aSize;
 
-	CourseQueue tempQ(*relatedCourses);
+	Queue<Course> tempQ(*relatedCourses);
 	//Save the related courses for undergraduates:
 
 	outFile << "Related Courses: " << endl <<endl;
@@ -91,7 +94,7 @@ bool UndergradApp::saveSummary(){
 	//Save the related TA positions:
 	outFile << "Related TA Positions:" << endl <<endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	for(i=0; i < aSize; i++){
 		outFile << "Related TA Position " << i << ":" <<endl;
@@ -105,7 +108,7 @@ bool UndergradApp::saveSummary(){
 	//Save related work EXP
 	outFile << "Related Work Experience" << endl <<endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << "Related Job " << i << ":" <<endl;
@@ -155,7 +158,7 @@ bool UndergradApp::printApp(bool append){
 	int i;
 	//Save the related courses for undergraduates:
 		cout << "SAVING RELATED COURSES: " << endl;
-		CourseQueue tempQ(*relatedCourses);
+		Queue<Course> tempQ(*relatedCourses);
 		aSize = tempQ.size();
 		cout << "SIZE OF tempQ: " << aSize << endl; 
 		for(i=0; i < aSize; i++){
@@ -170,7 +173,7 @@ bool UndergradApp::printApp(bool append){
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	for(i=0; i < aSize; i++){
 		outFile << otherTemp.front()->getTitle() << endl;
@@ -183,7 +186,7 @@ bool UndergradApp::printApp(bool append){
 	//Save related work EXP
 	outFile << "WORKEXP" << endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getJobTitle() << endl;
@@ -196,7 +199,7 @@ bool UndergradApp::printApp(bool append){
 	outFile << "ENDAPP" << endl;
 }
 
-void UndergradApp::setRelatedCourses(CourseQueue *queue){
+void UndergradApp::setRelatedCourses(Queue<Course> *queue){
 	relatedCourses = queue;
 	
 }
@@ -236,7 +239,7 @@ bool UndergradApp::printModifiedApp(ofstream& outFile){
 	int i;
 	//Save the related courses for undergraduates:
 	cout << "SAVING RELATED COURSES: " << endl;
-	CourseQueue tempQ(*relatedCourses);
+	Queue<Course> tempQ(*relatedCourses);
 	aSize = tempQ.size();
 	cout << "SIZE OF tempQ: " << aSize << endl; 
 	for(i=0; i < aSize; i++){
@@ -251,7 +254,7 @@ bool UndergradApp::printModifiedApp(ofstream& outFile){
 	//Save the related TA positions:
 	outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
-	CourseQueue otherTemp(*relatedTAPositions);
+	Queue<Course> otherTemp(*relatedTAPositions);
 	aSize = otherTemp.size();
 	for(i=0; i < aSize; i++){
 		outFile << otherTemp.front()->getTitle() << endl;
@@ -264,7 +267,7 @@ bool UndergradApp::printModifiedApp(ofstream& outFile){
 	//Save related work EXP
 	outFile << "WORKEXP" << endl; //header
 
-	JobQueue tempJQueue(*relatedWorkEXP);
+	Queue<Job> tempJQueue(*relatedWorkEXP);
 	aSize = tempJQueue.size();
 	for(i=0; i < aSize; i++){
 		outFile << tempJQueue.front()->getJobTitle() << endl;

@@ -11,6 +11,7 @@
 #include "../Model/Application.h"
 #include "../Model/Course.h"
 #include "../Model/AppQueue.h"
+#include "../Model/Queue.h"
 #include "AdminManager.h"
 #include "MainMenu.h"
 #include "GradAppPage.h"
@@ -69,9 +70,9 @@ class WindowApp{
 		*/
 		Application *studentApp;
 		Course *studentCourse;
-		CourseQueue *cQRelated, *cQTa;
-		JobQueue *jQRelated;
-		AppQueue appQueue;
+		Queue<Course> *cQRelated, *cQTa;
+		Queue<Job> *jQRelated;
+		Queue<Application> appQueue;
 		
 		Application *originalApp;
 		static WindowApp *instance;

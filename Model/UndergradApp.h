@@ -13,7 +13,7 @@
 using namespace std;
 #include "CourseQueue.h"
 #include "JobQueue.h"
-
+#include "Queue.h"
 class UndergradApp : public Application{
 public:
 	//Constructors
@@ -34,8 +34,8 @@ public:
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
 	Application& operator-();//unary '-' changes status of application to "closed"
-    	Application& operator+();//unary '+' changes status to "assigned"
-    	bool operator==(Application&);
+    Application& operator+();//unary '+' changes status to "assigned"
+    bool operator==(Application&);
 
 	//New from UndergradApp's
 	int      getStuCGPA();
@@ -43,7 +43,7 @@ public:
 	string   getStuMajor();
 	int      getStuYrStanding();
 
-	void 	 setRelatedCourses(CourseQueue*); // ??
+	void 	 setRelatedCourses(Queue<Course>*); // ??
 
 
 private:

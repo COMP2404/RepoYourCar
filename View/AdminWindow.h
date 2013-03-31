@@ -26,7 +26,7 @@ class AdminWindow{
 		bool pending;
 		bool appSelected;
 		int selectedIndex;
-		AppQueue *saveQueue;
+		Queue<Application> *saveQueue;
 		//AdminPage adminPage;
 		
 

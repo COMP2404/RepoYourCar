@@ -57,6 +57,7 @@ string   Application::getStatus(){ return applicationStatus; }
 
 //int      Application::getStuCGPA(){ return stuCGPA; }
 //int      Application::getStuMGPA(){ return stuMGPA; }
+string   Application::getStuName(){ return stuFirst; }
 string   Application::getStuFirst(){ return stuFirst; }
 string   Application::getStuLast(){ return stuLast; }
 string   Application::getStuEmail(){ return stuEmail; }
@@ -208,13 +209,12 @@ void Application::setRelatedCourses(CourseQueue *queue){
 
 
 */
-void Application::setRelatedTAPositions(CourseQueue *queue){
+void Application::setRelatedTAPositions(Queue<Course> *queue){
 	relatedTAPositions = queue;
 
 }
 
-void Application::setRelatedWorkEXP(JobQueue *queue){
+void Application::setRelatedWorkEXP(Queue<Job> *queue){
 	relatedWorkEXP = queue;
 
 }
-

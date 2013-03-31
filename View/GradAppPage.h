@@ -20,6 +20,7 @@ class RelatedCoursesTwoForm;
 #include "../Model/Application.h"
 #include "../Model/JobQueue.h"
 #include "../Model/CourseQueue.h"
+#include "../Model/Queue.h"
 #include "../Model/Job.h"
 #include "../Model/Course.h"
 
@@ -49,8 +50,8 @@ class GradAppPage : public AppPage{
 		//WorkExperienceForm *workExp;
 		GradAppData *formData;
 		WindowApp *theApp;
-		JobQueue *workExpQueue;
-		CourseQueue *relatedQueue;
+		Queue<Job> *workExpQueue;
+		Queue<Course> *relatedQueue;
 		virtual void draw(WindowApp*);
 		static void close(GtkWidget*,WindowApp*);
 		static void related2(GtkWidget*,WindowApp*);
