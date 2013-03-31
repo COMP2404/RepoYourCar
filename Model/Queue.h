@@ -109,8 +109,10 @@ Queue<T>::Queue(Queue<T>& q){
 	Node<T>* nTmp = head;//iteration node for q
 	while(tmp != NULL){	
 
-		//Replace the following commented section by Application->getBasicInfo
-		//or something... Application->buildStudent too
+		//Replace the following commented section by copy ctor for specific application:
+
+		//GET A COPY OF THE APPLICATION:
+		nTmp->data = tmp->data->getCopy();//copy construcytor of derived class from object type
 
 /* 
 		//GET BASIC iNFO
@@ -328,7 +330,102 @@ Queue<Application>* Queue<T>::sortByGPA(){
 
 template <class T>
 Queue<T>* Queue<T>::sortAll(){
-	//I'm a function that shouldn't be here anyway, go to AppQueue.cpp
+	/*
+	string allCourses[100];
+	int numCourses = 0;
+
+	ifstream inFile("courses.txt", ios::in);
+
+	if (!inFile) {
+		cout << "no file!!!" << endl;
+	}	
+	while (getline(inFile, allCourses[numCourses])) {
+		cout << "Added a course!: " << numCourses << endl;
+		numCourses++;		
+	}
+
+	string courseList[MAX_BUF];
+	
+	int theNum = 0;//index/counter for courseList
+	cout<<"here we go\n";
+	for(int k=0; k<40; k++){//for all Above courses^^
+		if(appExists(allCourses[k])){
+			courseList[theNum++] = allCourses[k];
+			cout<<"found a course: " << allCourses[k] <<endl;
+		}
+	}
+	/////////////////////////FIRST PART//////////////////////////
+	cout<<"here we go2\n";
+	int i=0;//index for numCourses(first dimension)
+	int j=0;//index for appArr
+	bool swapped;
+	int count = size();
+	int courses = getNumCourses();
+	Queue<Application>* sorted = new Queue<Application>();//new linked list in sorted order
+
+	Node<Application>* tmp = head;
+
+	//Application* appArr[MAX_BUF];//2D-list of applications to be sorted..all courses and all applications of that course.
+	cout<<"here we go3\n";
+	//array for apps
+	Application* unders[MAX_BUF];
+	int appnum = 0;
+
+	//-----------GET A LIST OF APPLICATIONS SORTED BY COURSE----------//
+	//----------ASSIGN THE APPLICATIONS TO APParrays BASED ON APPLICANT GRAD/UNDERGRAD-------------//
+	for(i=0; i<theNum; i++){//for all courses
+		tmp = head;
+		while(tmp != NULL){
+			if(tmp->data->getCourse().compare(courseList[i]) == 0){
+				apps[appnum++] = tmp->data;//add them to an array to be sorted
+			}
+			tmp=tmp->next;		
+		}
+	}
+	//-----------SORT THE UNDERGRAD APPLICATIONS BY GPA------------//
+	cout<<"here we go5\n";
+	for(int i=unum-1; i>=0; i--){//BSORT
+                swapped = false;
+                for(int j=0; j<i; j++){//this swaps them if they shoud be
+			if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
+		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
+		                        tempUApp = unders[j+1];
+		                        unders[j+1] = unders[j];
+		                        unders[j]=tempUApp;
+		                        swapped=true;
+		                }
+			}
+                }
+                if(!swapped) break;
+        }
+	//-----------SORT THE GRAD APPLICATIONS BY ALPHA------------//
+	cout<<"here we go6\n";
+	for(int i=gnum-1; i>=0; i--){//BSORT
+                swapped = false;
+                for(int j=0; j<i; j++){//this swaps them if they shoud be
+			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by Name, move on
+
+		                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
+
+		                        tempGApp = grads[j+1];
+		                        grads[j+1] = grads[j];
+		                        grads[j]=tempGApp;
+		                        swapped=true;
+		                }
+			}
+                }
+                if(!swapped) break;
+        }
+	//-----------FINALLY, PUSH THESE EFFERS TO THE SORTED QUEUE!--------------//
+	cout<<"here we go7\n";
+	for(int i=0; i<appnum; i++){	
+		//cout << "d\n";
+		sorted->pushBack(apps[i]);
+	}
+	
+	cout<<"went!\n";
+	return sorted;
+	*/
 	
 }
 
@@ -384,30 +481,22 @@ int Queue<T>::getIndex(Application* app){
 
 template <class T>
 Queue<T>* Queue<T>::getAppsByName(string name, string last){
-/*	GradApp* ga;
-	UndergradApp* ua;
 	Node<T>* tmp = head;
 	Queue<T>* nQ = new Queue<T>();//this will only hold applications from a specific person
 	while(tmp != NULL){//for all applications
-		if(tmp->data->getType() == "grad"){
-			ga = dynamic_cast<GradApp*>(tmp->data);
-			if(ga->getStuName() == name && ga->getStuLast() == last){//if they are by the target person
-				nQ->pushBack(dynamic_cast<GradApp*>(tmp->data), NULL);
-			}
-		}else{
-			ua = dynamic_cast<UndergradApp*>(tmp->data);
-			if(ua->getStuFirst() == name && ua->getStuLast() == last){//if they are by the target person
-				nQ->pushBack(NULL, dynamic_cast<UndergradApp*>(tmp->data));
-			}	
+		
+		if(tmp->data->getStuFirst() == name && tmp->data->getStuLast() == last){//if they are by the target person
+			nQ->pushBack(tmp->data);
 		}
+		
 		tmp = tmp->next;
 	}
 	return nQ;
 
 
 
-	check out AppQueue.cpp
-*/
+	//check out AppQueue.cpp
+
 }
 
 template <class T>
@@ -650,58 +739,26 @@ T* Queue<T>::operator[](int index){
 
 template <class T>
 Queue<T>& Queue<T>::operator=(const Queue<T>& rhs){
-	/*
+	
 	//cout<<"*************************************************************************************************\n";
-	//VARS FOR NEW STUDENT AND APPLICATION
-	string first, last, em, snum, res, pro, sup, major;
-	int yr, cg, mg;
-	//GradApp* ga;
-	Application *theApp;
-	//UndergradApp* ua;
-	//cout << "IN COPY CTOR\n";
-	if(rhs.head==NULL){
-		this->operator!();//empty this queue to match the rhs
-		return *this;	
-	} 
+	//cout << "IN OPERATOR =\n";
 
+	this->operator!();//empty this queue to begin
+	
 
 	Node<T>* tmp = rhs.head;//iteration node for original AppQueue
 	head = new Node<T>();//head node for the new AppQueue
 
-	Node<T>* nPrev;//to connect the nodes in q
-	Node<T>* nTmp = head;//iteration node for q
+	Node<T>* nPrev;//to connect the nodes in rhs
+	Node<T>* nTmp = head;//iteration node for rhs
 	while(tmp != NULL){	
-		//GET BASIC iNFO
-		first = tmp->data->getStuFirst();
-		last = tmp->data->getStuLast();
-		em = tmp->data->getStuEmail();
-		snum = tmp->data->getStuID();
-		if(tmp->data->getType() == "grad"){
-			GradApp* tmpGApp = static_cast<GradApp*>(tmp->data);//now its a grad app
-			//GET GRAD INFO
-			res = tmpGApp->getStuArea();
-			pro = tmpGApp->getStuProgram();
-			sup = tmpGApp->getStuSuper();
-			GradStudent* gs = new GradStudent(first, last, em, snum, res, pro, sup);
-			ga = new GradApp(gs, tmpGApp->getApplicationNumber(), tmpGApp->getCourse(), tmpGApp->getStatus());
-			nTmp->data = ga;
-		}
-		else{
-			UndergradApp* tmpUApp = static_cast<UndergradApp*>(tmp->data);
-			//GET UNDERGRAD INFO
-			yr = tmpUApp->getStuYrStanding();
-			cg = tmpUApp->getStuCGPA();
-			mg = tmpUApp->getStuMGPA();
-			major = tmpUApp->getStuMajor();
-			UndergradStudent* us = new UndergradStudent(cg, mg, first, last, em, major, yr, snum);
-			ua = new UndergradApp(us, tmpUApp->getApplicationNumber(), tmpUApp->getCourse(), tmpUApp->getStatus());
-			nTmp->data = ua;
-		}
+
+		nTmp->data = tmp->data->getCopy();//copy construcytor of derived class from object type
 	
 		nPrev = nTmp;//make prev node this node before moving on	
 		tmp = tmp->next;//advance iteration node for source Queue
 		if(tmp != NULL){
-			AppNode* node = new AppNode();//make a new node for each existing node		
+			Node<T>* node = new Node<T>();//make a new node for each existing node		
 			nTmp = node;
 			nPrev->next=nTmp;
 		}
@@ -709,7 +766,7 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& rhs){
 	}
 	//cout<<"***************************************************************************************************\n";
 	return *this;
-	*/
+	
 }
 
 template <class T>

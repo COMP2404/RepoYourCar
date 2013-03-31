@@ -19,6 +19,7 @@ public:
 	//Constructors
 	UndergradApp(UndergradStudent *, int , string , string );
 	~UndergradApp();
+	//UndergradApp(UndergradApp&);//default member wise assignment is sufficient
 
 	//From base Application
 	int      getApplicationNumber();
@@ -33,6 +34,10 @@ public:
 	bool 	 printApp(bool);
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
+	Application* getCopy();//return value from copy ctor
+	//bool     compare(GradApp*);
+	//bool     compare(UndergradApp*);
+
 	Application& operator-();//unary '-' changes status of application to "closed"
     Application& operator+();//unary '+' changes status to "assigned"
     bool operator==(Application&);
@@ -43,7 +48,7 @@ public:
 	string   getStuMajor();
 	int      getStuYrStanding();
 
-	void 	 setRelatedCourses(Queue<Course>*); // ??
+	void 	 setRelatedCourses(Queue<Course>*); 
 
 
 private:

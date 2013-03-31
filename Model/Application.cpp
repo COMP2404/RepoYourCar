@@ -44,11 +44,6 @@ Application::Application(int appNum, string cor, string stat,string type){
 	
 }
 
-Application::Application(Application& app){
-	cout << "IN APP CCTOR\n";
-	
-	*this = app;
-}
 //==============================GETTERS==========================================
 //Student* Application::getApplicant(){ return applicant; }
 int      Application::getApplicationNumber(){ return applicationNumber; }

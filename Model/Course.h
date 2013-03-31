@@ -24,6 +24,7 @@ public:
 	void	setSupervisor(string);
 	void	setTitle(string);
 	void    setFinal(string);
+	Course* getCopy();
 	//-------------------------------
 
 private:

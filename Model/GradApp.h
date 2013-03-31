@@ -20,6 +20,7 @@ public:
 	//Constructors
 	GradApp(GradStudent *, int, string, string);
 	~GradApp();
+	//GradApp(GradApp&);//COPY CONSTRUCTOR
 	///////////
 	//GETTERS//
 	//////////
@@ -37,7 +38,10 @@ public:
 	bool 	 printApp(bool);
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
-	
+	Application*  getCopy();
+	//bool     compare(GradApp*);
+	//bool     compare(UndergradApp*);
+
 	Application& operator-();//unary '-' changes status of application to "closed"
     Application& operator+();//unary '+' changes status to "assigned"
     bool operator==(Application&);

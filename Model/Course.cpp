@@ -24,7 +24,7 @@ void Course::setTitle(string s) { title = s; }
 void Course::setYear(int i) {year = i;}
 void Course::setTerm(string s) {term = s;}
 void Course::setFinal(string s) {final = s;}
-
+Course* Course::getCopy(){ return new Course(*this); }
 
 //==========================================================
 

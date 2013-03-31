@@ -49,9 +49,12 @@ public:
 	//virtual string getStuName();
 	virtual bool printApp(bool) = 0;
 	virtual bool printModifiedApp(ofstream&) = 0;
+	virtual Application* getCopy() = 0; //returns value from copy constructor
+	//virtual bool compare(GradApp*) = 0;//returns true based on sorting specifications of the app
+	//virtual bool compare(UndergradApp*) = 0;
 	Application(int, string="unknown", string="pending", string="grad");
 	~Application();
-	Application(Application&);//COPY CONSTRUCTOR!
+	//Application(Application&);//COPY CONSTRUCTOR!
 	Queue<Course>	*relatedCourses;
 	Queue<Course>	*relatedTAPositions;
 	Queue<Job>	*relatedWorkEXP;

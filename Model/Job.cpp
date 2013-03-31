@@ -24,6 +24,7 @@ void 	Job::setJobTitle(string s){jobTitle = s;}
 void	Job::setDuration(string s){duration = s;}
 void	Job::setEndDate(string s){endDate = s;}
 void  	Job::setTasks(string s){tasks = s;}
+Job*	Job::getCopy(){ return new Job(*this); }
 //==========================================================
 
 //DESTRUCTOR:

@@ -24,6 +24,34 @@ GradApp::~GradApp(){
 
 }
 
+//bool compare(GradApp* app){
+
+//}
+
+//bool compare(UndergradApp* app){
+
+//}
+
+Application* GradApp::getCopy(){
+	return (new GradApp(*this));//return a copy of this class
+}
+
+/*
+GradApp::GradApp(GradApp& ga){
+	////////////////COPY CTOR//////////////////
+	applicationNumber = ga.getApplicationNumber();
+    course 	= ga.getCourse();
+    applicationStatus = ga.getStatus();
+	
+ 	stuFirst = ga.getStuFirst();
+	stuLast = ga.getStuLast();
+	stuEmail = ga.getStuEmail();
+	stuID = ga.getStuID();
+	stuProgram = ga.getStuProgram();
+	stuArea = ga.getStuArea();
+	stuSuper = ga.getStuSuper();
+}
+*/
 //==============================GETTERS==========================================
 	int GradApp::getApplicationNumber(){ return applicationNumber; }
 	string   GradApp::getStuFirst(){ return stuFirst; }

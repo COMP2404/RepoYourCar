@@ -25,6 +25,7 @@ public:
 	void	setEndDate(string);
 	void  	setTasks(string);	
 	void 	setNumTasks(int);
+	Job*	getCopy();
 	//-------------------------------
 
 private:

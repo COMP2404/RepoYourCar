@@ -20,8 +20,28 @@ UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string
 
 }
 
-UndergradApp::~UndergradApp(){}
+Application* UndergradApp::getCopy(){
+	return (new UndergradApp(*this));//return a copy of this class
+}
 
+UndergradApp::~UndergradApp(){}
+/*
+UndergradApp::UndergradApp(UndergradApp& ua){
+	//////////////////////COPY CTOR//////////////////////
+	applicationNumber = ua.getApplicationNumber();
+    course 	= ua.getCourse();
+    applicationStatus = ua.getAppStatus();
+	
+ 	stuFirst = ua.getStuFirst();
+	stuLast = ua.getStuLast();
+	stuEmail = ua.getStuEmail();
+	stuID = ua.getStuID();
+	stuCGPA = ua.getStuCGPA();
+	stuMGPA = ua.getStuMGPA();
+	stuMajor = ua.getStuMajor();
+	stuYearStanding = ua.getStuYrStanding();
+}
+*/
 //==============================GETTERS==========================================
 
 int      UndergradApp::getStuCGPA(){ return stuCGPA; }
@@ -33,6 +53,17 @@ string   UndergradApp::getStuLast(){ return stuLast; }
 string   UndergradApp::getStuEmail(){ return stuEmail; }
 string   UndergradApp::getCourse(){ return course; }
 string   UndergradApp::getStuID(){ return stuID; }
+int      UndergradApp::getApplicationNumber(){ return applicationNumber; }
+string   UndergradApp::getAppStatus(){ return applicationStatus; }
+
+
+//bool compare(GradApp* app){
+
+//}
+
+//bool compare(UndergradApp* app){
+
+//}
 
 
 bool UndergradApp::saveSummary(){
