@@ -1,6 +1,7 @@
 #include "AppManager.h"
 AppManager::AppManager(bool grad, WindowApp *theApp){
 	if(grad){
+		
 		theApp->editGMode = false;
 		theApp->gradAppPage = new GradAppPage();
 		theApp->gradAppPage->draw(theApp);
@@ -8,6 +9,7 @@ AppManager::AppManager(bool grad, WindowApp *theApp){
 		
 	}
 	else if(!grad){
+
 		theApp->editUMode = false;
 		theApp->uGradAppPage = new UnderGradAppPage();
 

@@ -32,16 +32,20 @@ class AdminWindow{
 
 	private:
 		GtkWidget *admin_window,*admin_combo, *admin_frame, *admin_cancel , *admin_viewSummary, *admin_assigned, *admin_login, 
-			*summary_combo, *adminTest, *printSum;
-
+			*summary_combo, *adminTest, *printSum, *viewApp;
+		GtkWidget *firstName, *lastName, *lblFirst, *lblLast, *appCombo, *btnFind, *lblStuNum, *stuNum, *lblAppNum, *appNum;
 		WindowApp *theApp;
 		SummaryChoiceWindow *sum;
 		//void viewSummaryClicked(GtkWidget* ,AdminManager &);
 		void draw();
 		void showSummary();
+		static void chooseApp(GtkWidget *, AdminWindow *);
 		static void showSummaryChoice(GtkWidget*,AdminWindow *);
 		static void closeSummaryChoice(GtkWidget*,AdminWindow *);
+		static void updateAppCombo(GtkWidget *, AdminWindow *);
+		static void showApp(GtkWidget *, AdminWindow *);
 		
-		
+		Queue<Application> *qCopy;
+		string theFName, theLName, theAppNum, theStuNum;
 };
 #endif

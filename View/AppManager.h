@@ -33,6 +33,7 @@ class AppManager{
 		friend class GradAppPage;
 		friend class UnderGradAppPage;
 		friend class StudentPage;
+		friend class AdminWindow;
 		
 		AppManager(bool,WindowApp*);
 	private:

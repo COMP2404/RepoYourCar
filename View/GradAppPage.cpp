@@ -11,6 +11,17 @@ void GradAppPage::draw(WindowApp *windowApp){
 	//page->form = new GradForm();
 	windowApp->gradAppPage->form->draw(windowApp->gradAppPage->form);
 	
+	if(!windowApp->canEdit){
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->combo, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->grad_research_combo, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->grad_program_combo, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->fName, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->lName, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->email, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->grad_sup, FALSE);
+		gtk_widget_set_sensitive(theApp->gradAppPage->form->stuNum, FALSE);
+
+	}
 	//form->ei_repeat2 = gtk_button_new_with_label("Add Another");
 	//gtk_fixed_put(GTK_FIXED(form->appFrame), form->ei_repeat2, 550, 430); 
 	//gtk_widget_show_all(form->window);

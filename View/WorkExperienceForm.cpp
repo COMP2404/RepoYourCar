@@ -36,6 +36,18 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_endDate,550, 400);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);*/
+
+
+		if(!windowApp->canEdit){
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_relevantWork, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_responsabilities, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_startDate, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_endDate, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_duration, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);
+		}
+
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
 		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
 	}
@@ -77,6 +89,18 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
+
+		if(!windowApp->canEdit){
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_relevantWork, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_responsabilities, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_startDate, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_endDate, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_duration, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
+		}
+
+
 		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, FALSE);
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);
 	}

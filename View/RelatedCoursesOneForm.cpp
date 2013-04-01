@@ -59,6 +59,18 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	/////////////////////////////////////////////////////
 	//-----------Make Buttons Not Clickable-------------////
 	/////////////////////////////////////////////////////
+	if(!app->canEdit){
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_relatedCourse1, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_term1, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_year1, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_finalGrade, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_continue, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_repeat, FALSE);
+	}
+
+
+
+
 	gtk_widget_show_all(app->uGradAppPage->form->appFrame);
 	
 }
