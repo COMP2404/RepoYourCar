@@ -58,6 +58,8 @@ class Queue
     Queue<Application>*    getAppsByName(string, string);
     Queue<Application>*    getAppsByFirst(string);
     Queue<Application>*    getAppsByLast(string);
+    Queue<Application>*    getAppsByAppNum(int);
+    Queue<Application>*    getAppsByStuNum(string);
     Queue<Application>*    getAppsByCourse(string);
     Queue<T>*    getAssignedList();
     void         assignSuccesfulCandidate(Application*);
@@ -524,6 +526,38 @@ Queue<Application>* Queue<T>::getAppsByLast(string last){
 	while(tmp != NULL){//for all applications
 		
 		if(tmp->data->getStuLast() == last){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+//RETURNS A QUEUE OF APPS BY APPLICATION NUMBER QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByAppNum(int num){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getApplicationNumber() == num){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+//RETURNS A QUEUE OF APPS BY STUDENT NUMBER NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByStuNum(string num){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuID() == num){//if they are by the target person
 			nQ->pushBack(tmp->data);
 		}
 		

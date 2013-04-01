@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Application::Application(int appNum, string cor, string stat,string type){
+Application::Application(int appNum, string cor, string stat, string type){
 	//CONSTRUCTOR!===========
         applicationNumber = appNum;
         course 		  = cor;
