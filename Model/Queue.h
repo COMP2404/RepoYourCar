@@ -56,6 +56,8 @@ class Queue
     bool         appExists(string);
     int          getIndex(Application*);
     Queue<Application>*    getAppsByName(string, string);
+    Queue<Application>*    getAppsByFirst(string);
+    Queue<Application>*    getAppsByLast(string);
     Queue<Application>*    getAppsByCourse(string);
     Queue<T>*    getAssignedList();
     void         assignSuccesfulCandidate(Application*);
@@ -498,6 +500,38 @@ Queue<Application>* Queue<T>::getAppsByName(string name, string last){
 	//check out AppQueue.cpp
 
 }
+//RETURNS A QUEUE OF APPS BY FIRST NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByFirst(string name){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuFirst() == name){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+
+}
+//RETURNS A QUEUE OF APPS BY LAST NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByLast(string last){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuLast() == last){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
 
 template <class T>
 Queue<Application>* Queue<T>::getAppsByCourse(string course){
