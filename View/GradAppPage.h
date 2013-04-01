@@ -62,6 +62,7 @@ class GradAppPage : public AppPage{
 		static void fillInData(Application*, WindowApp*);
 		static void fillInRelated(WindowApp*);
 		static void fillInWorkExp(WindowApp*);
+		static void editNextRelated(WindowApp*);
 		static void editNextJob(WindowApp*);
 		
 		

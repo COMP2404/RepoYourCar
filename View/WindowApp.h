@@ -83,6 +83,8 @@ class WindowApp{
 		int page;
 		bool gradApp;
 		bool allCourses;
+		bool editGMode;
+		bool editUMode;
 		static int applicationNum; 		
 		/*WindowApp();
 		~WindowApp();*/
@@ -106,8 +108,8 @@ class WindowApp{
 	private:
 		string strfName, strlName, strMajor, strGpa, strCgpa, strEmail, strYear, strStuNum;
 		MainMenu *main;
-		GradAppPage *gradPage;
-		UnderGradAppPage *underPage;
+		//GradAppPage *gradPage;
+		//UnderGradAppPage *underPage;
 		StudentPage *stuPage;
 		AppManager *appMan;
 		GradAppPage *gradAppPage;

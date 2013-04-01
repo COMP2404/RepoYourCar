@@ -49,23 +49,28 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	gtk_widget_show_all(window->admin_window);
 
 	
+	if(!window->allCourses){
+		char text[800];
+		string courses[800];
 
-	char text[800];
-	string courses[800];
 
 
+		ifstream inFile("courses.txt", ios::in);
 
-	ifstream inFile("courses.txt", ios::in);
+		if (!inFile) {
+			cout<<"Could not open file"<<endl;
+			exit(1);
+		}	
+		while (!inFile.eof()) {
+			inFile.getline(text, 800);
+			
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), text);
+		}
+	}else{
 
-	if (!inFile) {
-		cout<<"Could not open file"<<endl;
-		exit(1);
-	}	
-	while (!inFile.eof()) {
-		inFile.getline(text, 800);
-		
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), text);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), "All Courses");
 	}
+	
 	
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
 	//g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);
@@ -73,7 +78,7 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
 	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
 	//if(window->allCourses)
-	//	updateCombo(widget,theApp);
+		//AdminPage::updateCombo(widget,window);
 }
 void AdminPage::viewSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	window->showSummaryChoice(widget, window);
@@ -96,7 +101,7 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-wrte the text file with changes
 		//REFRESH THE LIST OF PENDING APPLICANTS
-		updateCombo(widget, window);
+		AdminPage::updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 	else{
@@ -107,7 +112,7 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 		window->theApp->appQueue.assignSuccesfulCandidate((*qCopy)[window->selectedIndex]);
 		window->theApp->appQueue.writeToFile();//re-write the text file with changes
 		//REFRESH THE LIST OF PENDING APPLICANTS
-		updateCombo(widget, window);
+		AdminPage::updateCombo(widget, window);
 		//cout << *qCopy;
 	}
 		
@@ -116,14 +121,14 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
-	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
 	//gtk_widget_set_sensitive(window->printSum, TRUE);
-	
+    //Queue<Application>* qCopy ;
 	Queue<Application>* qCopy = new Queue<Application>(window->theApp->appQueue);
-	cout << *qCopy;
+	//cout << *qCopy;
 	if(window->pending){
 		if(window->allCourses){
-
+			cout << "Pending all courses" <<endl;
 			qCopy = qCopy->getPendingList("all");
 
 			qCopy = qCopy->sortAll();
@@ -133,7 +138,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 			gtk_widget_set_sensitive(window->admin_combo, FALSE);
 		}
 		else{
-			
+			cout << "Pending one course" <<endl;
 			const gchar* theCourse;
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;
@@ -145,11 +150,12 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		}
 	}else{
 		if(window->allCourses){
-
+			cout << "Assigned all courses" <<endl;
 			qCopy = qCopy->getAssignedList();
 			qCopy = qCopy->sortAll();
 
 		}else{
+			cout << "Assigned one courses" <<endl;
 			const gchar* theCourse;
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;

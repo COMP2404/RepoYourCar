@@ -75,37 +75,6 @@ void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//**********************************************************************************************************************************************************************//
-			//View Summary of Pending Apps
-//**********************************************************************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-void WindowApp::viewSummary(GtkWidget *widget, WindowApp *theApp){
-	
-}
-
-
-void WindowApp::viewSummaryChoice(GtkWidget*widget, WindowApp *theApp){
-	
-}
-
-void WindowApp::closeSummaryChoice(GtkWidget *widget, WindowApp *theApp){
-	/*if(widget == theApp->btnOneCourse)
-		theApp->allCourses = false;
-	else{
-		theApp->allCourses = true;
-		
-	}
-		
-	gtk_widget_destroy(theApp->summary_choice_window);
-	WindowApp::viewSummary(widget,theApp);
-	*/
-}
-
-
-
 void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
 	
 	//gtk_widget_destroy(theApp->summary_combo);
@@ -247,42 +216,6 @@ void WindowApp::mainMenu(GtkWidget *widget, WindowApp *theApp){
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//**********************************************************************************************************************************************************************//
-			//Error Window that will pop up
-//**********************************************************************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-void WindowApp::popWindow(string s, WindowApp *theApp){
-	/*theApp->error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(theApp->error_window), GTK_WIN_POS_CENTER);	
-	gtk_window_set_default_size(GTK_WINDOW(theApp->error_window), 400, 200);
-	//gtk_window_resize(GTK_WINDOW(theApp->window), 600,300);
-	gtk_window_set_title(GTK_WINDOW(theApp->error_window), "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	
-	theApp->error_frame = gtk_fixed_new();
-	gtk_container_add(GTK_CONTAINER(theApp->error_window), theApp->error_frame);
-
-	theApp->error_dismiss = gtk_button_new_with_label("Dismiss");
-	gtk_widget_set_size_request(theApp->error_dismiss , 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_dismiss , 100, 100);	
-	const gchar* message;
-	message = s.c_str();
-	theApp->error_message = gtk_label_new(message);
-	gtk_fixed_put(GTK_FIXED(theApp->error_frame), theApp->error_message, 10, 10); 
-
-
-	gtk_widget_show_all(theApp->error_window);
-
-	g_signal_connect(theApp->error_dismiss, "clicked", G_CALLBACK (WindowApp::closePopWindow), theApp);
-	*/
-}
-
-void WindowApp::closePopWindow(GtkWidget *widget, WindowApp *theApp){
-	//gtk_widget_destroy(theApp->error_window);
-}
-
 void WindowApp::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
 	
 //	gtk_widget_destroy(theApp->admin_window);
@@ -414,7 +347,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	*/
 	
 	cout << "Making a new one\n";
-	theApp->appQueue.pushBack(ga);
+	//theApp->appQueue.pushBack(ga);
 	if(!ga->printApp(true))
 			return;
 
@@ -448,137 +381,9 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	uga->setRelatedCourses(theApp->cQRelated);
 	uga->setRelatedTAPositions(theApp->cQTa);
 	uga->setRelatedWorkEXP(theApp->jQRelated);
-	theApp->appQueue.pushBack(uga);
+	//theApp->appQueue.pushBack(uga);
 	if(!uga->printApp(true))
 			return;
 
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//**********************************************************************************************************************************************************************//
-				//set up the Sets of related Data
-//**********************************************************************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void WindowApp::relatedCourses1(GtkWidget *widget, WindowApp *theApp){
-
-	/*
-	
-
-	g_signal_connect (theApp->ei_relatedCourse1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_year1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_term1, "changed", G_CALLBACK (Control::quickCheck), theApp);
-	g_signal_connect (theApp->ei_finalGrade, "changed", G_CALLBACK (Control::quickCheck), theApp);
-
-
-
-
-
-	g_signal_connect(theApp->ei_continue, "clicked", G_CALLBACK(Control::moveOn), theApp);
-	
-
-	g_signal_connect(theApp->ei_repeat, "clicked", G_CALLBACK(Control::addAnother), theApp);
-	
-	*/
-}
-
-
-void WindowApp::relatedCourses2(GtkWidget *widget, WindowApp *theApp){
-/*
-	//part 2
-	g_signal_connect (theApp->ei_relatedCourse2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_year2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_term2, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	g_signal_connect (theApp->ei_supervisor, "changed", G_CALLBACK (Control::quickCheck2), theApp);
-	
-	g_signal_connect(theApp->ei_continue2, "clicked", G_CALLBACK(Control::moveOn2), theApp);
-	g_signal_connect(theApp->ei_repeat2, "clicked", G_CALLBACK(Control::addAnother2), theApp);
-	
-	
-	*/
-}
-
-
-void WindowApp::workExperience(GtkWidget *widget, WindowApp *theApp){
-/*	
-	/////////////////////////////////////////////////////
-	//-----------Remove Old Text Entries------////
-	/////////////////////////////////////////////////////
-	gtk_widget_destroy(theApp->ei_relatedCourse2);
-	gtk_widget_destroy(theApp->ei_term2);
-	gtk_widget_destroy(theApp->ei_year2);
-	gtk_widget_destroy(theApp->ei_supervisor);	
-	
-	/////////////////////////////////////////////////////
-	//-----------Remove Old Labels-------------------////
-	/////////////////////////////////////////////////////
-	gtk_widget_destroy(theApp->ei_lblRelatedCourse);
-	gtk_widget_destroy(theApp->ei_lblSupervisor);
-	gtk_widget_destroy(theApp->ei_lblTerm);
-	gtk_widget_destroy(theApp->ei_lblYear);
-	gtk_widget_destroy(theApp->ei_continue2);
-	gtk_widget_destroy(theApp->ei_repeat2);
-
-	theApp->page = 3;
-	
-
-
-	/////////////////////////////////////////////////////
-	//-----------New Buttons, labels and entries------////
-	/////////////////////////////////////////////////////
-
-	theApp->ei_lblRelevantWork = gtk_label_new("Relevant Work :");
-	theApp->ei_lblDuration = gtk_label_new("Duration :");
-	theApp->ei_lblStartDate = gtk_label_new("Start Date (dd/mm/yr) :");
-	theApp->ei_lblEndDate = gtk_label_new("End Date (dd/mm/yr) :");
-	theApp->ei_lblResponsabilities = gtk_label_new("Responsabilities :");
-	
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblRelevantWork, 400, 280);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblResponsabilities, 400, 310);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblDuration, 400,340);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblStartDate, 400, 370);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_lblEndDate, 400, 400);
-
-	//part 3
-	theApp->ei_relevantWork = gtk_entry_new();
-	theApp->ei_responsabilities = gtk_entry_new();
-	theApp->ei_duration= gtk_entry_new();
-	theApp->ei_startDate = gtk_entry_new();
-	theApp->ei_endDate = gtk_entry_new();
-
-	//part 3
-	theApp->ei_finish = gtk_button_new_with_label("Finish");
-	theApp->ei_repeat3 = gtk_button_new_with_label("Add Another");
-	
-	gtk_widget_set_size_request(theApp->ei_finish, 80, 35);
-	gtk_widget_set_size_request(theApp->ei_repeat3, 80, 35);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_repeat3, 550, 430);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_finish, 450, 430);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_relevantWork, 550, 280);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_responsabilities, 550, 310);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_duration, 550, 340);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_startDate, 550, 370);
-	gtk_fixed_put(GTK_FIXED(theApp->appFrame), theApp->ei_endDate,550, 400);
-	gtk_widget_set_sensitive(theApp->ei_finish, FALSE);
-	gtk_widget_set_sensitive(theApp->ei_repeat3, FALSE);
-	gtk_widget_show_all(theApp->appFrame);
-
-
-	//part 3
-	g_signal_connect (theApp->ei_startDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_endDate, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_relevantWork, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_responsabilities, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect (theApp->ei_duration, "changed", G_CALLBACK (Control::quickCheck3), theApp);
-	g_signal_connect(theApp->ei_finish, "clicked", G_CALLBACK(Control::moveOn3), theApp);
-	g_signal_connect(theApp->ei_repeat3, "clicked", G_CALLBACK(Control::addAnother3), theApp);
-	*/
-}
-
-
-void WindowApp::submitToMain(GtkWidget* widget, WindowApp* theApp){
-	//gtk_widget_destroy(theApp->appFrame);
-	//WindowApp::mainMenu(NULL,theApp);
-	
-}

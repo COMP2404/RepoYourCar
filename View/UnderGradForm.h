@@ -20,6 +20,7 @@ class UnderGradAppPage;
 
 class UnderGradForm : public Form{
 	public:
+		friend class WindowApp;
 		friend class GradAppPage;
 		friend class UnderGradAppPage;
 		friend class AppManager;
