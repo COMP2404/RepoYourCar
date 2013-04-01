@@ -234,7 +234,7 @@ void WindowApp::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
 
 int WindowApp::makeApplication(GtkWidget *widget, WindowApp *theApp)
 {
-
+	theApp->canEdit = true;
 	theApp->appMan = new AppManager(false,theApp);
 	theApp->stuPage->close();
 	/*theApp->gradApp = false;

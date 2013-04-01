@@ -184,10 +184,12 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	cout << app->getType() << endl;
 	if(app->getType() == "grad"){
 		cout << "got type" <<endl;
+		theApp->canEdit = true;
 		AppManager *appMan = new AppManager(true, theApp);
 		appMan->fillInData(app, theApp);
 	}
 	else{
+		theApp->canEdit = true;
 		AppManager *appMan = new AppManager(false, theApp);
 		appMan->fillInUData(app, theApp);
 	}
