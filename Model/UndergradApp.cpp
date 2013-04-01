@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 UndergradApp::UndergradApp(UndergradStudent *ugs, int appNum, string cor, string stat): Application(0,"","","undergrad"){
@@ -55,6 +56,27 @@ string   UndergradApp::getCourse(){ return course; }
 string   UndergradApp::getStuID(){ return stuID; }
 int      UndergradApp::getApplicationNumber(){ return applicationNumber; }
 string   UndergradApp::getAppStatus(){ return applicationStatus; }
+
+string 	 UndergradApp::getSummaryString(){
+	string s1, s2, s3, s4, s5, s6, s7, s8, summary;
+	std::stringstream ss1; 
+	std::stringstream ss2; 
+	std::stringstream ss3;
+	s1 = getStuFirst();
+	s2 = getStuLast();
+				 
+	ss1 << getStuYrStanding();
+	s3 = ss1.str();
+	s4 = getStuMajor();
+	ss2 << getStuCGPA();
+	s5 = ss2.str();
+	s6 = getStuEmail();
+	s7 = getStuID();
+	ss3 << getStuMGPA();
+	s8 = ss3.str();
+	summary = "Course: " + course + " Undergrad: " + s1 + " " + s2 + " in Year: " + s3 + "  |  Major: " + s4 + "  |  CGPA: " + s5  + "  |  GPA:  " + s8 + "  |  Email: " + s6 + "  |  ID: " + s7;
+	return summary;
+}
 
 
 //bool compare(GradApp* app){

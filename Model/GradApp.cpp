@@ -66,6 +66,20 @@ GradApp::GradApp(GradApp& ga){
 	string   GradApp::getStuSuper(){ return stuSuper;}
 	string   GradApp::getStuProgram(){return stuProgram;}
 
+	string 	 GradApp::getSummaryString(){
+		string s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, summary;
+		s1 = getStuFirst();
+		//cout << s1 << endl;
+		s2 = getStuLast();
+		s6 = getStuEmail();
+		s7 = getStuID();
+		s9 = getStuArea();
+		s10 = getStuProgram();
+		s11 = getStuSuper();
+		summary = "Course: " + course +  " Grad: " + s1 + " " + s2 +  "  | Email: " + s6 + "  |  ID: " + s7 + "  | Area: " + s9 + "  |  Program:  "  + s10 + " |  Supervisor:  " + s11;
+		return summary;
+	}
+
 	bool GradApp::saveSummary(){
 	
 	//debugging stuff..

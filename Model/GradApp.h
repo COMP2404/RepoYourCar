@@ -39,6 +39,7 @@ public:
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
 	Application*  getCopy();
+	string 	 getSummaryString();
 	//bool     compare(GradApp*);
 	//bool     compare(UndergradApp*);
 

@@ -622,9 +622,6 @@ bool Queue<T>::saveSummaries(){
 	cout << "SS1\n";
 	char theInput[200];
 	string input[100];//string array for each Application
-	//UndergradApp* uga;
-	Application *theApp;
-	//GradApp* ga;
 	
 	cout << "SS2\n";
 	//THIS WILL NOT BE APPEND...OVERWRITING OLD FILE WITH CURRENT APPLICATIONS
@@ -635,7 +632,6 @@ bool Queue<T>::saveSummaries(){
 		return false;//Error opening file
 	} 
 
-	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
 	cout << "SS4\n";
 	Queue<T> qCopy = *this;//COPY CTOR
 
@@ -645,62 +641,16 @@ bool Queue<T>::saveSummaries(){
 	//FOR ALL APPLICATIONS IN COPY OF THIS QUEUE:
 	while(app != NULL){
 		cout << "SS6\n";
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
 
-		//the following commented section is to be replaced by a "print summary" function
-		// inside Application. printSummary() has not been implemented.
-
-		//input[i] = theApp->printSummary();
-
- 
-/*
-		if(app->getType() == "grad"){
-			cout << "SS6.2\n";
-			ga = static_cast<GradApp*>(app);
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Course: " + ga->getCourse() +  " Grad: " + s1 + " " + s2 +  "  | Email: " + s6 + "  |  ID: " + s7 + "  | Area: " + s9 + "  |  Program:  "  + s10 + " |  Supervisor:  " + s11;
-		}
-		else{
-			cout << "SS7\n";
-			uga = static_cast<UndergradApp*>(app);	
-			s1 = uga->getStuFirst();
-			cout << s1 << endl;
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Course: " + uga->getCourse() + " Undergrad: " + s1 + " " + s2 + " in Year: " + s3 + "  |  Major: " + s4 + "  |  CGPA: " + s5  + "  |  GPA:  " + s8 + "  |  Email: " + s6 + "  |  ID: " + s7;
-		}
-*/
+		input[i] = app->getSummaryString();
+		
 		cout << "SS8\n";
 			 
-			
 		//theInput = input[i];
 		//get a new application from the copy of *this queue
 		i++;
 		app = qCopy.popFront();	
-		cout << "SS9\n";
-		if(app != NULL){
-			cout << "SS10\n";
-			theApp = app;
-		}
-		
+		cout << "SS9\n";		
 
 	}
 
