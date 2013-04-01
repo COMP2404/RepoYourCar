@@ -109,7 +109,9 @@ void WorkExperienceForm::addAnotherGrad(GtkWidget* widget,WindowApp* windowApp){
 		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_duration), "");
 		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_startDate), "");
 		gtk_entry_set_text(GTK_ENTRY(windowApp->gradAppPage->form->ei_endDate), "");
-		
+		if(windowApp->editGMode){
+			GradAppPage::editNextJob(windowApp);
+		}
 	}
 	else{
 
@@ -143,7 +145,9 @@ void WorkExperienceForm::addAnotherUGrad(GtkWidget* widget,WindowApp* windowApp)
 		gtk_entry_set_text(GTK_ENTRY(windowApp->uGradAppPage->form->ei_duration), "");
 		gtk_entry_set_text(GTK_ENTRY(windowApp->uGradAppPage->form->ei_startDate), "");
 		gtk_entry_set_text(GTK_ENTRY(windowApp->uGradAppPage->form->ei_endDate), "");
-
+		if(windowApp->editUMode){
+			UnderGradAppPage::editNextJob(windowApp);
+		}
 		
 	}else{
 

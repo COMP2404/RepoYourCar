@@ -24,6 +24,7 @@ void GradAppPage::draw(WindowApp *windowApp){
 }
 
 void GradAppPage::close(GtkWidget *widget, WindowApp *page){
+	//page->editGApp = false;
 	gtk_widget_destroy(page->gradAppPage->form->window);
 }
 
@@ -31,6 +32,7 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 
 	RelatedCoursesTwoForm *relatedCourses2 = new RelatedCoursesTwoForm();
 	relatedCourses2->create(app,true);
+
 	g_signal_connect(app->gradAppPage->form->ei_continue2, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPageGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherGrad), app);
 }
@@ -38,6 +40,9 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 void GradAppPage::workExp(WindowApp* app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,true);
+	if(app->editGMode){
+		GradAppPage::fillInWorkExp(app);
+	}
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
 	//if(app->gradAppPage->edit)
@@ -135,17 +140,21 @@ void GradAppPage::fillInData(Application* app, WindowApp *theApp){
 	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), (editApp->getStuFirst()).c_str());
 	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), (editApp->getStuFirst()).c_str());
 	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), (editApp->getStuFirst()).c_str());
-
+	GradAppPage::fillInRelated(theApp);
 }
 
 void GradAppPage::fillInRelated(WindowApp* theApp){
-	//theApp->gradAppPage->relatedQueue = new CourseQueue(*(theApp->editGApp->relatedTAPositions));	
-	//Course *course = theApp->gradAppPage->relatedQueue->popFront();
+	theApp->gradAppPage->relatedQueue = new Queue<Course>(*(theApp->editGApp->relatedTAPositions));	
+	cout<<theApp->gradAppPage->relatedQueue->size() <<endl;
+	Course *course = theApp->gradAppPage->relatedQueue->popFront();
+	stringstream ss;
+	ss << course->getYear();
+	string year = ss.str();
 	
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), ""+course->getYear());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), year.c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
 }
 void GradAppPage::fillInWorkExp(WindowApp* theApp){
 	
@@ -163,15 +172,32 @@ void GradAppPage::fillInWorkExp(WindowApp* theApp){
 	//windowApp->jQRelated->pushBack(job);
 
 }
-void GradAppPage::editNextJob(WindowApp *theApp){
-	if(theApp->gradAppPage->workExpQueue->isEmpty()){
+void GradAppPage::editNextRelated(WindowApp *theApp){
+	if(!theApp->gradAppPage->relatedQueue->isEmpty()){
 		
-		//Job *job = theApp->gradAppPage->workExpQueue->popFront();
+		Course *course = theApp->gradAppPage->relatedQueue->popFront();
+		stringstream ss;
+		ss << course->getYear();
+		string year = ss.str();
+		
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), year.c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+	}
+	else{
+		cout << "thing is empty?" << endl;
+	}
+}
+void GradAppPage::editNextJob(WindowApp *theApp){
+	if(!theApp->gradAppPage->workExpQueue->isEmpty()){
+		
+		Job *job = theApp->gradAppPage->workExpQueue->popFront();
 	
-		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
-		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), job->getTasks().c_str());
-		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), job->getDuration().c_str());
-		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), job->getStartDate().c_str());
-		//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), job->getEndDate().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), job->getDuration().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), job->getStartDate().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), job->getEndDate().c_str());
 	}
 }

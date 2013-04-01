@@ -154,7 +154,8 @@ void RelatedCoursesOneForm::addAnother(GtkWidget* widget,WindowApp* theApp){
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), "");
-		
+		if(theApp->editUMode)
+			UnderGradAppPage::editNextCourse(theApp);
 	}
 	else{
 

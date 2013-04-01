@@ -25,8 +25,12 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		/////////////////////////////////////////////////////
 		//-----------New Buttons, labels and entries------////
 		/////////////////////////////////////////////////////
-	
-		windowApp->uGradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Add Another");
+		if(windowApp->editUMode){
+			windowApp->uGradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Edit/Add Another");
+		}else{
+			windowApp->uGradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Add Another");
+		}
+		
 		
 		
 		//part 2
@@ -76,8 +80,12 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		//-----------New Buttons, labels and entries------////
 		/////////////////////////////////////////////////////
 		
-
-		windowApp->gradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Add Another");
+		if(windowApp->editGMode){
+			windowApp->gradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Edit/Add Another");
+		}else{
+			windowApp->gradAppPage->form->ei_repeat2 = gtk_button_new_with_label("Add Another");
+		}
+		
 		
 		
 		//part 2
@@ -169,7 +177,7 @@ void RelatedCoursesTwoForm::nextPageGrad(GtkWidget* widget, WindowApp *theApp){
 
 
 		int yr = atoi(string2.c_str());
-		Course* cor = new Course(string1, yr, string3, "N/A", string4);
+		Course* cor = new Course(string1, yr, string3, string4, "N/A");
 		theApp->cQTa->pushBack(cor);
 
 		RelatedCoursesTwoForm::cleanupGrad(theApp);
@@ -205,7 +213,8 @@ void RelatedCoursesTwoForm::addAnotherUGrad(GtkWidget* widget, WindowApp *theApp
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), "");
-		
+		if(theApp->editUMode)
+			UnderGradAppPage::editNextRelated(theApp);
 			
 	}
 	else{
@@ -230,14 +239,15 @@ void RelatedCoursesTwoForm::addAnotherGrad(GtkWidget* widget, WindowApp *theApp)
 
 
 		int yr = atoi(string2.c_str());
-		Course* cor = new Course(string1, yr, string3, "N/A", string4);
+		Course* cor = new Course(string1, yr, string3, string4, "N/A");
 		theApp->cQTa->pushBack(cor);
 
 		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), "");
 		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), "");
-		
+		if(theApp->editGMode)
+			GradAppPage::editNextRelated(theApp);
 			
 	}
 	else{

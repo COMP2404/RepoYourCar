@@ -4,7 +4,7 @@ void GradForm::draw(GradForm *form){
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
-	
+	cout << "in form draw" <<endl;
  	form->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	//loadApplications(theApp);
 	//cout << "app loaded" << endl;

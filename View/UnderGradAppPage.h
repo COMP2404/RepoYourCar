@@ -34,6 +34,7 @@ class UnderGradAppPage : public AppPage{
 		friend class AppManager;
 		friend class UGradAppData;
 		friend class UGradSubmitWindow;
+		
 		friend class RelatedCoursesTwoForm;
 		friend class RelatedCoursesOneForm;
 		friend class WorkExperienceForm;
@@ -47,6 +48,10 @@ class UnderGradAppPage : public AppPage{
 		//WorkExperienceForm *workExp;
 		UGradAppData *formData;
 		WindowApp *theApp;
+		Queue<Job> *workExpQueue;
+		Queue<Course> *relatedTA;
+		Queue<Course> *relatedCourse;
+
 		virtual void draw(WindowApp*);
 		static void close(GtkWidget*,WindowApp*);
 		static void related1(GtkWidget*,WindowApp*);
@@ -56,6 +61,13 @@ class UnderGradAppPage : public AppPage{
 		void errorCheck(WindowApp*);
 		void submit(WindowApp*);
 		static void fillInData(Application*,WindowApp*);
+		static void fillInRelated(WindowApp*);
+		static void fillInTA(WindowApp*);
+		static void fillInWorkExp(WindowApp*);
+
+		static void editNextCourse(WindowApp*);
+		static void editNextRelated(WindowApp*);
+		static void editNextJob(WindowApp*);
 		//static void workExperience(GtkWidget*,UnderGradAppPage*);
 		
 		

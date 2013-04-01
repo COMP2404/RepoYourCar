@@ -127,6 +127,92 @@ void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->major), (editApp->getStuMajor()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->year), (year.c_str()));
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->stuNum), (editApp->getStuID()).c_str());
-
+	UnderGradAppPage::fillInRelated(theApp);	
+}
+void UnderGradAppPage::fillInRelated(WindowApp* theApp){
+	theApp->uGradAppPage->relatedCourse = new Queue<Course>(*(theApp->editUApp->relatedCourses));	
+	cout<<theApp->uGradAppPage->relatedCourse->size() <<endl;
+	Course *course = theApp->uGradAppPage->relatedCourse->popFront();
+	stringstream ss;
+	ss << course->getYear();
+	string year = ss.str();
 	
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), year.c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), course->getTitle().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), course->getTerm().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), course->getFinal().c_str());
+}
+void UnderGradAppPage::fillInTA(WindowApp* theApp){
+	theApp->uGradAppPage->relatedTA = new Queue<Course>(*(theApp->editUApp->relatedTAPositions));	
+	cout<<theApp->uGradAppPage->relatedTA->size() <<endl;
+	Course *course = theApp->uGradAppPage->relatedTA->popFront();
+	stringstream ss;
+	ss << course->getYear();
+	string year = ss.str();
+	
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), year.c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), course->getTitle().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), course->getTerm().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), course->getFinal().c_str());
+}
+void UnderGradAppPage::fillInWorkExp(WindowApp* theApp){
+	theApp->uGradAppPage->workExpQueue = new Queue<Job>(*(theApp->editUApp->relatedWorkEXP));	
+	cout<<theApp->uGradAppPage->workExpQueue->size() <<endl;
+	Job *job = theApp->uGradAppPage->workExpQueue->popFront();
+	
+	
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), job->getDuration().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), job->getStartDate().c_str());
+	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), job->getEndDate().c_str());
+}
+void UnderGradAppPage::editNextCourse(WindowApp *theApp){
+	if(!theApp->uGradAppPage->relatedCourse->isEmpty()){
+		
+		Course *course = theApp->uGradAppPage->relatedCourse->popFront();
+		stringstream ss;
+		ss << course->getYear();
+		string year = ss.str();
+		
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), year.c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), course->getTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), course->getTerm().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), course->getFinal().c_str());
+	}
+	else{
+		cout << "thing is empty?" << endl;
+	}
+}
+
+
+
+void UnderGradAppPage::editNextRelated(WindowApp *theApp){
+	if(!theApp->uGradAppPage->relatedTA->isEmpty()){
+		
+		Course *course = theApp->uGradAppPage->relatedTA->popFront();
+		stringstream ss;
+		ss << course->getYear();
+		string year = ss.str();
+		
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+	}
+	else{
+		cout << "thing is empty?" << endl;
+	}
+}
+void UnderGradAppPage::editNextJob(WindowApp *theApp){
+	if(!theApp->uGradAppPage->workExpQueue->isEmpty()){
+		
+		Job *job = theApp->uGradAppPage->workExpQueue->popFront();
+	
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), job->getDuration().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), job->getStartDate().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), job->getEndDate().c_str());
+	}
 }
