@@ -149,7 +149,17 @@ void GradForm::draw(GradForm *form, WindowApp *theApp){
 	/////////////////////////////////////////////////
 	//--Show all widgets on new frame---------//
 	/////////////////////////////////////////////////
+	if(!theApp->canEdit){
+		gtk_widget_set_sensitive(combo, FALSE);
+		gtk_widget_set_sensitive(grad_research_combo, FALSE);
+		gtk_widget_set_sensitive(grad_program_combo, FALSE);
+		gtk_widget_set_sensitive(fName, FALSE);
+		gtk_widget_set_sensitive(lName, FALSE);
+		gtk_widget_set_sensitive(email, FALSE);
+		gtk_widget_set_sensitive(grad_sup, FALSE);
+		gtk_widget_set_sensitive(stuNum, FALSE);
 
+	}
 	
 
 	gtk_widget_show_all(form->window);
