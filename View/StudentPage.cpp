@@ -107,42 +107,8 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 	 int i = 0;
 	//for(int i=0; i<length; i++){
 	while(app != NULL){
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
-		if(app->getType() == "grad"){
-			ga = static_cast<GradApp*>(app);
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
-		}
-		else{
-			
-			uga = static_cast<UndergradApp*>(app);	
-			s1 = uga->getStuFirst();
-			
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
 
-		}
-
-			
+		input[i] = app->getSummaryString();//polymorphic method for getting the application summary		
 		 
 		
 		//theInput = input[i];
@@ -150,16 +116,6 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->stuPage->appCombo), theInput);
 		i++;
 		app = temp->popFront();	
-		if(app != NULL){
-			if(app->getType() == "grad"){
-				ga = static_cast<GradApp*>(app);
-				
-
-			}
-			else{
-				uga = dynamic_cast<UndergradApp*>(app);
-			}
-		}
 		
 	}
 
@@ -181,7 +137,7 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	
 	//app = theApp->appQueue.getOriginal(app);
 	
-	cout << app->getType() << endl;
+	//cout << app->getType() << endl;
 	if(app->getType() == "grad"){
 		cout << "got type" <<endl;
 		AppManager *appMan = new AppManager(true, theApp);
