@@ -58,6 +58,16 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		//gtk_widget_set_sensitive(ei_repeat2, FALSE);
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
 		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
+
+		if(!windowApp->canEdit){
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_relatedCourse2, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_term2, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_year2, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_supervisor, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_continue2, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat2, FALSE);
+		}
+
 		
 	}
 	else{
@@ -118,6 +128,14 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 			//gtk_widget_set_size_request(windowApp->gradAppPage->form->btnCycle, 80, 35);
 			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->btnCycle, 500, 500);
 
+		}
+		if(!windowApp->canEdit){
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_relatedCourse2, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_term2, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_year2, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_supervisor, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_continue2, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat2, FALSE);
 		}
 		
 		gtk_widget_show_all(windowApp->gradAppPage->form->appFrame);

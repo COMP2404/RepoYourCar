@@ -8,6 +8,7 @@ void AdminPage::adminPage(AdminWindow *window){
 	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
 	g_signal_connect(window->admin_viewSummary, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::viewSummaryChoice), window);
+	g_signal_connect(window->viewApp, "clicked", G_CALLBACK (AdminPage::viewAnApp), window);
 	//g_signal_connect (manager.admin_window, "delete-event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 	//g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 }
@@ -83,6 +84,10 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 void AdminPage::viewSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	window->showSummaryChoice(widget, window);
 	
+}
+void AdminPage::viewAnApp(GtkWidget *widget, AdminWindow *window){
+	cout <<"choosing app" <<endl;
+	window->chooseApp(widget, window);
 }
 void AdminPage::setAppSelected(GtkWidget *widget, AdminWindow *window){
 	if(window->pending){
@@ -211,3 +216,4 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 void AdminPage::saveTheSum(GtkWidget *widget, AdminWindow *window){
 	window->saveQueue->saveSummaries();
 }
+

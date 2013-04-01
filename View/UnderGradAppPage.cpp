@@ -7,9 +7,12 @@ UnderGradAppPage::UnderGradAppPage(){
 void UnderGradAppPage::draw(WindowApp *windowApp){
 	//gradApp = false;
 	
-	windowApp->uGradAppPage->form->draw();
+	windowApp->uGradAppPage->form->draw(windowApp);
 
-	 
+	 if(!windowApp->canEdit){
+		
+		
+	}
 	
 
 	g_signal_connect(windowApp->uGradAppPage->form->submit, "clicked", G_CALLBACK(UnderGradAppPage::getInfo), windowApp);

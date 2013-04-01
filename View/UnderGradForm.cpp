@@ -1,6 +1,6 @@
 #include "UnderGradForm.h"
 
-void UnderGradForm::draw(){
+void UnderGradForm::draw(WindowApp *theApp){
 
 	cout << "ugrad draw" <<endl;
 	/////////////////////////////////////////////////
@@ -121,6 +121,21 @@ void UnderGradForm::draw(){
 	/////////////////////////////////////////////////
 	//--Show all widgets on new frame---------//
 	/////////////////////////////////////////////////
+	if(!theApp->canEdit){
+		gtk_widget_set_sensitive(combo, FALSE);
+		gtk_widget_set_sensitive(major, FALSE);
+		gtk_widget_set_sensitive(gpa, FALSE);
+		gtk_widget_set_sensitive(fName, FALSE);
+		gtk_widget_set_sensitive(lName, FALSE);
+		gtk_widget_set_sensitive(email, FALSE);
+		gtk_widget_set_sensitive(year, FALSE);
+		gtk_widget_set_sensitive(stuNum, FALSE);
+		gtk_widget_set_sensitive(cgpa, FALSE);
+	}
+
+
+
+
 	gtk_widget_show_all(window);
 
 	

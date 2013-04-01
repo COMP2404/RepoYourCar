@@ -3,7 +3,7 @@
 void AdminWindow::draw(){
 	admin_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(admin_window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(admin_window), 400, 200);
+	gtk_window_set_default_size(GTK_WINDOW(admin_window), 400, 300);
 	gtk_window_set_title(GTK_WINDOW(admin_window), "Admin Window");
 
 	admin_frame = gtk_fixed_new();
@@ -17,10 +17,13 @@ void AdminWindow::draw(){
 	gtk_widget_set_size_request(admin_assigned, 150, 35);
 	gtk_fixed_put(GTK_FIXED(admin_frame), admin_assigned , 100, 110);
 
+	viewApp = gtk_button_new_with_label("View an Application");
+	gtk_widget_set_size_request(viewApp, 150, 35);
+	gtk_fixed_put(GTK_FIXED(admin_frame), viewApp , 100, 170);
 
 	admin_cancel = gtk_button_new_with_label("Cancel");
 	gtk_widget_set_size_request(admin_cancel, 80, 35);
-	gtk_fixed_put(GTK_FIXED(admin_frame), admin_cancel , 50, 150);
+	gtk_fixed_put(GTK_FIXED(admin_frame), admin_cancel , 50, 250);
 	
 	gtk_widget_show_all(admin_window);
 
@@ -95,4 +98,189 @@ void AdminWindow::closeSummaryChoice(GtkWidget *widget, AdminWindow *window){
 		
 	gtk_widget_destroy(window->sum->summary_choice_window);
 	AdminPage::viewSummary(widget,window);
+}
+
+void AdminWindow::chooseApp(GtkWidget* widget, AdminWindow *window){
+	gtk_widget_destroy(window->admin_frame);
+	window->admin_frame = gtk_fixed_new();
+
+	window->firstName = gtk_entry_new();
+	window->lastName = gtk_entry_new();
+	window->stuNum = gtk_entry_new();
+	window->appNum = gtk_entry_new();
+	window->appCombo =  gtk_combo_box_text_new();
+	window->btnFind = gtk_button_new_with_label("Find Apps");
+	window->lblFirst = gtk_label_new("First Name :");
+	window->lblLast = gtk_label_new("Last Name :");
+	window->lblAppNum = gtk_label_new("App Number :");
+	window->lblStuNum = gtk_label_new("Student Number :");
+	
+
+	gtk_widget_set_size_request(window->firstName, 80, 35);
+	gtk_widget_set_size_request(window->lastName, 80, 35);
+	gtk_widget_set_size_request(window->appNum, 80, 35);
+	gtk_widget_set_size_request(window->stuNum, 80, 35);
+	gtk_widget_set_size_request(window->btnFind, 80, 35);
+
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->btnFind , 250, 75);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->firstName , 50, 50);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lastName , 50, 100);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->stuNum , 50, 150);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->appNum , 50, 200);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lblFirst , 50, 35);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lblLast , 50, 85);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lblStuNum , 50, 135);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lblAppNum , 50, 185);
+	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->appCombo , 50, 250);
+
+	
+	
+	//qCopy->getAppsByName();
+	//Application *app = theApp->appQueue->getOriginal(Application*);
+	//qCopy->getOriginal(Application*);
+	g_signal_connect(window->btnFind, "clicked", G_CALLBACK(AdminWindow::updateAppCombo), window);
+
+	gtk_container_add(GTK_CONTAINER(window->admin_window), window->admin_frame);
+	gtk_widget_show_all(window->admin_window);
+}
+
+
+void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
+	cout << "Updating admin find combo" << endl;
+	const gchar *sfname, *slname, *sStuNum, *sAppNum;
+	string first, last, stuNum, appNum;
+	/*
+	
+	//stuNum =(sStuNum);
+	//appNum =(sAppNum);
+	
+	window->theStuNum = stuNum;
+	window->theAppNum = appNum;
+	cout << "copied boxes" << endl;
+	;*/
+	sfname = gtk_entry_get_text(GTK_ENTRY(window->firstName));
+	slname = gtk_entry_get_text(GTK_ENTRY(window->lastName));
+	first = (sfname);
+	last =(slname);
+	window->theFName = first;
+	window->theLName = last;
+	Queue<Application> *temp;
+	window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(first,last)));
+	//theApp->stuPage->qCopy = new AppQueue(theApp->stuPage->qCopy.getAppsByName(first,last));
+
+	cout << "copied queue" << endl;
+	
+	temp = window->qCopy;
+	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
+	
+	//int length = qCopy->size();
+	
+	char theInput[200];
+	string input[100];//string array for each Application
+	Application* tmpApp = NULL;
+	Application* app;
+    
+	GradApp* ga = NULL;
+	UndergradApp *uga = NULL;
+	
+	if(temp != NULL){
+		app = (window->qCopy->popFront());
+		cout << "Popped Front" << endl;
+		
+		
+	}
+	
+	 int i = 0;
+	//for(int i=0; i<length; i++){
+	while(app != NULL){
+		std::stringstream ss1; 
+		std::stringstream ss2; 
+		std::stringstream ss3;
+		if(app->getType() == "grad"){
+			ga = static_cast<GradApp*>(app);
+			s1 = ga->getStuFirst();
+			//cout << s1 << endl;
+			s2 = ga->getStuLast();
+			s6 = ga->getStuEmail();
+			s7 = ga->getStuID();
+			s9 = ga->getStuArea();
+			s10 = ga->getStuProgram();
+			s11 = ga->getStuSuper();
+			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
+		}
+		else{
+			
+			uga = static_cast<UndergradApp*>(app);	
+			s1 = uga->getStuFirst();
+			
+			s2 = uga->getStuLast();
+				 
+			ss1 << uga->getStuYrStanding();
+			s3 = ss1.str();
+			s4 = uga->getStuMajor();
+			ss2 << uga->getStuCGPA();
+			s5 = ss2.str();
+			s6 = uga->getStuEmail();
+			s7 = uga->getStuID();
+			ss3 << uga->getStuMGPA();
+			s8 = ss3.str();
+			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
+
+		}
+
+			
+		 
+		
+		//theInput = input[i];
+		strcpy(theInput,input[i].c_str());
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->appCombo), theInput);
+		i++;
+		app = temp->popFront();	
+		if(app != NULL){
+			if(app->getType() == "grad"){
+				ga = static_cast<GradApp*>(app);
+				
+
+			}
+			else{
+				uga = dynamic_cast<UndergradApp*>(app);
+			}
+		}
+		
+	}
+
+
+
+
+	
+	
+	g_signal_connect(GTK_COMBO_BOX(window->appCombo), "changed", G_CALLBACK (AdminWindow::showApp), window);
+}
+
+void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
+	int index;
+
+	Queue<Application> *temp;
+	temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
+	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
+	
+	Application *app = (*temp)[index];
+	
+	//app = theApp->appQueue.getOriginal(app);
+	
+	cout << app->getType() << endl;
+	if(app->getType() == "grad"){
+		cout << "got type" <<endl;
+		window->theApp->canEdit = false;
+		AppManager *appMan = new AppManager(true, window->theApp);
+		
+		appMan->fillInData(app, window->theApp);
+	}
+	else{
+		window->theApp->canEdit = false;
+		AppManager *appMan = new AppManager(false, window->theApp);
+		
+		appMan->fillInUData(app, window->theApp);
+	}
+	
 }

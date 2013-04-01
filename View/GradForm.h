@@ -41,7 +41,7 @@ class GradForm : public Form {
 			*ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities,
 			*lblpickCourse, *lblpickArea, *lblpickProgram, *btnCycle, *chkExperience;
 		
-		virtual void draw(GradForm *);
+		virtual void draw(GradForm *, WindowApp*);
 		
 };
 #endif

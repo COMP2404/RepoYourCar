@@ -1,5 +1,5 @@
 #include "GradForm.h"
-void GradForm::draw(GradForm *form){
+void GradForm::draw(GradForm *form, WindowApp *theApp){
 
 	/////////////////////////////////////////////////
 	//--Creates new frame and adds it onto the window---//
@@ -149,6 +149,9 @@ void GradForm::draw(GradForm *form){
 	/////////////////////////////////////////////////
 	//--Show all widgets on new frame---------//
 	/////////////////////////////////////////////////
+
+	
+
 	gtk_widget_show_all(form->window);
 }
 string GradForm::getTheType(){

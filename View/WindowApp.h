@@ -85,6 +85,7 @@ class WindowApp{
 		bool allCourses;
 		bool editGMode;
 		bool editUMode;
+		bool canEdit;
 		static int applicationNum; 		
 		/*WindowApp();
 		~WindowApp();*/
