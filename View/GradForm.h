@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sstream>
+class WindowApp;
+#include "WindowApp.h"
 #include <gtk/gtk.h>
 
 #include "Form.h"
