@@ -3,12 +3,10 @@
 #include "Model/Student.h"
 #include "Model/UndergradStudent.h"
 #include "Model/GradStudent.h"
-#include "Model/CourseQueue.h"
-#include "Model/JobQueue.h"
 #include "Model/GradApp.h"
 #include "Model/UndergradApp.h"
 #include "Model/Application.h"
-#include "Model/AppQueue.h"
+#include "Model/Queue.h"
 
 #include <string>
 #include <iostream>
@@ -66,18 +64,18 @@ int main(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 	/*
 	cout<<"\n\nTESTING NEW cOPY CTOR\n\n ";
 	Application generalApp = nanaApp;
@@ -138,17 +136,17 @@ void testSS(){
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
 	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
 
@@ -180,16 +178,16 @@ void testPE1(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
 
 	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
@@ -235,22 +233,22 @@ void testPE2(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 
 	cout << "------Making a new queue:------ " << endl ;
 	cout << endl << "." << endl << "." << endl;
-	AppQueue tQ;
+	Queue<Application> tQ;
 	cout << tQ <<endl;
 
 	cout << "Adding a couple applications to the queue (Dick and Jane):\n";
@@ -261,8 +259,8 @@ void testPE2(){
 	GradApp* dickApp = new GradApp(&dick, 10413, "COMP3308", "pending");
 	UndergradApp* janeApp = new UndergradApp(&jane, 20412, "COMP1001", "pending");
 	//push them to the new queue:
-	tQ.pushBack(dickApp, NULL);
-	tQ.pushBack(NULL, janeApp);
+	tQ.pushBack(dickApp);
+	tQ.pushBack(janeApp);
 
 	cout << "-----here is the queue with dick and jane:-----\n" << tQ << endl;
 
@@ -301,18 +299,18 @@ void testP1(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 
 	cout << "------making a new grad and undergrad application------ " << endl ;
 
@@ -326,7 +324,7 @@ void testP1(){
 	cout << endl << "." << endl << "." << endl;
 	cout << "--------here is the queue that we will be adding to:--------\n" << queue << endl << endl;
 	cout << "\n\n-------Setting new queue equal to old + new grad application-------" <<endl;
-	AppQueue tQ;
+	Queue<Application> tQ;
 	tQ = (queue + gradapp); // + ugradapp;
 	cout << "------------Here is the resulting queue---------------" <<endl;
 	cout << tQ <<endl <<endl;//using overloaded << operator on cout and the queue
@@ -367,21 +365,21 @@ void testP2(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 
 	//Make a new queue to hold the addition of two other queues
-	AppQueue tQ;
+	Queue<Application> tQ;
 
 	///////////////////STUDENTS///////////////////////////
 	GradStudent ralph("Ralph", "A", "ralph@carleton.ca", "100938324", "BasketWeaving", "jones");
@@ -405,17 +403,17 @@ void testP2(){
 	UndergradApp* maddiApp = new UndergradApp(&maddi, 21000, "COMP2501", "pending");
 
 	//A queue for the apps
-	AppQueue qu;
+	Queue<Application> qu;
 	//Push all these apps to the queue
-	qu.pushBack(ralphApp, NULL);
-	qu.pushBack(johnApp, NULL);
-	qu.pushBack(timApp, NULL);
-	qu.pushBack(jennyApp, NULL);
-	qu.pushBack(NULL,  samApp);
+	qu.pushBack(ralphApp);
+	qu.pushBack(johnApp);
+	qu.pushBack(timApp);
+	qu.pushBack(jennyApp);
+	qu.pushBack(samApp);
 	//qu.pushBack(NULL,  paulApp);
-	qu.pushBack(NULL,  paulApp);
-	qu.pushBack(NULL,  natalieApp);
-	qu.pushBack(NULL,  maddiApp);
+	qu.pushBack(paulApp);
+	qu.pushBack(natalieApp);
+	qu.pushBack(maddiApp);
 
 	cout << "----here is the first queue in our addition:----\n" << queue << endl << endl;
 
@@ -455,18 +453,18 @@ void testME1(){
 	UndergradApp valApp(&valerie, 20397, "COMP3001", "pending");
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 
 	cout << "------the applications from the queues print------ " << endl << queue;
 	cout << endl << "." << endl << "." << endl;
@@ -498,7 +496,7 @@ void testME1(){
 void testME2(){
 	cout << "===========================================ABOUT TO TEST THE -= QUEUE OPERATOR==============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	//////////////////////THE QUEUE///////////////////////
-	AppQueue queue;
+	Queue<Application> queue;
 
 	/////////////////////STUDENTS/////////////////////////
 	GradStudent bill("Bill", "OReily", "baba@carleton.ca", "100928374", "Physics", "super-Jim");
@@ -524,16 +522,16 @@ void testME2(){
 	UndergradApp smithApp(&smith, 20395, "COMP2404", "pending");
 
 	//////////////////////POPULATE////////////////////////
-	queue.pushBack(&billApp, NULL);
-	queue.pushBack(&monkeyApp, NULL);
-	queue.pushBack(&funApp, NULL);
-	queue.pushBack(&nanaApp, NULL);
-	queue.pushBack(&castleApp, NULL);
-	queue.pushBack(NULL, &georgeApp);
-	queue.pushBack(NULL, &sydApp);
-	queue.pushBack(NULL, &valApp);
-	queue.pushBack(NULL, &smithApp);
-	queue.pushBack(NULL, &lApp);
+	queue.pushBack(&billApp);
+	queue.pushBack(&monkeyApp);
+	queue.pushBack(&funApp);
+	queue.pushBack(&nanaApp);
+	queue.pushBack(&castleApp);
+	queue.pushBack(&georgeApp);
+	queue.pushBack(&sydApp);
+	queue.pushBack(&valApp);
+	queue.pushBack(&smithApp);
+	queue.pushBack(&lApp);
 
 	cout << "------the applications from the target queue's print------ " << endl << queue;
 
@@ -546,18 +544,18 @@ void testME2(){
 	UndergradApp ooglyApp(&oogly, 21000, "COMP2001", "pending");
 
 	//A queue for the apps
-	AppQueue qu;
+	Queue<Application> qu;
 	//Push all these apps to the queue
-	qu.pushBack(&billApp, NULL);
-	qu.pushBack(&monkeyApp, NULL);
-	qu.pushBack(&nanaApp, NULL);
-	qu.pushBack(&someApp, NULL);
-	qu.pushBack(&funApp, NULL);
-	qu.pushBack(&castleApp,  NULL);
-	qu.pushBack(NULL,  &georgeApp);
-	qu.pushBack(NULL,  &valApp);
-	qu.pushBack(NULL,  &smithApp);
-	qu.pushBack(NULL,  &ooglyApp);
+	qu.pushBack(&billApp);
+	qu.pushBack(&monkeyApp);
+	qu.pushBack(&nanaApp);
+	qu.pushBack(&someApp);
+	qu.pushBack(&funApp);
+	qu.pushBack(&castleApp);
+	qu.pushBack(&georgeApp);
+	qu.pushBack(&valApp);
+	qu.pushBack(&smithApp);
+	qu.pushBack(&ooglyApp);
 
 	cout << "-----The queue is loaded, here it is: notice it has a couple applications not in the target queue\n";
 	cout << qu;
@@ -573,7 +571,7 @@ void testME2(){
 }
 //TEST -(Application)
 void testM1(){
-	AppQueue q;
+	Queue<Application> q;
 	cout << "=========================================ABOUT TO TEST THE - APPLICATION OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------Rebuilding the queue------\n";
 	/////////////////////STUDENTS/////////////////////////
@@ -596,19 +594,19 @@ void testM1(){
 	UndergradApp* smithApp = new UndergradApp(&smith, 20395, "COMP2404", "pending");
 
 	//////////////////////POPULATE////////////////////////
-	q.pushBack(billApp, NULL);
-	q.pushBack(monkeyApp, NULL);
-	q.pushBack(funApp, NULL);
-	q.pushBack(nanaApp, NULL);
-	q.pushBack(NULL, georgeApp);
-	q.pushBack(NULL, sydApp);
-	q.pushBack(NULL, valApp);
-	q.pushBack(NULL, smithApp);
+	q.pushBack(billApp);
+	q.pushBack(monkeyApp);
+	q.pushBack(funApp);
+	q.pushBack(nanaApp);
+	q.pushBack(georgeApp);
+	q.pushBack(sydApp);
+	q.pushBack(valApp);
+	q.pushBack(smithApp);
 	cout << "------the applications from the queues print------ " << endl << q;
 	cout << endl << "." << endl << "." << endl;
 
 	cout << "\n\n---Setting a new queue equal to above - bill application---" <<endl;
-	AppQueue tQ;
+	Queue<Application> tQ;
 	tQ = (q - billApp); //alls overloaded operator-(Application*);
 	cout << "------------Here is the resulting queue---------------" <<endl;
 	cout << tQ <<endl <<endl;//using overloaded << operator on cout and the queue
@@ -627,7 +625,7 @@ void testM1(){
 }
 //TEST -(Queue)
 void testM2(){
-	AppQueue q;
+	Queue<Application> q;
 	cout << "===========================================ABOUT TO TEST THE - QUEUE OPERATOR=============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------Rebuilding the queue------\n";
 	/////////////////////STUDENTS/////////////////////////
@@ -650,14 +648,14 @@ void testM2(){
 	UndergradApp* smithApp = new UndergradApp(&smith, 20395, "COMP2404", "pending");
 
 	//////////////////////POPULATE////////////////////////
-	q.pushBack(billApp, NULL);
-	q.pushBack(monkeyApp, NULL);
-	q.pushBack(funApp, NULL);
-	q.pushBack(nanaApp, NULL);
-	q.pushBack(NULL, georgeApp);
-	q.pushBack(NULL, sydApp);
-	q.pushBack(NULL, valApp);
-	q.pushBack(NULL, smithApp);
+	q.pushBack(billApp);
+	q.pushBack(monkeyApp);
+	q.pushBack(funApp);
+	q.pushBack(nanaApp);
+	q.pushBack(georgeApp);
+	q.pushBack(sydApp);
+	q.pushBack(valApp);
+	q.pushBack(smithApp);
 	cout << "------the applications from the target queue's print------ " << endl << q;
 
 	cout << "------building some applications and inserting them in a new queue\n";
@@ -669,24 +667,24 @@ void testM2(){
 	UndergradApp* ooglyApp = new UndergradApp(&oogly, 21000, "COMP2001", "pending");
 
 	//the queue to be subtracted
-	AppQueue qu;
+	Queue<Application> qu;
 	//Push all these apps to the queue
 	
-	qu.pushBack(monkeyApp, NULL);
-	qu.pushBack(nanaApp, NULL);
-	qu.pushBack(NULL,  ooglyApp);
-	qu.pushBack(NULL,  georgeApp);
+	qu.pushBack(monkeyApp);
+	qu.pushBack(nanaApp);
+	qu.pushBack(ooglyApp);
+	qu.pushBack(georgeApp);
 	//qu.pushBack(NULL,  sydApp);
-	qu.pushBack(billApp, NULL);
-	qu.pushBack(NULL,  valApp);
-	qu.pushBack(someApp, NULL);
-	qu.pushBack(NULL,  smithApp);
+	qu.pushBack(billApp);
+	qu.pushBack(valApp);
+	qu.pushBack(someApp);
+	qu.pushBack(smithApp);
 	
 
 	cout << "\n------ here is the new queue (almost identical to first one, to eliminate many apps during subtraction)------\n";
 	cout << qu <<endl;
 	cout << "-------performing: aQueue = (first shown) minus (second shown)-------\n";
-	AppQueue aQueue;
+	Queue<Application> aQueue;
 	aQueue = q - qu;
 
 	cout << "-------here is the result: \n" << aQueue <<endl; 
@@ -697,7 +695,7 @@ void testM2(){
 
 //TEST LOGICAL NOT
 void testN(){
-	AppQueue q;//The queue to be used
+	Queue<Application> q;//The queue to be used
 
 	cout << "=========================================ABOUT TO TEST THE LOGICAL NOT OPERATOR============================================" << endl << "." << endl << "." << endl << "." <<endl;
 	cout << "------Populating the queue...(generating dinos!)------\n";
@@ -720,15 +718,15 @@ void testN(){
 	UndergradApp* ankA = new UndergradApp(&ank, 22001, "COMP2001", "pending");
 
 	//A queue for the apps
-	AppQueue qu;
+	Queue<Application> qu;
 	//Push all these apps to the queue
-	q.pushBack(stegA, NULL);
-	q.pushBack(apatA, NULL);
-	q.pushBack(lambA, NULL);
+	q.pushBack(stegA);
+	q.pushBack(apatA);
+	q.pushBack(lambA);
 
-	q.pushBack(NULL,  pacA);
-	q.pushBack(NULL,  rexA);
-	q.pushBack(NULL,  ankA);
+	q.pushBack(pacA);
+	q.pushBack(rexA);
+	q.pushBack(ankA);
 
 
 	cout << "------the applications from the queues print before operation------ " << endl << q;
@@ -742,8 +740,8 @@ void testN(){
 
 	cout<< endl << "Ensuring the queue is still functional by re-adding a couple applications\n";
 	//re-add a couple apps to q:
-	q.pushBack(NULL, pacA);
-	q.pushBack(stegA, NULL);
+	q.pushBack(pacA);
+	q.pushBack(stegA);
 	
 	cout << "---queue should now have two applications:---\n" << q <<endl;
 
@@ -762,10 +760,10 @@ void testAppP(){
 
 	cout << "--------Here are some applications:--------- \n" << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
 
-	nanaApp->operator+();
-	someApp->operator+();
-	georgeApp->operator+();
-	sydApp->operator+();
+	nanaApp->Application::operator+();
+	someApp->Application::operator+();
+	georgeApp->Application::operator+();
+	sydApp->Application::operator+();
 	cout << "--------Here are those same apps after the unary + is performed on them---------\n";
 	cout << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl <<endl;
 }
@@ -783,10 +781,10 @@ void testAppM(){
 
 	cout << "--------Here are some applications:--------- \n" << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
 
-	nanaApp->operator-();
-	someApp->operator-();
-	georgeApp->operator-();
-	sydApp->operator-();
+	nanaApp->Application::operator-();
+	someApp->Application::operator-();
+	georgeApp->Application::operator-();
+	sydApp->Application::operator-();
 	cout << "--------Here are those same apps after the unary - is performed on them---------\n";
 	cout << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
 

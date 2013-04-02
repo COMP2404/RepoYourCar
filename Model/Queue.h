@@ -22,10 +22,10 @@ class Queue
     ~Queue();
     Queue(Queue&);
     void     pushBack(T*); //adds an item to the back of the queue
-    T*     popFront(); //removes the first item from the queue
-    T*    front();
+    T*       popFront(); //removes the first item from the queue
+    T*       front();
     bool     isEmpty();
-    Node<T>*    createNode(T*);
+    Node<T>* createNode(T*);
     int      size() const;
     void     print() const;
 
@@ -96,12 +96,14 @@ Queue<T>::~Queue<T>(){
 
 template <class T>
 Queue<T>::Queue(Queue<T>& q){
+	head = NULL;//incase q is empty or NULL, regular constructor functionality
+	if(&q == NULL) return;//so it doesnt seg fault
 
 	//VARS FOR NEW STUDENT AND APPLICATION
 	string first, last, em, snum, res, pro, sup, major;
 	int yr, cg, mg;
 	//GradApp* ga;
-	Application *theApp;
+	T *theApp;
 	//UndergradApp* ua;
 	//cout << "IN COPY CTOR\n";
 	if(q.head==NULL) return;
@@ -186,8 +188,8 @@ int Queue<T>::size() const{
   int count = 0;
   Node<T>* tempNode = head;
   while (tempNode != NULL){
-  ++count;
-  tempNode = tempNode->next;
+  	++count;
+  	tempNode = tempNode->next;
   }
   return count;
 }
@@ -640,6 +642,7 @@ T* Queue<T>::getOriginal(T* app){
 
 template <class T>
 bool Queue<T>::replaceOriginal(T* original, T* current){
+	if(original == NULL || current == NULL) return false;//dont be corrupting the queue with your bad shit!
 
 	Node<T>* tmp = head;
 	while(tmp != NULL){//for all applications
