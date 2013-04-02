@@ -70,6 +70,9 @@ void StudentPage::chooseApp(WindowApp *theApp){
 }
 
 void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
+
+	cout << "StudentPage::updateCombo\n";
+
 	const gchar *sfname, *slname;
 	string first, last;
 	sfname = gtk_entry_get_text(GTK_ENTRY(theApp->stuPage->firstName));
