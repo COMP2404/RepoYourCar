@@ -148,7 +148,7 @@ void AdminWindow::chooseApp(GtkWidget* widget, AdminWindow *window){
 void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	cout << "Updating admin find combo" << endl;
 	const gchar *sfname, *slname, *sStuNum, *sAppNum;
-	string first, last, stuNum, appNum;
+	string first, last, stuNum, appNum="-1";
 
 	//remove all entries first then re-add valid ones
 	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->appCombo));//DONT USE THIS
@@ -171,7 +171,7 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	sAppNum =(sAppNum);
 	window->theFName = first;
 	window->theLName = last;
-	window->theAppNum = sAppNum;
+	window->theAppNum = atoi(sAppNum);
 	window->theStuNum = sStuNum;
 	Queue<Application> *temp;
 
@@ -187,24 +187,86 @@ sorry appNum is int, stuNum is string
 	cout << window->theAppNum <<endl;
 	if(window->theFName != ""){
 		if(window->theLName != ""){
+			//if first and last name are non-empty
+
 			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
-		}else{
-			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByFirst(window->theFName)));
-		}
-	}
-	else if(window->theFName == ""){
-		if(window->theLName == ""){
+
+			//if stuNum is not empty
+			if(window->theStuNum != ""){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+			}
+
+			//if app num is not empty
+			if(window->theAppNum != -1){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+			}
+
 
 		}else{
+			//if first is non-empty but last is empty
+
+
+			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByFirst(window->theFName)));
+
+
+
+			if(window->theStuNum != ""){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+			}
+			if(window->theAppNum != -1){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+			}
+
+
+		}
+
+
+
+	}
+
+
+	//if first name is empty
+	else if(window->theFName == ""){
+
+		//if first name is empty and last name is empty
+		if(window->theLName == ""){
+
+
+
+			//if they are both empty, then get queue from main appqueue
+			if(window->theStuNum != ""){
+				window->qCopy = new Queue<Application>(*(window->theApp->appQueue.getAppsByStuNum(window->theStuNum)));
+
+
+				if(window->theAppNum != -1){
+					window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+				}
+
+
+			}
+
+			else {
+
+				//if stunum is empty then get appnum queue from main
+				window->qCopy = new Queue<Application>(*(window->theApp->appQueue.getAppsByAppNum(window->theAppNum)));
+			}
+
+		}else{
+			//last name is non-empty
+
+
 			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByLast(window->theLName)));
+
+
+			if(window->theStuNum != ""){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+			}
+			if(window->theAppNum != -1){
+				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+			}
 		}
 	}
-	if(window->theStuNum != ""){
-		window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
-	}
-	if(window->theAppNum != ""){
-		window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theAppNum)));
-	}
+	
 
 	
 	
