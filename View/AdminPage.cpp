@@ -75,7 +75,7 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	
 	
 	g_signal_connect(window->admin_assigned, "clicked", G_CALLBACK (AdminPage::setAppSuccess), window);
-	//g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);
+	g_signal_connect(window->printSum, "clicked", G_CALLBACK (AdminPage::saveTheSum), window);//will it work?
 	g_signal_connect(GTK_COMBO_BOX(window->admin_combo), "changed", G_CALLBACK   (AdminPage::updateCombo), window);
 	g_signal_connect(GTK_COMBO_BOX(window->summary_combo), "changed", G_CALLBACK   (AdminPage::setAppSelected), window);
 	g_signal_connect(window->admin_cancel, "clicked", G_CALLBACK (AdminPage::cleanup), window);
@@ -199,8 +199,9 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		//gtk_widget_set_sensitive(window->printSum, TRUE);
 
 		input[i] = app->getSummaryString();
-			
-		 cout << "shit nigga" << endl;
+
+		//cout << "HERE IS THE INPUT: " << input[i];
+
 		
 		//theInput = input[i].c_str();
 		strcpy(theInput,input[i].c_str());
