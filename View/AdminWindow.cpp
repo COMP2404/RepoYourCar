@@ -163,12 +163,51 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	;*/
 	sfname = gtk_entry_get_text(GTK_ENTRY(window->firstName));
 	slname = gtk_entry_get_text(GTK_ENTRY(window->lastName));
+	sStuNum = gtk_entry_get_text(GTK_ENTRY(window->stuNum));
+	sAppNum = gtk_entry_get_text(GTK_ENTRY(window->appNum));
 	first = (sfname);
 	last =(slname);
+	stuNum =(sStuNum);
+	sAppNum =(sAppNum);
 	window->theFName = first;
 	window->theLName = last;
+	window->theAppNum = sAppNum;
+	window->theStuNum = sStuNum;
 	Queue<Application> *temp;
-	window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(first,last)));
+
+	/*yea so...
+first and last: getAppsByName(string, string)
+first:              getAppsByFirst(string)
+last:               getAppsByLast(string)
+student numer: getAppsByStuNum(int)
+app number:  getAppsByAppNum(string)
+sorry appNum is int, stuNum is string
+*/
+	
+	cout << window->theAppNum <<endl;
+	if(window->theFName != ""){
+		if(window->theLName != ""){
+			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
+		}else{
+			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByFirst(window->theFName)));
+		}
+	}
+	else if(window->theFName == ""){
+		if(window->theLName == ""){
+
+		}else{
+			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByLast(window->theLName)));
+		}
+	}
+	if(window->theStuNum != ""){
+		window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+	}
+	if(window->theAppNum != ""){
+		window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theAppNum)));
+	}
+
+	
+	
 	//theApp->stuPage->qCopy = new AppQueue(theApp->stuPage->qCopy.getAppsByName(first,last));
 
 	cout << "copied queue" << endl;
@@ -206,7 +245,6 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 
 
 
-
 	
 	
 	g_signal_connect(GTK_COMBO_BOX(window->appCombo), "changed", G_CALLBACK (AdminWindow::showApp), window);
@@ -214,8 +252,13 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 
 void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	int index;
+	gchar *s1,s2,s3,s4;
 	cout << "show app \n";
 	Queue<Application> *temp;
+
+	
+
+
 	temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
 	
@@ -223,19 +266,32 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	
 	//app = theApp->appQueue.getOriginal(app);
 	
-	cout << app->getType() << endl;
-	if(app->getType() == "grad"){
-		cout << "got type" <<endl;
-		window->theApp->canEdit = false;
-		AppManager *appMan = new AppManager(true, window->theApp);
+	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
+	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+	string theType;
+	theType = (type);
+	cout << theType << endl;
+	string stringToFind1("Undergrad");
+	unsigned validChars1 = (theType).find(stringToFind1);
+
+	if (validChars1 == string::npos) {
+			cout<< "Grad app clicked" <<endl;
+			window->theApp->canEdit = false;
+			AppManager *appMan = new AppManager(true, window->theApp);
+			appMan->fillInData(app, window->theApp);
+			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+	}
+	else if(validChars1 != string::npos){
+			cout<< "UnderGrad app clicked" <<endl;
+			window->theApp->canEdit = false;
+			AppManager *appMan = new AppManager(false, window->theApp);
 		
-		appMan->fillInData(app, window->theApp);
+			appMan->fillInUData(app, window->theApp);
+			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else{
-		window->theApp->canEdit = false;
-		AppManager *appMan = new AppManager(false, window->theApp);
-		
-		appMan->fillInUData(app, window->theApp);
+
 	}
+
 	
 }

@@ -139,9 +139,7 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	temp = new Queue<Application>(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
 	Application *app = (*temp)[index];
-	//index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
-	cout << app->getType() <<endl;
-	//Application *app = (*temp)[index];
+	
 	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
 	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	string theType;
