@@ -70,6 +70,7 @@ void AdminPage::viewSummary(GtkWidget *widget, AdminWindow *window){
 	}else{
 
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->admin_combo), "All Courses");
+		//gtk_combo_box_set_active(GTK_COMBO_BOX(window->admin_combo),0); 
 	}
 	
 	
@@ -127,7 +128,7 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
-	//gtk_widget_set_sensitive(window->printSum, TRUE);
+	gtk_widget_set_sensitive(window->printSum, TRUE);
     //Queue<Application>* qCopy ;
 	Queue<Application>* qCopy = new Queue<Application>(window->theApp->appQueue);
 	//cout << *qCopy;
