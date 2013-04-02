@@ -277,7 +277,7 @@ sorry appNum is int, stuNum is string
 			}
 		}
 	}
-	
+	window->qCombo = new Queue<Application>(*(window->qCopy));
 
 	
 	
@@ -329,13 +329,16 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	
 	Queue<Application> *temp;
 
-	temp = window->qCopy;
+	temp = window->qCombo;
+	cout << "show app, new temp"<<endl;
 	//temp = new Queue<Application>(*(window->qCopy));
+	
 	
 	//temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
 	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
-	
+	cout << "index"<<endl;
 	Application *app = (*temp)[theIndex];
+	cout << "show app, got app"<<endl;
 	//cout << app->getType() <<endl;
 	//app = theApp->appQueue.getOriginal(app);
 	
@@ -351,7 +354,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			cout<< "Grad app clicked" <<endl;
 			window->theApp->canEdit = false;
 			AppManager *appMan = new AppManager(true, window->theApp);
-			//appMan->fillInData(app, window->theApp);
+			appMan->fillInData(app, window->theApp);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else if(validChars1 != string::npos){
@@ -359,7 +362,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			window->theApp->canEdit = false;
 			AppManager *appMan = new AppManager(false, window->theApp);
 		
-			//appMan->fillInUData(app, window->theApp);
+			appMan->fillInUData(app, window->theApp);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else{
