@@ -46,6 +46,7 @@ class AdminWindow{
 		static void showApp(GtkWidget *, AdminWindow *);
 		
 		Queue<Application> *qCopy;
-		string theFName, theLName, theAppNum, theStuNum;
+		string theFName, theLName, theStuNum;
+		int theAppNum;
 };
 #endif

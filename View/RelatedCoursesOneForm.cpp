@@ -68,6 +68,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_finalGrade, FALSE);
 		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_continue, FALSE);
 		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_repeat, FALSE);
+		gtk_widget_set_sensitive(app->uGradAppPage->form->chkExperience, FALSE);
 	}
 
 

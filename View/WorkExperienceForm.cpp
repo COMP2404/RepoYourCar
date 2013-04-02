@@ -48,6 +48,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_duration, FALSE);
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);
+			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->chkExperience, FALSE);
 		}
 
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
@@ -103,6 +104,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_duration, FALSE);
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
+			gtk_widget_set_sensitive(windowApp->gradAppPage->form->chkExperience, FALSE);
 		}
 
 
