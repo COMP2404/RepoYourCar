@@ -355,7 +355,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	*/
 	
 	cout << "Making a new one\n";
-	//theApp->appQueue.pushBack(ga);
+	theApp->appQueue.pushBack(ga);//was commented out...
 	if(!ga->printApp(true, rTA,rWorkExp))
 			return;
 
@@ -399,7 +399,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		uga->setRelatedWorkEXP(theApp->jQRelated);
 		rWorkExp = true;
 	}
-	//theApp->appQueue.pushBack(uga);
+	theApp->appQueue.pushBack(uga);//was commented out
 	if(!uga->printApp(true,rCourses,rTA,rWorkExp))
 			return;
 

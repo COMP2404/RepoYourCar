@@ -149,6 +149,9 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	cout << "Updating admin find combo" << endl;
 	const gchar *sfname, *slname, *sStuNum, *sAppNum;
 	string first, last, stuNum, appNum;
+
+	//remove all entries first then re-add valid ones
+	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->appCombo));//DONT USE THIS
 	/*
 	
 	//stuNum =(sStuNum);
@@ -171,7 +174,6 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	cout << "copied queue" << endl;
 	
 	temp = window->qCopy;
-	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
 	
 	//int length = qCopy->size();
 	
@@ -179,9 +181,7 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	string input[100];//string array for each Application
 	Application* tmpApp = NULL;
 	Application* app;
-    
-	GradApp* ga = NULL;
-	UndergradApp *uga = NULL;
+
 	
 	if(temp != NULL){
 		app = (window->qCopy->popFront());
@@ -193,59 +193,14 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	 int i = 0;
 	//for(int i=0; i<length; i++){
 	while(app != NULL){
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
-		if(app->getType() == "grad"){
-			ga = static_cast<GradApp*>(app);
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
-		}
-		else{
-			
-			uga = static_cast<UndergradApp*>(app);	
-			s1 = uga->getStuFirst();
-			
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
 
-		}
+		input[i] = app->getSummaryString();
 
-			
-		 
-		
 		//theInput = input[i];
 		strcpy(theInput,input[i].c_str());
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->appCombo), theInput);
 		i++;
 		app = temp->popFront();	
-		if(app != NULL){
-			if(app->getType() == "grad"){
-				ga = static_cast<GradApp*>(app);
-				
-
-			}
-			else{
-				uga = dynamic_cast<UndergradApp*>(app);
-			}
-		}
 		
 	}
 
@@ -259,7 +214,7 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 
 void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	int index;
-
+	cout << "show app \n";
 	Queue<Application> *temp;
 	temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
