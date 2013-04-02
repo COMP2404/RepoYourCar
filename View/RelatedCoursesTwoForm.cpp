@@ -278,10 +278,64 @@ void RelatedCoursesTwoForm::viewNextGPage(GtkWidget* widget,WindowApp* theApp){
 }
 
 void RelatedCoursesTwoForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->uGradAppPage->form->rTA || theApp->editUApp->rTA){
+
+		theApp->uGradAppPage->relatedTA = new Queue<Course>(*(theApp->editUApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->uGradAppPage->relatedTA->size() != 0){
+			theSize = theApp->uGradAppPage->relatedTA->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rCIndex < theSize -1){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex++;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			
+		}
+	}
 }
 void RelatedCoursesTwoForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->uGradAppPage->form->rTA || theApp->editUApp->rTA){
+
+		theApp->uGradAppPage->relatedTA = new Queue<Course>(*(theApp->editUApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->uGradAppPage->relatedTA->size() != 0){
+			theSize = theApp->uGradAppPage->relatedTA->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rCIndex > 0 ){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex--;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			
+		}
+	}
 }
 void RelatedCoursesTwoForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
 	

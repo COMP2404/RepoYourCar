@@ -310,14 +310,72 @@ void WorkExperienceForm::viewPrevGPage(GtkWidget* widget,WindowApp* theApp){
 
 
 void WorkExperienceForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->uGradAppPage->form->rWorkExp || theApp->editUApp->rWorkExp){
+
+		theApp->uGradAppPage->workExpQueue = new Queue<Job>(*(theApp->editUApp->relatedWorkEXP));
+		int theSize = 0;
+		if(theApp->uGradAppPage->workExpQueue->size() != 0){
+			theSize = theApp->uGradAppPage->workExpQueue->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rWXPIndex > 0 ){
+			cout<< theApp->uGradAppPage->rWXPIndex <<endl;
+			theApp->uGradAppPage->rWXPIndex--;
+			Job *job = (*(theApp->uGradAppPage->workExpQueue))[theApp->uGradAppPage->rWXPIndex];
+			//stringstream ss;
+			//ss << course->getYear();
+			//string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), job->getStartDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), job->getEndDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), job->getDuration().c_str());
+			
+		}
+	}
 }
 
 void WorkExperienceForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
 
 }
 void WorkExperienceForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->uGradAppPage->form->rWorkExp || theApp->editUApp->rWorkExp){
+
+		theApp->uGradAppPage->workExpQueue = new Queue<Job>(*(theApp->editUApp->relatedWorkEXP));
+		int theSize = 0;
+		if(theApp->uGradAppPage->workExpQueue->size() != 0){
+			theSize = theApp->uGradAppPage->workExpQueue->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rWXPIndex < theSize -1){
+			cout<< theApp->uGradAppPage->rWXPIndex <<endl;
+			theApp->uGradAppPage->rWXPIndex++;
+			Job *job = (*(theApp->uGradAppPage->workExpQueue))[theApp->uGradAppPage->rWXPIndex];
+			//stringstream ss;
+			//ss << course->getYear();
+			//string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_startDate), job->getStartDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), job->getEndDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_duration), job->getDuration().c_str());
+			
+		}
+	}
 }
 
 void WorkExperienceForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
