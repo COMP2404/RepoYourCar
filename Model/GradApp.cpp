@@ -147,13 +147,10 @@ GradApp::GradApp(GradApp& ga){
 }
 
 
-bool GradApp::printApp(bool append){
+bool GradApp::printApp(bool append,bool rTA, bool rWorkExp){
 	//Application::printApp();
+	cout << "it is printing the app" <<endl;
 	
-	int k = relatedTAPositions->size();
-	cout << "SIZE OF RELATED TA POSITIONS: "<< k << endl;
-	int l = relatedWorkEXP->size();
-	cout << "SIZE OF RELATED WORK EXP: " << l << endl;	
 	//there.
 
 	ofstream outFile("Applications.txt", ios::out|ios::app);
@@ -163,7 +160,7 @@ bool GradApp::printApp(bool append){
             //ios::out<<"Could not open file"<<endl;
             return false;
     }
-    cout << "printing app" << l << endl;
+ 
     outFile << "Graduate" << endl;
 	outFile << applicationNumber << endl;
 
@@ -179,34 +176,42 @@ bool GradApp::printApp(bool append){
 	outFile << stuID << endl;
 
 	int aSize;
+	if(rTA){
+		//Save the related TA positions:
+		outFile << "RELATEDTAPOSITIONS" << endl; // header	
 
-	//Save the related TA positions:
-	outFile << "RELATEDTAPOSITIONS" << endl; // header	
-
-	Queue<Course> otherTemp(*relatedTAPositions);
-	aSize = otherTemp.size();
-	int i;
-	for(i=0; i < aSize; i++){
-		cout << "inside course queue" << endl;
-		outFile << otherTemp.front()->getTitle() << endl;
-		outFile << otherTemp.front()->getSupervisor() << endl;
-		outFile << otherTemp.front()->getYear() << endl;
-		outFile << otherTemp.front()->getTerm() << endl;
-		otherTemp.popFront();
+		Queue<Course> otherTemp(*relatedTAPositions);
+		aSize = otherTemp.size();
+		int i;
+		for(i=0; i < aSize; i++){
+			cout << "inside course queue" << endl;
+			outFile << otherTemp.front()->getTitle() << endl;
+			outFile << otherTemp.front()->getSupervisor() << endl;
+			outFile << otherTemp.front()->getYear() << endl;
+			outFile << otherTemp.front()->getTerm() << endl;
+			otherTemp.popFront();
+		}
+	}else if(!rTA){
+		outFile << "RELATEDTAPOSITIONS" << endl; // header
+		//outFile << "NONE" << endl; // header		
 	}
-
-	//Save related work EXP
-	outFile << "WORKEXP" << endl; //header
-
-	Queue<Job> tempJQueue(*relatedWorkEXP);
-	aSize = tempJQueue.size();
-	for(i=0; i < aSize; i++){
-		outFile << tempJQueue.front()->getJobTitle() << endl;
-		outFile << tempJQueue.front()->getTasks() << endl;
-		outFile << tempJQueue.front()->getDuration() << endl;
-		outFile << tempJQueue.front()->getStartDate() << endl;
-		outFile << tempJQueue.front()->getEndDate() << endl;
-		tempJQueue.popFront();
+	if(rWorkExp){
+		//Save related work EXP
+		outFile << "WORKEXP" << endl; //header
+		int i;
+		Queue<Job> tempJQueue(*relatedWorkEXP);
+		aSize = tempJQueue.size();
+		for(i=0; i < aSize; i++){
+			outFile << tempJQueue.front()->getJobTitle() << endl;
+			outFile << tempJQueue.front()->getTasks() << endl;
+			outFile << tempJQueue.front()->getDuration() << endl;
+			outFile << tempJQueue.front()->getStartDate() << endl;
+			outFile << tempJQueue.front()->getEndDate() << endl;
+			tempJQueue.popFront();
+		}
+	}else if(!rWorkExp){
+		outFile << "WORKEXP" << endl; //header
+		//outFile << "NONE" << endl; //header
 	}
 	outFile << "ENDAPP" << endl;
 }
@@ -273,4 +278,7 @@ bool GradApp::printModifiedApp(ofstream& outFile){
 		tempJQueue.popFront();
 	}
 	outFile << "ENDAPP" << endl;
+}
+bool GradApp::printApp(bool okay){
+
 }

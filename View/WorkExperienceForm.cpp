@@ -36,6 +36,8 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_endDate,550, 400);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);*/
+		windowApp->uGradAppPage->form->chkExperience = gtk_check_button_new_with_label("No Experience");
+		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->chkExperience, 450, 480);
 
 
 		if(!windowApp->canEdit){
@@ -87,6 +89,9 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->ei_startDate, 550, 370);
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->ei_endDate,550, 400);
 		
+		windowApp->gradAppPage->form->chkExperience = gtk_check_button_new_with_label("No Experience");
+		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->chkExperience, 450, 480);
+
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
 
@@ -200,6 +205,7 @@ void WorkExperienceForm::finishUGrad(GtkWidget* widget, WindowApp* windowApp){
 		string5 = (s5);
 		Job* job = new Job(s1, s2, s3, s4, s5);
 		windowApp->jQRelated->pushBack(job);
+		windowApp->uGradAppPage->form->rWorkExp = true;
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, TRUE);
 		WorkExperienceForm::cleanupUGrad(windowApp);
 	}else{
@@ -228,6 +234,7 @@ void WorkExperienceForm::finishGrad(GtkWidget*widget,WindowApp* windowApp){
 		string5 = (s5);
 		Job* job = new Job(s1, s2, s3, s4, s5);
 		windowApp->jQRelated->pushBack(job);
+		windowApp->gradAppPage->form->rWorkExp = true;
 		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, TRUE);
 		WorkExperienceForm::cleanupGrad(windowApp);
 	}
@@ -408,6 +415,7 @@ void WorkExperienceForm::cleanupGrad(WindowApp* app){
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblDuration);
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblStartDate);
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblEndDate);
+	gtk_widget_destroy(app->gradAppPage->form->chkExperience);
 	gtk_window_resize(GTK_WINDOW(app->gradAppPage->form->window), 400,600);
 	
 }
@@ -424,7 +432,21 @@ void WorkExperienceForm::cleanupUGrad(WindowApp* app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblDuration);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblStartDate);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblEndDate);
+	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
 	gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
+}
+void WorkExperienceForm::closeU(GtkWidget* widget, WindowApp* app){
+	app->uGradAppPage->form->rWorkExp = false;
+	gtk_widget_set_sensitive(app->uGradAppPage->form->submit, TRUE);
+	//gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
+	WorkExperienceForm::cleanupUGrad(app);
+	
+}
+void WorkExperienceForm::closeG(GtkWidget* widget, WindowApp* app){
+	app->gradAppPage->form->rWorkExp = false;
+	gtk_widget_set_sensitive(app->gradAppPage->form->submit, TRUE);
+	//gtk_window_resize(GTK_WINDOW(app->gradAppPage->form->window), 400,600);
+	WorkExperienceForm::cleanupGrad(app);
 }
 
 void WorkExperienceForm::popWindow(string s){

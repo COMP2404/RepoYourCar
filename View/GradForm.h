@@ -21,6 +21,7 @@ class GradAppPage;
 
 class GradForm : public Form {
 	public:
+		friend class WindowApp;
 		friend class GradAppPage;
 		friend class RelatedCoursesTwoForm;
 		friend class RelatedCoursesOneForm;
@@ -32,6 +33,9 @@ class GradForm : public Form {
 	
 		
 	private:
+		bool experience;
+		bool rTA;
+		bool rWorkExp;
 		virtual string getTheType();
 		GtkWidget *grad_research, *grad_research_combo, *grad_sup, *grad_program_combo, *grad_apply, *lbl_grad_sup,
 			*label, *info_label, *window, *frame, *apply, *login, *appFrame, *fName, *lblfName, *lName, *lbllName, 

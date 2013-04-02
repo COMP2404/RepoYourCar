@@ -31,7 +31,8 @@ public:
 	string   getStuEmail();
 	string   getStuID();
 	string   getStuType();
-	bool 	 printApp(bool);
+	bool 	 printApp(bool,bool,bool,bool);
+	bool     printApp(bool);
 	bool     saveSummary();
 	bool 	 printModifiedApp(ofstream&);
 	Application* getCopy();//return value from copy ctor

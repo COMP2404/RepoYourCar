@@ -38,6 +38,7 @@ class RelatedCoursesOneForm{
 		static void cleanup(WindowApp*);
 		static void popWindow(string);
 		static void closePopWindow(GtkWidget *, GtkWidget *);
+		static void close(GtkWidget *, WindowApp*);
 		//static void close(GtkWidget*,Form*);
 		
 		

@@ -36,6 +36,8 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 
 	g_signal_connect(app->gradAppPage->form->ei_continue2, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPageGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherGrad), app);
+	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeG), app);
+
 }
 
 void GradAppPage::workExp(WindowApp* app){
@@ -46,6 +48,7 @@ void GradAppPage::workExp(WindowApp* app){
 	}
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
+	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeG), app);
 	//if(app->gradAppPage->edit)
 	//	g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
 

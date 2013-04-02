@@ -251,6 +251,7 @@ int WindowApp::makeApplication(GtkWidget *widget, WindowApp *theApp)
 
 int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 {
+	theApp->canEdit = true;
 	theApp->appMan = new AppManager(true,theApp);
 	//theApp->gradPage = new GradAppPage();
 	//theApp->gradPage->draw(theApp);
@@ -305,7 +306,7 @@ void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
 }
 
 void WindowApp::submitGradApp(WindowApp* theApp){
-	
+	bool rTA=false, rWorkExp=false;
 	cout<<"submitting grad app" <<endl;
 	//static int applicationNum = 1;
 
@@ -331,8 +332,15 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	gs = new GradStudent(first, last, email, stunum, areas, program, supervisor);
 	//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
 	ga = new GradApp(gs, applicationNum++, course, "PENDING");
-	ga->setRelatedTAPositions(theApp->cQTa);
-	ga->setRelatedWorkEXP(theApp->jQRelated);
+	
+	if(theApp->gradAppPage->form->rTA){
+		ga->setRelatedTAPositions(theApp->cQTa);
+		rTA = true;
+	}
+	if(theApp->gradAppPage->form->rWorkExp){
+		ga->setRelatedWorkEXP(theApp->jQRelated);
+		rWorkExp = true;
+	}
 	/*
 	if(theApp->gradAppPage->edit){
 		Application* app = theApp->appQueue.getOriginal(theApp->editGApp);
@@ -348,13 +356,13 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	
 	cout << "Making a new one\n";
 	//theApp->appQueue.pushBack(ga);
-	if(!ga->printApp(true))
+	if(!ga->printApp(true, rTA,rWorkExp))
 			return;
 
 }
 void WindowApp::submitUGradApp(WindowApp* theApp){
 	
-
+	bool rCourses=false, rTA=false, rWorkExp=false;
 	//static int applicationNum = 1;
 
 	Student* s ;
@@ -378,11 +386,21 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	//a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
 	//uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
 	uga = new UndergradApp(ugs, applicationNum++, theApp->uGradAppPage->formData->course, "PENDING");
-	uga->setRelatedCourses(theApp->cQRelated);
-	uga->setRelatedTAPositions(theApp->cQTa);
-	uga->setRelatedWorkEXP(theApp->jQRelated);
+
+	if(theApp->uGradAppPage->form->rCourses){
+		uga->setRelatedCourses(theApp->cQRelated);
+		rCourses = true;
+	}
+	if(theApp->uGradAppPage->form->rTA){
+		uga->setRelatedTAPositions(theApp->cQTa);
+		rTA = true;
+	}
+	if(theApp->uGradAppPage->form->rWorkExp){
+		uga->setRelatedWorkEXP(theApp->jQRelated);
+		rWorkExp = true;
+	}
 	//theApp->appQueue.pushBack(uga);
-	if(!uga->printApp(true))
+	if(!uga->printApp(true,rCourses,rTA,rWorkExp))
 			return;
 
 }

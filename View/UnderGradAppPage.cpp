@@ -6,7 +6,7 @@ UnderGradAppPage::UnderGradAppPage(){
 
 void UnderGradAppPage::draw(WindowApp *windowApp){
 	//gradApp = false;
-	
+	windowApp->uGradAppPage->form->experience = true;
 	windowApp->uGradAppPage->form->draw(windowApp);
 
 	 if(!windowApp->canEdit){
@@ -30,21 +30,21 @@ void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	relatedCourses1->create(app);
 	g_signal_connect(app->uGradAppPage->form->ei_continue, "clicked", G_CALLBACK(RelatedCoursesOneForm::nextPage), app);
 	g_signal_connect(app->uGradAppPage->form->ei_repeat , "clicked", G_CALLBACK(RelatedCoursesOneForm::addAnother), app);
-
+	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesOneForm::close), app);
 }
 void UnderGradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	RelatedCoursesTwoForm *relatedCourses2 = new RelatedCoursesTwoForm();
 	relatedCourses2->create(app,false);
 	g_signal_connect(app->uGradAppPage->form->ei_continue2, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPageUGrad), app);
 	g_signal_connect(app->uGradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherUGrad), app);
-
+	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeU), app);
 }
 void UnderGradAppPage::workExp(WindowApp *app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,false);
 	g_signal_connect(app->uGradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishUGrad), app);
 	g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
-
+	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeU), app);
 }
 void UnderGradAppPage::getInfo(GtkWidget *widget, WindowApp *windowApp){
 	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;

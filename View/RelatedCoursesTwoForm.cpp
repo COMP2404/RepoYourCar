@@ -54,6 +54,10 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_lblTerm, 400, 310);
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_lblYear, 400, 340);
 		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->ei_lblSupervisor, 400, 370);
+
+		windowApp->uGradAppPage->form->chkExperience = gtk_check_button_new_with_label("No Experience");
+		gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->chkExperience, 450, 480);
+
 		//gtk_widget_set_sensitive(ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(ei_repeat2, FALSE);
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
@@ -120,7 +124,10 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->ei_lblTerm, 400, 310);
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->ei_lblYear, 400, 340);
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->ei_lblSupervisor, 400, 370);
-		
+
+		windowApp->gradAppPage->form->chkExperience = gtk_check_button_new_with_label("No Experience");
+		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->chkExperience, 450, 480);
+
 		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat2, FALSE);
 		if(windowApp->gradAppPage->edit){
@@ -166,7 +173,7 @@ void RelatedCoursesTwoForm::nextPageUGrad(GtkWidget* widget, WindowApp *theApp){
 		int yr = atoi(string2.c_str());
 		Course* cor = new Course(string1, yr, string3, "N/A", string4);
 		theApp->cQTa->pushBack(cor);
-		
+		theApp->uGradAppPage->form->rTA = true;
 		RelatedCoursesTwoForm::cleanupUGrad(theApp);
 		UnderGradAppPage::workExp(theApp);
 	}
@@ -197,7 +204,7 @@ void RelatedCoursesTwoForm::nextPageGrad(GtkWidget* widget, WindowApp *theApp){
 		int yr = atoi(string2.c_str());
 		Course* cor = new Course(string1, yr, string3, string4, "N/A");
 		theApp->cQTa->pushBack(cor);
-
+		theApp->gradAppPage->form->rTA = true;
 		RelatedCoursesTwoForm::cleanupGrad(theApp);
 		GradAppPage::workExp(theApp);
 	}
@@ -446,6 +453,7 @@ void RelatedCoursesTwoForm::cleanupGrad(WindowApp* app){
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblTerm);
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblSupervisor);
+	gtk_widget_destroy(app->gradAppPage->form->chkExperience);
 		
 
 }
@@ -460,8 +468,23 @@ void RelatedCoursesTwoForm::cleanupUGrad(WindowApp *app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblTerm);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblSupervisor);
+	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
 }
+void RelatedCoursesTwoForm::closeU(GtkWidget* widget, WindowApp* app){
+	app->uGradAppPage->form->rTA = false;
+	//gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
+	//gtk_widget_set_sensitive(app->uGradAppPage->form->submit, TRUE);
+	RelatedCoursesTwoForm::cleanupUGrad(app);
+	UnderGradAppPage::workExp(app);
 
+}
+void RelatedCoursesTwoForm::closeG(GtkWidget* widget, WindowApp* app){
+	app->gradAppPage->form->rTA = false;
+	//gtk_window_resize(GTK_WINDOW(app->gradAppPage->form->window), 400,600);
+	//gtk_widget_set_sensitive(app->gradAppPage->form->submit, TRUE);
+	RelatedCoursesTwoForm::cleanupGrad(app);
+	GradAppPage::workExp(app);
+}
 void RelatedCoursesTwoForm::popWindow(string s){
 	GtkWidget* error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(error_window), GTK_WIN_POS_CENTER);	

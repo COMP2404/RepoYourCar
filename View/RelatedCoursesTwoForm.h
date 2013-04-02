@@ -51,6 +51,8 @@ class RelatedCoursesTwoForm{
 		//static void close(GtkWidget*,Form*);
 		static void popWindow(string );
 		static void closePopWindow(GtkWidget *, GtkWidget *);
+		static void closeU(GtkWidget *, WindowApp *);
+		static void closeG(GtkWidget *, WindowApp *);
 		
 		
 };

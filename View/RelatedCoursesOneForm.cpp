@@ -47,6 +47,8 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 
 	app->uGradAppPage->form->ei_continue = gtk_button_new_with_label("Continue");
 	app->uGradAppPage->form->ei_repeat = gtk_button_new_with_label("Add Another");
+	app->uGradAppPage->form->chkExperience = gtk_check_button_new_with_label("No Experience");
+	gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->chkExperience, 450, 480);
 
 	gtk_widget_set_size_request(app->uGradAppPage->form->ei_continue, 80, 35);
 	gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->ei_continue, 450, 430);
@@ -193,7 +195,7 @@ void RelatedCoursesOneForm::nextPage(GtkWidget* widget,WindowApp* theApp){
 		int yr = atoi(string2.c_str());
 		Course* cor = new Course(string1, yr, string3, "N/A", string4);
 		theApp->cQRelated->pushBack(cor);
-
+		theApp->uGradAppPage->form->rCourses = true;
  		RelatedCoursesOneForm::cleanup(theApp);
  		UnderGradAppPage::related2(widget,theApp);
  	}
@@ -213,7 +215,17 @@ void RelatedCoursesOneForm::cleanup(WindowApp* app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblTerm);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblFinalGrade);
+	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
 }
+void RelatedCoursesOneForm::close(GtkWidget* widget, WindowApp* app){
+	//app->uGradAppPage->form->experience = false;
+	app->uGradAppPage->form->rCourses = false;
+	//gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
+	//gtk_widget_set_sensitive(app->uGradAppPage->form->submit, TRUE);
+	RelatedCoursesOneForm::cleanup(app);
+	UnderGradAppPage::related2(NULL, app);
+}
+
 
 void RelatedCoursesOneForm::RelatedCoursesOneForm::popWindow(string s){
 	GtkWidget* error_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);

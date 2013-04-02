@@ -63,7 +63,7 @@ void MainMenu::draw(){
 	//moveOn = false;
 	//extra = false;
 	gtk_widget_show_all(window);
-
+	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
 
 	/////////////////////////////////////////////////////
