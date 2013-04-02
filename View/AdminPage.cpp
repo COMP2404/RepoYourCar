@@ -198,7 +198,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		//gtk_widget_set_sensitive(window->printSum, TRUE);
 
 		input[i] = app->getSummaryString();
-			
+		//cout << "HERE IS THE INPUT: " << input[i];
 		 
 		
 		//theInput = input[i];
