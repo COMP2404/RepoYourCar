@@ -63,7 +63,8 @@ void StudentPage::chooseApp(WindowApp *theApp){
 	//Application *app = theApp->appQueue->getOriginal(Application*);
 	//qCopy->getOriginal(Application*);
 	g_signal_connect(btnFind, "clicked", G_CALLBACK(StudentPage::updateCombo), theApp);
-
+	//g_signal_connect(GTK_COMBO_BOX(appCombo), "changed", G_CALLBACK (StudentPage::editApp), theApp);
+	//g_signal_connect(GTK_COMBO_BOX(theApp->stuPage->appCombo), "changed", G_CALLBACK (StudentPage::editApp), theApp);
 	gtk_container_add(GTK_CONTAINER(student_window), student_frame);
 	gtk_widget_show_all(student_window);
 }
@@ -123,31 +124,48 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 
 
 	
+	theApp->blockID = g_signal_connect(GTK_COMBO_BOX(theApp->stuPage->appCombo), "changed", G_CALLBACK (StudentPage::editApp), theApp);
 	
-	g_signal_connect(GTK_COMBO_BOX(theApp->stuPage->appCombo), "changed", G_CALLBACK (StudentPage::editApp), theApp);
 }
-void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
-	int index;
 
+void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
+	g_signal_handler_block(widget,theApp->blockID);
+	//g_signal_handlers_block_by_func();(widget,G_CALLBACK (StudentPage::editApp),theApp);
+	//g_signal_handlers_block_by_func(GTK_COMBO_BOX(theApp->stuPage->appCombo),StudentPage::editApp,theApp);
+	//g_signal_stop_emission_by_name (widget,"changed");
+	int index;
+	
 	Queue<Application> *temp;
 	temp = new Queue<Application>(*(theApp->appQueue.getAppsByName(theApp->stuPage->theFName,theApp->stuPage->theLName)));
 	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
-	
 	Application *app = (*temp)[index];
-	
-	//app = theApp->appQueue.getOriginal(app);
-	
-	//cout << app->getType() << endl;
-	if(app->getType() == "grad"){
-		cout << "got type" <<endl;
-		theApp->canEdit = true;
-		AppManager *appMan = new AppManager(true, theApp);
-		appMan->fillInData(app, theApp);
+	//index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
+	cout << app->getType() <<endl;
+	//Application *app = (*temp)[index];
+	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
+	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+	string theType;
+	theType = (type);
+	cout << theType << endl;
+	string stringToFind1("Undergrad");
+	unsigned validChars1 = (theType).find(stringToFind1);
+	if (validChars1 == string::npos) {
+			cout<< "Grad app clicked" <<endl;
+			theApp->canEdit = true;
+			AppManager *appMan = new AppManager(true, theApp);
+			appMan->fillInData(app, theApp);
+			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+	}
+	else if(validChars1 != string::npos){
+			cout<< "UnderGrad app clicked" <<endl;
+			theApp->canEdit = true;
+			AppManager *appMan = new AppManager(false, theApp);
+			appMan->fillInUData(app, theApp);
+			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else{
-		theApp->canEdit = true;
-		AppManager *appMan = new AppManager(false, theApp);
-		appMan->fillInUData(app, theApp);
+
 	}
+	
 	
 }

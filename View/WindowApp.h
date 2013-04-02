@@ -73,7 +73,7 @@ class WindowApp{
 		Queue<Course> *cQRelated, *cQTa;
 		Queue<Job> *jQRelated;
 		Queue<Application> appQueue;
-		
+		int blockID;
 		Application *originalApp;
 		static WindowApp *instance;
 

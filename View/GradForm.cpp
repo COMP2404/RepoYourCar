@@ -6,6 +6,7 @@ void GradForm::draw(GradForm *form, WindowApp *theApp){
 	/////////////////////////////////////////////////
 	cout << "in form draw" <<endl;
  	form->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+ 	cout << "new window" <<endl;
 	//loadApplications(theApp);
 	//cout << "app loaded" << endl;
 	gtk_window_set_position(GTK_WINDOW(form->window), GTK_WIN_POS_CENTER);
