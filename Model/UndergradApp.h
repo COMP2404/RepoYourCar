@@ -51,7 +51,9 @@ public:
 	int      getStuYrStanding();
 
 	void 	 setRelatedCourses(Queue<Course>*); 
-
+	bool	 rCourses;
+	bool     rTA;
+	bool	 rWorkExp;
 
 private:
 	string stuMajor;

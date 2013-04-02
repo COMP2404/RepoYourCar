@@ -54,6 +54,8 @@ public:
 	string   getStuSuper();
 
 	string 	 getStuName(); //?
+	bool     rTA;
+	bool	 rWorkExp;
 
 private:
 	string stuProgram;

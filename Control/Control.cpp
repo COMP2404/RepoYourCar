@@ -94,6 +94,7 @@ void Control::loadApplications(WindowApp *theApp){
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i, program, area, supervisor;
 	bool aGrad;
+	bool extra[3];
 	//CourseQueue *aCourseQueue = new CourseQueue();
 	//CourseQueue *bCourseQueue = new CourseQueue();
 	//JobQueue *jQueue = new JobQueue();	
@@ -128,6 +129,9 @@ void Control::loadApplications(WindowApp *theApp){
 
 		if(strcmp(text, "underGrad") == 0)
 		{	
+			extra[0] = false;
+			extra[1] = false;
+			extra[2] = false;
 			cout << "UNDERGRADUATE APP" << endl;
 			aGrad = false;
 			inFile.getline(text, THIS_BUF); // application number  
@@ -166,6 +170,9 @@ void Control::loadApplications(WindowApp *theApp){
 				
 		}
 		else{
+			extra[0] = false;
+			extra[1] = false;
+			extra[2] = false;
 			aGrad = true;
 			inFile.getline(text, THIS_BUF); // application number 
 		
@@ -240,7 +247,7 @@ void Control::loadApplications(WindowApp *theApp){
 				
 				//make a course with the information and "N/A" supervisor
 				Course *cor = new Course(cTitle, cYear, cTerm, "N/A", cSuper);
-				
+				extra[0] = true;
 				relatedC->pushBack(cor);	
 				
 					
@@ -255,7 +262,7 @@ void Control::loadApplications(WindowApp *theApp){
 		
 		
 		while (1){
-
+			cout<<"reading TAS" << endl;
 			inFile.getline(text, THIS_BUF);			
 				
 					
@@ -285,7 +292,9 @@ void Control::loadApplications(WindowApp *theApp){
 			cTerm = text;
 			//make a course with the information and "N/A" grade
 			Course *bcor = new Course(cTitle, cYear, cTerm, cSuper, "N/A");
-			relatedT->pushBack(bcor);	
+			extra[1] = true;
+			relatedT->pushBack(bcor);
+			
 			
 		}
 		//read the related Work EXP
@@ -322,6 +331,7 @@ void Control::loadApplications(WindowApp *theApp){
 			
 
 			Job *aJob = new Job(jTitle, jTasks, jDuration, jStart, jEnd);
+			extra[2] = true;
 			relatedJ->pushBack(aJob);
 			
 		}
@@ -336,6 +346,8 @@ void Control::loadApplications(WindowApp *theApp){
 			ga->setRelatedTAPositions(relatedT);
 			ga->setRelatedWorkEXP(relatedJ);
 			theApp->appQueue.pushBack(ga);
+			ga->rTA = extra[1];
+			ga->rWorkExp = extra[2];
 		}
 		else{
 			
@@ -345,6 +357,9 @@ void Control::loadApplications(WindowApp *theApp){
 			uga->setRelatedTAPositions(relatedT);
 			uga->setRelatedWorkEXP(relatedJ);
 			theApp->appQueue.pushBack(uga);
+			uga->rCourses = extra[0];
+			uga->rTA = extra[1];
+			uga->rWorkExp = extra[2];
 		}
 		
 			

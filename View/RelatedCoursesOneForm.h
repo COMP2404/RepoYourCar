@@ -40,7 +40,10 @@ class RelatedCoursesOneForm{
 		static void closePopWindow(GtkWidget *, GtkWidget *);
 		static void close(GtkWidget *, WindowApp*);
 		//static void close(GtkWidget*,Form*);
-		
+		static void viewNextPage(GtkWidget*,WindowApp*);
+		static void viewPrevPage(GtkWidget*,WindowApp*);
+		static void viewNextSection(GtkWidget*,WindowApp*);
+		static void viewPrevSection(GtkWidget*,WindowApp*);
 		
 		
 };

@@ -54,6 +54,15 @@ class RelatedCoursesTwoForm{
 		static void closeU(GtkWidget *, WindowApp *);
 		static void closeG(GtkWidget *, WindowApp *);
 		
+		static void viewNextUPage(GtkWidget*,WindowApp*);
+		static void viewPrevUPage(GtkWidget*,WindowApp*);
+		static void viewNextGPage(GtkWidget*,WindowApp*);
+		static void viewPrevGPage(GtkWidget*,WindowApp*);
+		
+		static void viewNextUSection(GtkWidget*,WindowApp*);
+		static void viewPrevUSection(GtkWidget*,WindowApp*);
+		static void viewNextGSection(GtkWidget*,WindowApp*);
+		static void viewPrevGSection(GtkWidget*,WindowApp*);
 		
 };
 #endif

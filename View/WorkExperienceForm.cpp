@@ -49,6 +49,28 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_finish, FALSE);
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_repeat3, FALSE);
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->chkExperience, FALSE);
+
+
+			windowApp->uGradAppPage->form->nextApp = gtk_button_new_with_label("Next App");
+			windowApp->uGradAppPage->form->prevApp = gtk_button_new_with_label("Prev App");
+			windowApp->uGradAppPage->form->nextSection = gtk_button_new_with_label("Next Section");
+			windowApp->uGradAppPage->form->nextPage = gtk_button_new_with_label("Next Page");
+			windowApp->uGradAppPage->form->prevSection = gtk_button_new_with_label("Prev Section");
+			windowApp->uGradAppPage->form->prevPage = gtk_button_new_with_label("Prev Page");
+
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->nextApp, 80, 35);
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevApp, 80, 35);
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->nextSection, 80, 35);
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->nextPage, 80, 35);
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevSection, 80, 35);
+			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevPage, 80, 35);
+
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 460, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextSection, 550, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 640, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevSection, 465, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevPage, 380, 500);
 		}
 
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
@@ -105,6 +127,28 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_finish, FALSE);
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat3, FALSE);
 			gtk_widget_set_sensitive(windowApp->gradAppPage->form->chkExperience, FALSE);
+
+			windowApp->gradAppPage->form->nextApp = gtk_button_new_with_label("Next App");
+			windowApp->gradAppPage->form->prevApp = gtk_button_new_with_label("Prev App");
+			windowApp->gradAppPage->form->nextSection = gtk_button_new_with_label("Next Section");
+			windowApp->gradAppPage->form->nextPage = gtk_button_new_with_label("Next Page");
+			windowApp->gradAppPage->form->prevSection = gtk_button_new_with_label("Prev Section");
+			windowApp->gradAppPage->form->prevPage = gtk_button_new_with_label("Prev Page");
+
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->nextApp, 80, 35);
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevApp, 80, 35);
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->nextSection, 80, 35);
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->nextPage, 80, 35);
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevSection, 80, 35);
+			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevPage, 80, 35);
+
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextApp, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevApp, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextSection, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 450, 430);
+	
 		}
 
 
@@ -245,6 +289,28 @@ void WorkExperienceForm::finishGrad(GtkWidget*widget,WindowApp* windowApp){
 	}
 }
 
+
+void WorkExperienceForm::viewNextUPage(GtkWidget* widget,WindowApp* theApp){
+
+}
+void WorkExperienceForm::viewPrevUPage(GtkWidget* widget,WindowApp* theApp){
+
+}
+
+void WorkExperienceForm::viewNextGPage(GtkWidget* widget,WindowApp* theApp){
+
+}
+void WorkExperienceForm::viewPrevGPage(GtkWidget* widget,WindowApp* theApp){
+
+}
+
+void WorkExperienceForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
+
+}
+
+void WorkExperienceForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
+
+}
 
 bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){
 	cout <<"errorcheckgrad" <<endl;
