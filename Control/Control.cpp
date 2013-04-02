@@ -219,6 +219,12 @@ void Control::loadApplications(WindowApp *theApp){
 					break;
 					
 				}
+				if(strcmp(text, "NONE") == 0)
+				{	
+					
+					break;
+					
+				}
 				cTitle = text;
 
 				
@@ -259,6 +265,12 @@ void Control::loadApplications(WindowApp *theApp){
 				break;
 				
 			}
+			if(strcmp(text, "NONE") == 0)
+			{	
+					
+				break;
+					
+			}
 			
 			cTitle = text;
 			
@@ -279,6 +291,7 @@ void Control::loadApplications(WindowApp *theApp){
 		//read the related Work EXP
 		
 		while (1){
+			cout<<"reading work" << endl;
 			inFile.getline(text, THIS_BUF);
 					
 			if(strcmp(text, "ENDAPP") ==0)
@@ -286,6 +299,12 @@ void Control::loadApplications(WindowApp *theApp){
 				
 				break;
 				
+			}
+			if(strcmp(text, "NONE") == 0)
+			{	
+					
+				break;
+					
 			}
 			
 			jTitle = text;
