@@ -324,19 +324,19 @@ sorry appNum is int, stuNum is string
 }
 
 void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
-	int index;
+	int theIndex = 0;
 	gchar *s1,s2,s3,s4;
-	cout << "show app \n";
+	
 	Queue<Application> *temp;
 
+	temp = window->qCopy;
+	//temp = new Queue<Application>(*(window->qCopy));
 	
-
-
-	temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
-	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
+	//temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
+	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
 	
-	Application *app = (*temp)[index];
-	
+	Application *app = (*temp)[theIndex];
+	//cout << app->getType() <<endl;
 	//app = theApp->appQueue.getOriginal(app);
 	
 	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
@@ -351,7 +351,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			cout<< "Grad app clicked" <<endl;
 			window->theApp->canEdit = false;
 			AppManager *appMan = new AppManager(true, window->theApp);
-			appMan->fillInData(app, window->theApp);
+			//appMan->fillInData(app, window->theApp);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else if(validChars1 != string::npos){
@@ -359,7 +359,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			window->theApp->canEdit = false;
 			AppManager *appMan = new AppManager(false, window->theApp);
 		
-			appMan->fillInUData(app, window->theApp);
+			//appMan->fillInUData(app, window->theApp);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else{
