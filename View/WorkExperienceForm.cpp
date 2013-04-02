@@ -68,7 +68,7 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 460, 550);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 545, 550);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextSection, 550, 500);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 640, 500);
+			//gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevSection, 465, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevPage, 380, 500);
 		}
@@ -142,12 +142,12 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevSection, 80, 35);
 			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevPage, 80, 35);
 
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextApp, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevApp, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextSection, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextApp, 460, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextSection, 550, 500);
+			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 640, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 465, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 380, 500);
 	
 		}
 
@@ -290,25 +290,37 @@ void WorkExperienceForm::finishGrad(GtkWidget*widget,WindowApp* windowApp){
 }
 
 
-void WorkExperienceForm::viewNextUPage(GtkWidget* widget,WindowApp* theApp){
 
-}
 void WorkExperienceForm::viewPrevUPage(GtkWidget* widget,WindowApp* theApp){
-
+	WorkExperienceForm::cleanupUGrad(theApp);
+	UnderGradAppPage::related2(NULL,theApp);
+	UnderGradAppPage::fillInTA(theApp);
+	gtk_window_resize(GTK_WINDOW(theApp->uGradAppPage->form->window), 800,600);
 }
 
-void WorkExperienceForm::viewNextGPage(GtkWidget* widget,WindowApp* theApp){
 
-}
 void WorkExperienceForm::viewPrevGPage(GtkWidget* widget,WindowApp* theApp){
-
+	WorkExperienceForm::cleanupGrad(theApp);
+	GradAppPage::related2(NULL,theApp);
+	GradAppPage::fillInRelated(theApp);
+	gtk_window_resize(GTK_WINDOW(theApp->gradAppPage->form->window), 800,600);
 }
+
+
+
 
 void WorkExperienceForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
-
+	
 }
 
 void WorkExperienceForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
+
+}
+void WorkExperienceForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
+	
+}
+
+void WorkExperienceForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
 
 }
 
@@ -485,6 +497,16 @@ void WorkExperienceForm::cleanupGrad(WindowApp* app){
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblEndDate);
 	gtk_widget_destroy(app->gradAppPage->form->chkExperience);
 	gtk_window_resize(GTK_WINDOW(app->gradAppPage->form->window), 400,600);
+	if(!app->canEdit){
+		gtk_widget_destroy(app->gradAppPage->form->nextApp);
+		gtk_widget_destroy(app->gradAppPage->form->prevApp);
+		gtk_widget_destroy(app->gradAppPage->form->nextSection);
+		gtk_widget_destroy(app->gradAppPage->form->nextPage);
+		gtk_widget_destroy(app->gradAppPage->form->prevSection);
+		gtk_widget_destroy(app->gradAppPage->form->prevPage);
+	}
+
+	
 	
 }
 void WorkExperienceForm::cleanupUGrad(WindowApp* app){
@@ -501,6 +523,15 @@ void WorkExperienceForm::cleanupUGrad(WindowApp* app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblStartDate);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblEndDate);
 	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
+	if(!app->canEdit){
+		gtk_widget_destroy(app->uGradAppPage->form->nextApp);
+		gtk_widget_destroy(app->uGradAppPage->form->prevApp);
+		gtk_widget_destroy(app->uGradAppPage->form->nextSection);
+		gtk_widget_destroy(app->uGradAppPage->form->nextPage);
+		gtk_widget_destroy(app->uGradAppPage->form->prevSection);
+		gtk_widget_destroy(app->uGradAppPage->form->prevPage);
+		
+	}
 	gtk_window_resize(GTK_WINDOW(app->uGradAppPage->form->window), 400,600);
 }
 void WorkExperienceForm::closeU(GtkWidget* widget, WindowApp* app){

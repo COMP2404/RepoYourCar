@@ -91,7 +91,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextSection, 550, 500);
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextPage, 640, 500);
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevSection, 465, 500);
-		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevPage, 380, 500);
+		//gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevPage, 380, 500);
 	}
 
 
@@ -204,11 +204,37 @@ void RelatedCoursesOneForm::viewNextPage(GtkWidget* widget,WindowApp* theApp){
  	UnderGradAppPage::related2(widget,theApp);
  	UnderGradAppPage::fillInTA(theApp);
 }
-void RelatedCoursesOneForm::viewPrevPage(GtkWidget* widget,WindowApp* theApp){
+void RelatedCoursesOneForm::viewPrevSection(GtkWidget* widget,WindowApp* theApp){
 
 }
 void RelatedCoursesOneForm::viewNextSection(GtkWidget* widget,WindowApp* theApp){
 
+	if(theApp->uGradAppPage->form->rCourses || theApp->editUApp->rCourses){
+
+		theApp->uGradAppPage->relatedCourse = new Queue<Course>(*(theApp->editUApp->relatedCourses));
+		int theSize = 0;
+		if(theApp->uGradAppPage->relatedCourse->size() != 0){
+			//theSize = theApp->uGradAppPage->relatedCourse->size();
+		}
+		cout<< "the size is :" + theSize <<endl;
+		
+		/*if(theApp->uGradAppPage->rCIndex < theSize){
+			Course *course = (*(theApp->uGradAppPage->relatedCourse))[theApp->uGradAppPage->rCIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), course->getFinal().c_str());
+			
+		}*/
+	}
 }
 
 
@@ -253,6 +279,15 @@ void RelatedCoursesOneForm::cleanup(WindowApp* app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblFinalGrade);
 	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
+	if(!app->canEdit){
+		gtk_widget_destroy(app->uGradAppPage->form->nextApp);
+		gtk_widget_destroy(app->uGradAppPage->form->prevApp);
+		gtk_widget_destroy(app->uGradAppPage->form->nextSection);
+		gtk_widget_destroy(app->uGradAppPage->form->nextPage);
+		gtk_widget_destroy(app->uGradAppPage->form->prevSection);
+		gtk_widget_destroy(app->uGradAppPage->form->prevPage);
+
+	}
 }
 void RelatedCoursesOneForm::close(GtkWidget* widget, WindowApp* app){
 	//app->uGradAppPage->form->experience = false;

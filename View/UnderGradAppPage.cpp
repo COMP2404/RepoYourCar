@@ -32,12 +32,13 @@ void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->uGradAppPage->form->ei_repeat , "clicked", G_CALLBACK(RelatedCoursesOneForm::addAnother), app);
 	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesOneForm::close), app);
 	if(!app->canEdit){
+		app->uGradAppPage->rCIndex = 0;
 		//g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesOneForm::nextPage), app);
 		//g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesOneForm::addAnother), app);
 		g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesOneForm::viewNextSection), app);
 		g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewNextPage), app);
-		//g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevSection), app);
-		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevPage), app);
+		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevSection), app);
+		//g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevPage), app);
 		
 	}
 }
@@ -48,6 +49,7 @@ void UnderGradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->uGradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherUGrad), app);
 	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeU), app);
 	if(!app->canEdit){
+		app->uGradAppPage->rTAIndex = 0;
 		//g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPage), app);
 		//g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnother), app);
 		g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextUSection), app);
@@ -64,10 +66,11 @@ void UnderGradAppPage::workExp(WindowApp *app){
 	g_signal_connect(app->uGradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherUGrad), app);
 	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeU), app);
 	if(!app->canEdit){
+		app->uGradAppPage->rWXPIndex = 0;
 		//g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(WorkExperienceForm::nextPage), app);
 		//g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(WorkExperienceForm::addAnother), app);
-		//g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextUSection), app);
-		g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextUPage), app);
+		g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextUSection), app);
+		//g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextUPage), app);
 		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUSection), app);
 		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUPage), app);
 		
@@ -183,10 +186,10 @@ void UnderGradAppPage::fillInTA(WindowApp* theApp){
 		ss << course->getYear();
 		string year = ss.str();
 		
-		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year1), year.c_str());
-		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse1), course->getTitle().c_str());
-		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term1), course->getTerm().c_str());
-		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_finalGrade), course->getFinal().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getFinal().c_str());
 	}
 }
 void UnderGradAppPage::fillInWorkExp(WindowApp* theApp){
