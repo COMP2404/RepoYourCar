@@ -94,8 +94,13 @@ void AdminPage::setAppSelected(GtkWidget *widget, AdminWindow *window){
 	if(window->pending){
 		window->appSelected = true;
 		gtk_widget_set_sensitive(window->admin_assigned, TRUE);
+		gtk_widget_set_sensitive(window->printSum, TRUE);//sensitive on wrong combo box
 		window->selectedIndex = gtk_combo_box_get_active (GTK_COMBO_BOX(window->summary_combo));
-		 
+	}
+	else{
+		window->appSelected = true;
+		gtk_widget_set_sensitive(window->printSum, TRUE);//sensitive on wrong combo box
+		window->selectedIndex = gtk_combo_box_get_active (GTK_COMBO_BOX(window->summary_combo));
 	}
 }
 
@@ -128,8 +133,11 @@ void AdminPage::setAppSuccess(GtkWidget *widget, AdminWindow *window){
 void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->summary_combo));
-	gtk_widget_set_sensitive(window->printSum, TRUE);
-    //Queue<Application>* qCopy ;
+    //SET BOTH BUTTONS TO FALSE INCASE CHOOSING A COURSE WITHOUT APPLICATIONS
+    gtk_widget_set_sensitive(window->admin_assigned, FALSE);
+	gtk_widget_set_sensitive(window->printSum, FALSE);//sensitive on wrong combo box
+	//gtk_widget_set_sensitive(window->printSum, TRUE);
+ 
 	Queue<Application>* qCopy = new Queue<Application>(window->theApp->appQueue);
 	//cout << *qCopy;
 	if(window->pending){
@@ -215,6 +223,48 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	gtk_widget_show_all(window->admin_window);
 }
 void AdminPage::saveTheSum(GtkWidget *widget, AdminWindow *window){
-	window->saveQueue->saveSummaries();
+	
+	Queue<Application> tQ; //this si the queue that will hold the selected application
+	Queue<Application>* qCopy = new Queue<Application>(window->theApp->appQueue);
+	if(window->allCourses){
+		cout << "summary for all\n";
+
+		if(window->pending)//currently viewing pending applications
+			qCopy = qCopy->getPendingList("all");//restrict qCopy to those that are loaded in pending
+		else{
+			//filter out those that are closed or pending
+			qCopy = qCopy->getAssignedList();
+		}
+
+		//sort them to match the box
+		qCopy = qCopy->sortAll();
+		cout << "Here is the sorted queue: \n" << *qCopy <<endl;
+		tQ.pushBack((*qCopy)[window->selectedIndex]);
+		cout << "Here is tQ: " << tQ <<endl;
+		tQ.saveSummaries();
+
+		cout << "SUMMARY SAVED\n";
+	}
+	else{
+		cout << "summary for one\n";
+		const gchar* theCourse;
+		theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
+
+		if(window->pending)//currently viewing pending applications
+			qCopy = qCopy->getPendingList(theCourse);
+		else{
+			qCopy = qCopy->getAppsByCourse(theCourse);
+			//filter out those that are closed or pending
+			qCopy = qCopy->getAssignedList();
+		}
+
+		qCopy = qCopy->sortAll();
+		cout << "Here is the sorted queue: \n" << *qCopy <<endl;
+		tQ.pushBack((*qCopy)[window->selectedIndex]);
+		cout << "Here is tQ: " << tQ <<endl;
+		tQ.saveSummaries();
+		
+		cout << "SUMMARY SAVED\n";
+	}
 }
 

@@ -79,7 +79,7 @@ bool Application::operator==(Application& app){
 }
 
 ostream& operator<<(ostream& out, Application& app){
-	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course;
+	out << app.stuFirst << " " << app.stuLast << " " << app.stuEmail << " Applying for course " << app.course << "Status: " << app.getStatus();
 
 	return out;
 }
