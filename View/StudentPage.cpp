@@ -70,6 +70,9 @@ void StudentPage::chooseApp(WindowApp *theApp){
 }
 
 void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
+
+	cout << "StudentPage::updateCombo\n";
+
 	const gchar *sfname, *slname;
 	string first, last;
 	sfname = gtk_entry_get_text(GTK_ENTRY(theApp->stuPage->firstName));
@@ -149,6 +152,8 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	unsigned validChars1 = (theType).find(stringToFind1);
 	if (validChars1 == string::npos) {
 			cout<< "Grad app clicked" <<endl;
+			theApp->originalApp = app;//save the original so it can be overwritten later
+
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(true, theApp);
 			appMan->fillInData(app, theApp);
@@ -156,6 +161,8 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	}
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
+			theApp->originalApp = app;//save the original so it can be overwritten later
+
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(false, theApp);
 			appMan->fillInUData(app, theApp);

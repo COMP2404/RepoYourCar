@@ -337,23 +337,20 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 		ga->setRelatedWorkEXP(theApp->jQRelated);
 		rWorkExp = true;
 	}
-	/*
-	if(theApp->gradAppPage->edit){
-		Application* app = theApp->appQueue.getOriginal(theApp->editGApp);
-		*app = *(theApp->editGApp);
-	}
+
+	if(theApp->editGMode){
+		//replace the original application with this newly made one
+		theApp->appQueue.replaceOriginal(theApp->originalApp, ga);
+		//update the state of database to include this change
+		theApp->appQueue.writeToFile();
+	}	
 	else{
+		//User is making a new grad application
 		cout << "Making a new one\n";
-		theApp->appQueue.pushBack(ga, uga);
-		if(!ga->printApp(true))
-				return;
-	}
-	*/
-	
-	cout << "Making a new one\n";
-	theApp->appQueue.pushBack(ga);//was commented out...
-	if(!ga->printApp(true, rTA,rWorkExp))
+		theApp->appQueue.pushBack(ga);//was commented out...
+		if(!ga->printApp(true, rTA,rWorkExp))
 			return;
+	}
 
 }
 void WindowApp::submitUGradApp(WindowApp* theApp){
@@ -396,9 +393,22 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		uga->setRelatedWorkEXP(theApp->jQRelated);
 		rWorkExp = true;
 	}
-	theApp->appQueue.pushBack(uga);//was commented out
-	if(!uga->printApp(true,rCourses,rTA,rWorkExp))
+
+	if(theApp->editUMode){
+		cout<< "--The app being edited is:\n"<< *(theApp->originalApp) <<endl;
+		cout<< "--with this new app:\n"<< *uga <<endl;
+		theApp->appQueue.replaceOriginal(theApp->originalApp, uga);
+		//Overwrite the database with the newly edited application:
+		theApp->appQueue.writeToFile();
+	}
+	else{
+		//They are making an original application
+		theApp->appQueue.pushBack(uga);//was commented out
+		if(!uga->printApp(true,rCourses,rTA,rWorkExp))
 			return;
+	}
+
+	
 
 }
 

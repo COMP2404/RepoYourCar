@@ -63,7 +63,8 @@ class Queue
     Queue<Application>*    getAppsByCourse(string);
     Queue<T>*    getAssignedList();
     void         assignSuccesfulCandidate(Application*);
-    T* 			 getOriginal(Application*);
+    T* 			 getOriginal(T*);
+    bool		 replaceOriginal(T*, T*);
     bool         writeToFile(void);
     bool         saveSummaries(void);
         
@@ -623,11 +624,9 @@ void Queue<T>::assignSuccesfulCandidate(Application* app){
 }
 
 template <class T>
-T* Queue<T>::getOriginal(Application* app){
+T* Queue<T>::getOriginal(T* app){
 	
-	//GradApp* ga;
-	//UndergradApp* ua;
-	Application* theApp;
+
 	Node<T>* tmp = head;
 	while(tmp != NULL){//for all applications
 		if(*app == *(tmp->data)){
@@ -636,8 +635,25 @@ T* Queue<T>::getOriginal(Application* app){
 		tmp = tmp->next;
 	}
 	return NULL;
-	
 }
+
+
+template <class T>
+bool Queue<T>::replaceOriginal(T* original, T* current){
+
+	Node<T>* tmp = head;
+	while(tmp != NULL){//for all applications
+		if(*original == *(tmp->data)){//found the original to be replaced
+			tmp->data = current;
+			return true;			
+		}
+		tmp = tmp->next;
+	}
+
+	return false;//didnt find it
+
+}
+
 
 template <class T>
 bool Queue<T>::writeToFile(){
