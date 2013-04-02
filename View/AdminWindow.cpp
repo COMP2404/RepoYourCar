@@ -168,10 +168,12 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	first = (sfname);
 	last =(slname);
 	stuNum =(sStuNum);
-	sAppNum =(sAppNum);
+	appNum =(sAppNum);
 	window->theFName = first;
 	window->theLName = last;
-	window->theAppNum = atoi(sAppNum);
+	window->theAppNum = atoi(appNum.c_str());
+	if(appNum == "")
+		window->theAppNum = -1;
 	window->theStuNum = sStuNum;
 	Queue<Application> *temp;
 
@@ -184,21 +186,24 @@ app number:  getAppsByAppNum(string)
 sorry appNum is int, stuNum is string
 */
 	
-	cout << window->theAppNum <<endl;
+	cout << "this is the app num " + window->theAppNum <<endl;
 	if(window->theFName != ""){
 		if(window->theLName != ""){
 			//if first and last name are non-empty
 
 			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
-
+			cout << "both names" <<endl;
 			//if stuNum is not empty
 			if(window->theStuNum != ""){
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+				cout << "stu Num" <<endl;
 			}
 
 			//if app num is not empty
 			if(window->theAppNum != -1){
+
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+				cout << "App num" + window->theAppNum <<endl;
 			}
 
 
@@ -207,14 +212,16 @@ sorry appNum is int, stuNum is string
 
 
 			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByFirst(window->theFName)));
-
+			cout << "first name" <<endl;
 
 
 			if(window->theStuNum != ""){
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+				cout << "stu num" <<endl;
 			}
 			if(window->theAppNum != -1){
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+				cout << "app num" <<endl;
 			}
 
 
@@ -236,10 +243,11 @@ sorry appNum is int, stuNum is string
 			//if they are both empty, then get queue from main appqueue
 			if(window->theStuNum != ""){
 				window->qCopy = new Queue<Application>(*(window->theApp->appQueue.getAppsByStuNum(window->theStuNum)));
-
+				cout << "stu num" <<endl;
 
 				if(window->theAppNum != -1){
 					window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+					cout << "app num" <<endl;
 				}
 
 
@@ -249,6 +257,7 @@ sorry appNum is int, stuNum is string
 
 				//if stunum is empty then get appnum queue from main
 				window->qCopy = new Queue<Application>(*(window->theApp->appQueue.getAppsByAppNum(window->theAppNum)));
+				cout << "app num" <<endl;
 			}
 
 		}else{
@@ -256,17 +265,19 @@ sorry appNum is int, stuNum is string
 
 
 			window->qCopy  = new Queue<Application>(*(window->theApp->appQueue.getAppsByLast(window->theLName)));
-
+			cout << "last name" <<endl;
 
 			if(window->theStuNum != ""){
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByStuNum(window->theStuNum)));
+				cout << "stu num" <<endl;
 			}
 			if(window->theAppNum != -1){
 				window->qCopy = new Queue<Application>(*(window->qCopy->getAppsByAppNum(window->theAppNum)));
+				cout << "app num" <<endl;
 			}
 		}
 	}
-	
+	window->qCombo = new Queue<Application>(*(window->qCopy));
 
 	
 	
@@ -313,19 +324,22 @@ sorry appNum is int, stuNum is string
 }
 
 void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
-	int index;
+	int theIndex = 0;
 	gchar *s1,s2,s3,s4;
-	cout << "show app \n";
+	
 	Queue<Application> *temp;
 
+	temp = window->qCombo;
+	cout << "show app, new temp"<<endl;
+	//temp = new Queue<Application>(*(window->qCopy));
 	
-
-
-	temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
-	index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget));
 	
-	Application *app = (*temp)[index];
-	
+	//temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
+	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
+	cout << "index"<<endl;
+	Application *app = (*temp)[theIndex];
+	cout << "show app, got app"<<endl;
+	//cout << app->getType() <<endl;
 	//app = theApp->appQueue.getOriginal(app);
 	
 	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
