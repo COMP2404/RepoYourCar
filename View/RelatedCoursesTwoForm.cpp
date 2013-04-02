@@ -287,10 +287,10 @@ void RelatedCoursesTwoForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp
 		}
 		
 		
-		if(theApp->uGradAppPage->rCIndex < theSize -1){
-			cout<< theApp->uGradAppPage->rCIndex <<endl;
-			theApp->uGradAppPage->rCIndex++;
-			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+		if(theApp->uGradAppPage->rTAIndex < theSize -1){
+			cout<< theApp->uGradAppPage->rTAIndex <<endl;
+			theApp->uGradAppPage->rTAIndex++;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rTAIndex];
 			stringstream ss;
 			ss << course->getYear();
 			string year = ss.str();
@@ -317,10 +317,10 @@ void RelatedCoursesTwoForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp
 		}
 		
 		
-		if(theApp->uGradAppPage->rCIndex > 0 ){
-			cout<< theApp->uGradAppPage->rCIndex <<endl;
-			theApp->uGradAppPage->rCIndex--;
-			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+		if(theApp->uGradAppPage->rTAIndex > 0 ){
+			
+			theApp->uGradAppPage->rTAIndex--;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rTAIndex];
 			stringstream ss;
 			ss << course->getYear();
 			string year = ss.str();
@@ -338,10 +338,70 @@ void RelatedCoursesTwoForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp
 	}
 }
 void RelatedCoursesTwoForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->gradAppPage->form->rTA || theApp->editGApp->rTA){
+
+		theApp->gradAppPage->relatedQueue = new Queue<Course>(*(theApp->editGApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->gradAppPage->relatedQueue->size() != 0){
+			theSize = theApp->gradAppPage->relatedQueue->size();
+		}
+		
+		
+		if(theApp->gradAppPage->rTAIndex < theSize -1){
+			
+			theApp->gradAppPage->rTAIndex+=1;
+			Course *course = (*(theApp->gradAppPage->relatedQueue))[theApp->gradAppPage->rTAIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			
+		}
+	}
 }
 void RelatedCoursesTwoForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
-	
+	if(theApp->gradAppPage->form->rTA || theApp->editGApp->rTA){
+		cout << "prev g section" <<endl;
+		theApp->gradAppPage->relatedQueue = new Queue<Course>(*(theApp->editGApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->gradAppPage->relatedQueue->size() != 0){
+			theSize = theApp->gradAppPage->relatedQueue->size();
+		}
+		
+		
+		if(theApp->gradAppPage->rTAIndex > 0 ){
+			cout <<"index--" <<endl;
+			cout<< theApp->gradAppPage->rTAIndex <<endl;
+			cout <<"size--" <<endl;
+			cout<< theSize <<endl;
+			theApp->gradAppPage->rTAIndex-=1;
+			Course *course = (*(theApp->gradAppPage->relatedQueue))[theApp->gradAppPage->rTAIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			cout <<"index--2" <<endl;
+			cout<< theApp->gradAppPage->rTAIndex <<endl;
+			cout <<"size--2" <<endl;
+			cout<< theSize <<endl;
+		}
+	}
 }
 
 void RelatedCoursesTwoForm::addAnotherUGrad(GtkWidget* widget, WindowApp *theApp){

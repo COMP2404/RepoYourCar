@@ -343,7 +343,36 @@ void WorkExperienceForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
 }
 
 void WorkExperienceForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
+	if(theApp->gradAppPage->form->rWorkExp || theApp->editGApp->rWorkExp){
 
+		theApp->gradAppPage->workExpQueue = new Queue<Job>(*(theApp->editGApp->relatedWorkEXP));
+		int theSize = 0;
+		if(theApp->gradAppPage->workExpQueue->size() != 0){
+			theSize = theApp->gradAppPage->workExpQueue->size();
+		}
+		
+		
+		if(theApp->gradAppPage->rWXPIndex > 0 ){
+			cout<< theApp->gradAppPage->rWXPIndex <<endl;
+			theApp->gradAppPage->rWXPIndex-=1;
+			Job *job = (*(theApp->gradAppPage->workExpQueue))[theApp->gradAppPage->rWXPIndex];
+			//stringstream ss;
+			//ss << course->getYear();
+			//string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), job->getStartDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), job->getEndDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), job->getDuration().c_str());
+			
+		}
+	}
 }
 void WorkExperienceForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
 	if(theApp->uGradAppPage->form->rWorkExp || theApp->editUApp->rWorkExp){
@@ -357,7 +386,7 @@ void WorkExperienceForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
 		
 		if(theApp->uGradAppPage->rWXPIndex < theSize -1){
 			cout<< theApp->uGradAppPage->rWXPIndex <<endl;
-			theApp->uGradAppPage->rWXPIndex++;
+			theApp->uGradAppPage->rWXPIndex+=1;
 			Job *job = (*(theApp->uGradAppPage->workExpQueue))[theApp->uGradAppPage->rWXPIndex];
 			//stringstream ss;
 			//ss << course->getYear();
@@ -379,7 +408,36 @@ void WorkExperienceForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
 }
 
 void WorkExperienceForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
+	if(theApp->gradAppPage->form->rWorkExp || theApp->editGApp->rWorkExp){
 
+		theApp->gradAppPage->workExpQueue = new Queue<Job>(*(theApp->editGApp->relatedWorkEXP));
+		int theSize = 0;
+		if(theApp->gradAppPage->workExpQueue->size() != 0){
+			theSize = theApp->gradAppPage->workExpQueue->size();
+		}
+		
+		
+		if(theApp->gradAppPage->rWXPIndex < theSize -1){
+			cout<< theApp->gradAppPage->rWXPIndex <<endl;
+			theApp->gradAppPage->rWXPIndex+=1;
+			Job *job = (*(theApp->gradAppPage->workExpQueue))[theApp->gradAppPage->rWXPIndex];
+			//stringstream ss;
+			//ss << course->getYear();
+			//string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_responsabilities), job->getTasks().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_startDate), job->getStartDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_endDate), job->getEndDate().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_duration), job->getDuration().c_str());
+			
+		}
+	}
 }
 
 bool WorkExperienceForm::errorCheckGrad(WindowApp* windowApp){

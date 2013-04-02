@@ -38,6 +38,7 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->gradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherGrad), app);
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeG), app);
 	if(!app->canEdit){
+		app->gradAppPage->rTAIndex = 0;
 		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPage), app);
 		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnother), app);
 		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGSection), app);
@@ -52,7 +53,7 @@ void GradAppPage::workExp(WindowApp* app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,true);
 	if(app->editGMode){
-		GradAppPage::fillInWorkExp(app);
+		//GradAppPage::fillInWorkExp(app);
 	}
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
@@ -60,9 +61,10 @@ void GradAppPage::workExp(WindowApp* app){
 	//if(app->gradAppPage->edit)
 	//	g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
 	if(!app->canEdit){
+		app->gradAppPage->rWXPIndex = 0;
 		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(WorkExperienceForm::nextPage), app);
 		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(WorkExperienceForm::addAnother), app);
-		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextUSection), app);
+		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextGSection), app);
 		//g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextGPage), app);
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
 		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
@@ -186,6 +188,7 @@ void GradAppPage::fillInWorkExp(WindowApp* theApp){
 	if(theApp->gradAppPage->form->rWorkExp || theApp->editGApp->rWorkExp){
 		theApp->gradAppPage->workExpQueue = new Queue<Job>(*(theApp->editGApp->relatedWorkEXP));	
 		Job *job = theApp->gradAppPage->workExpQueue->popFront();
+		cout<<"inside fill in work" <<endl;
 	//	Job *job = jobQueue->popFront();
 		//cout << job->getStartDate() << endl;
 		gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relevantWork), job->getJobTitle().c_str());
