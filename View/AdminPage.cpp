@@ -200,11 +200,11 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 
 		input[i] = app->getSummaryString();
 			
-		 
+		 cout << "shit nigga" << endl;
 		
-		//theInput = input[i];
+		//theInput = input[i].c_str();
 		strcpy(theInput,input[i].c_str());
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->summary_combo), theInput);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->summary_combo), input[i].c_str());
 		i++;
 		app = qCopy->popFront();	
 
