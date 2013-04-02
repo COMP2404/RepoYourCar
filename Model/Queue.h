@@ -55,11 +55,15 @@ class Queue
     int          getNumCourses(void);
     bool         appExists(string);
     int          getIndex(Application*);
-    Queue<T>*    getAppsByName(string, string);
-    Queue<T>*    getAppsByCourse(string);
+    Queue<Application>*    getAppsByName(string, string);
+    Queue<Application>*    getAppsByFirst(string);
+    Queue<Application>*    getAppsByLast(string);
+    Queue<Application>*    getAppsByAppNum(int);
+    Queue<Application>*    getAppsByStuNum(string);
+    Queue<Application>*    getAppsByCourse(string);
     Queue<T>*    getAssignedList();
     void         assignSuccesfulCandidate(Application*);
-    T* getOriginal(Application*);
+    T* 			 getOriginal(Application*);
     bool         writeToFile(void);
     bool         saveSummaries(void);
         
@@ -340,7 +344,7 @@ Queue<T>* Queue<T>::sortAll(){
 		cout << "no file!!!" << endl;
 	}	
 	while (getline(inFile, allCourses[numCourses])) {
-		cout << "Added a course!: " << numCourses << endl;
+		//cout << "Added a course!: " << numCourses << endl;
 		numCourses++;		
 	}
 
@@ -348,7 +352,7 @@ Queue<T>* Queue<T>::sortAll(){
 	
 	int theNum = 0;//index/counter for courseList
 	cout<<"here we go\n";
-	for(int k=0; k<40; k++){//for all Above courses^^
+	for(int k=0; k<numCourses; k++){//for all Above courses^^
 		if(appExists(allCourses[k])){
 			courseList[theNum++] = allCourses[k];
 			cout<<"found a course: " << allCourses[k] <<endl;
@@ -385,25 +389,25 @@ Queue<T>* Queue<T>::sortAll(){
 	//-----------SORT THE UNDERGRAD APPLICATIONS BY GPA------------//
 	cout<<"here we go5\n";
 	for(int i=unum-1; i>=0; i--){//BSORT
-                swapped = false;
-                for(int j=0; j<i; j++){//this swaps them if they shoud be
-			if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA, move on
-		                if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
-		                        tempUApp = unders[j+1];
-		                        unders[j+1] = unders[j];
-		                        unders[j]=tempUApp;
-		                        swapped=true;
-		                }
-			}
-                }
-                if(!swapped) break;
+            swapped = false;
+            for(int j=0; j<i; j++){//this swaps them if they shoud be
+				if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they are in the same course dont sort them by GPA, move on
+		            if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
+		                tempUApp = unders[j+1];
+		                unders[j+1] = unders[j];
+		                unders[j]=tempUApp;
+		                swapped=true;
+		            }
+				}
+            }
+            if(!swapped) break;
         }
 	//-----------SORT THE GRAD APPLICATIONS BY ALPHA------------//
 	cout<<"here we go6\n";
 	for(int i=gnum-1; i>=0; i--){//BSORT
                 swapped = false;
                 for(int j=0; j<i; j++){//this swaps them if they shoud be
-			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by Name, move on
+			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they are in the same course dont sort them by Name, move on
 
 		                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
 
@@ -480,9 +484,9 @@ int Queue<T>::getIndex(Application* app){
 }
 
 template <class T>
-Queue<T>* Queue<T>::getAppsByName(string name, string last){
-	Node<T>* tmp = head;
-	Queue<T>* nQ = new Queue<T>();//this will only hold applications from a specific person
+Queue<Application>* Queue<T>::getAppsByName(string name, string last){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
 	while(tmp != NULL){//for all applications
 		
 		if(tmp->data->getStuFirst() == name && tmp->data->getStuLast() == last){//if they are by the target person
@@ -498,9 +502,73 @@ Queue<T>* Queue<T>::getAppsByName(string name, string last){
 	//check out AppQueue.cpp
 
 }
+//RETURNS A QUEUE OF APPS BY FIRST NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByFirst(string name){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuFirst() == name){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+
+}
+//RETURNS A QUEUE OF APPS BY LAST NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByLast(string last){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuLast() == last){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+//RETURNS A QUEUE OF APPS BY APPLICATION NUMBER QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByAppNum(int num){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getApplicationNumber() == num){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
+//RETURNS A QUEUE OF APPS BY STUDENT NUMBER NAME QUERY
+template <class T>
+Queue<Application>* Queue<T>::getAppsByStuNum(string num){
+	Node<Application>* tmp = head;
+	Queue<Application>* nQ = new Queue<Application>();//this will only hold applications from a specific person
+	while(tmp != NULL){//for all applications
+		
+		if(tmp->data->getStuID() == num){//if they are by the target person
+			nQ->pushBack(tmp->data);
+		}
+		
+		tmp = tmp->next;
+	}
+	return nQ;
+}
+
 
 template <class T>
-Queue<T>* Queue<T>::getAppsByCourse(string course){
+Queue<Application>* Queue<T>::getAppsByCourse(string course){
 	//------Get a copy of the working Queue-------
 	
 	Queue<T>& copy = *this;

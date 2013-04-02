@@ -184,8 +184,6 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	Application* tmpApp = NULL;
 	Application* app;
     
-	GradApp* ga = NULL;
-	UndergradApp *uga = NULL;
 	
 	if(qCopy != NULL){
 		app = (qCopy->popFront());
@@ -198,40 +196,8 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 	//for(int i=0; i<length; i++){
 	while(app != NULL){
 		//gtk_widget_set_sensitive(window->printSum, TRUE);
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
-		if(app->getType() == "grad"){
-			ga = static_cast<GradApp*>(app);
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
-		}
-		else{
 
-			uga = static_cast<UndergradApp*>(app);	
-			s1 = uga->getStuFirst();
-			cout << s1 << endl;
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
-		}
-
+		input[i] = app->getSummaryString();
 			
 		 
 		
@@ -240,16 +206,7 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->summary_combo), theInput);
 		i++;
 		app = qCopy->popFront();	
-		if(app != NULL){
-			if(app->getType() == "grad"){
-				ga = static_cast<GradApp*>(app);
-				
 
-			}
-			else{
-				uga = dynamic_cast<UndergradApp*>(app);
-			}
-		}
 		
 	}
 	
