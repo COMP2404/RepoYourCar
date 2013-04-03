@@ -32,7 +32,7 @@ void GradForm::draw(GradForm *form, WindowApp *theApp){
 //(selected from a preconfigured list), program (MCS or PhD), and supervisor name
 	form->combo =  gtk_combo_box_text_new();
 	form->grad_research_combo =  gtk_combo_box_text_new();
-	grad_program_combo =  gtk_combo_box_text_new();
+	form->grad_program_combo =  gtk_combo_box_text_new();
 	form->fName = gtk_entry_new();
 	form->lName = gtk_entry_new();
 	form->email = gtk_entry_new();

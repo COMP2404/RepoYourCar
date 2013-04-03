@@ -49,5 +49,6 @@ class AppManager{
 		static void pushWorkExpData();
 		static void fillInData(Application*, WindowApp*);
 		static void fillInUData(Application*, WindowApp*);
+		static void cycleApps(bool[], WindowApp*);
 };
 #endif

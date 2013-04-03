@@ -72,7 +72,7 @@ class WindowApp{
 		Course *studentCourse;
 		Queue<Course> *cQRelated, *cQTa;
 		Queue<Job> *jQRelated;
-		Queue<Application> appQueue;
+		Queue<Application> appQueue, *cycle;
 		int blockID;
 		Application *originalApp;
 		static WindowApp *instance;
@@ -86,6 +86,7 @@ class WindowApp{
 		bool editGMode;
 		bool editUMode;
 		bool canEdit;
+		bool canCycle;
 		static int applicationNum; 		
 		/*WindowApp();
 		~WindowApp();*/
