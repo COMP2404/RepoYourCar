@@ -308,7 +308,7 @@ Queue<Application>* Queue<T>::sortByGPA(){
 
 template <class T>
 Queue<T>* Queue<T>::sortAll(){
-	/*
+	
 	string allCourses[100];
 	int numCourses = 0;
 
@@ -340,13 +340,13 @@ Queue<T>* Queue<T>::sortAll(){
 	int count = size();
 	int courses = getNumCourses();
 	Queue<Application>* sorted = new Queue<Application>();//new linked list in sorted order
-
+	Application* tmpApp;
 	Node<Application>* tmp = head;
 
-	//Application* appArr[MAX_BUF];//2D-list of applications to be sorted..all courses and all applications of that course.
+	Application* appArr[MAX_BUF];//2D-list of applications to be sorted..all courses and all applications of that course.
 	cout<<"here we go3\n";
 	//array for apps
-	Application* unders[MAX_BUF];
+
 	int appnum = 0;
 
 	//-----------GET A LIST OF APPLICATIONS SORTED BY COURSE----------//
@@ -355,55 +355,37 @@ Queue<T>* Queue<T>::sortAll(){
 		tmp = head;
 		while(tmp != NULL){
 			if(tmp->data->getCourse().compare(courseList[i]) == 0){
-				apps[appnum++] = tmp->data;//add them to an array to be sorted
+				appArr[appnum++] = tmp->data;//add them to an array to be sorted
 			}
 			tmp=tmp->next;		
 		}
 	}
 	//-----------SORT THE UNDERGRAD APPLICATIONS BY GPA------------//
 	cout<<"here we go5\n";
-	for(int i=unum-1; i>=0; i--){//BSORT
-            swapped = false;
-            for(int j=0; j<i; j++){//this swaps them if they shoud be
-				if(unders[j]->getCourse().compare(unders[j+1]->getCourse()) == 0){//if they are in the same course dont sort them by GPA, move on
-		            if(unders[j]->getStuMGPA() > unders[j+1]->getStuMGPA()){
-		                tempUApp = unders[j+1];
-		                unders[j+1] = unders[j];
-		                unders[j]=tempUApp;
-		                swapped=true;
-		            }
-				}
-            }
-            if(!swapped) break;
-        }
-	//-----------SORT THE GRAD APPLICATIONS BY ALPHA------------//
-	cout<<"here we go6\n";
-	for(int i=gnum-1; i>=0; i--){//BSORT
-                swapped = false;
-                for(int j=0; j<i; j++){//this swaps them if they shoud be
-			if(grads[j]->getCourse().compare(grads[j+1]->getCourse()) == 0){//if they are in the same course dont sort them by Name, move on
-
-		                if(grads[j]->getStuArea() > grads[j+1]->getStuArea()){
-
-		                        tempGApp = grads[j+1];
-		                        grads[j+1] = grads[j];
-		                        grads[j]=tempGApp;
-		                        swapped=true;
-		                }
+	for(int i=appnum-1; i>=0; i--){//BSORT
+        swapped = false;
+        for(int j=0; j<i; j++){//this swaps them if they shoud be
+			if(appArr[j]->getCourse().compare(appArr[j+1]->getCourse()) == 0){//if they arent in the same course dont sort them by GPA or Area, move on
+		        if(appArr[j]->compareValue() > appArr[j+1]->compareValue()){//call virtual functions for sorting specifications
+		            tmpApp = appArr[j+1];
+		            appArr[j+1] = appArr[j];
+		            appArr[j]=tmpApp;
+		            swapped=true;
+		        }
 			}
-                }
-                if(!swapped) break;
         }
-	//-----------FINALLY, PUSH THESE EFFERS TO THE SORTED QUEUE!--------------//
+        if(!swapped) break;
+    }
+	
 	cout<<"here we go7\n";
 	for(int i=0; i<appnum; i++){	
 		//cout << "d\n";
-		sorted->pushBack(apps[i]);
+		sorted->pushBack(appArr[i]);
 	}
 	
 	cout<<"went!\n";
 	return sorted;
-	*/
+	
 	
 }
 

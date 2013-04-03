@@ -31,6 +31,8 @@ void testN();
 void testAppP();
 void testAppM();
 
+void sortTest();
+
 int main(){
 	cout << "For maximum clarity, please enlarge your window to the fullest\n\n";
 	//=========================================TEMPLATES FOR OBJECT PARAMETERS===============================================
@@ -108,6 +110,8 @@ int main(){
 	testAppP();//testing Application::operator+();
 
 	testAppM();//testing Application::operator-();
+
+	//sortTest();//works!
 
 	cout<<endl<<endl<<endl;
 	return 0;
@@ -788,4 +792,39 @@ void testAppM(){
 	cout << "--------Here are those same apps after the unary - is performed on them---------\n";
 	cout << *nanaApp << endl << *someApp << endl << *georgeApp << endl << *sydApp << endl;
 
+}
+
+void sortTest(){
+	cout << "===========================================ABOUT TO TEST THE APPLICATION:: SORTING=============================================" << endl << "." << endl << "." << endl << "." <<endl;
+	GradStudent steg("Stegasaurus", "", "dino1@carleton.ca", "100628374", "Dinosaurs", "");
+	GradStudent apat("Apatosaurus", "", "dino2@carleton.ca", "100623374", "Dinosaurs", "");
+	GradStudent lamb("Lambeosaur", "", "dino3@carleton.ca", "100628374", "Dinosaurs", "");
+
+	UndergradStudent pac(12, 9, "Pachycephalasaurus", "", "dino4@carleton.ca", "Dinosaurs", 3, "100386789" );
+	UndergradStudent rex(1, 8, "Nano-Tyrannosaur", "", "dino5@carleton.ca", "Anderson", 3, "100101199" );
+	UndergradStudent ank(12, 12, "Ankylosaurus", "", "dino6@carleton.ca", "Culinary Arts", 4, "100367672");
+	////////////////////APPLICATIONS//////////////////////
+	GradApp* stegA = new GradApp(&steg, 10388, "COMP2401", "pending");
+	GradApp* apatA = new GradApp(&apat, 10389, "COMP2406", "pending");
+	GradApp* lambA = new GradApp(&lamb, 10390, "COMP3803", "pending");
+
+	UndergradApp* pacA = new UndergradApp(&pac, 20323, "COMP3001", "pending");
+	UndergradApp* rexA = new UndergradApp(&rex, 20311, "COMP2404", "pending");
+	UndergradApp* ankA = new UndergradApp(&ank, 22001, "COMP2001", "pending");
+
+	//A queue for the apps
+	Queue<Application> q;
+	//Push all these apps to the queue
+	q.pushBack(stegA);
+	q.pushBack(apatA);
+	q.pushBack(lambA);
+
+	q.pushBack(pacA);
+	q.pushBack(rexA);
+	q.pushBack(ankA);
+	Queue<Application>* qu;
+
+	cout<< "HERE IS THE UNSORTED QUEUE:\n" << q << endl << endl;
+	qu = q.sortAll();
+	cout<< "HERE IS THE SORTED QUEUE\n" << *qu << endl;
 }

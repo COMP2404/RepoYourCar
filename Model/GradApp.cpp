@@ -36,6 +36,11 @@ Application* GradApp::getCopy(){
 	return (new GradApp(*this));//return a copy of this class
 }
 
+
+string GradApp::compareValue(){
+	return (getStuArea());
+}
+
 /*
 GradApp::GradApp(GradApp& ga){
 	////////////////COPY CTOR//////////////////

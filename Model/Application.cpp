@@ -10,37 +10,6 @@ Application::Application(int appNum, string cor, string stat, string type){
         course 		  = cor;
         applicationStatus = stat;
         stuType = type;
-        /*
-        GradStudent *gs;
-        UndergradStudent *ugs;
-        gs = g;
-        ugs = u;
-     if(gs != NULL){
-     	cout << "grad app" << endl;
-     	stuFirst = gs->getFirst();
-		stuLast = gs->getLast();
-		stuEmail = gs->getEmail();
-		stuID = gs->getStudentNumber();
-		stuProgram = gs->getProgram();
-		stuArea = gs->getArea();
-		stuSuper = gs->getSupervisor();
-     }
-     else if(ugs != NULL){
-     	cout << "ugrad app" << endl;
-     	stuFirst = u->getFirst();
-     	
-		stuLast = u->getLast();
-		stuEmail = u->getEmail();
-		stuMajor = u->getMajor();
-		stuYearStanding = u->getYearStanding();
-		stuID = u->getStudentNumber();
-		stuCGPA = u->getCGPA();
-		stuMGPA = u->getMajorGPA();
-     }
-      */
-	
-	
-	
 	
 }
 
