@@ -202,7 +202,7 @@ void RelatedCoursesOneForm::addAnother(GtkWidget* widget,WindowApp* theApp){
 void RelatedCoursesOneForm::viewNextPage(GtkWidget* widget,WindowApp* theApp){
 	RelatedCoursesOneForm::cleanup(theApp);
  	UnderGradAppPage::related2(widget,theApp);
- 	//UnderGradAppPage::fillInTA(theApp);
+ 	UnderGradAppPage::fillInTA(theApp);
 }
 void RelatedCoursesOneForm::viewPrevSection(GtkWidget* widget,WindowApp* theApp){
 	if(theApp->uGradAppPage->form->rCourses || theApp->editUApp->rCourses){
@@ -214,10 +214,10 @@ void RelatedCoursesOneForm::viewPrevSection(GtkWidget* widget,WindowApp* theApp)
 		}
 		
 		
-		if(theApp->uGradAppPage->rTAIndex > 0 ){
-			cout<< theApp->uGradAppPage->rTAIndex <<endl;
-			theApp->uGradAppPage->rTAIndex--;
-			Course *course = (*(theApp->uGradAppPage->relatedCourse))[theApp->uGradAppPage->rTAIndex];
+		if(theApp->uGradAppPage->rCIndex > 0 ){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex--;
+			Course *course = (*(theApp->uGradAppPage->relatedCourse))[theApp->uGradAppPage->rCIndex];
 			stringstream ss;
 			ss << course->getYear();
 			string year = ss.str();
@@ -246,10 +246,10 @@ void RelatedCoursesOneForm::viewNextSection(GtkWidget* widget,WindowApp* theApp)
 		}
 		
 		
-		if(theApp->uGradAppPage->rTAIndex < theSize -1){
-			cout<< theApp->uGradAppPage->rTAIndex <<endl;
-			theApp->uGradAppPage->rTAIndex++;
-			Course *course = (*(theApp->uGradAppPage->relatedCourse))[theApp->uGradAppPage->rTAIndex];
+		if(theApp->uGradAppPage->rCIndex < theSize -1){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex++;
+			Course *course = (*(theApp->uGradAppPage->relatedCourse))[theApp->uGradAppPage->rCIndex];
 			stringstream ss;
 			ss << course->getYear();
 			string year = ss.str();
