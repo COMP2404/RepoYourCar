@@ -202,7 +202,7 @@ void RelatedCoursesOneForm::addAnother(GtkWidget* widget,WindowApp* theApp){
 void RelatedCoursesOneForm::viewNextPage(GtkWidget* widget,WindowApp* theApp){
 	RelatedCoursesOneForm::cleanup(theApp);
  	UnderGradAppPage::related2(widget,theApp);
- 	UnderGradAppPage::fillInTA(theApp);
+ 	//UnderGradAppPage::fillInTA(theApp);
 }
 void RelatedCoursesOneForm::viewPrevSection(GtkWidget* widget,WindowApp* theApp){
 	if(theApp->uGradAppPage->form->rCourses || theApp->editUApp->rCourses){

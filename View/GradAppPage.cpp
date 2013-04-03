@@ -47,14 +47,15 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 		//g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGPage), app);
 		
 	}
+	if(app->editGMode && app->canEdit){
+		GradAppPage::fillInRelated(app);
+	}
 }
 
 void GradAppPage::workExp(WindowApp* app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
 	workExperience->create(app,true);
-	if(app->editGMode){
-		//GradAppPage::fillInWorkExp(app);
-	}
+	
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeG), app);
@@ -69,6 +70,9 @@ void GradAppPage::workExp(WindowApp* app){
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
 		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
 		
+	}
+	if(app->editGMode && app->canEdit){
+		GradAppPage::fillInWorkExp(app);
 	}
 }
 void GradAppPage::getInfo(GtkWidget *widget, WindowApp *app){

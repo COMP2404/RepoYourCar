@@ -41,6 +41,7 @@ void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 		//g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevPage), app);
 		
 	}
+
 }
 void UnderGradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	RelatedCoursesTwoForm *relatedCourses2 = new RelatedCoursesTwoForm();
@@ -58,6 +59,9 @@ void UnderGradAppPage::related2(GtkWidget *widget, WindowApp *app){
 		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevUPage), app);
 		
 	}
+	if(app->editUMode && app->canEdit){
+		UnderGradAppPage::fillInTA(app);
+	}
 }
 void UnderGradAppPage::workExp(WindowApp *app){
 	WorkExperienceForm *workExperience = new WorkExperienceForm();
@@ -74,6 +78,9 @@ void UnderGradAppPage::workExp(WindowApp *app){
 		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUSection), app);
 		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUPage), app);
 		
+	}
+	if(app->editUMode && app->canEdit){
+		UnderGradAppPage::fillInWorkExp(app);
 	}
 }
 void UnderGradAppPage::getInfo(GtkWidget *widget, WindowApp *windowApp){
