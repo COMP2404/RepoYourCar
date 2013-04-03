@@ -330,15 +330,15 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	Queue<Application> *temp;
 
 	temp = window->qCombo;
-	cout << "show app, new temp"<<endl;
+	
 	//temp = new Queue<Application>(*(window->qCopy));
 	
 	
 	//temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
 	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
-	cout << "index"<<endl;
+	
 	Application *app = (*temp)[theIndex];
-	cout << "show app, got app"<<endl;
+	
 	//cout << app->getType() <<endl;
 	//app = theApp->appQueue.getOriginal(app);
 	

@@ -69,6 +69,29 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_continue, FALSE);
 		gtk_widget_set_sensitive(app->uGradAppPage->form->ei_repeat, FALSE);
 		gtk_widget_set_sensitive(app->uGradAppPage->form->chkExperience, FALSE);
+
+		app->uGradAppPage->form->nextApp = gtk_button_new_with_label("Next App");
+		app->uGradAppPage->form->prevApp = gtk_button_new_with_label("Prev App");
+		app->uGradAppPage->form->nextSection = gtk_button_new_with_label("Next Section");
+		app->uGradAppPage->form->nextPage = gtk_button_new_with_label("Next Page");
+		app->uGradAppPage->form->prevSection = gtk_button_new_with_label("Prev Section");
+		app->uGradAppPage->form->prevPage = gtk_button_new_with_label("Prev Page");
+
+		//gtk_widget_set_size_request(app->uGradAppPage->form->ei_continue, 80, 35);
+		//gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->ei_continue, 450, 430);
+		gtk_widget_set_size_request(app->uGradAppPage->form->nextApp, 80, 35);
+		gtk_widget_set_size_request(app->uGradAppPage->form->prevApp, 80, 35);
+		gtk_widget_set_size_request(app->uGradAppPage->form->nextSection, 80, 35);
+		gtk_widget_set_size_request(app->uGradAppPage->form->nextPage, 80, 35);
+		gtk_widget_set_size_request(app->uGradAppPage->form->prevSection, 80, 35);
+		gtk_widget_set_size_request(app->uGradAppPage->form->prevPage, 80, 35);
+
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextApp, 460, 550);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevApp, 545, 550);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextSection, 550, 500);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextPage, 640, 500);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevSection, 465, 500);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevPage, 380, 500);
 	}
 
 
@@ -176,6 +199,19 @@ void RelatedCoursesOneForm::addAnother(GtkWidget* widget,WindowApp* theApp){
 
 	}
 }
+void RelatedCoursesOneForm::viewNextPage(GtkWidget* widget,WindowApp* theApp){
+	RelatedCoursesOneForm::cleanup(theApp);
+ 	UnderGradAppPage::related2(widget,theApp);
+ 	UnderGradAppPage::fillInTA(theApp);
+}
+void RelatedCoursesOneForm::viewPrevPage(GtkWidget* widget,WindowApp* theApp){
+
+}
+void RelatedCoursesOneForm::viewNextSection(GtkWidget* widget,WindowApp* theApp){
+
+}
+
+
 
 void RelatedCoursesOneForm::nextPage(GtkWidget* widget,WindowApp* theApp){
  	if(errorCheck(theApp)){

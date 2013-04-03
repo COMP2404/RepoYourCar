@@ -46,7 +46,8 @@ class GradForm : public Form {
 			*ei_lblRelatedCourse, *ei_lblTerm, *ei_lblYear, *ei_lblFinalGrade, *ei_lblSupervisor, *ei_lblRelevantWork, 
 			*ei_lblDuration, *ei_lblStartDate, *ei_lblEndDate, *ei_lblResponsabilities,
 			*lblpickCourse, *lblpickArea, *lblpickProgram, *btnCycle, *chkExperience;
-		
+		GtkWidget *nextApp, *prevApp;
+		GtkWidget *nextSection, *nextPage, *prevSection, *prevPage;
 		virtual void draw(GradForm *, WindowApp*);
 		
 };

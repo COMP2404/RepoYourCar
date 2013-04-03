@@ -123,11 +123,11 @@ void GradAppPage::fillInData(Application* app, WindowApp *theApp){
 	//theApp->gradAppPage->form->
 	//const gchar* first, last,email,supervisor;
 	//first = 
-	cout << app->getType() <<endl;
+	
 	theApp->gradAppPage->edit = true;
 	GradApp *editApp = dynamic_cast<GradApp*>(app);
 	theApp->editGApp = editApp;
-	cout << "CAST APP TYPE" + editApp->getType() <<endl;
+	
 	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->gradAppPage->form->grad_program_combo), (editApp->getStuProgram()).c_str());
 	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->gradAppPage->form->grad_research_combo), (editApp->getStuArea()).c_str());
 	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->gradAppPage->form->combo), (editApp->getCourse()).c_str());
@@ -150,7 +150,8 @@ void GradAppPage::fillInData(Application* app, WindowApp *theApp){
 }
 
 void GradAppPage::fillInRelated(WindowApp* theApp){
-	if(theApp->gradAppPage->form->rTA){
+		
+	if(theApp->gradAppPage->form->rTA || theApp->editGApp->rTA){
 		theApp->gradAppPage->relatedQueue = new Queue<Course>(*(theApp->editGApp->relatedTAPositions));	
 		cout<<theApp->gradAppPage->relatedQueue->size() <<endl;
 		Course *course = theApp->gradAppPage->relatedQueue->popFront();
@@ -166,7 +167,7 @@ void GradAppPage::fillInRelated(WindowApp* theApp){
 	
 }
 void GradAppPage::fillInWorkExp(WindowApp* theApp){
-	if(theApp->gradAppPage->form->rWorkExp){
+	if(theApp->gradAppPage->form->rWorkExp || theApp->editGApp->rWorkExp){
 		theApp->gradAppPage->workExpQueue = new Queue<Job>(*(theApp->editGApp->relatedWorkEXP));	
 		Job *job = theApp->gradAppPage->workExpQueue->popFront();
 	//	Job *job = jobQueue->popFront();

@@ -386,6 +386,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	if(theApp->uGradAppPage->form->rCourses){
 		uga->setRelatedCourses(theApp->cQRelated);
 		rCourses = true;
+		
 	}
 	if(theApp->uGradAppPage->form->rTA){
 		uga->setRelatedTAPositions(theApp->cQTa);
