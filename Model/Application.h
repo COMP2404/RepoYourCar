@@ -51,6 +51,7 @@ public:
 	virtual bool printModifiedApp(ofstream&) = 0;
 	virtual Application* getCopy() = 0; //returns value from copy constructor
 	virtual string 	 getSummaryString() = 0;//returns the string for the summary output
+	virtual string   compareValue() = 0;//returns the comparison value so all can be compared
 	//virtual bool compare(GradApp*) = 0;//returns true based on sorting specifications of the app
 	//virtual bool compare(UndergradApp*) = 0;
 	Application(int, string="unknown", string="pending", string="grad");

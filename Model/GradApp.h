@@ -41,6 +41,7 @@ public:
 	bool 	 printModifiedApp(ofstream&);
 	Application*  getCopy();
 	string 	 getSummaryString();
+	string   compareValue();
 	//bool     compare(GradApp*);
 	//bool     compare(UndergradApp*);
 

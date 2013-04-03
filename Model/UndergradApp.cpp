@@ -25,6 +25,16 @@ Application* UndergradApp::getCopy(){
 	return (new UndergradApp(*this));//return a copy of this class
 }
 
+string UndergradApp::compareValue(){
+	stringstream ss;
+	string s;
+	s = "" + getStuMGPA();
+	ss << getStuMGPA();//add the int to the string
+	cout << "---THE COMPARE VALUE OF " << getStuFirst() << " IS: " << s <<endl;
+	return s;
+}
+
+
 UndergradApp::~UndergradApp(){}
 /*
 UndergradApp::UndergradApp(UndergradApp& ua){
