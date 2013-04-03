@@ -152,6 +152,8 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	unsigned validChars1 = (theType).find(stringToFind1);
 	if (validChars1 == string::npos) {
 			cout<< "Grad app clicked" <<endl;
+			theApp->originalApp = app;//save the original so it can be overwritten later
+
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(true, theApp);
 			appMan->fillInData(app, theApp);
@@ -159,6 +161,8 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	}
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
+			theApp->originalApp = app;//save the original so it can be overwritten later
+
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(false, theApp);
 			appMan->fillInUData(app, theApp);
