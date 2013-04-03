@@ -66,6 +66,8 @@ class GradAppPage : public AppPage{
 		static void editNextJob(WindowApp*);
 		
 		
+		int rTAIndex;
+		int rWXPIndex;
 		
 };
 #endif

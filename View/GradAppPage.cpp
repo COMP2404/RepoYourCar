@@ -37,7 +37,15 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->gradAppPage->form->ei_continue2, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPageGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat2 , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnotherGrad), app);
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeG), app);
-
+	if(!app->canEdit){
+		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPage), app);
+		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnother), app);
+		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGSection), app);
+		g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGPage), app);
+		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGSection), app);
+		//g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGPage), app);
+		
+	}
 }
 
 void GradAppPage::workExp(WindowApp* app){
@@ -51,7 +59,15 @@ void GradAppPage::workExp(WindowApp* app){
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeG), app);
 	//if(app->gradAppPage->edit)
 	//	g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
-
+	if(!app->canEdit){
+		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(WorkExperienceForm::nextPage), app);
+		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(WorkExperienceForm::addAnother), app);
+		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextUSection), app);
+		//g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextGPage), app);
+		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
+		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
+		
+	}
 }
 void GradAppPage::getInfo(GtkWidget *widget, WindowApp *app){
 	

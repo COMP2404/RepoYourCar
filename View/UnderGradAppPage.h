@@ -68,6 +68,10 @@ class UnderGradAppPage : public AppPage{
 		static void editNextCourse(WindowApp*);
 		static void editNextRelated(WindowApp*);
 		static void editNextJob(WindowApp*);
+
+		int rCIndex;
+		int rTAIndex;
+		int rWXPIndex;
 		//static void workExperience(GtkWidget*,UnderGradAppPage*);
 		
 		

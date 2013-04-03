@@ -61,7 +61,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		//gtk_widget_set_sensitive(ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(ei_repeat2, FALSE);
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
-		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
+		
 
 		if(!windowApp->canEdit){
 			gtk_widget_set_sensitive(windowApp->uGradAppPage->form->ei_relatedCourse2, FALSE);
@@ -86,15 +86,15 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevSection, 80, 35);
 			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevPage, 80, 35);
 
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextSection, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevSection, 450, 430);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevPage, 450, 430);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 460, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextSection, 550, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 640, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevSection, 465, 500);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevPage, 380, 500);
 	
 		}
-
+		gtk_widget_show_all(windowApp->uGradAppPage->form->appFrame);
 		
 	}
 	else{
@@ -188,7 +188,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextSection, 550, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 465, 500);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 380, 500);
+			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 380, 500);
 	
 		}
 		
@@ -262,25 +262,86 @@ void RelatedCoursesTwoForm::nextPageGrad(GtkWidget* widget, WindowApp *theApp){
 }
 
 void RelatedCoursesTwoForm::viewNextUPage(GtkWidget* widget,WindowApp* theApp){
-
+	RelatedCoursesTwoForm::cleanupUGrad(theApp);
+ 	UnderGradAppPage::workExp(theApp);
+ 	UnderGradAppPage::fillInWorkExp(theApp);
 }
 void RelatedCoursesTwoForm::viewPrevUPage(GtkWidget* widget,WindowApp* theApp){
-
+	RelatedCoursesTwoForm::cleanupUGrad(theApp);
+ 	UnderGradAppPage::related1(widget,theApp);
+ 	UnderGradAppPage::fillInRelated(theApp);
 }
 void RelatedCoursesTwoForm::viewNextGPage(GtkWidget* widget,WindowApp* theApp){
-
+	RelatedCoursesTwoForm::cleanupGrad(theApp);
+ 	GradAppPage::workExp(theApp);
+ 	GradAppPage::fillInWorkExp(theApp);
 }
-void RelatedCoursesTwoForm::viewPrevGPage(GtkWidget* widget,WindowApp* theApp){
 
-}
 void RelatedCoursesTwoForm::viewNextUSection(GtkWidget* widget,WindowApp* theApp){
+	if(theApp->uGradAppPage->form->rTA || theApp->editUApp->rTA){
 
+		theApp->uGradAppPage->relatedTA = new Queue<Course>(*(theApp->editUApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->uGradAppPage->relatedTA->size() != 0){
+			theSize = theApp->uGradAppPage->relatedTA->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rCIndex < theSize -1){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex++;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			
+		}
+	}
 }
 void RelatedCoursesTwoForm::viewPrevUSection(GtkWidget* widget,WindowApp* theApp){
+	if(theApp->uGradAppPage->form->rTA || theApp->editUApp->rTA){
 
+		theApp->uGradAppPage->relatedTA = new Queue<Course>(*(theApp->editUApp->relatedTAPositions));
+		int theSize = 0;
+		if(theApp->uGradAppPage->relatedTA->size() != 0){
+			theSize = theApp->uGradAppPage->relatedTA->size();
+		}
+		
+		
+		if(theApp->uGradAppPage->rCIndex > 0 ){
+			cout<< theApp->uGradAppPage->rCIndex <<endl;
+			theApp->uGradAppPage->rCIndex--;
+			Course *course = (*(theApp->uGradAppPage->relatedTA))[theApp->uGradAppPage->rCIndex];
+			stringstream ss;
+			ss << course->getYear();
+			string year = ss.str();
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), "");
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), "");
+
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
+			gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
+			
+		}
+	}
 }
 void RelatedCoursesTwoForm::viewNextGSection(GtkWidget* widget,WindowApp* theApp){
-
+	
+}
+void RelatedCoursesTwoForm::viewPrevGSection(GtkWidget* widget,WindowApp* theApp){
+	
 }
 
 void RelatedCoursesTwoForm::addAnotherUGrad(GtkWidget* widget, WindowApp *theApp){
@@ -523,6 +584,15 @@ void RelatedCoursesTwoForm::cleanupGrad(WindowApp* app){
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->gradAppPage->form->ei_lblSupervisor);
 	gtk_widget_destroy(app->gradAppPage->form->chkExperience);
+	if(!app->canEdit){
+		gtk_widget_destroy(app->gradAppPage->form->nextApp);
+		gtk_widget_destroy(app->gradAppPage->form->prevApp);
+		gtk_widget_destroy(app->gradAppPage->form->nextSection);
+		gtk_widget_destroy(app->gradAppPage->form->nextPage);
+		gtk_widget_destroy(app->gradAppPage->form->prevSection);
+		gtk_widget_destroy(app->gradAppPage->form->prevPage);
+		
+	}
 		
 
 }
@@ -538,6 +608,15 @@ void RelatedCoursesTwoForm::cleanupUGrad(WindowApp *app){
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblYear);
 	gtk_widget_destroy(app->uGradAppPage->form->ei_lblSupervisor);
 	gtk_widget_destroy(app->uGradAppPage->form->chkExperience);
+	if(!app->canEdit){
+		gtk_widget_destroy(app->uGradAppPage->form->nextApp);
+		gtk_widget_destroy(app->uGradAppPage->form->prevApp);
+		gtk_widget_destroy(app->uGradAppPage->form->nextSection);
+		gtk_widget_destroy(app->uGradAppPage->form->nextPage);
+		gtk_widget_destroy(app->uGradAppPage->form->prevSection);
+		gtk_widget_destroy(app->uGradAppPage->form->prevPage);
+		
+	}
 }
 void RelatedCoursesTwoForm::closeU(GtkWidget* widget, WindowApp* app){
 	app->uGradAppPage->form->rTA = false;
