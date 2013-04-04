@@ -407,6 +407,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedCourses(quco);//give it something so its a valid queue
+		uga->rCourse = false;
 	}
 
 	if(theApp->uGradAppPage->form->rTA){
@@ -416,6 +417,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedTAPositions(quta);//give it something so its able to writeToFile properly
+		uga->rTA = false;
 	}
 
 	if(theApp->uGradAppPage->form->rWorkExp){
@@ -425,6 +427,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedWorkEXP(qujo);//give it something so it doesnt seg fault
+		uga->rWorkExp = false;
 	}
 
 	if(theApp->editUMode){
