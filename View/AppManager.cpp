@@ -19,6 +19,8 @@ AppManager::AppManager(bool grad, WindowApp *theApp){
 	
 	
 }
+
+//submit the apps to window app to push to back of queue
 void AppManager::submitGradApp(WindowApp* theApp){
 	WindowApp::submitGradApp(theApp);
 }
@@ -26,6 +28,8 @@ void AppManager::submitUGradApp(WindowApp* theApp){
 	WindowApp::submitUGradApp(theApp);
 }
 
+
+//when editing or view an app, fill in the data
 void AppManager::fillInData(Application * editApp, WindowApp *theApp){
 	theApp->editGMode = true;
 	theApp->gradAppPage->fillInData(editApp,theApp);
@@ -34,10 +38,12 @@ void AppManager::fillInUData(Application * editApp, WindowApp *theApp){
 	theApp->editUMode = true;
 	theApp->uGradAppPage->fillInData(editApp,theApp);
 }
+
+
+//view next or previous apps that match criterias
 void AppManager::cycleApps(WindowApp *theApp){
 	gtk_widget_destroy(theApp->killThisWindow);
-	Application *app = (*theApp->cycle)[theApp->cycler];
-//	
+	Application *app = (*theApp->cycle)[theApp->cycler];	
 		theApp->canEdit = false;
 		AppManager *appMan = new AppManager(theApp->cyclerTypes[theApp->cycler],theApp);
 		if(theApp->cyclerTypes[theApp->cycler]){
@@ -47,11 +53,6 @@ void AppManager::cycleApps(WindowApp *theApp){
 			appMan->fillInUData(app, theApp);
 		}
 
-	//}else{
-	//	window->theApp->canEdit = false;
-	//	AppManager manager = new AppManager(theApp->cycler,theApp);
-	//	appMan->fillInData(app, window->theApp);
-	//}
 }
 void AppManager::nextApp(GtkWidget *widget, WindowApp* theApp){
 	

@@ -4,27 +4,25 @@ UnderGradAppPage::UnderGradAppPage(){
 	this->form = new UnderGradForm();
 }
 
+//draw the form
+
 void UnderGradAppPage::draw(WindowApp *windowApp){
 	//gradApp = false;
 	windowApp->uGradAppPage->form->experience = true;
 	windowApp->uGradAppPage->form->draw(windowApp);
-
-	 if(!windowApp->canEdit){
-		
-		
-	}
-	
-
-	g_signal_connect(windowApp->uGradAppPage->form->submit, "clicked", G_CALLBACK(UnderGradAppPage::getInfo), windowApp);
-	
+	g_signal_connect(windowApp->uGradAppPage->form->submit, "clicked", G_CALLBACK(UnderGradAppPage::getInfo), windowApp);	
 	g_signal_connect(windowApp->uGradAppPage->form->cancel, "clicked", G_CALLBACK(UnderGradAppPage::close), windowApp);
 	g_signal_connect(GTK_COMBO_BOX(windowApp->uGradAppPage->form->combo), "changed", G_CALLBACK   (UnderGradAppPage::related1), windowApp);
-  	//return;
+
 }
+
 void UnderGradAppPage::close(GtkWidget *widget, WindowApp *page){
 	gtk_widget_destroy(page->uGradAppPage->form->window);
 }
 
+
+
+//EXTRA INFO PAGES
 void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	RelatedCoursesOneForm *relatedCourses1 = new RelatedCoursesOneForm();
 	relatedCourses1->create(app);
@@ -92,6 +90,12 @@ void UnderGradAppPage::workExp(WindowApp *app){
 		UnderGradAppPage::fillInWorkExp(app);
 	}
 }
+
+
+
+
+
+//get the info from the main fields
 void UnderGradAppPage::getInfo(GtkWidget *widget, WindowApp *windowApp){
 	const gchar *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s8, *s9;
 	string string1 = "", string2= "", string3="", string4="", string5="", string6="", string7="", string8="", string9="", string10="", string11="", string12="";
@@ -134,22 +138,25 @@ void UnderGradAppPage::errorCheck(WindowApp *app){
 	else
 		cout<<"check failed!"<<endl;
 }
+
+
+//submit the data after being checked for errors
 void UnderGradAppPage::submit(WindowApp *app){
 	app->uSubmitWindow = new UGradSubmitWindow();
 	app->uSubmitWindow->draw(app->uSubmitWindow);
-	//UGradSubmitWindow *submitWindow = new UGradSubmitWindow();
-	//submitWindow->draw(submitWindow);
 	g_signal_connect (app->uSubmitWindow->submitFinish, "clicked", G_CALLBACK (UGradSubmitWindow::close), app);
 	g_signal_connect (app->uSubmitWindow->submitRepeat, "clicked", G_CALLBACK (UGradSubmitWindow::close), app);
 	AppManager::submitUGradApp(app);
 
 }
+
+
+
+//if viewing or editing, this will to fill in the extra data
 void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	theApp->uGradAppPage->edit = true;
 	UndergradApp *editApp = dynamic_cast<UndergradApp*>(app);
 	theApp->editUApp = editApp;
-
-
 
 	gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(theApp->uGradAppPage->form->combo), (editApp->getCourse()).c_str());
 	gtk_combo_box_set_active(GTK_COMBO_BOX(theApp->uGradAppPage->form->combo),0); 
@@ -157,10 +164,6 @@ void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->fName), (editApp->getStuFirst()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->lName), (editApp->getStuLast()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->email), (editApp->getStuEmail()).c_str());
-
-	//gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->cgpa), (""+editApp->getStuCGPA()).c_str());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->gpa), (""+editApp->getStuMGPA()));
-
 
 	int nu = editApp->getStuMGPA();
 	string mgpa = static_cast<ostringstream*>( &(ostringstream() << nu) )->str();
@@ -180,7 +183,7 @@ void UnderGradAppPage::fillInData(Application* app,WindowApp *theApp){
 	UnderGradAppPage::fillInRelated(theApp);	
 }
 void UnderGradAppPage::fillInRelated(WindowApp* theApp){
-	if(theApp->uGradAppPage->form->rCourses || theApp->editUApp->rCourses){
+	if(theApp->uGradAppPage->form->rCourses || theApp->editUApp->rCourses){  //this will check if the queue exists
 		theApp->uGradAppPage->relatedCourse = new Queue<Course>(*(theApp->editUApp->relatedCourses));	
 		cout<<theApp->uGradAppPage->relatedCourse->size() <<endl;
 		Course *course = theApp->uGradAppPage->relatedCourse->popFront();
@@ -223,6 +226,10 @@ void UnderGradAppPage::fillInWorkExp(WindowApp* theApp){
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_endDate), job->getEndDate().c_str());
 	}
 }
+
+
+
+//edit the next extra info of that type if the user has added more than one
 void UnderGradAppPage::editNextCourse(WindowApp *theApp){
 	if(!theApp->uGradAppPage->relatedCourse->isEmpty()){
 		

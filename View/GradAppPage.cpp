@@ -10,11 +10,6 @@ void GradAppPage::draw(WindowApp *windowApp){
 	cout << "draws" <<endl;
 	//page->form = new GradForm();
 	windowApp->gradAppPage->form->draw(windowApp->gradAppPage->form, windowApp);
-	
-	
-	//form->ei_repeat2 = gtk_button_new_with_label("Add Another");
-	//gtk_fixed_put(GTK_FIXED(form->appFrame), form->ei_repeat2, 550, 430); 
-	//gtk_widget_show_all(form->window);
 
 	g_signal_connect(windowApp->gradAppPage->form->submit, "clicked", G_CALLBACK(GradAppPage::getInfo), windowApp);
 	
@@ -39,12 +34,11 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeG), app);
 	if(!app->canEdit){
 		app->gradAppPage->rTAIndex = 0;
-		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPage), app);
-		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnother), app);
+
 		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGSection), app);
 		g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGPage), app);
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGSection), app);
-		//g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGPage), app);
+
 		if(app->canCycle){
 			g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
 			g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
@@ -63,18 +57,16 @@ void GradAppPage::workExp(WindowApp* app){
 	g_signal_connect(app->gradAppPage->form->ei_finish, "clicked", G_CALLBACK(WorkExperienceForm::finishGrad), app);
 	g_signal_connect(app->gradAppPage->form->ei_repeat3 , "clicked", G_CALLBACK(WorkExperienceForm::addAnotherGrad), app);
 	g_signal_connect(app->gradAppPage->form->chkExperience , "toggled", G_CALLBACK(WorkExperienceForm::closeG), app);
-	//if(app->gradAppPage->edit)
-	//	g_signal_connect(app->gradAppPage->form->btnCycle, "clicked", G_CALLBACK(GradAppPage::editNextJob), app);
+
 	if(!app->canEdit){
 		app->gradAppPage->rWXPIndex = 0;
-		//g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(WorkExperienceForm::nextPage), app);
-		//g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(WorkExperienceForm::addAnother), app);
+
 		g_signal_connect(app->gradAppPage->form->nextSection, "clicked", G_CALLBACK(WorkExperienceForm::viewNextGSection), app);
-		//g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextGPage), app);
+
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
 		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
 		if(app->canCycle){
-			//AppManager::nextApp(app);
+
 			g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
 			g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
 		
@@ -107,17 +99,15 @@ void GradAppPage::getInfo(GtkWidget *widget, WindowApp *app){
 		s4 = gtk_entry_get_text(GTK_ENTRY(app->gradAppPage->form->fName));
 		
 		s5 = gtk_entry_get_text(GTK_ENTRY(app->gradAppPage->form->lName));
-		//s4 = gtk_entry_get_text(GTK_ENTRY(page->form->gpa));
-		//s5 = gtk_entry_get_text(GTK_ENTRY(page->form->cgpa));        
+       
 	    s6 = gtk_entry_get_text(GTK_ENTRY(app->gradAppPage->form->email));
-		//s7 = gtk_entry_get_text(GTK_ENTRY(page->form->year));
+
 		s7 = gtk_entry_get_text(GTK_ENTRY(app->gradAppPage->form->grad_sup));
 		s8 = gtk_entry_get_text(GTK_ENTRY(app->gradAppPage->form->stuNum));
 		string1 = (s1);
 		string2 = (s4);
 		string3 = (s5);
-		//string4 = (s4);
-		//string5 = (s5);
+
 		string6 = (s6);
 		string9 = (s8);
 		string10 = (s2);
@@ -143,19 +133,16 @@ void GradAppPage::errorCheck(WindowApp *app){
 		cout<<"check failed!"<<endl;
 }
 void GradAppPage::submit(WindowApp *app){
-	//GradSubmitWindow *submitWindow = new GradSubmitWindow();
+
 	app->gSubmitWindow = new GradSubmitWindow();
 	app->gSubmitWindow->draw(app->gSubmitWindow);
-	//submitWindow->draw(submitWindow);
+
 	g_signal_connect (app->gSubmitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), app);
 	g_signal_connect (app->gSubmitWindow->submitRepeat, "clicked", G_CALLBACK (GradSubmitWindow::close), app);
 	AppManager::submitGradApp(app);
 }
 void GradAppPage::fillInData(Application* app, WindowApp *theApp){
-	//theApp->gradAppPage->form->
-	//const gchar* first, last,email,supervisor;
-	//first = 
-	
+
 	theApp->gradAppPage->edit = true;
 	GradApp *editApp = dynamic_cast<GradApp*>(app);
 	theApp->editGApp = editApp;
@@ -173,11 +160,7 @@ void GradAppPage::fillInData(Application* app, WindowApp *theApp){
 	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->email), (editApp->getStuEmail()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->grad_sup), (editApp->getStuSuper()).c_str());
 	gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->stuNum), (editApp->getStuID()).c_str());
-	
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_relatedCourse2), " ");
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_term2), (editApp->getStuFirst()).c_str());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_year2), (editApp->getStuFirst()).c_str());
-	//gtk_entry_set_text(GTK_ENTRY(theApp->gradAppPage->form->ei_supervisor), (editApp->getStuFirst()).c_str());
+
 	GradAppPage::fillInRelated(theApp);
 }
 

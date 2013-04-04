@@ -30,9 +30,6 @@ void UGradSubmitWindow::draw(UGradSubmitWindow *theApp){
 
 		gtk_widget_show_all(theApp->submitWindow);
 
-		//g_signal_connect (theApp->submitFinish, "clicked", G_CALLBACK (Control::killSubmitWindow), theApp);
-		//g_signal_connect (theApp->submitRepeat, "clicked", G_CALLBACK (Control::submitToRepeat), theApp);
-
 		submit();
 }
 
