@@ -189,7 +189,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 465, 500);
 			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 380, 500);
-			
+
 	
 		}
 		
@@ -496,7 +496,7 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 		gtk_widget_set_sensitive(theApp->uGradAppPage->form->ei_repeat2, TRUE);
 		
 			int yr = atoi(string2.c_str());
-
+			string winter, fall, summer;
 
 			unsigned validRC2 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 			unsigned validterm2 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -531,6 +531,11 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 				return false;
 				
 		   	}
+
+		 /*  	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "winter" && string3 != "Winter" && string3 != "WINTER") && (string3 != "fall" && string3 != "Fall" && string3 != "FALL") ){
+		   		RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
+				return false;
+		   	}*/
 
 
 			else if (yr < 1990 || yr > 2013) {
