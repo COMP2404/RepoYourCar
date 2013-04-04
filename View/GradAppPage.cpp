@@ -45,7 +45,11 @@ void GradAppPage::related2(GtkWidget *widget, WindowApp *app){
 		g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextGPage), app);
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGSection), app);
 		//g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevGPage), app);
+		if(app->canCycle){
+			g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
+			g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
 		
+		}
 	}
 	if(app->editGMode && app->canEdit){
 		GradAppPage::fillInRelated(app);
@@ -69,7 +73,11 @@ void GradAppPage::workExp(WindowApp* app){
 		//g_signal_connect(app->gradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextGPage), app);
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
 		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
+		if(app->canCycle){
+			g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
+			g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
 		
+		}
 	}
 	if(app->editGMode && app->canEdit){
 		GradAppPage::fillInWorkExp(app);

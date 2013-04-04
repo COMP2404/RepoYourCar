@@ -86,8 +86,8 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 		gtk_widget_set_size_request(app->uGradAppPage->form->prevSection, 80, 35);
 		gtk_widget_set_size_request(app->uGradAppPage->form->prevPage, 80, 35);
 
-		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextApp, 460, 550);
-		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevApp, 545, 550);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextApp, 545, 550);
+		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevApp, 460, 550);
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextSection, 550, 500);
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->nextPage, 640, 500);
 		gtk_fixed_put(GTK_FIXED(app->uGradAppPage->form->appFrame), app->uGradAppPage->form->prevSection, 465, 500);

@@ -340,10 +340,12 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		checkSummary = checkApp->getSummaryString();
 		unsigned validChars1 = (checkSummary).find(stringToFind1);
 		if (validChars1 == string::npos) {
-			type[tempIndex] = true;
+			//*type[tempIndex] = true;
+			window->theApp->cyclerTypes[tempIndex] = true;
 		}
 		else if(validChars1 != string::npos){
-			type[tempIndex] = false;
+			//*type[tempIndex] = false;
+			window->theApp->cyclerTypes[tempIndex] = false;
 		}
 		tempIndex++;
 		checkApp = tempCycle->popFront();	
@@ -351,6 +353,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	}
 	if(tempIndex >0){
 		window->theApp->canCycle = true;
+		cout << "CAN CYCLE THAT SHIT" << endl;
 	}else{
 		window->theApp->canCycle = false;
 	}
@@ -378,12 +381,22 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			cout<< "Grad app clicked" <<endl;
 			gtk_widget_destroy(window->admin_window);
 			window->theApp->canEdit = false;
-			AppManager *appMan = new AppManager(true, window->theApp);
-			appMan->fillInData(app, window->theApp);
 			window->theApp->cycle = cycle;
 			window->theApp->cycler = 0;
-			if(tempIndex >0)
-				appMan->cycleApps(type , window->theApp);
+			window->theApp->cyclerSize = tempIndex;
+			AppManager *appMan = new AppManager(true, window->theApp);
+			appMan->fillInData(app, window->theApp);
+			
+
+			cout<< "cycler index" <<endl;
+			cout<< window->theApp->cycler <<endl;
+			cout<< "cycler size" <<endl;
+			cout<< window->theApp->cyclerSize <<endl;
+			//window->theApp->cyclerTypes = &type;
+			//cout << "cycler index"<< endl;
+			//cout << tempIndex << endl;
+			//if(tempIndex >0)
+			//	appMan->cycleApps(window->theApp);
 
 			
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
@@ -391,13 +404,18 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
 			window->theApp->canEdit = false;
+			window->theApp->cycle = cycle;
+			window->theApp->cycler = 0;
+			window->theApp->cyclerSize = tempIndex;
 			AppManager *appMan = new AppManager(false, window->theApp);
 		
 			appMan->fillInUData(app, window->theApp);
-			window->theApp->cycle = cycle;
-			window->theApp->cycler = 0;
-			if(tempIndex >0)
-				appMan->cycleApps(type , window->theApp);
+			
+			//window->theApp->cyclerTypes = &type;
+			//cout << "cycler index"<< endl;
+			//cout << tempIndex << endl;
+			//if(tempIndex >0)
+			//	appMan->cycleApps(window->theApp);
 
 			gtk_widget_destroy(window->admin_window);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));

@@ -150,6 +150,8 @@ class WindowApp{
 		static void submitUGradApp(WindowApp*);
 		static void editStudent(GtkWidget*,WindowApp*);
 		int cycler;
+		int cyclerSize;
+		bool cyclerTypes[100];
 };
 
 #endif
