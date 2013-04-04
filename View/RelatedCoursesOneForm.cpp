@@ -58,6 +58,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	
 
 	gtk_widget_set_sensitive(app->uGradAppPage->form->submit, FALSE);
+	gtk_widget_set_sensitive(app->uGradAppPage->form->combo, FALSE);
 	/////////////////////////////////////////////////////
 	//-----------Make Buttons Not Clickable-------------////
 	/////////////////////////////////////////////////////
