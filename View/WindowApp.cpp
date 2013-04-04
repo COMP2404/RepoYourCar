@@ -327,11 +327,23 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	supervisor = theApp->gradAppPage->formData->supervisor;
 	stunum = theApp->gradAppPage->formData->stuNum;
 	course = theApp->gradAppPage->formData->course;
+
+	
 	
 	
 	gs = new GradStudent(first, last, email, stunum, areas, program, supervisor);
 	//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
-	ga = new GradApp(gs, applicationNum++, course, "PENDING");
+	ga = new GradApp(gs, theApp->currAppNumber++, course, "PENDING");
+
+	ofstream outFile("ApplicationNumber.txt", ios::out);
+	//Course tempCourse;
+
+    if (!outFile) {
+            //ios::out<<"Could not open file"<<endl;
+            return;
+    }
+  	
+  	outFile << theApp->currAppNumber << endl;
 	
 	if(theApp->gradAppPage->form->rTA){
 		ga->setRelatedTAPositions(theApp->cQTa);
@@ -367,6 +379,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 			return;
 	}
 
+
 }
 void WindowApp::submitUGradApp(WindowApp* theApp){
 	
@@ -398,7 +411,17 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	ugs = new UndergradStudent(atoi((theApp->uGradAppPage->formData->GPA).c_str()), atoi((theApp->uGradAppPage->formData->CGPA).c_str()), first, last, email, major, atoi(year.c_str()), stunum);
 	//a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
 	//uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
-	uga = new UndergradApp(ugs, applicationNum++, theApp->uGradAppPage->formData->course, "PENDING");
+	uga = new UndergradApp(ugs, theApp->currAppNumber++, theApp->uGradAppPage->formData->course, "PENDING");
+
+	ofstream outFile("ApplicationNumber.txt", ios::out);
+	//Course tempCourse;
+
+    if (!outFile) {
+            //ios::out<<"Could not open file"<<endl;
+            return;
+    }
+  	
+  	outFile << theApp->currAppNumber << endl;
 
 	if(theApp->uGradAppPage->form->rCourses){
 		uga->setRelatedCourses(theApp->cQRelated);

@@ -113,6 +113,8 @@ class WindowApp{
 		int cycler;
 		int cyclerSize;
 		bool cyclerTypes[100];
+
+		int currAppNumber;
 	private:
 		string strfName, strlName, strMajor, strGpa, strCgpa, strEmail, strYear, strStuNum;
 		MainMenu *main;
