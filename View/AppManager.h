@@ -18,6 +18,7 @@
 #include "../Model/RelatedTwoData.h"
 #include "../Model/WorkExperienceData.h"
 #include "../Model/Application.h"
+
 //
 //#include <String.h>
 
@@ -34,6 +35,7 @@ class AppManager{
 		friend class UnderGradAppPage;
 		friend class StudentPage;
 		friend class AdminWindow;
+		friend class Control;
 		
 		AppManager(bool,WindowApp*);
 	private:
@@ -49,5 +51,8 @@ class AppManager{
 		static void pushWorkExpData();
 		static void fillInData(Application*, WindowApp*);
 		static void fillInUData(Application*, WindowApp*);
+		static void cycleApps(bool[], WindowApp*);
+		
+
 };
 #endif

@@ -177,15 +177,6 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	window->theStuNum = sStuNum;
 	Queue<Application> *temp;
 
-	/*yea so...
-first and last: getAppsByName(string, string)
-first:              getAppsByFirst(string)
-last:               getAppsByLast(string)
-student numer: getAppsByStuNum(int)
-app number:  getAppsByAppNum(string)
-sorry appNum is int, stuNum is string
-*/
-	
 	cout << "this is the app num " + window->theAppNum <<endl;
 	if(window->theFName != ""){
 		if(window->theLName != ""){
@@ -294,7 +285,7 @@ sorry appNum is int, stuNum is string
 	Application* tmpApp = NULL;
 	Application* app;
 
-	
+	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->appCombo));
 	if(temp != NULL){
 		app = (window->qCopy->popFront());
 		cout << "Popped Front" << endl;
@@ -326,10 +317,43 @@ sorry appNum is int, stuNum is string
 void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	int theIndex = 0;
 	gchar *s1,s2,s3,s4;
+	bool type[100];
+	string checkSummary = "";
+	int cycleIndex = 0;
+	string stringToFind1("Undergrad");
 	
-	Queue<Application> *temp;
+	Queue<Application> *temp, *cycle, *tempCycle;
 
 	temp = window->qCombo;
+	cycle = new Queue<Application>(*(window->qCombo));
+	tempCycle = new Queue<Application>(*(window->qCombo));
+	Application *checkApp;
+	
+
+	if(tempCycle != NULL){
+		checkApp = (tempCycle->popFront());
+	}
+	
+	int tempIndex = 0;
+	
+	while(checkApp != NULL){
+		checkSummary = checkApp->getSummaryString();
+		unsigned validChars1 = (checkSummary).find(stringToFind1);
+		if (validChars1 == string::npos) {
+			type[tempIndex] = true;
+		}
+		else if(validChars1 != string::npos){
+			type[tempIndex] = false;
+		}
+		tempIndex++;
+		checkApp = tempCycle->popFront();	
+		
+	}
+	if(tempIndex >0){
+		window->theApp->canCycle = true;
+	}else{
+		window->theApp->canCycle = false;
+	}
 	
 	//temp = new Queue<Application>(*(window->qCopy));
 	
@@ -342,19 +366,26 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	//cout << app->getType() <<endl;
 	//app = theApp->appQueue.getOriginal(app);
 	
-	gchar *type = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
-	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+	gchar *appType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
+	
 	string theType;
-	theType = (type);
+	theType = (appType);
 	cout << theType << endl;
-	string stringToFind1("Undergrad");
+	
 	unsigned validChars1 = (theType).find(stringToFind1);
 
 	if (validChars1 == string::npos) {
 			cout<< "Grad app clicked" <<endl;
+			gtk_widget_destroy(window->admin_window);
 			window->theApp->canEdit = false;
 			AppManager *appMan = new AppManager(true, window->theApp);
 			appMan->fillInData(app, window->theApp);
+			window->theApp->cycle = cycle;
+			window->theApp->cycler = 0;
+			if(tempIndex >0)
+				appMan->cycleApps(type , window->theApp);
+
+			
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else if(validChars1 != string::npos){
@@ -363,6 +394,12 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			AppManager *appMan = new AppManager(false, window->theApp);
 		
 			appMan->fillInUData(app, window->theApp);
+			window->theApp->cycle = cycle;
+			window->theApp->cycler = 0;
+			if(tempIndex >0)
+				appMan->cycleApps(type , window->theApp);
+
+			gtk_widget_destroy(window->admin_window);
 			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else{
