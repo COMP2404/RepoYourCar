@@ -340,6 +340,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	}
 	else{
 		ga->setRelatedTAPositions(quco);//your queue is empty, no related stuff
+		ga->rTA = false;
 	}
 
 	if(theApp->gradAppPage->form->rWorkExp){
@@ -349,6 +350,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	}
 	else{
 		ga->setRelatedWorkEXP(qujo);//hold this, and get a job while youre at it!
+		ga->rWorkExp = false;
 	}
 
 	if(theApp->editGMode){
