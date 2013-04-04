@@ -34,6 +34,6 @@ void AppManager::fillInUData(Application * editApp, WindowApp *theApp){
 	theApp->editUMode = true;
 	theApp->uGradAppPage->fillInData(editApp,theApp);
 }
-/*void AppManager::cycleApps(bool types[], WindowApp *theApp){
+void AppManager::cycleApps(bool types[], WindowApp *theApp){
 
-}*/
+}
