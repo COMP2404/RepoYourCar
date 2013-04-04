@@ -349,7 +349,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		checkApp = tempCycle->popFront();	
 		
 	}
-	if(tempIndex >1){
+	if(tempIndex >0){
 		window->theApp->canCycle = true;
 	}else{
 		window->theApp->canCycle = false;
@@ -381,7 +381,8 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			AppManager *appMan = new AppManager(true, window->theApp);
 			appMan->fillInData(app, window->theApp);
 			window->theApp->cycle = cycle;
-			if(tempIndex >1)
+			window->theApp->cycler = 0;
+			if(tempIndex >0)
 				appMan->cycleApps(type , window->theApp);
 
 			
@@ -394,7 +395,8 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		
 			appMan->fillInUData(app, window->theApp);
 			window->theApp->cycle = cycle;
-			if(tempIndex >1)
+			window->theApp->cycler = 0;
+			if(tempIndex >0)
 				appMan->cycleApps(type , window->theApp);
 
 			gtk_widget_destroy(window->admin_window);

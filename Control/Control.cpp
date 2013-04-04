@@ -25,6 +25,8 @@ bool Control::submit(string* course, string* first, string* last, int mgpa, int 
 
 	Student* s ;
 	//theApp->studentRepeat = s;
+
+	
 	GradStudent *gs = NULL;
 	UndergradStudent *ugs = NULL;
 	//Application *a;
@@ -384,7 +386,7 @@ int Control::createWindow(int argc, char** argv)
 	theApp->cQRelated = new Queue<Course>();
 	theApp->cQTa = new Queue<Course>();
 	theApp->jQRelated = new Queue<Job>();
-	
+	//int AppManager::cycler = 0;
 	// initialize GTK+
 	gtk_init(&argc, &argv);
 	loadApplications(theApp);

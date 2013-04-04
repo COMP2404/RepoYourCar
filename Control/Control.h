@@ -13,6 +13,8 @@
 #include "../Model/GradApp.h"
 #include "../Model/UndergradApp.h"
 #include "../Model/Queue.h"
+class AppManager;
+#include "../View/AppManager.h"
 
 #include "../main.h"
 #include <cstdlib>

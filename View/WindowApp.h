@@ -149,7 +149,7 @@ class WindowApp{
 		static void submitGradApp(WindowApp*);
 		static void submitUGradApp(WindowApp*);
 		static void editStudent(GtkWidget*,WindowApp*);
-		static WindowApp* getInstance();
+		int cycler;
 };
 
 #endif
