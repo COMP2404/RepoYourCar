@@ -340,15 +340,17 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	}
 	else{
 		ga->setRelatedTAPositions(quco);//your queue is empty, no related stuff
+		ga->rTA = false;
 	}
 
 	if(theApp->gradAppPage->form->rWorkExp){
 		ga->setRelatedWorkEXP(theApp->jQRelated);
-		ga->rWorkExp;
+		ga->rWorkExp = true;
 		rWorkExp = true;
 	}
 	else{
 		ga->setRelatedWorkEXP(qujo);//hold this, and get a job while youre at it!
+		ga->rWorkExp = false;
 	}
 
 	if(theApp->editGMode){
@@ -407,6 +409,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedCourses(quco);//give it something so its a valid queue
+		uga->rCourses = false;
 	}
 
 	if(theApp->uGradAppPage->form->rTA){
@@ -416,6 +419,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedTAPositions(quta);//give it something so its able to writeToFile properly
+		uga->rTA = false;
 	}
 
 	if(theApp->uGradAppPage->form->rWorkExp){
@@ -425,6 +429,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedWorkEXP(qujo);//give it something so it doesnt seg fault
+		uga->rWorkExp = false;
 	}
 
 	if(theApp->editUMode){
