@@ -35,10 +35,12 @@ void AppManager::fillInUData(Application * editApp, WindowApp *theApp){
 	theApp->uGradAppPage->fillInData(editApp,theApp);
 }
 void AppManager::cycleApps(WindowApp *theApp){
+
 	Application *app = (*theApp->cycle)[theApp->cycler];
+
 //	if(theApp->cyclerTypes[theApp->cycler]){
 		theApp->canEdit = false;
-		AppManager *appMan = new AppManager(theApp->cycler,theApp);
+		AppManager *appMan = new AppManager(false, theApp->cycler,theApp);
 		appMan->fillInData(app, theApp);
 	//}else{
 	//	window->theApp->canEdit = false;

@@ -9,6 +9,8 @@ When viewing all applications you must select 'ALL' in the combo_box for selecti
 
 In all cases, the combo_box with the list of queried applications will be filled upon hovering the mouse over it.
 
+this run-time error: "(cuTaes:5249): GLib-GObject-CRITICAL **: g_object_notify: assertion `G_IS_OBJECT (object)' failed"
+despite its appearence, is not harmful to our implementation. GTK just likes to throw a fit when it's told what to do.
 
 
 
