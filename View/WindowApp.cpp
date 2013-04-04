@@ -302,6 +302,10 @@ void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
 }
 
 void WindowApp::submitGradApp(WindowApp* theApp){
+	//these are to be pushed to related queues incase the user has no info:
+	Queue<Course>* quco = new Queue<Course>();
+	Queue<Job>*    qujo = new Queue<Job>();//no, not the dog
+
 	bool rTA=false, rWorkExp=false;
 	cout<<"submitting grad app" <<endl;
 	//static int applicationNum = 1;
@@ -333,9 +337,16 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 		ga->setRelatedTAPositions(theApp->cQTa);
 		rTA = true;
 	}
+	else{
+		ga->setRelatedTAPositions(quco);//your queue is empty, no related stuff
+	}
+
 	if(theApp->gradAppPage->form->rWorkExp){
 		ga->setRelatedWorkEXP(theApp->jQRelated);
 		rWorkExp = true;
+	}
+	else{
+		ga->setRelatedWorkEXP(qujo);//hold this, and get a job while youre at it!
 	}
 
 	if(theApp->editGMode){
@@ -366,6 +377,10 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	GradApp *ga = NULL;
 	UndergradApp *uga = NULL;
 
+	//Queues with nothing in them for default related info:
+	Queue<Course>* quco = new Queue<Course>();
+	Queue<Job>*    qujo = new Queue<Job>();
+
 	string first,last,email, major,year,stunum;
 	first = theApp->uGradAppPage->formData->first;
 	last = theApp->uGradAppPage->formData->last;
@@ -382,16 +397,26 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 
 	if(theApp->uGradAppPage->form->rCourses){
 		uga->setRelatedCourses(theApp->cQRelated);
-		rCourses = true;
-		
+		rCourses = true;	
 	}
+	else{
+		uga->setRelatedCourses(quco);//give it something so its a valid queue
+	}
+
 	if(theApp->uGradAppPage->form->rTA){
 		uga->setRelatedTAPositions(theApp->cQTa);
 		rTA = true;
 	}
+	else{
+		uga->setRelatedTAPositions(quco);//give it something so its able to writeToFile properly
+	}
+
 	if(theApp->uGradAppPage->form->rWorkExp){
 		uga->setRelatedWorkEXP(theApp->jQRelated);
 		rWorkExp = true;
+	}
+	else{
+		uga->setRelatedWorkEXP(qujo);//give it something so it doesnt seg fault
 	}
 
 	if(theApp->editUMode){
