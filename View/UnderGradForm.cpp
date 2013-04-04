@@ -7,6 +7,7 @@ void UnderGradForm::draw(WindowApp *theApp){
 	//--Creates new frame and adds it onto the window---//
 	/////////////////////////////////////////////////
  	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+ 	theApp->killThisWindow = window;
 	//loadApplications(theApp);
 	//cout << "app loaded" << endl;
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
