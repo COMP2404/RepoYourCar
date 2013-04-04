@@ -148,7 +148,7 @@ void GradAppPage::submit(WindowApp *app){
 	app->gSubmitWindow->draw(app->gSubmitWindow);
 	//submitWindow->draw(submitWindow);
 	g_signal_connect (app->gSubmitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), app);
-	//g_signal_connect (submitWindow->submitFinish, "clicked", G_CALLBACK (GradSubmitWindow::close), submitWindow);
+	g_signal_connect (app->gSubmitWindow->submitRepeat, "clicked", G_CALLBACK (GradSubmitWindow::close), app);
 	AppManager::submitGradApp(app);
 }
 void GradAppPage::fillInData(Application* app, WindowApp *theApp){

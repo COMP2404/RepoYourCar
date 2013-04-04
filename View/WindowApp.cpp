@@ -279,7 +279,7 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 
 void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	theApp->stuPage = new StudentPage();
-	theApp->stuPage->draw();
+	theApp->stuPage->draw(theApp);
 
 
 	g_signal_connect(theApp->stuPage->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);

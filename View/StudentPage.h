@@ -25,7 +25,7 @@ class StudentPage{
 		GtkWidget *grad_research, *grad_research_combo, *grad_sup, *grad_program_combo, *grad_apply, *lbl_grad_sup;
 		GtkWidget *firstName, *lastName, *lblFirst, *lblLast, *appCombo, *btnFind;
 		
-		void draw();
+		void draw(WindowApp *);
 		void close();
 		void chooseApp(WindowApp *theApp);
 		static void editApp(GtkWidget* , WindowApp* );

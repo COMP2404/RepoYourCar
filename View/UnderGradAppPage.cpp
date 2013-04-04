@@ -140,6 +140,7 @@ void UnderGradAppPage::submit(WindowApp *app){
 	//UGradSubmitWindow *submitWindow = new UGradSubmitWindow();
 	//submitWindow->draw(submitWindow);
 	g_signal_connect (app->uSubmitWindow->submitFinish, "clicked", G_CALLBACK (UGradSubmitWindow::close), app);
+	g_signal_connect (app->uSubmitWindow->submitRepeat, "clicked", G_CALLBACK (UGradSubmitWindow::close), app);
 	AppManager::submitUGradApp(app);
 
 }
