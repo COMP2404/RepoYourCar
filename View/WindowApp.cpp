@@ -335,6 +335,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	
 	if(theApp->gradAppPage->form->rTA){
 		ga->setRelatedTAPositions(theApp->cQTa);
+		ga->rTA = true;
 		rTA = true;
 	}
 	else{
@@ -343,6 +344,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 
 	if(theApp->gradAppPage->form->rWorkExp){
 		ga->setRelatedWorkEXP(theApp->jQRelated);
+		ga->rWorkExp;
 		rWorkExp = true;
 	}
 	else{
@@ -398,6 +400,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 
 	if(theApp->uGradAppPage->form->rCourses){
 		uga->setRelatedCourses(theApp->cQRelated);
+		uga->rCourses = true;
 		rCourses = true;	
 	}
 	else{
@@ -406,6 +409,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 
 	if(theApp->uGradAppPage->form->rTA){
 		uga->setRelatedTAPositions(theApp->cQTa);
+		uga->rTA = true;
 		rTA = true;
 	}
 	else{
@@ -414,6 +418,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 
 	if(theApp->uGradAppPage->form->rWorkExp){
 		uga->setRelatedWorkEXP(theApp->jQRelated);
+		uga->rWorkExp = true;
 		rWorkExp = true;
 	}
 	else{

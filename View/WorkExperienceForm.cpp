@@ -65,8 +65,8 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevSection, 80, 35);
 			gtk_widget_set_size_request(windowApp->uGradAppPage->form->prevPage, 80, 35);
 
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 460, 550);
-			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevApp, 460, 550);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextSection, 550, 500);
 			//gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->uGradAppPage->form->appFrame), windowApp->uGradAppPage->form->prevSection, 465, 500);
@@ -142,8 +142,8 @@ void WorkExperienceForm::create(WindowApp *windowApp,bool grad){
 			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevSection, 80, 35);
 			gtk_widget_set_size_request(windowApp->gradAppPage->form->prevPage, 80, 35);
 
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextApp, 460, 550);
-			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextApp, 545, 550);
+			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevApp, 460, 550);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextSection, 550, 500);
 			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 465, 500);

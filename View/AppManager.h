@@ -51,8 +51,9 @@ class AppManager{
 		static void pushWorkExpData();
 		static void fillInData(Application*, WindowApp*);
 		static void fillInUData(Application*, WindowApp*);
-		static void cycleApps(bool[], WindowApp*);
-		
+		static void cycleApps(WindowApp*);
+		static void nextApp(WindowApp*);
+		static void prevApp(WindowApp*);
 
 };
 #endif

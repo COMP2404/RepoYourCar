@@ -33,13 +33,15 @@ void UnderGradAppPage::related1(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesOneForm::close), app);
 	if(!app->canEdit){
 		app->uGradAppPage->rCIndex = 0;
-		//g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesOneForm::nextPage), app);
-		//g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesOneForm::addAnother), app);
+		
 		g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesOneForm::viewNextSection), app);
 		g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewNextPage), app);
 		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevSection), app);
 		//g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesOneForm::viewPrevPage), app);
-		
+		if(app->canCycle){
+			g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
+			g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
+		}
 	}
 
 }
@@ -51,13 +53,16 @@ void UnderGradAppPage::related2(GtkWidget *widget, WindowApp *app){
 	g_signal_connect(app->uGradAppPage->form->chkExperience , "toggled", G_CALLBACK(RelatedCoursesTwoForm::closeU), app);
 	if(!app->canEdit){
 		app->uGradAppPage->rTAIndex = 0;
-		//g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(RelatedCoursesTwoForm::nextPage), app);
-		//g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(RelatedCoursesTwoForm::addAnother), app);
 		g_signal_connect(app->uGradAppPage->form->nextSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextUSection), app);
 		g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewNextUPage), app);
 		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevUSection), app);
 		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(RelatedCoursesTwoForm::viewPrevUPage), app);
 		
+		if(app->canCycle){
+			g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
+			g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
+		
+		}
 	}
 	if(app->editUMode && app->canEdit){
 		UnderGradAppPage::fillInTA(app);
@@ -77,7 +82,11 @@ void UnderGradAppPage::workExp(WindowApp *app){
 		//g_signal_connect(app->uGradAppPage->form->nextPage , "clicked", G_CALLBACK(WorkExperienceForm::viewNextUPage), app);
 		g_signal_connect(app->uGradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUSection), app);
 		g_signal_connect(app->uGradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevUPage), app);
+		if(app->canCycle){
+			g_signal_connect(app->uGradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
+			g_signal_connect(app->uGradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
 		
+		}
 	}
 	if(app->editUMode && app->canEdit){
 		UnderGradAppPage::fillInWorkExp(app);
