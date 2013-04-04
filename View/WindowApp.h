@@ -108,6 +108,9 @@ class WindowApp{
 		string getYear();
 		string getStuNum();
 		string getCgpa();
+		int cycler;
+		int cyclerSize;
+		bool cyclerTypes[100];
 	private:
 		string strfName, strlName, strMajor, strGpa, strCgpa, strEmail, strYear, strStuNum;
 		MainMenu *main;
@@ -150,9 +153,7 @@ class WindowApp{
 		static void submitGradApp(WindowApp*);
 		static void submitUGradApp(WindowApp*);
 		static void editStudent(GtkWidget*,WindowApp*);
-		int cycler;
-		int cyclerSize;
-		bool cyclerTypes[100];
+
 };
 
 #endif
