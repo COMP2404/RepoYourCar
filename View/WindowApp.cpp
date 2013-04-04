@@ -381,6 +381,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 
 	//Queues with nothing in them for default related info:
 	Queue<Course>* quco = new Queue<Course>();
+	Queue<Course>* quta = new Queue<Course>();
 	Queue<Job>*    qujo = new Queue<Job>();
 
 	string first,last,email, major,year,stunum;
@@ -412,7 +413,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		rTA = true;
 	}
 	else{
-		uga->setRelatedTAPositions(quco);//give it something so its able to writeToFile properly
+		uga->setRelatedTAPositions(quta);//give it something so its able to writeToFile properly
 	}
 
 	if(theApp->uGradAppPage->form->rWorkExp){

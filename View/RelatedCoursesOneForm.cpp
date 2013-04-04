@@ -145,6 +145,11 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 				return false;
 		   	}
 
+/*		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") || (string3 != "winter" && string3 != "Winter" && string3 != "WINTER") || (string3 != "fall" && string3 != "Fall" && string3 != "FALL") ){
+		   		RelatedCoursesOneForm::popWindow("Term must be Summer, Winter or Fall");
+				return false;
+		   	}
+*/
 			
 			else if (grade != string::npos) {
 				cout << "Please Enter a Letter Grade" << endl;
