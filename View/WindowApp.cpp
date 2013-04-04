@@ -344,7 +344,7 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 
 	if(theApp->gradAppPage->form->rWorkExp){
 		ga->setRelatedWorkEXP(theApp->jQRelated);
-		ga->rWorkExp;
+		ga->rWorkExp = true;
 		rWorkExp = true;
 	}
 	else{
