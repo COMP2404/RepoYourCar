@@ -425,7 +425,7 @@ void RelatedCoursesTwoForm::addAnotherUGrad(GtkWidget* widget, WindowApp *theApp
 
 
 		int yr = atoi(string2.c_str());
-		Course* cor = new Course(string1, yr, string3, "N/A", string4);
+		Course* cor = new Course(string1, yr, string3, string4, "N/A");
 		theApp->cQTa->pushBack(cor);
 
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), "");

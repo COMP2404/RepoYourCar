@@ -338,7 +338,7 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		cout << "CAN CYCLE THAT SHIT" << endl;
 	}else{
 		window->theApp->canCycle = false;
-
+	}
 	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
 	Application *app = (*temp)[theIndex];
 	gchar *appType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));

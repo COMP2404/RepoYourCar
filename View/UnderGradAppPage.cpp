@@ -209,7 +209,7 @@ void UnderGradAppPage::fillInTA(WindowApp* theApp){
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_year2), year.c_str());
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_relatedCourse2), course->getTitle().c_str());
 		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_term2), course->getTerm().c_str());
-		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getFinal().c_str());
+		gtk_entry_set_text(GTK_ENTRY(theApp->uGradAppPage->form->ei_supervisor), course->getSupervisor().c_str());
 	}
 }
 void UnderGradAppPage::fillInWorkExp(WindowApp* theApp){
