@@ -352,12 +352,12 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	if (validChars1 == string::npos) {
 			cout<< "Grad app clicked" <<endl;
 			gtk_widget_destroy(window->admin_window);
-			window->theApp->canEdit = false;
-			window->theApp->cycle = new Queue<Application>(*(cycle));
+			window->theApp->canEdit = false;                      //disallow the user from making edits to the app
+			window->theApp->cycle = new Queue<Application>(*(cycle)); //pass through the queue of loaded apps matching the critera to cycle through
 			window->theApp->cycler = 0;
 			window->theApp->cyclerSize = tempIndex;
-			AppManager *appMan = new AppManager(true, window->theApp);
-			appMan->fillInData(app, window->theApp);
+			AppManager *appMan = new AppManager(true, window->theApp); //view the new app
+			appMan->fillInData(app, window->theApp);  //fill in the data
 	}
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
