@@ -407,7 +407,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	}
 	else{
 		uga->setRelatedCourses(quco);//give it something so its a valid queue
-		uga->rCourse = false;
+		uga->rCourses = false;
 	}
 
 	if(theApp->uGradAppPage->form->rTA){
