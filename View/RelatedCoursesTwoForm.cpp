@@ -521,6 +521,10 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 				return false;
 		   	}
 
+		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "fall" && string3 != "FALL" && string3 != "Fall") && (string3 != "winter" && string3 != "WINTER" && string3 != "Winter") ){
+					RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
+					return false;
+			}
 			
 			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
@@ -532,10 +536,6 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 				
 		   	}
 
-		 /*  	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "winter" && string3 != "Winter" && string3 != "WINTER") && (string3 != "fall" && string3 != "Fall" && string3 != "FALL") ){
-		   		RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
-				return false;
-		   	}*/
 
 
 			else if (yr < 1990 || yr > 2013) {
@@ -606,6 +606,11 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
 		   	}
+
+		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "fall" && string3 != "FALL" && string3 != "Fall") && (string3 != "winter" && string3 != "WINTER" && string3 != "Winter") ){
+					RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
+					return false;
+			}
 
 			
 			else if (supervisor != string::npos) {
