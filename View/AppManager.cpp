@@ -38,15 +38,15 @@ void AppManager::cycleApps(WindowApp *theApp){
 	Application *app = (*theApp->cycle)[theApp->cycler];
 //	if(theApp->cyclerTypes[theApp->cycler]){
 		theApp->canEdit = false;
-		AppManager *appMan = new AppManager(theApp->cycler,theApp);
-		appMan->fillInData(app, theApp);
+		AppManager *appMan = new AppManager(theApp->cyclerTypes[theApp->cycler],theApp);
+		appMan->fillInUData(app, theApp);
 	//}else{
 	//	window->theApp->canEdit = false;
 	//	AppManager manager = new AppManager(theApp->cycler,theApp);
 	//	appMan->fillInData(app, window->theApp);
 	//}
 }
-void AppManager::nextApp(WindowApp* theApp){
+void AppManager::nextApp(GtkWidget *widget, WindowApp* theApp){
 	
 	if(theApp->cycler < theApp->cycle->size()){
 		cout << "next App" << endl;
@@ -59,7 +59,7 @@ void AppManager::nextApp(WindowApp* theApp){
 			cout<< theApp->cycle->size() <<endl;
 			
 }
-void AppManager::prevApp(WindowApp* theApp){
+void AppManager::prevApp(GtkWidget *widget,WindowApp* theApp){
 	
 	if(theApp->cycler > 0){
 		cout << "prev App" << endl;

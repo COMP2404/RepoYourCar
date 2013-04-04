@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <sstream>
 #include <gtk/gtk.h>
+class GradAppPage;
+class UnderGradAppPage;
 #include "WindowApp.h"
 #include "GradAppPage.h"
 #include "UnderGradAppPage.h"
@@ -25,8 +27,7 @@
 using namespace std;
 class Control;
 class WindowApp;
-class GradAppPage;
-class UnderGradAppPage;
+
 class UnderGradForm;
 class GradForm;
 class AppManager{
@@ -36,6 +37,7 @@ class AppManager{
 		friend class StudentPage;
 		friend class AdminWindow;
 		friend class Control;
+		friend class RelatedCoursesTwoForm;
 		
 		AppManager(bool,WindowApp*);
 	private:
@@ -52,8 +54,8 @@ class AppManager{
 		static void fillInData(Application*, WindowApp*);
 		static void fillInUData(Application*, WindowApp*);
 		static void cycleApps(WindowApp*);
-		static void nextApp(WindowApp*);
-		static void prevApp(WindowApp*);
+		static void nextApp(GtkWidget*,WindowApp*);
+		static void prevApp(GtkWidget*,WindowApp*);
 
 };
 #endif

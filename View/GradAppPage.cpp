@@ -74,6 +74,7 @@ void GradAppPage::workExp(WindowApp* app){
 		g_signal_connect(app->gradAppPage->form->prevSection, "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGSection), app);
 		g_signal_connect(app->gradAppPage->form->prevPage , "clicked", G_CALLBACK(WorkExperienceForm::viewPrevGPage), app);
 		if(app->canCycle){
+			//AppManager::nextApp(app);
 			g_signal_connect(app->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), app);
 			g_signal_connect(app->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), app);
 		
@@ -83,6 +84,7 @@ void GradAppPage::workExp(WindowApp* app){
 		GradAppPage::fillInWorkExp(app);
 	}
 }
+
 void GradAppPage::getInfo(GtkWidget *widget, WindowApp *app){
 	
 

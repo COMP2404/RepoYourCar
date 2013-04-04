@@ -381,7 +381,8 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			cout<< "Grad app clicked" <<endl;
 			gtk_widget_destroy(window->admin_window);
 			window->theApp->canEdit = false;
-			window->theApp->cycle = cycle;
+			//window->theApp->cycle = cycle;
+			window->theApp->cycle = new Queue<Application>(*(cycle));
 			window->theApp->cycler = 0;
 			window->theApp->cyclerSize = tempIndex;
 			AppManager *appMan = new AppManager(true, window->theApp);
@@ -411,9 +412,6 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		
 			appMan->fillInUData(app, window->theApp);
 			
-			//window->theApp->cyclerTypes = &type;
-			//cout << "cycler index"<< endl;
-			//cout << tempIndex << endl;
 			//if(tempIndex >0)
 			//	appMan->cycleApps(window->theApp);
 
