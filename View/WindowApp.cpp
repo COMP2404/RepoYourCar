@@ -5,58 +5,6 @@
 
 
 
-
-
-void WindowApp::setfName(string s){
-	strfName = s;
-}
-void WindowApp::setlName(string s){
-	strlName = s;
-}
-void WindowApp::setMajor(string s){
-	strMajor  = s;
-}
-void WindowApp::setGpa(string s){
-	strGpa  = s;
-}
-void WindowApp::setCgpa(string s){
-	strCgpa  = s;
-}
-void WindowApp::setEmail(string s){
-	strEmail = s;
-}
-void WindowApp::setYear(string s){
-	strYear = s;
-}
-void WindowApp::setStuNum(string s){
-	strStuNum = s;
-}
-
-string WindowApp::getfName(){
-	return strfName;
-}
-string WindowApp::getlName(){
-	return strlName;
-}
-string WindowApp::getMajor(){
-	return strMajor;
-}
-string WindowApp::getGpa(){
-	return strGpa;
-}
-string WindowApp::getEmail(){
-	return strEmail;
-}
-string WindowApp::getYear(){
-	return strYear;
-}
-string WindowApp::getCgpa(){
-	return strCgpa;
-}
-string WindowApp::getStuNum(){
-	return strStuNum;
-}
-
 int WindowApp::applicationNum;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,157 +17,30 @@ int WindowApp::applicationNum;
 void WindowApp::adminPage(GtkWidget *widget, WindowApp *theApp){
 
 	AdminManager *admin = new AdminManager(theApp);
-	//g_signal_connect(theApp->admin_viewSummary, "clicked", G_CALLBACK (WindowApp::viewSummaryChoice), theApp);
-	//g_signal_connect(theApp->admin_cancel, "clicked", G_CALLBACK (WindowApp::closeAdminPage), theApp);
+
 	
 }
 
 
-void WindowApp::updateCombo(GtkWidget *widget, WindowApp *theApp){
-	
-	//gtk_widget_destroy(theApp->summary_combo);
-/*
-	cout << "Updating Combo" << endl;
-	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(theApp->summary_combo));
-	cout << "Removed Text" << endl;
-	
-	AppQueue* qCopy = new AppQueue(theApp->appQueue);
-	
-	//AppQueue* qCopy = theApp->appQueue.sortAll();
-	if(theApp->allCourses){
-		qCopy = qCopy->sortAll();
-		
-		gtk_widget_set_sensitive(theApp->admin_combo, FALSE);
-	}
-	else{
-		const gchar* theCourse;
-	 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(theApp->admin_combo));
-		string courseString;
-		courseString = (theCourse);
-		cout << courseString << endl;
-		qCopy = theApp->appQueue.getPendingList(courseString);
-		qCopy = qCopy->sortAll();
-	}
-	
-			
-	cout << "Got Pending List" << endl;
-	//char s1[100], s2[100], s3[100], s4[100], s5[100], s6[100], s7[100];
-	string s1,s2,s3,s4,s5,s6,s7 ,s8,s9,s10,s11;
-	
-	//int length = qCopy->size();
-	
-	char theInput[200];
-	string input[100];//string array for each Application
-	Application* tmpApp = NULL;
-	Application* app;
-    
-	GradApp* ga = NULL;
-	UndergradApp *uga = NULL;
-	
-	if(qCopy != NULL){
-		app = (qCopy->popFront());
-		cout << "Popped Front" << endl;
-		
-		
-	}
-	
-	 int i = 0;
-	//for(int i=0; i<length; i++){
-	while(app != NULL){
-		std::stringstream ss1; 
-		std::stringstream ss2; 
-		std::stringstream ss3;
-		if(app->getType() == "grad"){
-			ga = static_cast<GradApp*>(app);
-			s1 = ga->getStuFirst();
-			//cout << s1 << endl;
-			s2 = ga->getStuLast();
-			s6 = ga->getStuEmail();
-			s7 = ga->getStuID();
-			s9 = ga->getStuArea();
-			s10 = ga->getStuProgram();
-			s11 = ga->getStuSuper();
-			input[i] = "Course: " + ga->getCourse() +  "   Grad:   " + s1 + " " + s2 +  "   |  Email: " + s6 + "   |   ID: " + s7 + "    |   Area:  " + s9 + "   |   Program:  "  + s10 + "  |   Supervisor:  " + s11;
-		}
-		else{
-
-			uga = static_cast<UndergradApp*>(app);	
-			s1 = uga->getStuFirst();
-			cout << s1 << endl;
-			s2 = uga->getStuLast();
-				 
-			ss1 << uga->getStuYrStanding();
-			s3 = ss1.str();
-			s4 = uga->getStuMajor();
-			ss2 << uga->getStuCGPA();
-			s5 = ss2.str();
-			s6 = uga->getStuEmail();
-			s7 = uga->getStuID();
-			ss3 << uga->getStuMGPA();
-			s8 = ss3.str();
-			input[i] = "Course:  " + uga->getCourse() + "   Undergrad: " + s1 + " " + s2 + "   in Year: " + s3 + "    |   Major: " + s4 + "  |  CGPA: " + s5  + "   |  GPA:  " + s8 + "   |  Email: " + s6 + "   |   ID: " + s7;
-		}
-
-			
-		 
-		
-		//theInput = input[i];
-		strcpy(theInput,input[i].c_str());
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(theApp->summary_combo), theInput);
-		i++;
-		app = qCopy->popFront();	
-		if(app != NULL){
-			if(app->getType() == "grad"){
-				ga = static_cast<GradApp*>(app);
-				
-
-			}
-			else{
-				uga = dynamic_cast<UndergradApp*>(app);
-			}
-		}
-		
-	}
-	
-	
-	gtk_widget_show_all(theApp->window);
-	*/
-}
 
 
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//have the mainmenu come up
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void WindowApp::mainMenu(GtkWidget *widget, WindowApp *theApp){
 	
 	theApp->main = new MainMenu();
 	theApp->main->draw();
-	//g_signal_connect(window, "destroy", G_CALLBACK (Control::cancel), theApp);
 
 	g_signal_connect(theApp->main->btnStudent, "clicked", G_CALLBACK(WindowApp::studentPage), theApp);
-
-	
 	g_signal_connect(theApp->main->login, "clicked", G_CALLBACK(WindowApp::adminPage), theApp);
-	/*
-
-	g_signal_connect(theApp->window, "destroy", G_CALLBACK (Control::cancel), theApp);
-
-	g_signal_connect(theApp->btnStudent, "clicked", G_CALLBACK(WindowApp::studentPage), theApp);
-
 	
-	g_signal_connect(theApp->login, "clicked", G_CALLBACK(WindowApp::adminPage), theApp);
-	*/
 }
 
 
-
-void WindowApp::closeAdminPage(GtkWidget *widget, WindowApp *theApp){
-	
-//	gtk_widget_destroy(theApp->admin_window);
-}
 
 
 
@@ -237,14 +58,6 @@ int WindowApp::makeApplication(GtkWidget *widget, WindowApp *theApp)
 	theApp->canEdit = true;
 	theApp->appMan = new AppManager(false,theApp);
 	theApp->stuPage->close();
-	/*theApp->gradApp = false;
-	
-
-	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
-	
-	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::submitToMain), theApp);
-	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (WindowApp::relatedCourses1), theApp);
-  	return 0;*/
 }
 
 
@@ -253,20 +66,8 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 {
 	theApp->canEdit = true;
 	theApp->appMan = new AppManager(true,theApp);
-	//theApp->gradPage = new GradAppPage();
-	//theApp->gradPage->draw(theApp);
 	theApp->stuPage->close();
 
-	//g_signal_connect(submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
-	
-	//g_signal_connect(theApp->gradPage->cancel, "clicked", G_CALLBACK(GradAppPage::close), theApp->gradPage);
-	//g_signal_connect(GTK_COMBO_BOX(combo), "changed", G_CALLBACK   (WindowApp::relatedCourses2), theApp);
-	/*
-	g_signal_connect(theApp->submit, "clicked", G_CALLBACK(Control::getInfo), theApp);
-	
-	g_signal_connect(theApp->cancel, "clicked", G_CALLBACK(Control::submitToMain), theApp);
-	g_signal_connect(GTK_COMBO_BOX(theApp->combo), "changed", G_CALLBACK   (WindowApp::relatedCourses2), theApp);
-  	return 0;*/
 }
 
 
@@ -276,16 +77,18 @@ int WindowApp::makeGradApplication(GtkWidget *widget, WindowApp *theApp)
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//have the student page come up
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void WindowApp::studentPage(GtkWidget *widget, WindowApp *theApp){
 	theApp->stuPage = new StudentPage();
 	theApp->stuPage->draw(theApp);
 
-
 	g_signal_connect(theApp->stuPage->student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
 	g_signal_connect(theApp->stuPage->grad_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
 	g_signal_connect(theApp->stuPage->student_edit, "clicked", G_CALLBACK (WindowApp::editStudent), theApp);
-
 	g_signal_connect(theApp->stuPage->student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
 
 }
@@ -301,6 +104,17 @@ void WindowApp::editStudent(GtkWidget *widget, WindowApp *theApp){
 	theApp->stuPage->chooseApp(theApp);
 }
 
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//**********************************************************************************************************************************************************************//
+			//submit Apps to main queue
+//**********************************************************************************************************************************************************************//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void WindowApp::submitGradApp(WindowApp* theApp){
 	//these are to be pushed to related queues incase the user has no info:
 	Queue<Course>* quco = new Queue<Course>();
@@ -308,15 +122,16 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 
 	bool rTA=false, rWorkExp=false;
 	cout<<"submitting grad app" <<endl;
-	//static int applicationNum = 1;
+	
 
 	Student* s ;
-	//theApp->studentRepeat = s;
+	
 	GradStudent *gs = NULL;
-	//UndergradStudent *ugs = NULL;
-	//Application *a;
+	
 	GradApp *ga = NULL;
 	UndergradApp *uga = NULL;
+
+	//get all info 
 
 	string first,last,email,stunum,areas,program,supervisor,course;
 	first = theApp->gradAppPage->formData->first;
@@ -332,14 +147,12 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 	
 	
 	gs = new GradStudent(first, last, email, stunum, areas, program, supervisor);
-	//a  = new Application(gs, ugs,applicationNum++, *course, "PENDING");
 	ga = new GradApp(gs, theApp->currAppNumber++, course, "PENDING");
 
 	ofstream outFile("ApplicationNumber.txt", ios::out);
-	//Course tempCourse;
 
     if (!outFile) {
-            //ios::out<<"Could not open file"<<endl;
+ 
             return;
     }
   	
@@ -384,13 +197,13 @@ void WindowApp::submitGradApp(WindowApp* theApp){
 void WindowApp::submitUGradApp(WindowApp* theApp){
 	
 	bool rCourses=false, rTA=false, rWorkExp=false;
-	//static int applicationNum = 1;
+	
 
 	Student* s ;
-	//theApp->studentRepeat = s;
+	
 	GradStudent *gs = NULL;
 	UndergradStudent *ugs = NULL;
-	//Application *a;
+	
 	GradApp *ga = NULL;
 	UndergradApp *uga = NULL;
 
@@ -399,6 +212,9 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	Queue<Course>* quta = new Queue<Course>();
 	Queue<Job>*    qujo = new Queue<Job>();
 
+
+	//get the info from the form
+
 	string first,last,email, major,year,stunum;
 	first = theApp->uGradAppPage->formData->first;
 	last = theApp->uGradAppPage->formData->last;
@@ -406,23 +222,26 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	major = theApp->uGradAppPage->formData->gmajor;
 	year = theApp->uGradAppPage->formData->year;
 	stunum = theApp->uGradAppPage->formData->stuNum;
+
+	//push the ugrad app to back of queue
 	
 	cout << "pushing ugrad app" << endl;
 	ugs = new UndergradStudent(atoi((theApp->uGradAppPage->formData->GPA).c_str()), atoi((theApp->uGradAppPage->formData->CGPA).c_str()), first, last, email, major, atoi(year.c_str()), stunum);
-	//a  = new Application(gs, ugs, applicationNum++, *course, "PENDING");
-	//uga = new UndergradApp(ugs, applicationNum++, *course, "PENDING");
 	uga = new UndergradApp(ugs, theApp->currAppNumber++, theApp->uGradAppPage->formData->course, "PENDING");
 
+
+	//get the application number and save latest one to file
 	ofstream outFile("ApplicationNumber.txt", ios::out);
-	//Course tempCourse;
 
     if (!outFile) {
-            //ios::out<<"Could not open file"<<endl;
+          
             return;
     }
   	
   	outFile << theApp->currAppNumber << endl;
 
+
+  	//set the flags for if each part of related info actually exists or not
 	if(theApp->uGradAppPage->form->rCourses){
 		uga->setRelatedCourses(theApp->cQRelated);
 		uga->rCourses = true;
@@ -432,6 +251,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		uga->setRelatedCourses(quco);//give it something so its a valid queue
 		uga->rCourses = false;
 	}
+
 
 	if(theApp->uGradAppPage->form->rTA){
 		uga->setRelatedTAPositions(theApp->cQTa);
@@ -443,6 +263,8 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		uga->rTA = false;
 	}
 
+
+
 	if(theApp->uGradAppPage->form->rWorkExp){
 		uga->setRelatedWorkEXP(theApp->jQRelated);
 		uga->rWorkExp = true;
@@ -452,6 +274,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 		uga->setRelatedWorkEXP(qujo);//give it something so it doesnt seg fault
 		uga->rWorkExp = false;
 	}
+
 
 	if(theApp->editUMode){
 		cout<< "--The app being edited is:\n"<< *(theApp->originalApp) <<endl;

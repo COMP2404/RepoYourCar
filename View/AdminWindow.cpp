@@ -34,7 +34,9 @@ void AdminWindow::showSummary(){
 	gtk_widget_destroy(admin_frame);
 	admin_frame = gtk_fixed_new();
 	
-	
+	//create a combo box that will hold the queue of application summaries
+
+
 	admin_combo =  gtk_combo_box_text_new();
 	
 	admin_cancel = gtk_button_new_with_label("Cancel");
@@ -56,7 +58,6 @@ void AdminWindow::showSummary(){
 
 
 	ifstream inFile("courses.txt", ios::in);
-
 	if (!inFile) {
 		cout<<"Could not open file"<<endl;
 		exit(1);
@@ -64,18 +65,20 @@ void AdminWindow::showSummary(){
 	while (!inFile.eof()) {
 		inFile.getline(text, 800);
 		
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(admin_combo), text);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(admin_combo), text);   //append each summary to the combo box
 	}
 }
 
 
 void AdminWindow::showSummaryChoice(GtkWidget *widget, AdminWindow *window){
+
+	//allow the user to choose which summary type they would like to view
+
 	window->sum = new SummaryChoiceWindow();
-	//cout<<""<<endl;
+
 	window->sum->draw();
 	if(widget == window->admin_viewSummary){
 		window->pending = true;
-		
 		cout << "Pending" << endl;
 	}
 	else{
@@ -100,7 +103,13 @@ void AdminWindow::closeSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	AdminPage::viewSummary(widget,window);
 }
 
+
+
 void AdminWindow::chooseApp(GtkWidget* widget, AdminWindow *window){
+	//called when the user wants to find an application to view
+
+
+
 	gtk_widget_destroy(window->admin_frame);
 	window->admin_frame = gtk_fixed_new();
 
@@ -133,11 +142,6 @@ void AdminWindow::chooseApp(GtkWidget* widget, AdminWindow *window){
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->lblAppNum , 50, 185);
 	gtk_fixed_put(GTK_FIXED(window->admin_frame), window->appCombo , 50, 250);
 
-	
-	
-	//qCopy->getAppsByName();
-	//Application *app = theApp->appQueue->getOriginal(Application*);
-	//qCopy->getOriginal(Application*);
 	g_signal_connect(window->btnFind, "clicked", G_CALLBACK(AdminWindow::updateAppCombo), window);
 
 	gtk_container_add(GTK_CONTAINER(window->admin_window), window->admin_frame);
@@ -146,21 +150,16 @@ void AdminWindow::chooseApp(GtkWidget* widget, AdminWindow *window){
 
 
 void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
+	//this will update the combo box which will allow the user to click on an app to view
+
+
+
 	cout << "Updating admin find combo" << endl;
 	const gchar *sfname, *slname, *sStuNum, *sAppNum;
 	string first, last, stuNum, appNum="-1";
 
-	//remove all entries first then re-add valid ones
-	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->appCombo));//DONT USE THIS
-	/*
-	
-	//stuNum =(sStuNum);
-	//appNum =(sAppNum);
-	
-	window->theStuNum = stuNum;
-	window->theAppNum = appNum;
-	cout << "copied boxes" << endl;
-	;*/
+
+
 	sfname = gtk_entry_get_text(GTK_ENTRY(window->firstName));
 	slname = gtk_entry_get_text(GTK_ENTRY(window->lastName));
 	sStuNum = gtk_entry_get_text(GTK_ENTRY(window->stuNum));
@@ -271,46 +270,32 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	window->qCombo = new Queue<Application>(*(window->qCopy));
 
 	
-	
-	//theApp->stuPage->qCopy = new AppQueue(theApp->stuPage->qCopy.getAppsByName(first,last));
 
-	cout << "copied queue" << endl;
-	
+
+
 	temp = window->qCopy;
-	
-	//int length = qCopy->size();
+
 	
 	char theInput[200];
 	string input[100];//string array for each Application
 	Application* tmpApp = NULL;
 	Application* app;
 
-	//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(window->appCombo));
+
 	if(temp != NULL){
 		app = (window->qCopy->popFront());
-		cout << "Popped Front" << endl;
-		
-		
+		cout << "Popped Front" << endl;	
 	}
 	
 	 int i = 0;
-	//for(int i=0; i<length; i++){
+
 	while(app != NULL){
-
 		input[i] = app->getSummaryString();
-
-		//theInput = input[i];
 		strcpy(theInput,input[i].c_str());
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(window->appCombo), theInput);
 		i++;
-		app = temp->popFront();	
-		
+		app = temp->popFront();		
 	}
-
-
-
-	
-	
 	g_signal_connect(GTK_COMBO_BOX(window->appCombo), "changed", G_CALLBACK (AdminWindow::showApp), window);
 }
 
@@ -329,7 +314,6 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 	tempCycle = new Queue<Application>(*(window->qCombo));
 	Application *checkApp;
 	
-
 	if(tempCycle != NULL){
 		checkApp = (tempCycle->popFront());
 	}
@@ -340,11 +324,9 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		checkSummary = checkApp->getSummaryString();
 		unsigned validChars1 = (checkSummary).find(stringToFind1);
 		if (validChars1 == string::npos) {
-			//*type[tempIndex] = true;
-			window->theApp->cyclerTypes[tempIndex] = true;
+			window->theApp->cyclerTypes[tempIndex] = true;    //an array of booleans that hold the type of the applications in the queue
 		}
 		else if(validChars1 != string::npos){
-			//*type[tempIndex] = false;
 			window->theApp->cyclerTypes[tempIndex] = false;
 		}
 		tempIndex++;
@@ -356,19 +338,9 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 		cout << "CAN CYCLE THAT SHIT" << endl;
 	}else{
 		window->theApp->canCycle = false;
-	}
-	
-	//temp = new Queue<Application>(*(window->qCopy));
-	
-	
-	//temp = new Queue<Application>(*(window->theApp->appQueue.getAppsByName(window->theFName,window->theLName)));
+
 	theIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(window->appCombo));
-	
 	Application *app = (*temp)[theIndex];
-	
-	//cout << app->getType() <<endl;
-	//app = theApp->appQueue.getOriginal(app);
-	
 	gchar *appType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
 	
 	string theType;
@@ -381,42 +353,21 @@ void AdminWindow::showApp(GtkWidget *widget, AdminWindow *window){
 			cout<< "Grad app clicked" <<endl;
 			gtk_widget_destroy(window->admin_window);
 			window->theApp->canEdit = false;
-			//window->theApp->cycle = cycle;
 			window->theApp->cycle = new Queue<Application>(*(cycle));
 			window->theApp->cycler = 0;
 			window->theApp->cyclerSize = tempIndex;
 			AppManager *appMan = new AppManager(true, window->theApp);
 			appMan->fillInData(app, window->theApp);
-			
-
-			cout<< "cycler index" <<endl;
-			cout<< window->theApp->cycler <<endl;
-			cout<< "cycler size" <<endl;
-			cout<< window->theApp->cyclerSize <<endl;
-			//window->theApp->cyclerTypes = &type;
-			//cout << "cycler index"<< endl;
-			//cout << tempIndex << endl;
-			//if(tempIndex >0)
-			//	appMan->cycleApps(window->theApp);
-
-			
-			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
 	}
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
+			gtk_widget_destroy(window->admin_window);
 			window->theApp->canEdit = false;
 			window->theApp->cycle = cycle;
 			window->theApp->cycler = 0;
 			window->theApp->cyclerSize = tempIndex;
-			AppManager *appMan = new AppManager(false, window->theApp);
-		
-			appMan->fillInUData(app, window->theApp);
-			
-			//if(tempIndex >0)
-			//	appMan->cycleApps(window->theApp);
-
-			gtk_widget_destroy(window->admin_window);
-			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+			AppManager *appMan = new AppManager(false, window->theApp);		
+			appMan->fillInUData(app, window->theApp);		
 	}
 	else{
 
