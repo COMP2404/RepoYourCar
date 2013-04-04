@@ -76,7 +76,7 @@ void AdminWindow::showSummaryChoice(GtkWidget *widget, AdminWindow *window){
 	if(widget == window->admin_viewSummary){
 		window->pending = true;
 		
-		cout << "Pending" << endl;
+		cout << "Pending eh" << endl;
 	}
 	else{
 		window->pending = false;

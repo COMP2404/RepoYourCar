@@ -86,6 +86,7 @@ void StudentPage::updateCombo(GtkWidget* widget, WindowApp* theApp){
 	//
 	theApp->stuPage->qCopy  = new Queue<Application>(*(theApp->appQueue.getAppsByName(first,last)));
 	//theApp->stuPage->qCopy = new AppQueue(theApp->stuPage->qCopy.getAppsByName(first,last));
+	theApp->stuPage->qCopy = theApp->stuPage->qCopy->getPendingList("all");//reduce the list of applicants to only those which are pending
 
 
 	temp = theApp->stuPage->qCopy;
