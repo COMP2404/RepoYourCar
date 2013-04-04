@@ -35,11 +35,18 @@ void AppManager::fillInUData(Application * editApp, WindowApp *theApp){
 	theApp->uGradAppPage->fillInData(editApp,theApp);
 }
 void AppManager::cycleApps(WindowApp *theApp){
+	gtk_widget_destroy(theApp->killThisWindow);
 	Application *app = (*theApp->cycle)[theApp->cycler];
-//	if(theApp->cyclerTypes[theApp->cycler]){
+//	
 		theApp->canEdit = false;
 		AppManager *appMan = new AppManager(theApp->cyclerTypes[theApp->cycler],theApp);
-		appMan->fillInUData(app, theApp);
+		if(theApp->cyclerTypes[theApp->cycler]){
+			appMan->fillInData(app, theApp);
+		}
+		else{
+			appMan->fillInUData(app, theApp);
+		}
+
 	//}else{
 	//	window->theApp->canEdit = false;
 	//	AppManager manager = new AppManager(theApp->cycler,theApp);
@@ -48,7 +55,7 @@ void AppManager::cycleApps(WindowApp *theApp){
 }
 void AppManager::nextApp(GtkWidget *widget, WindowApp* theApp){
 	
-	if(theApp->cycler < theApp->cycle->size()){
+	if(theApp->cycler < theApp->cycle->size() -1){
 		cout << "next App" << endl;
 		theApp->cycler+=1;
 		AppManager::cycleApps(theApp);

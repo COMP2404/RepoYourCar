@@ -189,8 +189,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->nextPage, 640, 500);
 			gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevSection, 465, 500);
 			//gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->prevPage, 380, 500);
-			g_signal_connect(windowApp->gradAppPage->form->nextApp, "clicked", G_CALLBACK(AppManager::nextApp), windowApp);
-			g_signal_connect(windowApp->gradAppPage->form->prevApp , "clicked", G_CALLBACK(AppManager::prevApp), windowApp);
+			
 	
 		}
 		
