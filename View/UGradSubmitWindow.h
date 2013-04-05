@@ -25,6 +25,7 @@ class UGradSubmitWindow{
 		void draw(UGradSubmitWindow*);
 		void submit();
 		static void close(GtkWidget*,WindowApp*);
+		static void makeAnother(GtkWidget*,WindowApp*);
 		GtkWidget *submitWindow, *submitFrame, *submitRepeat,*submitFinish;
 		
 		

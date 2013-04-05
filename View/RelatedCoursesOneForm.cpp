@@ -58,6 +58,7 @@ void RelatedCoursesOneForm::create(WindowApp *app){
 	
 
 	gtk_widget_set_sensitive(app->uGradAppPage->form->submit, FALSE);
+	gtk_widget_set_sensitive(app->uGradAppPage->form->combo, FALSE);
 	/////////////////////////////////////////////////////
 	//-----------Make Buttons Not Clickable-------------////
 	/////////////////////////////////////////////////////
@@ -128,7 +129,7 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 			int yr = atoi(string2.c_str());
 			unsigned validRC1 = (string1).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
   			unsigned validterm1 = (string3).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-			unsigned grade = (string4).find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			unsigned grade = (string4).find_first_not_of("ABCDEFabcdef+-");
 			
 			if (validRC1 != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string1)[validRC1];
@@ -145,18 +146,20 @@ bool RelatedCoursesOneForm::errorCheck(WindowApp *theApp){
 				return false;
 		   	}
 
-/*		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") || (string3 != "winter" && string3 != "Winter" && string3 != "WINTER") || (string3 != "fall" && string3 != "Fall" && string3 != "FALL") ){
-		   		RelatedCoursesOneForm::popWindow("Term must be Summer, Winter or Fall");
-				return false;
-		   	}
-*/
+		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "fall" && string3 != "FALL" && string3 != "Fall") && (string3 != "winter" && string3 != "WINTER" && string3 != "Winter") ){
+					RelatedCoursesOneForm::popWindow("Term must be Summer, Winter or Fall");
+					return false;
+			}
 			
 			else if (grade != string::npos) {
 				cout << "Please Enter a Letter Grade" << endl;
-				RelatedCoursesOneForm::popWindow("Please Enter a Letter Grade");
-				return false;return false;
+				RelatedCoursesOneForm::popWindow("Please Enter a Valid Letter Grade (A+ to F)");
+				return false;
 		   	}
-
+		   	else if(string4.length() > 2){
+		   		RelatedCoursesOneForm::popWindow("Please Enter a Valid Letter Grade (A+ to F)");
+				return false;
+		   	}
 
 			else if (yr < 1990 || yr > 2013) {
 				cout << "Year must be between 1990 and 2013" << endl; 

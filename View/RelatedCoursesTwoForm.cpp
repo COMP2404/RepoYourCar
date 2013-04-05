@@ -61,6 +61,8 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		//gtk_widget_set_sensitive(ei_continue2, FALSE);
 		//gtk_widget_set_sensitive(ei_repeat2, FALSE);
 		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->submit, FALSE);
+		gtk_widget_set_sensitive(windowApp->uGradAppPage->form->combo, FALSE);
+		
 		
 
 		if(!windowApp->canEdit){
@@ -152,6 +154,7 @@ void RelatedCoursesTwoForm::create(WindowApp *windowApp, bool grad){
 		gtk_fixed_put(GTK_FIXED(windowApp->gradAppPage->form->appFrame), windowApp->gradAppPage->form->chkExperience, 450, 480);
 
 		gtk_widget_set_sensitive(windowApp->gradAppPage->form->submit, FALSE);
+		gtk_widget_set_sensitive(windowApp->gradAppPage->form->combo, FALSE);
 		//gtk_widget_set_sensitive(windowApp->gradAppPage->form->ei_repeat2, FALSE);
 		if(windowApp->gradAppPage->edit){
 			//windowApp->gradAppPage->form->btnCycle = gtk_button_new_with_label("Edit Next");
@@ -219,7 +222,7 @@ void RelatedCoursesTwoForm::nextPageUGrad(GtkWidget* widget, WindowApp *theApp){
 
 
 		int yr = atoi(string2.c_str());
-		Course* cor = new Course(string1, yr, string3, "N/A", string4);
+		Course* cor = new Course(string1, yr, string3, string4, "N/A");
 		theApp->cQTa->pushBack(cor);
 		theApp->uGradAppPage->form->rTA = true;
 		RelatedCoursesTwoForm::cleanupUGrad(theApp);
@@ -521,6 +524,10 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 				return false;
 		   	}
 
+		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "fall" && string3 != "FALL" && string3 != "Fall") && (string3 != "winter" && string3 != "WINTER" && string3 != "Winter") ){
+					RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
+					return false;
+			}
 			
 			else if (supervisor != string::npos) {
 				cout << "You entered a non-alphabetical character, " << (string4)[supervisor];
@@ -532,10 +539,6 @@ bool RelatedCoursesTwoForm::errorCheckUGrad(WindowApp* theApp){
 				
 		   	}
 
-		 /*  	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "winter" && string3 != "Winter" && string3 != "WINTER") && (string3 != "fall" && string3 != "Fall" && string3 != "FALL") ){
-		   		RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
-				return false;
-		   	}*/
 
 
 			else if (yr < 1990 || yr > 2013) {
@@ -606,6 +609,11 @@ bool RelatedCoursesTwoForm::errorCheckGrad(WindowApp* theApp){
 				//theApp->gradAppPage->form->moveOn = false;
 				return false;
 		   	}
+
+		   	else if((string3 != "summer" && string3 != "Summer" && string3 != "SUMMER") && (string3 != "fall" && string3 != "FALL" && string3 != "Fall") && (string3 != "winter" && string3 != "WINTER" && string3 != "Winter") ){
+					RelatedCoursesTwoForm::popWindow("Term must be Summer, Winter or Fall");
+					return false;
+			}
 
 			
 			else if (supervisor != string::npos) {

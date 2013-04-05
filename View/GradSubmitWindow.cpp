@@ -41,6 +41,9 @@ void GradSubmitWindow::submit(){
 }
 void GradSubmitWindow::close(GtkWidget *widget, WindowApp *page){
 	cout<<"closing"<<endl;
+	
+	if(widget != page->gSubmitWindow->submitRepeat)
+		GradAppPage::close(widget,page);
+
 	gtk_widget_destroy(page->gSubmitWindow->submitWindow);
-	GradAppPage::close(widget,page);
 }

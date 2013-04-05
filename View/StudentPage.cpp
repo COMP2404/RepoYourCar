@@ -1,6 +1,6 @@
 #include "StudentPage.h"
 
-void StudentPage::draw(){
+void StudentPage::draw(WindowApp *theApp){
 	student_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(student_window), GTK_WIN_POS_CENTER);	
 	gtk_window_set_default_size(GTK_WINDOW(student_window), 550, 200);
@@ -27,7 +27,7 @@ void StudentPage::draw(){
 	gtk_fixed_put(GTK_FIXED(student_frame), student_cancel , 60, 150);
 	
 	gtk_widget_show_all(student_window);
-
+	theApp->killThisWindow = student_window;
 	//g_signal_connect(student_apply, "clicked", G_CALLBACK (WindowApp::makeApplication), theApp);
 	//g_signal_connect(grad_apply, "clicked", G_CALLBACK (WindowApp::makeGradApplication), theApp);
 	//g_signal_connect(student_cancel, "clicked", G_CALLBACK (WindowApp::closeStudentPage), theApp);
@@ -153,21 +153,23 @@ void StudentPage::editApp(GtkWidget *widget, WindowApp *theApp){
 	unsigned validChars1 = (theType).find(stringToFind1);
 	if (validChars1 == string::npos) {
 			cout<< "Grad app clicked" <<endl;
+			gtk_widget_destroy(theApp->killThisWindow);
 			theApp->originalApp = app;//save the original so it can be overwritten later
 
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(true, theApp);
 			appMan->fillInData(app, theApp);
-			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+			
 	}
 	else if(validChars1 != string::npos){
 			cout<< "UnderGrad app clicked" <<endl;
+			gtk_widget_destroy(theApp->killThisWindow);
 			theApp->originalApp = app;//save the original so it can be overwritten later
 
 			theApp->canEdit = true;
 			AppManager *appMan = new AppManager(false, theApp);
 			appMan->fillInUData(app, theApp);
-			//gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widget));
+			//gtk_widget_destroy(theApp->killThisWindow);
 	}
 	else{
 

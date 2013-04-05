@@ -366,7 +366,20 @@ void Control::loadApplications(WindowApp *theApp){
 		
 			
   	}
- 
+
+  	ifstream inAppFile("ApplicationNumber.txt", ios::in);
+
+  		if (!inAppFile) {
+  			ofstream outFile("ApplicationNumber.txt", ios::out|ios::app);
+  			outFile << "0" <<endl;
+    		cout<<"Could not open Application Number file"<<endl;
+    		theApp->currAppNumber = 0;
+    		return;
+  	}
+  	inAppFile.getline(text, THIS_BUF);
+  	cout << text << endl;
+  	theApp->currAppNumber = atoi(text);
+ 	
 }
 
 
