@@ -91,7 +91,7 @@ void Control::loadApplications(WindowApp *theApp){
 	char text[80];
 
 	ifstream inFile("Applications.txt", ios::in);
-
+	ifstream inAppFile("ApplicationNumber.txt", ios::in);
 	//Variables used to build an application
 	int     a, cgpa, mgpa, y;
 	string  c, s, f, l, e, m, i, program, area, supervisor;
@@ -111,6 +111,14 @@ void Control::loadApplications(WindowApp *theApp){
 	
   	if (!inFile) {
     		cout<<"Could not open file"<<endl;
+	    	if (!inAppFile) {
+	  			ofstream outFile("ApplicationNumber.txt", ios::out|ios::app);
+	  			outFile << "1" <<endl;
+	    		cout<<"Could not open Application Number file"<<endl;
+	    		theApp->currAppNumber = 1;
+	    		cout<<theApp->currAppNumber<<endl;
+	    		return;
+  			}
     		return;
   	}
 
@@ -367,18 +375,20 @@ void Control::loadApplications(WindowApp *theApp){
 			
   	}
 
-  	ifstream inAppFile("ApplicationNumber.txt", ios::in);
+  	
 
   		if (!inAppFile) {
   			ofstream outFile("ApplicationNumber.txt", ios::out|ios::app);
   			outFile << "1" <<endl;
     		cout<<"Could not open Application Number file"<<endl;
     		theApp->currAppNumber = 1;
+    		cout<<theApp->currAppNumber<<endl;
     		return;
-  	}
+  		}
   	inAppFile.getline(text, THIS_BUF);
   	cout << text << endl;
   	theApp->currAppNumber = atoi(text);
+  	cout<<theApp->currAppNumber<<endl;
  	
 }
 

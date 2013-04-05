@@ -226,7 +226,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
 	stunum = theApp->uGradAppPage->formData->stuNum;
 
 	//push the ugrad app to back of queue
-	
+	cout << theApp->currAppNumber << endl;
 	cout << "pushing ugrad app" << endl;
 	ugs = new UndergradStudent(atoi((theApp->uGradAppPage->formData->GPA).c_str()), atoi((theApp->uGradAppPage->formData->CGPA).c_str()), first, last, email, major, atoi(year.c_str()), stunum);
 	uga = new UndergradApp(ugs, theApp->currAppNumber++, theApp->uGradAppPage->formData->course, "PENDING");
@@ -241,7 +241,7 @@ void WindowApp::submitUGradApp(WindowApp* theApp){
     }
   	
   	outFile << theApp->currAppNumber << endl;
-
+  	cout << theApp->currAppNumber << endl;
 
   	//set the flags for if each part of related info actually exists or not
 	if(theApp->uGradAppPage->form->rCourses){
