@@ -235,7 +235,7 @@ Queue<T>* Queue<T>::getPendingList(string course){
 		tmpNode=tmpNode->next;
 	}
 	if(tmpNode == NULL){
-		if(list->head->data->getCourse().compare(course) != 0){
+		if(list->head->data->getCourse().compare(course) != 0 || ( list->head->data->getStatus() != "PENDING" && list->head->data->getStatus() != "pending" )  ){
 			 Queue<T>* finalQ = new Queue<T>();
 			return finalQ;
 		}

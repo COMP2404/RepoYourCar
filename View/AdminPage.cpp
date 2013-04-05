@@ -157,10 +157,11 @@ void AdminPage::updateCombo(GtkWidget* widget, AdminWindow *window){
 		 	theCourse = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(window->admin_combo));
 			string courseString;
 			courseString = (theCourse);
-
+			cout << "-The course is: " << theCourse << endl;
 			qCopy = qCopy->getPendingList(courseString);
 
 			qCopy = qCopy->sortAll();
+			cout << "-Here is the queue thats getting appended\n" << *qCopy;
 		}
 	}else{
 		if(window->allCourses){
