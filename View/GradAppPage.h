@@ -18,8 +18,6 @@ class RelatedCoursesTwoForm;
 #include "../Model/GradErrorCheck.h"
 #include "GradSubmitWindow.h"
 #include "../Model/Application.h"
-#include "../Model/JobQueue.h"
-#include "../Model/CourseQueue.h"
 #include "../Model/Queue.h"
 #include "../Model/Job.h"
 #include "../Model/Course.h"

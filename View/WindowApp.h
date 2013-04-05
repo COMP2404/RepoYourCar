@@ -10,7 +10,7 @@
 #include "../Model/Student.h"
 #include "../Model/Application.h"
 #include "../Model/Course.h"
-#include "../Model/AppQueue.h"
+
 #include "../Model/Queue.h"
 #include "AdminManager.h"
 #include "MainMenu.h"
@@ -21,7 +21,7 @@
 #include "../Model/GradAppData.h"
 #include "../Model/UGradAppData.h"
 class UnderGradApp;
-#include "../Model/AppQueue.h"
+
 #include "../Model/Student.h"
 #include "../Model/GradStudent.h"
 #include "../Model/UndergradStudent.h"

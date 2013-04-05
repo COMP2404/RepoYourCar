@@ -16,7 +16,7 @@
 #define INCLUDED
 using namespace std;
 //#include "Queue.h"
-#include "JobQueue.h"
+//#include "JobQueue.h"
 //class Queue<Course>;
 //class Queue<Job>;
 template<typename T>//FORWARD DECLERATION
