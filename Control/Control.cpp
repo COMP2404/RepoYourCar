@@ -371,9 +371,9 @@ void Control::loadApplications(WindowApp *theApp){
 
   		if (!inAppFile) {
   			ofstream outFile("ApplicationNumber.txt", ios::out|ios::app);
-  			outFile << "0" <<endl;
+  			outFile << "1" <<endl;
     		cout<<"Could not open Application Number file"<<endl;
-    		theApp->currAppNumber = 0;
+    		theApp->currAppNumber = 1;
     		return;
   	}
   	inAppFile.getline(text, THIS_BUF);
