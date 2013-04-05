@@ -173,7 +173,7 @@ void AdminWindow::updateAppCombo(GtkWidget* widget, AdminWindow* window){
 	window->theFName = first;
 	window->theLName = last;
 	window->theAppNum = atoi(appNum.c_str());
-	if(appNum == "")
+	if(appNum == "" || (appNum.length() > 6))
 		window->theAppNum = -1;
 	window->theStuNum = sStuNum;
 	Queue<Application> *temp;
